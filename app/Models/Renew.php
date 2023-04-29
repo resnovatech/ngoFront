@@ -8,15 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Renew extends Model
 {
     use HasFactory;
-
-
-    public $table = "renews";
-
-    protected $fillable = [
-        'user_id',
-        'ngo_id',
-        'main_time',
-        'status',
-
-    ];
 }

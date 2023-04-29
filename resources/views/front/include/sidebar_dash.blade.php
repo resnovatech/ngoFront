@@ -17,20 +17,20 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
     @elseif(Route::is('ngo_registration_second_info'))
     <li class="{{ Route::is('ngo_registration_second_info')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_registration_second_info') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
 
-    @elseif(Route::is('ngo_type_and_language'))
-    <li class="{{ Route::is('ngo_type_and_language')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_type_and_language') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+    @elseif(Route::is('ngoTypeAndLanguage'))
+    <li class="{{ Route::is('ngoTypeAndLanguage')  ? 'active_link' : '' }}"> <a href="{{ route('ngoTypeAndLanguage') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
 
         @elseif(Route::is('dashboard'))
 
 
-        <li class="{{ Route::is('ngo_type_and_language')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_type_and_language') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
-        @elseif(Route::is('ngo_all_registration_form'))
-        <li class="{{ Route::is('ngo_all_registration_form')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+        <li class="{{ Route::is('ngoTypeAndLanguage')  ? 'active_link' : '' }}"> <a href="{{ route('ngoTypeAndLanguage') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+        @elseif(Route::is('ngoAllRegistrationForm'))
+        <li class="{{ Route::is('ngoAllRegistrationForm')  ? 'active_link' : '' }}"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
 
     @elseif(Route::is('reg_submit_list'))
 
 
-    <li class=""> <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+    <li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
     @endif
 
 
@@ -40,20 +40,20 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
     <li class="{{ Route::is('ngo_registration_first_info')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_registration_first_info') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
     @elseif(Route::is('ngo_registration_second_info'))
     <li class="{{ Route::is('ngo_registration_second_info')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_registration_second_info') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
-    @elseif(Route::is('ngo_all_registration_form'))
-    <li class="{{ Route::is('ngo_all_registration_form')  ? 'active_link' : '' }}"> <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+    @elseif(Route::is('ngoAllRegistrationForm'))
+    <li class="{{ Route::is('ngoAllRegistrationForm')  ? 'active_link' : '' }}"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @else
 
    @if(Route::is('dashboard'))
-   <li class=""> <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+   <li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @elseif(Route::is('reg_submit_list'))
 
-<li class=""> <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+<li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @else
    @if(Route::is('informationResetPage'))
-   <li > <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+   <li > <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @else
-   <li class="active_link"> <a href="{{ route('ngo_all_registration_form') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+   <li class="active_link"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @endif
     @endif
     @endif
@@ -64,7 +64,7 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
 <?php
 
-$get_reg_id = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status');
+$get_reg_id = DB::table('ngo_statuses')->where('user_id',Auth::user()->id)->value('status');
 
 
 ?>

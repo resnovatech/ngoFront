@@ -35,7 +35,7 @@
                         <h4>{{ trans('first_info.profile')}}</h4>
                         <?php
 
-$get_reg_id = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status');
+$get_reg_id = DB::table('ngo_statuses')->where('user_id',Auth::user()->id)->value('status');
 
 
 ?>
@@ -106,7 +106,7 @@ $get_reg_id = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value
                                     <?php
 
 
-$data_m_one = DB::table('fboneforms')->where('user_id',Auth::user()->id)
+$data_m_one = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
                                            ->get();
 
                                         if(count($data_m_one) == 0){
@@ -114,7 +114,7 @@ $count = 11;
 
                                         }else{
 
-                                    $data = DB::table('fboneforms')->where('user_id',Auth::user()->id)
+                                    $data = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
                                            ->first();
 
                                            $count = 0;
@@ -127,7 +127,7 @@ $count = 11;
             }
 
 
-            $data1_m_one = DB::table('ngo_committee_members')->where('user_id',Auth::user()->id)
+            $data1_m_one = DB::table('form_eights')->where('user_id',Auth::user()->id)
                                            ->get();
 
 
@@ -140,7 +140,7 @@ $count1 = 11;
 
 
 
-                                           $data1 = DB::table('ngo_committee_members')->where('user_id',Auth::user()->id)
+                                           $data1 = DB::table('form_eights')->where('user_id',Auth::user()->id)
                                            ->first();
 
                                            $count1 = 0;
@@ -152,7 +152,7 @@ $count1 = 11;
 
                                         }
 
-                                        $data2_m_one = DB::table('ngomembers')->where('user_id',Auth::user()->id)
+                                        $data2_m_one = DB::table('ngo_member_nid_photos')->where('user_id',Auth::user()->id)
                                            ->get();
 
                                            if(count($data2_m_one) == 0){
@@ -161,7 +161,7 @@ $count2 = 11;
                                         }else{
 
 
-                                           $data2 = DB::table('ngomembers')->where('user_id',Auth::user()->id)
+                                           $data2 = DB::table('ngo_member_nid_photos')->where('user_id',Auth::user()->id)
                                            ->first();
 
                                            $count2 = 0;
@@ -172,7 +172,7 @@ $count2 = 11;
                 }
             }
 
-            $data3_m_one = DB::table('ngo_member_docs')->where('user_id',Auth::user()->id)
+            $data3_m_one = DB::table('ngo_other_docs')->where('user_id',Auth::user()->id)
                                            ->get();
 
                                            if(count($data3_m_one) == 0){
@@ -182,7 +182,7 @@ $count3 = 11;
 
 
 
-                    $data3 = DB::table('ngo_member_docs')->where('user_id',Auth::user()->id)
+                    $data3 = DB::table('ngo_other_docs')->where('user_id',Auth::user()->id)
                                            ->first();
 
 

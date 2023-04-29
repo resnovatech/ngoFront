@@ -14,15 +14,15 @@ use Mail;
 use DB;
 use App\Models\Namechange;
 use App\Models\Renew;
-use App\Models\Ngo_committee_member;
-use App\Models\Fboneform;
-use App\Models\Acounntotherinfo;
-use App\Models\Bankaccount;
+use App\Models\FormEight;
+use App\Models\FdOneForm;
+use App\Models\FormOneOtherPdfList;
+use App\Models\FormOneBankAccount;
 use App\Models\Fdoneformadviser;
-use App\Models\Sourceoffund;
-use App\Models\Fdoneform_staff;
-use App\Models\Ngomember;
-use App\Models\Ngodoc;
+use App\Models\FormOneSourceOfFund;
+use App\Models\FormOneMemberList;
+use App\Models\NgoMemberNidPhoto;
+use App\Models\NgoOtherDoc;
 use App\Models\Ngo_member_doc;
 class AuthController extends Controller
 {
@@ -30,22 +30,18 @@ class AuthController extends Controller
     public function password_change_confirmed(Request $request){
 
         $get_all_data = User::find($request->id);
-
         $get_all_data->password = Hash::make($request->password);
-
         $get_all_data->save();
 
-          return redirect('/login')->with('success','Password Successfully Changed!');
-
+        return redirect('/login')->with('success','Password Successfully Changed!');
 
     }
 
     public function password_reset_page($id){
 
-$id = $id;
+        $id = $id;
 
         return view('front.password_reset_page',compact('id'));
-
 
     }
 
@@ -54,10 +50,8 @@ $id = $id;
         $type_email = $request->type_email;
         $data = User::where('email',$type_email)->value('email');
 
+        return response()->json($data);
 
-
-    // $data = view('backend.product.main_search_button_product',compact('product_list','total_serial_number','search'))->render();
-     return response()->json($data);
      }
 
 
@@ -84,22 +78,16 @@ $id = $id;
      public function send_mail_get_from_list(Request $request){
 
         $useremail = $request->email;
-
         $main_data = User::where('email',$useremail)->first();
-
         $id = $main_data->id;
-
         $email = $main_data->email;
-
-        //dd($main_data->email);
 
         Mail::send('emails.passwordResetEmail', ['id' => $id], function($message) use($request){
             $message->to($request->email);
             $message->subject('Password Reset Email');
         });
 
-
-        return redirect('/login')->with('success','Email Sent Successfully!');
+       return redirect('/login')->with('success','Email Sent Successfully!');
 
 }
 
@@ -107,6 +95,7 @@ $id = $id;
 
         return view('front.showLinkRequestForm');
     }
+
     public function index(){
 
         return view('front.login');
@@ -159,15 +148,11 @@ $id = $id;
 
           return redirect("email_verify_page");
 
-
-
-        //return redirect("dashboard")->with('success','Great! You have Successfully loggedin');
     }
 
 
     public function updateRegistration(Request $request){
 
-        //dd($request->is_email_verified);
         $time_dy = time().date("Ymd");
         $get_previous_email_all = User::where('id',$request->id)->value('email');
 
@@ -241,11 +226,9 @@ $id = $id;
 
 
         }
+     }
 
 
-
-
-    }
     public function create(array $data)
     {
       return User::create([
@@ -256,11 +239,12 @@ $id = $id;
       ]);
     }
 
+
     public function dashboard()
     {
         if(Auth::check()){
 
-            $ngo_status_list = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status');
+            $ngo_status_list = DB::table('ngo_statuses')->where('user_id',Auth::user()->id)->value('status');
 
             if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing'){
 
@@ -268,16 +252,17 @@ $id = $id;
             return view('front.dashboard');
 
             }else{
+
                 $name_change_list_r = Renew::where('user_id',Auth::user()->id)->get();
                 $name_change_list = Namechange::where('user_id',Auth::user()->id)->get();
 
-                $ngo_list_all_form_eight = Ngo_committee_member::where('user_id',Auth::user()->id)->first();
+                $ngo_list_all_form_eight = FormEight::where('user_id',Auth::user()->id)->first();
 
-$ngo_list_all = Fboneform::where('user_id',Auth::user()->id)->first();
-$form_member_data_doc = Ngo_member_doc::where('user_id',$ngo_list_all->user_id)->get();
-$form_ngo_data_doc = Ngodoc::where('user_id',$ngo_list_all->user_id)->get();
-$all_source_of_fund = Sourceoffund::where('user_id',$ngo_list_all->user_id)->get();
-$get_all_data_other= Acounntotherinfo::where('user_id',$ngo_list_all->user_id)
+$ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
+$form_member_data_doc = NgoMemberNidPhoto::where('user_id',$ngo_list_all->user_id)->get();
+$form_ngo_data_doc = NgoOtherDoc::where('user_id',$ngo_list_all->user_id)->get();
+$all_source_of_fund = FormOneSourceOfFund::where('user_id',$ngo_list_all->user_id)->get();
+$get_all_data_other= FormOneOtherPdfList::where('user_id',$ngo_list_all->user_id)
             ->get();
 
                 return view('front.accept_dashboard',compact('name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
@@ -288,11 +273,12 @@ $get_all_data_other= Acounntotherinfo::where('user_id',$ngo_list_all->user_id)
     }
 
     public function logout() {
-        //Session::flush();
+
         Auth::logout();
 
         return Redirect('login');
     }
+
 
     public function verifyAccount($token)
     {
@@ -313,7 +299,5 @@ $get_all_data_other= Acounntotherinfo::where('user_id',$ngo_list_all->user_id)
         }
 
         return redirect("email_verified_page");
-
-      //return redirect()->route('login')->with('info', $message);
     }
 }

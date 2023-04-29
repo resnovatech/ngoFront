@@ -26,7 +26,7 @@
                 </div>
                 @if (Auth::check())
 
-             <?php   $ngo_status_list = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status'); ?>
+             <?php   $ngo_status_list = DB::table('ngo_statuses')->where('user_id',Auth::user()->id)->value('status'); ?>
 
                 @if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing')
 

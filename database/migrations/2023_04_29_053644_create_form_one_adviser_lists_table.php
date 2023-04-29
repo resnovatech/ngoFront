@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('form_one_adviser_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->text('address')->nullable();
-            $table->text('image')->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->bigInteger('fd_one_form_id')->unsigned();
+            $table->foreign('fd_one_form_id')->references('id')->on('fd_one_forms')->onDelete('cascade');
+            $table->string('name')->nullable();
+            $table->string('information')->nullable();
+            $table->string('time_for_api')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('form_one_adviser_lists');
     }
 };

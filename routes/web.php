@@ -147,51 +147,31 @@ Route::controller(OtherformController::class)->group(function () {
 
 
     Route::get('informationResetPage', 'informationResetPage')->name('informationResetPage');
-
-
     Route::get('frequently_ask_question', 'frequently_ask_question')->name('frequently_ask_question');
-
-
     Route::post('final_submit_reg_form', 'final_submit_reg_form')->name('final_submit_reg_form');
     Route::post('check_status_reg_from', 'check_status_reg_from')->name('check_status_reg_from');
     Route::get('status_page', 'status_page')->name('status_page');
-
-
-
     Route::get('email_verify_page', 'email_verify_page')->name('email_verify_page');
-
     Route::get('email_verified_page', 'email_verified_page')->name('email_verified_page');
-
-
     Route::get('ngo_instruction_page', 'ngo_instruction_page')->name('ngo_instruction_page');
     Route::get('ngo_registration_fee_list', 'ngo_registration_fee_list')->name('ngo_registration_fee_list');
-
     Route::get('lang/change', 'change')->name('changeLang');
-
     Route::get('change_language', 'change_language')->name('change_language');
 
+    Route::group(['middleware' => ['auth']], function() {
 
+    Route::post('update_user','update_user')->name('update_user');
+    Route::post('reset_all_data','reset_all_data')->name('reset_all_data');
+    Route::post('ngoTypeAndLanguagePost','ngoTypeAndLanguagePost')->name('ngoTypeAndLanguagePost');
+    Route::post('ngoTypeAndLanguageDelete/{id}','ngoTypeAndLanguageDelete')->name('ngoTypeAndLanguageDelete');
+    Route::get('ngoTypeAndLanguage','ngoTypeAndLanguage')->name('ngoTypeAndLanguage');
+    Route::get('ngoRegistrationFirstInfo','ngoRegistrationFirstInfo')->name('ngoRegistrationFirstInfo');
+    Route::post('ngoRegistrationFirstInfoPost','ngoRegistrationFirstInfoPost')->name('ngoRegistrationFirstInfoPost');
+    // Route::get('ngo_registration_second_info','ngo_registration_second_info')->name('ngo_registration_second_info');
+    // Route::post('ngo_registration_second_info_post','ngo_registration_second_info_post')->name('ngo_registration_second_info_post');
+    Route::get('ngoAllRegistrationForm','ngoAllRegistrationForm')->name('ngoAllRegistrationForm');
+});
 
-    Route::post('update_user','update_user')->middleware(['auth'])->name('update_user');
-
-    Route::post('reset_all_data','reset_all_data')->middleware(['auth'])->name('reset_all_data');
-
-    Route::post('ngo_type_and_language_post','ngo_type_and_language_post')->middleware(['auth'])->name('ngo_type_and_language_post');
-    Route::post('ngo_type_and_language_delete/{id}','ngo_type_and_language_delete')->middleware(['auth'])->name('ngo_type_and_language_delete');
-
-    Route::get('ngo_type_and_language','ngo_type_and_language')->middleware(['auth'])->name('ngo_type_and_language');
-    Route::get('ngo_registration_first_info','ngo_registration_first_info')->middleware(['auth'])->name('ngo_registration_first_info');
-
-    Route::post('ngo_registration_first_info_post','ngo_registration_first_info_post')->middleware(['auth'])->name('ngo_registration_first_info_post');
-
-
-
-    Route::get('ngo_registration_second_info','ngo_registration_second_info')->middleware(['auth'])->name('ngo_registration_second_info');
-
-    Route::post('ngo_registration_second_info_post','ngo_registration_second_info_post')->middleware(['auth'])->name('ngo_registration_second_info_post');
-
-
-    Route::get('ngo_all_registration_form','ngo_all_registration_form')->middleware(['auth'])->name('ngo_all_registration_form');
 
 });
 

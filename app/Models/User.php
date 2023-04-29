@@ -27,6 +27,26 @@ class User extends Authenticatable
         'is_email_verified'
     ];
 
+    public function userVerify()
+    {
+        return $this->hasOne(UserVerify::class,'user_id');
+    }
+
+    public function NgoTypeAndLanguage()
+    {
+        return $this->hasOne(NgoTypeAndLanguage::class,'user_id');
+    }
+
+    public function FdOneForm()
+    {
+        return $this->hasOne(FdOneForm::class,'user_id');
+    }
+
+    public function FormEight()
+    {
+        return $this->hasMany(FormEight::class,'user_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

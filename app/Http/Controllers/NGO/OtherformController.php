@@ -4,19 +4,20 @@ namespace App\Http\Controllers\NGO;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Ngo_type_and_language;
-use App\Models\Fboneform;
-use App\Models\Ngo_committee_member;
-use App\Models\Ngomember;
-use App\Models\Ngodoc;
-use App\Models\Ngostatus;
-use App\Models\Ngo_member_doc;
+use App\Models\NgoTypeAndLanguage;
+use App\Models\FdOneForm;
+use App\Models\FormEight;
+use App\Models\NgoMemberNidPhoto;
+use App\Models\NgoOtherDoc;
+use App\Models\NgoStatus;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use Illuminate\Support\Facades\App;
 use Hash;
 use Illuminate\Support\Str;
 use Mail;
+use DateTime;
+use DateTimezone;
 class OtherformController extends Controller
 {
 
@@ -71,7 +72,7 @@ class OtherformController extends Controller
         ->count();
         $all_parti = Fboneform::where('user_id',Auth::user()->id)
         ->count();
-        $first_form_check = Ngo_type_and_language::where('user_id',Auth::user()->id)
+        $first_form_check = ngoTypeAndLanguage::where('user_id',Auth::user()->id)
         ->count();
 
        $first_form_check_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::user()->id)
@@ -220,7 +221,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $first_form_check = Ngo_type_and_language::where('user_id',Auth::user()->id)
+                $first_form_check = ngoTypeAndLanguage::where('user_id',Auth::user()->id)
                 ->delete();
 
             }
@@ -237,36 +238,38 @@ class OtherformController extends Controller
         }
 
     }
-    public function ngo_type_and_language(){
+    public function ngoTypeAndLanguage(){
 
-        return view('front.ngo_type_and_language');
+        return view('front.firstTwoStep.ngoTypeAndLanguage');
     }
 
 
-    public function ngo_type_and_language_post(Request $request){
+    public function ngoTypeAndLanguagePost(Request $request){
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
+        $main_time = $dt->format('H:i:s');
 
-    //dd($request->input_language);
-
-        $category_list = new Ngo_type_and_language();
+        $category_list = new NgoTypeAndLanguage();
         $category_list->ngo_type = $request->ngo_origin;
         $category_list->ngo_language = $request->input_language;
         $category_list->user_id =Auth::user()->id;
+        $category_list->time_for_api =$main_time;
         $category_list->save();
 
         App::setLocale($request->input_language);
         session()->put('locale', $request->input_language);
 
-        $first_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('first_form_check_status');
+        $first_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('first_one_form_check_status');
 
 
         if($first_form_check == 1){
 
-            return redirect('ngo_registration_second_info');
+            return redirect('ngoAllRegistrationForm');
 
         }else{
 
-            return redirect('ngo_registration_first_info');
+            return redirect('ngoRegistrationFirstInfo');
 
 
         }
@@ -274,67 +277,63 @@ class OtherformController extends Controller
 
     }
 
-    public function ngo_registration_first_info(){
+    public function ngoRegistrationFirstInfo(){
 
 
-        return view('front.ngo_registration_first_info');
+        return view('front.firstTwoStep.ngoRegistrationFirstInfo');
 
 
     }
 
 
-    public function ngo_registration_first_info_post(Request $request){
+    public function ngoRegistrationFirstInfoPost(Request $request){
 
         DB::table('ngo_type_and_languages')
 ->where('user_id',Auth::user()->id)
-->update(['first_form_check_status'=>1]);
+->update(['first_one_form_check_status'=>1]);
 
-return redirect('ngo_registration_second_info');
-
-    }
-
-    public function ngo_registration_second_info(){
-
-        return view('front.ngo_registration_second_info');
+return redirect('ngoAllRegistrationForm');
 
     }
 
+//     public function ngo_registration_second_info(){
 
-    public function ngo_registration_second_info_post(Request $request){
+//         return view('front.ngo_registration_second_info');
 
-
-        DB::table('ngo_type_and_languages')
-->where('user_id',Auth::user()->id)
-->update(['second_form_check_status'=>1]);
-
-return redirect('ngo_all_registration_form');
-
-    }
-
-    public function ngo_all_registration_form(){
-
-        //dd(1);
+//     }
 
 
-        $first_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('first_form_check_status');
-
-        $second_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('second_form_check_status');
+//     public function ngo_registration_second_info_post(Request $request){
 
 
+//         DB::table('ngo_type_and_languages')
+// ->where('user_id',Auth::user()->id)
+// ->update(['second_form_check_status'=>1]);
 
-        if($first_form_check == 1 && $second_form_check == 1){
+// return redirect('ngo_all_registration_form');
 
-            return view('front.ngo_all_registration_form');
+//     }
 
-        }elseif($first_form_check == 1){
+    public function ngoAllRegistrationForm(){
 
-            return redirect('ngo_registration_second_info');
 
-        }elseif($second_form_check == 1){
 
-          return redirect('ngo_registration_first_info');
+
+        $first_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('first_one_form_check_status');
+
+
+
+
+        $ngoLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_language');
+
+        if($first_form_check == 1){
+
+            return view('front.firstTwoStep.ngoAllRegistrationForm');
+
+        }elseif(!empty($ngoLanguage)){
+            return view('front.firstTwoStep.ngoRegistrationFirstInfo');
         }else{
-            return view('front.ngo_type_and_language');
+            return view('front.firstTwoStep.ngoTypeAndLanguage');
 
         }
 
