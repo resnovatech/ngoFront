@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('profession')->nullable();
             $table->string('job_des')->nullable();
             $table->string('service_status')->nullable();
-            $table->string('remarks')->nullable();
             $table->string('form_date')->nullable();
             $table->string('to_date')->nullable();
             $table->string('total_year')->nullable();

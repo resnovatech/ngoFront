@@ -26,7 +26,7 @@
                     <div class="user_dashboard_right">
                         <h4>{{ trans('first_info.form_eight')}} </h4>
                     </div>
-                  
+
                   <div class="card-body mt-3 mb-3">
                         <div class="card-body">
                             <p>Download Form-08 PDF, upload with seal, signature of Chief Executive</p>
@@ -117,7 +117,7 @@
 
                             <?php
 
-                    $data = DB::table('ngo_committee_members')->where('user_id',Auth::user()->id)
+                    $data = DB::table('form_eights')->where('user_id',Auth::user()->id)
                            ->first();
 
 
@@ -145,7 +145,7 @@ foreach ($data   as $a) {
                         </div>
                     </div>
 
-                  
+
 
                     <div class="card">
                         <div class="card-body">

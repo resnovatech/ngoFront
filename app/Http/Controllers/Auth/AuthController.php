@@ -109,7 +109,7 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required | string',
             'password' => 'required',
         ]);
 
@@ -125,8 +125,8 @@ class AuthController extends Controller
     public function postRegistration(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
             'password' => 'required|min:5',
         ]);
 

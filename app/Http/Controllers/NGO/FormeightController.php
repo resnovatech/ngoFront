@@ -5,7 +5,7 @@ namespace App\Http\Controllers\NGO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ngo_type_and_language;
-use App\Models\Ngo_committee_member;
+use App\Models\FormEight;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DB;
@@ -29,19 +29,19 @@ class FormeightController extends Controller
 
       $file_Name_Custome = 'form_eight';
 
-      $all_partiw = Ngo_committee_member::where('user_id',Auth::user()->id)
+      $all_partiw = FormEight::where('user_id',Auth::user()->id)
 
       ->get();
 
-      $all_partiw_form_date = Ngo_committee_member::where('user_id',Auth::user()->id)
+      $all_partiw_form_date = FormEight::where('user_id',Auth::user()->id)
 
       ->value('form_date');
 
-      $all_partiw_to_date = Ngo_committee_member::where('user_id',Auth::user()->id)
+      $all_partiw_to_date = FormEight::where('user_id',Auth::user()->id)
 
       ->value('to_date');
 
-      $all_partiw_total_year = Ngo_committee_member::where('user_id',Auth::user()->id)
+      $all_partiw_total_year = FormEight::where('user_id',Auth::user()->id)
 
       ->value('total_year');
 
@@ -80,7 +80,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
     }
 
-    public function form_8_ngo_committee_member_totalview(Request $request){
+    public function formEightNgoCommitteeMemberTotalView(Request $request){
 
 
 
@@ -97,12 +97,12 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
 
 
-        $all_partiw = Ngo_committee_member::where('user_id',Auth::user()->id)->whereBetween(DB::raw('DATE(created_at)'), [$request->form_date, $request->to_date])->get();
+        $all_partiw = FormEight::where('user_id',Auth::user()->id)->whereBetween(DB::raw('DATE(created_at)'), [$request->form_date, $request->to_date])->get();
 
 
                         if(count($all_partiw) > 0){
 
-                            $users_update = Ngo_committee_member::where('user_id',Auth::user()->id)
+                            $users_update = FormEight::where('user_id',Auth::user()->id)
                             ->whereNull('form_date')
                             ->update([
                                 'form_date' => $start_date_one,
@@ -130,11 +130,11 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
         বুধবার','বৃহস্পতিবার','শুক্রবার'
         );
 
-        $complete_status_fd_eight_id = Ngo_committee_member::where('user_id',Auth::user()->id)->value('id');
-        $complete_status_fd_eight = Ngo_committee_member::where('user_id',Auth::user()->id)->value('complete_status');
-        $complete_status_fd_eight_pdf = Ngo_committee_member::where('user_id',Auth::user()->id)->value('s_pdf');
+        $complete_status_fd_eight_id = FormEight::where('user_id',Auth::user()->id)->value('id');
+        $complete_status_fd_eight = FormEight::where('user_id',Auth::user()->id)->value('complete_status');
+        $complete_status_fd_eight_pdf = FormEight::where('user_id',Auth::user()->id)->value('verified_form_eight');
 
-        return view('front.form.form_eight.form_8_ngo_committee_member_totalview',compact('complete_status_fd_eight_id','complete_status_fd_eight','complete_status_fd_eight_pdf','all_partiw','engDATE','bangDATE'));
+        return view('front.form.form_eight.formEightNgoCommitteeMemberTotalView',compact('complete_status_fd_eight_id','complete_status_fd_eight','complete_status_fd_eight_pdf','all_partiw','engDATE','bangDATE'));
     }
 
     public function form_8_ngo_committee_total_year(Request $request){
@@ -163,7 +163,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
      }
 
      public function form_8_ngo_committee_member_view_from_edit(){
-        $all_data_list = Ngo_committee_member::where('user_id',Auth::user()->id)->latest()->get();
+        $all_data_list = FormEight::where('user_id',Auth::user()->id)->latest()->get();
         $engDATE = array('1','2','3','4','5','6','7','8','9','0','January','February','March','April',
         'May','June','July','August','September','October','November','December','Saturday','Sunday',
         'Monday','Tuesday','Wednesday','Thursday','Friday');
@@ -175,15 +175,15 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
      }
 
-    public function form_8_ngo_committee_member(){
+    public function formEightNgoCommitteeMember(){
 
-        $all_partiw12 = Ngo_committee_member::where('user_id',Auth::user()->id)->value('complete_status');
+        $all_partiw12 = FormEight::where('user_id',Auth::user()->id)->value('complete_status');
 
         if(empty($all_partiw12)){
 
 
 
-            $all_data_list = Ngo_committee_member::where('user_id',Auth::user()->id)->latest()->get();
+            $all_data_list = FormEight::where('user_id',Auth::user()->id)->latest()->get();
             $engDATE = array('1','2','3','4','5','6','7','8','9','0','January','February','March','April',
             'May','June','July','August','September','October','November','December','Saturday','Sunday',
             'Monday','Tuesday','Wednesday','Thursday','Friday');
@@ -193,21 +193,21 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
             );
             if(count($all_data_list) == 0){
 
-                return redirect('/form_8_ngo_committee_member_create');
+                return redirect('/formEightNgoCommitteeMemberCreate');
 
             }else{
 
-            return view('front.form.form_eight.form_8_ngo_committee_member',compact('bangDATE','engDATE','all_data_list'));
+            return view('front.form.form_eight.formEightNgoCommitteeMember',compact('bangDATE','engDATE','all_data_list'));
             }
         }else{
 
 
-            $complete_status_fd_eight_id = Ngo_committee_member::where('user_id',Auth::user()->id)->value('id');
-            $complete_status_fd_eight = Ngo_committee_member::where('user_id',Auth::user()->id)->value('complete_status');
-            $complete_status_fd_eight_pdf = Ngo_committee_member::where('user_id',Auth::user()->id)->value('s_pdf');
+            $complete_status_fd_eight_id = FormEight::where('user_id',Auth::user()->id)->value('id');
+            $complete_status_fd_eight = FormEight::where('user_id',Auth::user()->id)->value('complete_status');
+            $complete_status_fd_eight_pdf = FormEight::where('user_id',Auth::user()->id)->value('verified_form_eight');
 
 
-            $all_partiw = Ngo_committee_member::where('user_id',Auth::user()->id)
+            $all_partiw = FormEight::where('user_id',Auth::user()->id)
 
             ->get();
 
@@ -219,7 +219,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
             বুধবার','বৃহস্পতিবার','শুক্রবার'
             );
 
-            return view('front.form.form_eight.form_8_ngo_committee_member_totalview',compact('complete_status_fd_eight_id','complete_status_fd_eight','complete_status_fd_eight_pdf','all_partiw','engDATE','bangDATE'));
+            return view('front.form.form_eight.formEightNgoCommitteeMemberTotalView',compact('complete_status_fd_eight_id','complete_status_fd_eight','complete_status_fd_eight_pdf','all_partiw','engDATE','bangDATE'));
 
 
         }
@@ -228,17 +228,17 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
     }
 
 
-    public function form_8_ngo_committee_member_edit($id){
-        $all_data_list = Ngo_committee_member::where('name_slug',$id)->first();
+    public function formEightNgoCommitteeMemberEdit($id){
+        $all_data_list = FormEight::where('name_slug',$id)->first();
 
-        return view('front.form.form_eight.form_8_ngo_committee_member_edit',compact('all_data_list'));
+        return view('front.form.form_eight.formEightNgoCommitteeMemberEdit',compact('all_data_list'));
 
     }
 
 
-    public function form_8_ngo_committee_member_create(){
+    public function formEightNgoCommitteeMemberCreate(){
 
-        return view('front.form.form_eight.form_8_ngo_committee_member_create');
+        return view('front.form.form_eight.formEightNgoCommitteeMemberCreate');
     }
 
 
@@ -247,13 +247,13 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
         $time_dy = time().date("Ymd");
 
-        $category_list =Ngo_committee_member::find($request->id);
-        if ($request->hasfile('s_pdf')) {
-            $file = $request->file('s_pdf');
+        $category_list =FormEight::find($request->id);
+        if ($request->hasfile('verified_form_eight')) {
+            $file = $request->file('verified_form_eight');
             $extension = $time_dy.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->s_pdf =  'uploads/'.$filename;
+            $category_list->verified_form_eight =  'uploads/'.$filename;
 
         }
         $category_list->save();
@@ -264,7 +264,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
 
 
-    public function form_8_ngo_committee_member_store(Request $request){
+    public function formEightNgoCommitteeMemberStore(Request $request){
         $time_dy = time().date("Ymd");
 
         $dt = new DateTime();
@@ -273,12 +273,29 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
         $main_time = $dt->format('H:i:s');
 
 
-        $category_list = new Ngo_committee_member();
+        $request->validate([
+            'name' => 'required|string',
+            'desi' => 'required|string',
+            'dob' => 'required|string',
+            'phone' => 'required|string',
+            'nid_no' => 'required|string',
+            'father_name' => 'required|string',
+            'present_address' => 'required|string',
+            'permanent_address' => 'required|string',
+            'name_supouse' => 'required|string',
+            'edu_quali' => 'required|string',
+            'profession' => 'required|string',
+            'job_des' => 'required|string',
+            'service_status' => 'required|string',
+        ]);
+
+
+        $category_list = new FormEight();
         $category_list->name = $request->name;
         $category_list->name_slug = Str::slug($request->name,"_");
         $category_list->desi = $request->desi;
         $category_list->dob = $request->dob;
-        $category_list->main_time = $main_time;
+        $category_list->time_for_api = $main_time;
         $category_list->phone = $request->phone;
         $category_list->nid_no = $request->nid_no;
         $category_list->father_name = $request->father_name;
@@ -289,33 +306,20 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
         $category_list->profession = $request->profession;
         $category_list->job_des = $request->job_des;
         $category_list->service_status = $request->service_status;
-       $category_list->remarks = 0;
-        $category_list->ngo_id =0;
-
         $category_list->user_id = Auth::user()->id;
-
-       // $category_list->main_date = $request->main_date;
-
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $category_list->image =  'public/uploads/'.$filename;
-
-        }
         $category_list->save();
 
 
-        return redirect('/form_8_ngo_committee_member')->with('success','Created Successfully');
+        return redirect('/formEightNgoCommitteeMember')->with('success','Created Successfully');
 
     }
 
 
-    public function form_8_ngo_committee_member_update(Request $request){
+    public function formEightNgoCommitteeMemberUpdate(Request $request){
+
         $time_dy = time().date("Ymd");
 
-        $category_list =Ngo_committee_member::find($request->id);
+        $category_list =FormEight::find($request->id);
         $category_list->name = $request->name;
         $category_list->name_slug = Str::slug($request->name,"_");
         $category_list->desi = $request->desi;
@@ -330,24 +334,10 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
         $category_list->profession = $request->profession;
         $category_list->job_des = $request->job_des;
         $category_list->service_status = $request->service_status;
-        $category_list->remarks = 0;
-        $category_list->ngo_id = 0;
-        $category_list->user_id = Auth::user()->id;
-
-       // $category_list->main_date = $request->main_date;
-
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $category_list->image =  'public/uploads/'.$filename;
-
-        }
-        $category_list->save();
+       $category_list->save();
 
 
-        return redirect('/form_8_ngo_committee_member')->with('info','Updated Successfully');
+        return redirect('/formEightNgoCommitteeMember')->with('info','Updated Successfully');
 
 
     }
@@ -355,7 +345,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
     public function delete($id)
     {
 
-        $admins = Ngo_committee_member::find($id);
+        $admins = FormEight::find($id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -365,13 +355,13 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
     }
 
 
-    public function form_8_ngo_committee_member_view(Request $request){
+    public function formEightNgoCommitteeMemberView(Request $request){
 
         //dd($request->id_for_pass);
 
-        $all_data_list = Ngo_committee_member::where('id',$request->id_for_pass)->first();
+        $all_data_list = FormEight::where('id',$request->id_for_pass)->first();
 
-        return view('front.form.form_eight.form_8_ngo_committee_member_view',compact('all_data_list'));
+        return view('front.form.form_eight.formEightNgoCommitteeMemberView',compact('all_data_list'));
 
 
     }

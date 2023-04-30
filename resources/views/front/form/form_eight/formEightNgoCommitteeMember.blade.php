@@ -27,7 +27,7 @@
                             </div>
                             <div class="p-2">
                                 <button class="btn btn-primary btn-custom" type="button"
-                                        onclick="location.href = '{{ route('form_8_ngo_committee_member_create') }}';">
+                                        onclick="location.href = '{{ route('formEightNgoCommitteeMemberCreate') }}';">
                                         {{ trans('form 8_bn.add')}}
                                 </button>
                             </div>
@@ -62,7 +62,7 @@ $to_total_year = DB::table('ngo_committee_members')->where('user_id',Auth::user(
                             <div class="col-lg-12 col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form method="get" action="{{ route('form_8_ngo_committee_member_totalview') }}"  id="form" data-parsley-validate="">
+                                        <form method="get" action="{{ route('formEightNgoCommitteeMemberTotalView') }}"  id="form" data-parsley-validate="">
 
                                             <div class="row">
                                                 <div class="mb-3 col-xl-4 col-sm-12">
@@ -124,7 +124,7 @@ $newDate12 = date("d-m-Y", strtotime($main_all_data_list->dob ));
 
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('form_8_ngo_committee_member_edit',$main_all_data_list->name_slug) }}';"><i
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('formEightNgoCommitteeMemberEdit',$main_all_data_list->name_slug) }}';"><i
                                                             class="bi bi-pencil-fill"></i></button>
 
 
@@ -132,7 +132,7 @@ $newDate12 = date("d-m-Y", strtotime($main_all_data_list->dob ));
                                                 <button type="button" onclick="deleteTag({{ $main_all_data_list->id}})" class="btn btn-sm btn-danger"><i
                                                             class="bi bi-trash"></i></button>
 
-                                                            <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('form_8_ngo_committee_member_delete',$main_all_data_list->id) }}" method="POST" style="display: none;">
+                                                            <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('formEightNgoCommitteeMemberDelete',$main_all_data_list->id) }}" method="POST" style="display: none;">
 
                                                                 @csrf
 
@@ -234,7 +234,7 @@ $newDate12 = date("d-m-Y", strtotime($main_all_data_list->dob ));
 
 
        $.ajax({
-        url: "{{ route('form_8_ngo_committee_member_view') }}",
+        url: "{{ route('formEightNgoCommitteeMemberView') }}",
         method: 'GET',
         data: {id_for_pass:id_for_pass},
         success: function(data) {

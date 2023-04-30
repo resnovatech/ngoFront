@@ -30,11 +30,11 @@
 
 
 
-                        @if(count($all_parti) == 0)
+                        @if(count($particularsOfOrganisationData) == 0)
 
 
 
-                    <form action="{{ route('particulars_of_Organisation_post') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                    <form action="{{ route('particularsOfOrganisationPost') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
                         @csrf
                     <div class="main active">
                         <div class="text">
@@ -85,16 +85,16 @@
 
                                 <?php
 
-$query_to_get_data = DB::table('country')->where('id','!=',18)->orderBy('id','asc')->get();
+$countryList = DB::table('countries')->where('id','!=',2)->orderBy('id','asc')->get();
 
-$get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+$ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
 
 
-$get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','asc')->get();
+$getCityzenshipData = DB::table('countries')->whereNotNull('people_english')
+            ->whereNotNull('people_bangla')->orderBy('id','asc')->get();
                                 ?>
 
-                                @if($get_country_type == 'দেশিও')
+                                @if($ngoTypeInfo == 'দেশিও')
                                 <div class="mb-3">
                                     <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}} <span class="text-danger">*</span> </label>
                                 <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
@@ -111,11 +111,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                     <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}} <span class="text-danger">*</span> </label>
                                     <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
 
-                                        @foreach($query_to_get_data as $all_query_to_get_data)
+                                        @foreach($countryList as $allCountryList)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_query_to_get_data->name }}">{{ $all_query_to_get_data->name_bn }}</option>
+                                        <option value="{{ $allCountryList->name_english }}">{{ $allCountryList->name_bangla }}</option>
                                         @else
-                                        <option value="{{ $all_query_to_get_data->name }}">{{ $all_query_to_get_data->name }}</option>
+                                        <option value="{{ $allCountryList->name_english }}">{{ $allCountryList->name_english }}</option>
                                         @endif
 @endforeach
                                     </select>
@@ -165,11 +165,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                     <select class="js-example-basic-multiple form-control" data-parsley-required name="citizenship[]"
                                     multiple="multiple">
 
-                                    @foreach($get_cityzenship_data as $all_get_cityzenship_data)
+                                    @foreach($getCityzenshipData as $allGetCityzenshipData)
                                     @if(session()->get('locale') == 'en')
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_bangla }}</option>
                                     @else
-                                <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_eng }}</option>
+                                <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_english }}</option>
                                 @endif
                                 @endforeach
 
@@ -193,12 +193,12 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
 
                 <?php
 
-$get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->first();
+$allParticularsOfOrganisation = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
 
                 ?>
 
-<form action="{{ route('particulars_of_Organisation_update') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+<form action="{{ route('particularsOfOrganisationUpdate') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
     @csrf
 <div class="main active">
     <div class="text">
@@ -209,7 +209,7 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
     <div class="mt-3">
 
 
-            <input required="" name="id" value="{{ $get_all_data_1->id }}" type="text" class="form-control" id="">
+            <input required="" name="id" value="{{ $allParticularsOfOrganisation->id }}" type="hidden" class="form-control" id="">
 
 
 
@@ -219,7 +219,7 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
             @else
             <label for="" class="form-label">Organization Name (Bangla) <span class="text-danger">*</span> </label>
             @endif
-            <input type="text" class="form-control" value="{{ $get_all_data_1->organization_name_ban }}" name="organization_name_ban" data-parsley-required  id="">
+            <input type="text" class="form-control" value="{{ $allParticularsOfOrganisation->organization_name_ban }}" name="organization_name_ban" data-parsley-required  id="">
         </div>
 
             <div class="mb-3">
@@ -228,47 +228,47 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
                 @else
                 <label for="" class="form-label">Organization Name (English) <span class="text-danger">*</span> </label>
                 @endif
-                <input type="text" class="form-control" value="{{ $get_all_data_1->organization_name }}" name="organization_name" data-parsley-required  id="">
+                <input type="text" class="form-control" value="{{ $allParticularsOfOrganisation->organization_name }}" name="organization_name" data-parsley-required  id="">
             </div>
 
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Organization_address')}} <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control" value="{{ $get_all_data_1->organization_address }}" name="organization_address" data-parsley-required  id="">
+                <input type="text" class="form-control" value="{{ $allParticularsOfOrganisation->organization_address }}" name="organization_address" data-parsley-required  id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Address_of_the_Head_Office')}} (বাংলা)<span class="text-danger">*</span>
                     </label>
-                <input type="text" class="form-control" value="{{ $get_all_data_1->address_of_head_office }}" name="address_of_head_office" data-parsley-required  id="">
+                <input type="text" class="form-control" value="{{ $allParticularsOfOrganisation->address_of_head_office }}" name="address_of_head_office" data-parsley-required  id="">
             </div>
 
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Address_of_the_Head_Office')}} (English)<span class="text-danger">*</span>
                     </label>
-                <input type="text" class="form-control" value="{{ $get_all_data_1->address_of_head_office_eng }}" name="address_of_head_office_eng" data-parsley-required  id="">
+                <input type="text" class="form-control" value="{{ $allParticularsOfOrganisation->address_of_head_office_eng }}" name="address_of_head_office_eng" data-parsley-required  id="">
             </div>
 
 
 
             <?php
 
-            $query_to_get_data = DB::table('country')->where('id','!=',18)->orderBy('id','asc')->get();
+            $countryList = DB::table('countries')->where('id','!=',2)->orderBy('id','asc')->get();
 
 
-            $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','asc')->get();
+            $getCityzenshipData = DB::table('countries')->whereNotNull('people_english')
+            ->whereNotNull('people_bangla')->orderBy('id','asc')->get();
 
-            $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+            $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                                             ?>
 
-                                            @if($get_country_type == 'দেশিও')
+                                            @if($ngoTypeInfo == 'দেশিও')
                                             <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}} <span class="text-danger">*</span> </label>
                                             <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
                                                 @if(session()->get('locale') == 'en')
-                                                <option value="বাংলাদেশ" {{ 'বাংলাদেশ' == $get_all_data_1->country_of_origin ? 'selected':'' }}>বাংলাদেশ</option>
+                                                <option value="বাংলাদেশ" {{ 'বাংলাদেশ' == $allParticularsOfOrganisation->country_of_origin ? 'selected':'' }}>বাংলাদেশ</option>
                                                 @else
-                                                <option value="Bangladesh" {{ 'Bangladesh' == $get_all_data_1->country_of_origin ? 'selected':'' }}>Bangladesh</option>
+                                                <option value="Bangladesh" {{ 'Bangladesh' == $allParticularsOfOrganisation->country_of_origin ? 'selected':'' }}>Bangladesh</option>
                                                 @endif
                                             </select>
 
@@ -278,11 +278,11 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
                                                 <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}} <span class="text-danger">*</span> </label>
                                                 <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
 
-                                                    @foreach($query_to_get_data as $all_query_to_get_data)
+                                                    @foreach($countryList as $allCountryList)
                                                     @if(session()->get('locale') == 'en')
-                                                    <option value="{{ $all_query_to_get_data->name }}" {{ $all_query_to_get_data->name  == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name_bn }}</option>
+                                                    <option value="{{ $allCountryList->name_english }}" {{ $allCountryList->name_english  == $allParticularsOfOrganisation->country_of_origin ? 'selected':'' }}>{{ $allCountryList->name_bangla }}</option>
                                                     @else
-                                                    <option value="{{ $all_query_to_get_data->name }}" {{ $all_query_to_get_data->name == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name }}</option>
+                                                    <option value="{{ $allCountryList->name_english }}" {{ $allCountryList->name_english  == $allParticularsOfOrganisation->country_of_origin ? 'selected':'' }}>{{ $allCountryList->name_english }}</option>
                                                     @endif
             @endforeach
                                                 </select>
@@ -301,40 +301,40 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.name')}} <span class="text-danger">*</span> </label>
-                <input type="text" data-parsley-required name="name_of_head_in_bd" value="{{ $get_all_data_1->name_of_head_in_bd }}" class="form-control" id="">
+                <input type="text" data-parsley-required name="name_of_head_in_bd" value="{{ $allParticularsOfOrganisation->name_of_head_in_bd }}" class="form-control" id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Whether_part_time_or_full_time')}} <span class="text-danger">*</span> </label>
                 <div class="mt-2 mb-2">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
-                               value="Part-Time" {{ 'Part-Time' == $get_all_data_1->job_type ? 'checked':'' }}>
+                               value="Part-Time" {{ 'Part-Time' == $allParticularsOfOrganisation->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
-                               value="Full-Time" {{  'Full-Time' == $get_all_data_1->job_type ? 'checked':'' }}>
+                               value="Full-Time" {{  'Full-Time' == $allParticularsOfOrganisation->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
                     </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Address')}} <span class="text-danger">*</span> </label>
-                <input type="text" data-parsley-required name="address" value="{{ $get_all_data_1->address }}" class="form-control" id="">
+                <input type="text" data-parsley-required name="address" value="{{ $allParticularsOfOrganisation->address }}" class="form-control" id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Mobile_Number')}} <span class="text-danger">*</span> </label>
-                <input type="number" data-parsley-required minlength="11" name="phone" value="{{ $get_all_data_1->phone }}"  class="form-control" id="">
+                <input type="number" data-parsley-required minlength="11" name="phone" value="{{ $allParticularsOfOrganisation->phone }}"  class="form-control" id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Email')}} <span class="text-danger">*</span> </label>
-                <input type="text" data-parsley-required name="email" value="{{ $get_all_data_1->email }}" class="form-control" id="">
+                <input type="text" data-parsley-required name="email" value="{{ $allParticularsOfOrganisation->email }}" class="form-control" id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Citizenship')}} <span class="text-danger">*</span> </label>
 
                     <?php
- $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
+ $convert_new_ass_cat  = explode(",",$allParticularsOfOrganisation->citizenship);
 
                     ?>
 
@@ -346,20 +346,20 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
                 <select class="js-example-basic-multiple form-control" data-parsley-required name="citizenship[]"
                 multiple="multiple">
 
-                @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if(session()->get('locale') == 'en')
-                <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
-                @else
-            <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
-            @endif
-            @endforeach
+                @foreach($getCityzenshipData as $allGetCityzenshipData)
+                                    @if(session()->get('locale') == 'en')
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" {{ (in_array($allGetCityzenshipData->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $allGetCityzenshipData->people_bangla }}</option>
+                                    @else
+                                <option value="{{ $allGetCityzenshipData->people_english }}" {{ (in_array($allGetCityzenshipData->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $allGetCityzenshipData->people_english }}</option>
+                                @endif
+                                @endforeach
 
         </select>
 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Profession')}} <span class="text-danger">*</span> </label>
-                <input type="text" data-parsley-required value="{{ $get_all_data_1->profession }}" name="profession" class="form-control" id="">
+                <input type="text" data-parsley-required value="{{ $allParticularsOfOrganisation->profession }}" name="profession" class="form-control" id="">
             </div>
 
     </div>

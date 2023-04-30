@@ -184,65 +184,35 @@ Route::controller(FrontController::class)->group(function () {
 
 Route::controller(FdoneformController::class)->group(function () {
 
+    Route::group(['middleware' => ['auth']], function() {
+
     Route::post('/upload_from_one_pdf', 'upload_from_one_pdf')->name('upload_from_one_pdf');
-
     Route::get('/back_from_step_two', 'back_from_step_two')->name('back_from_step_two');
-
-
     Route::get('/source_of_fund_doc_download/{id}', 'source_of_fund_doc_download')->middleware(['auth'])->name('source_of_fund_doc_download');
-
     Route::get('/other_info_from_one_download/{id}', 'other_info_from_one_download')->middleware(['auth'])->name('other_info_from_one_download');
-
     Route::get('/adviser_data_delete', 'adviser_data_delete')->name('adviser_data_delete');
-
     Route::get('/adviser_data_update', 'adviser_data_update')->name('adviser_data_update');
-
-
-
     Route::get('/other_information_a_delete', 'other_information_a_delete')->name('other_information_a_delete');
-
     Route::post('/other_information_a_update', 'other_information_a_update')->name('other_information_a_update');
-
-
-
     Route::get('/source_of_fund_delete', 'source_of_fund_delete')->name('source_of_fund_delete');
-
     Route::post('/source_of_fund_update', 'source_of_fund_update')->name('source_of_fund_update');
+    Route::get('/fdOneFormEdit', 'fdOneFormEdit')->name('fdOneFormEdit');
+    Route::get('/fdFormOneInfoPdf', 'fdFormOneInfoPdf')->name('fdFormOneInfoPdf');
+    Route::get('/fdFormOneInfo', 'fdFormOneInfo')->name('fdFormOneInfo');
+    Route::get('/particularsOfOrganisation', 'particularsOfOrganisation')->name('particularsOfOrganisation');
+    Route::post('/particularsOfOrganisationPost', 'particularsOfOrganisationPost')->name('particularsOfOrganisationPost');
+    Route::post('/particularsOfOrganisationUpdate', 'particularsOfOrganisationUpdate')->name('particularsOfOrganisationUpdate');
+    Route::get('/fieldOfProposedActivities', 'fieldOfProposedActivities')->name('fieldOfProposedActivities');
+    Route::post('/fieldOfProposedActivitiesPost', 'fieldOfProposedActivitiesPost')->name('fieldOfProposedActivitiesPost');
+    Route::post('/fieldOfProposedActivitiesUpdate', 'fieldOfProposedActivitiesUpdate')->name('fieldOfProposedActivitiesUpdate');
+    Route::get('/allStaffDetailsInformation', 'allStaffDetailsInformation')->name('allStaffDetailsInformation');
+    Route::post('/allStaffDetailsInformationPost', 'allStaffDetailsInformationPost')->name('allStaffDetailsInformationPost');
+    Route::post('/allStaffDetailsInformationUpdate', 'allStaffDetailsInformationUpdate')->name('allStaffDetailsInformationUpdate');
+    Route::get('/othersInformation', 'othersInformation')->name('othersInformation');
+    Route::post('/othersInformationPost', 'othersInformationPost')->name('othersInformationPost');
+    Route::post('/othersInformationUpdate', 'othersInformationUpdate')->name('othersInformationUpdate');
 
-    Route::get('/fd_one_form_edit', 'fd_one_form_edit')->name('fd_one_form_edit');
-
-    Route::get('/fd_one_form_information_pdf', 'fd_one_form_information_pdf')->name('fd_one_form_information_pdf');
-
-    Route::get('/fd_one_form_information', 'fd_one_form_information')->name('fd_one_form_information');
-
-
-    Route::get('/particulars_of_Organisation', 'particulars_of_Organisation')->name('particulars_of_Organisation');
-    Route::post('/particulars_of_Organisation_post', 'particulars_of_Organisation_post')->name('particulars_of_Organisation_post');
-
-    Route::post('/particulars_of_Organisation_update', 'particulars_of_Organisation_update')->name('particulars_of_Organisation_update');
-
-
-    Route::get('/field_of_proposed_activities', 'field_of_proposed_activities')->name('field_of_proposed_activities');
-    Route::post('/field_of_proposed_activities_post', 'field_of_proposed_activities_post')->name('field_of_proposed_activities_post');
-
-
-    Route::post('/field_of_proposed_activities_update', 'field_of_proposed_activities_update')->name('field_of_proposed_activities_update');
-
-
-
-    Route::get('/all_staff_details_information', 'all_staff_details_information')->name('all_staff_details_information');
-    Route::post('/all_staff_details_information_post', 'all_staff_details_information_post')->name('all_staff_details_information_post');
-
-
-    Route::post('/all_staff_details_information_update', 'all_staff_details_information_update')->name('all_staff_details_information_update');
-
-
-    Route::get('/others_information', 'others_information')->name('others_information');
-    Route::post('/others_information_post', 'others_information_post')->name('others_information_post');
-
-
-    Route::post('/others_information_update', 'others_information_update')->name('others_information_update');
-
+});
 
 });
 
@@ -291,21 +261,20 @@ Route::controller(NgodocumentController::class)->group(function () {
 
 Route::controller(FormeightController::class)->group(function () {
 
+    Route::group(['middleware' => ['auth']], function() {
+
     Route::post('/upload_from_eight_pdf', 'upload_from_eight_pdf')->name('upload_from_eight_pdf');
 
-    Route::get('/form_8_ngo_committee_member_totalview', 'form_8_ngo_committee_member_totalview')->middleware(['auth'])->name('form_8_ngo_committee_member_totalview');
-    Route::get('/form_8_ngo_committee_total_year', 'form_8_ngo_committee_total_year')->middleware(['auth'])->name('form_8_ngo_committee_total_year');
-    Route::get('/form_8_ngo_committee_member_pdf', 'form_8_ngo_committee_member_pdf')->middleware(['auth'])->name('form_8_ngo_committee_member_pdf');
-
-
-    Route::get('/form_8_ngo_committee_member_view_from_edit', 'form_8_ngo_committee_member_view_from_edit')->middleware(['auth'])->name('form_8_ngo_committee_member_view_from_edit');
-
-
-    Route::get('/form_8_ngo_committee_member', 'form_8_ngo_committee_member')->middleware(['auth'])->name('form_8_ngo_committee_member');
-    Route::get('/form_8_ngo_committee_member_create', 'form_8_ngo_committee_member_create')->middleware(['auth'])->name('form_8_ngo_committee_member_create');
-    Route::post('/form_8_ngo_committee_member_store', 'form_8_ngo_committee_member_store')->middleware(['auth'])->name('form_8_ngo_committee_member_store');
-    Route::post('/form_8_ngo_committee_member_update', 'form_8_ngo_committee_member_update')->middleware(['auth'])->name('form_8_ngo_committee_member_update');
-    Route::get('/form_8_ngo_committee_member_view', 'form_8_ngo_committee_member_view')->middleware(['auth'])->name('form_8_ngo_committee_member_view');
-    Route::get('/form_8_ngo_committee_member_edit/{id}', 'form_8_ngo_committee_member_edit')->middleware(['auth'])->name('form_8_ngo_committee_member_edit');
-    Route::post('form_8_ngo_committee_member_delete/{id}','delete')->middleware(['auth'])->name('form_8_ngo_committee_member_delete');
+    Route::get('/formEightNgoCommitteeMemberTotalView', 'formEightNgoCommitteeMemberTotalView')->name('formEightNgoCommitteeMemberTotalView');
+    Route::get('/form_8_ngo_committee_total_year', 'form_8_ngo_committee_total_year')->name('form_8_ngo_committee_total_year');
+    Route::get('/form_8_ngo_committee_member_pdf', 'form_8_ngo_committee_member_pdf')->name('form_8_ngo_committee_member_pdf');
+    Route::get('/form_8_ngo_committee_member_view_from_edit', 'form_8_ngo_committee_member_view_from_edit')->name('form_8_ngo_committee_member_view_from_edit');
+    Route::get('/formEightNgoCommitteeMember', 'formEightNgoCommitteeMember')->name('formEightNgoCommitteeMember');
+    Route::get('/formEightNgoCommitteeMemberCreate', 'formEightNgoCommitteeMemberCreate')->name('formEightNgoCommitteeMemberCreate');
+    Route::post('/formEightNgoCommitteeMemberStore', 'formEightNgoCommitteeMemberStore')->name('formEightNgoCommitteeMemberStore');
+    Route::post('/formEightNgoCommitteeMemberUpdate', 'formEightNgoCommitteeMemberUpdate')->name('formEightNgoCommitteeMemberUpdate');
+    Route::get('/formEightNgoCommitteeMemberView', 'formEightNgoCommitteeMemberView')->name('formEightNgoCommitteeMemberView');
+    Route::get('/formEightNgoCommitteeMemberEdit/{id}', 'formEightNgoCommitteeMemberEdit')->name('formEightNgoCommitteeMemberEdit');
+    Route::post('/formEightNgoCommitteeMemberDelete/{id}','delete')->name('formEightNgoCommitteeMemberDelete');
+});
 });

@@ -29,7 +29,7 @@
                             {{ trans('form 8_bn.ngo_committee_member_registration')}}
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('form_8_ngo_committee_member_store') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('formEightNgoCommitteeMemberStore') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
 
@@ -94,18 +94,7 @@
                                         <option value="{{ trans('form 8_bn.no')}}">{{ trans('form 8_bn.no')}}</option>
                                     </select>
                                 </div>
-                                {{-- <div class=" mb-3">
-                                    <label for="" class="form-label">{{ trans('form 8_bn.remarks')}}:</label>
-                                    <input type="text" data-parsley-required name="remarks" class="form-control" id="">
-                                </div> --}}
-                                {{-- <div class=" mb-3">
-                                    <label for="" class="form-label">Signature</label>
-                                    <input type="file" data-parsley-required data-parsley-accept=".jpg,.jpeg,.png" name="image" class="form-control" id="">
-                                </div>
-                                <div class=" mb-3">
-                                    <label for="" class="form-label">Date</label>
-                                    <input type="date" data-parsley-required name="main_date" class="form-control" id="">
-                                </div> --}}
+
                                 <div class="d-grid d-md-flex justify-content-md-end">
                                     <button type="submit" class="btn btn-registration">{{ trans('form 8_bn.add')}}
                                     </button>

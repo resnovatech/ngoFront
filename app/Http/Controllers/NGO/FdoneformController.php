@@ -5,12 +5,12 @@ namespace App\Http\Controllers\NGO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
-use App\Models\Fboneform;
-use App\Models\Acounntotherinfo;
-use App\Models\Bankaccount;
-use App\Models\Fdoneformadviser;
-use App\Models\Sourceoffund;
-use App\Models\Fdoneform_staff;
+use App\Models\FdOneForm;
+use App\Models\FormOneOtherPdfList;
+use App\Models\FormOneBankAccount;
+use App\Models\FormOneAdviserList;
+use App\Models\FormOneSourceOfFund;
+use App\Models\FormOneMemberList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DB;
@@ -25,17 +25,17 @@ class FdoneformController extends Controller
 
 
     public function back_from_step_two(){
-        $all_parti = Fboneform::where('user_id',Auth::user()->id)
+        $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)
 
         ->get();
 
-        return view('front.form.formone.particulars_of_Organisation',compact('all_parti'));
+        return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
 
     }
 
     public function other_info_from_one_download($id){
 
-        $get_file_data = Acounntotherinfo::where('id',$id)->value('information_type');
+        $get_file_data = FormOneOtherPdfList::where('id',$id)->value('information_type');
 
         $file_path = url('public/'.$get_file_data);
                                 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
@@ -55,7 +55,7 @@ class FdoneformController extends Controller
 
     public function source_of_fund_doc_download($id){
 
-        $get_file_data = Sourceoffund::where('id',$id)->value('letter_file');
+        $get_file_data = FormOneSourceOfFund::where('id',$id)->value('letter_file');
 
         $file_path = url('public/'.$get_file_data);
                                 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
@@ -73,121 +73,68 @@ class FdoneformController extends Controller
         ]);
     }
 
-    public function fd_one_form_edit(){
-        $all_parti = Fboneform::where('user_id',Auth::user()->id)
+    public function fdOneFormEdit(){
 
-            ->get();
+        $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
 
-            return view('front.form.formone.particulars_of_Organisation',compact('all_parti'));
+            return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
 
     }
 
-    public function particulars_of_Organisation(){
+    public function particularsOfOrganisation(){
 
 
-        $get_complete_status = Fboneform::where('user_id',Auth::user()->id)->value('complete_status');
+        $formCompleteStatus= DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('complete_status');
 
-//dd($get_complete_status);
 
-if(empty($get_complete_status)){
+if(empty($formCompleteStatus)){
 
 
+        $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
 
-    $all_parti = Fboneform::where('user_id',Auth::user()->id)
+        return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
 
-    ->get();
+         }elseif($formCompleteStatus == 'all_complete'){
 
-    return view('front.form.formone.particulars_of_Organisation',compact('all_parti'));
+            return $this->fdFormOneInfo();
 
-}elseif($get_complete_status == 'all_complete'){
+         }elseif($formCompleteStatus == 'save_and_exit_from_one'){
 
-            return $this->fd_one_form_information();
+           $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
 
+            return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
 
+            }elseif($formCompleteStatus == 'next_step_from_one'){
 
+            $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
 
-        }elseif($get_complete_status == 'save_and_exit_from_one'){
+            return view('front.form.formone.fieldOfProposedActivities',compact('particularsOfOrganisationData'));
 
-            //return redirect('/particulars_of_Organisation');
+          }elseif($formCompleteStatus == 'save_and_exit_from_two'){
 
-            $all_parti = Fboneform::where('user_id',Auth::user()->id)
+            $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
 
-            ->get();
+            return view('front.form.formone.fieldOfProposedActivities',compact('particularsOfOrganisationData'));
 
-            return view('front.form.formone.particulars_of_Organisation',compact('all_parti'));
+          }elseif($formCompleteStatus == 'next_step_from_two'){
 
+            $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
+            $formOneMemberList = FormOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->get();
 
+            return view('front.form.formone.allStaffDetailsInformation',compact('particularsOfOrganisationData','formOneMemberList'));
 
-        }elseif($get_complete_status == 'next_step_from_one'){
+         }elseif($formCompleteStatus == 'next_step_from_three'){
 
-            $all_parti = Fboneform::where('user_id',Auth::user()->id)
+            $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
 
-            ->get();
+            return view('front.form.formone.othersInformation',compact('particularsOfOrganisationData'));
 
-            return view('front.form.formone.field_of_proposed_activities',compact('all_parti'));
+        }elseif($formCompleteStatus == 'save_and_exit_from_three'){
 
+            $particularsOfOrganisationData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->get();
+            $formOneMemberList = FormOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->get();
 
-
-
-
-        }elseif($get_complete_status == 'save_and_exit_from_two'){
-
-            $all_parti = Fboneform::where('user_id',Auth::user()->id)
-
-            ->get();
-
-            return view('front.form.formone.field_of_proposed_activities',compact('all_parti'));
-
-
-
-
-
-        }elseif($get_complete_status == 'next_step_from_two'){
-
-            $all_parti = Fboneform::where('user_id',Auth::user()->id)
-            ->get();
-
-
-               $all_partiw = Fdoneform_staff::where('user_id',Auth::user()->id)->get();
-
-               //dd($all_partiw);
-
-
-               return view('front.form.formone.all_staff_details_information',compact('all_parti','all_partiw'));
-
-
-
-
-
-        }elseif($get_complete_status == 'next_step_from_three'){
-
-            $all_parti = Fboneform::where('user_id',Auth::user()->id)
-            ->get();
-
-            return view('front.form.formone.others_information',compact('all_parti'));
-
-
-
-
-
-        }elseif($get_complete_status == 'save_and_exit_from_three'){
-
-            $all_parti = Fboneform::where('user_id',Auth::user()->id)
-            ->get();
-
-
-               $all_partiw = Fdoneform_staff::where('user_id',Auth::user()->id)->get();
-
-               //dd($all_partiw);
-
-
-               return view('front.form.formone.all_staff_details_information',compact('all_parti','all_partiw'));
-
-
-
-
-
-
+            return view('front.form.formone.allStaffDetailsInformation',compact('particularsOfOrganisationData','formOneMemberList'));
 
         }
 
@@ -196,64 +143,45 @@ if(empty($get_complete_status)){
     }
 
 
-    public function field_of_proposed_activities(){
+    public function fieldOfProposedActivities(){
 
 
-        $all_parti = Fboneform::where('user_id',Auth::user()->id)
+        $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)
 
         ->get();
 
-        return view('front.form.formone.field_of_proposed_activities',compact('all_parti'));
+        return view('front.form.formone.fieldOfProposedActivities',compact('particularsOfOrganisationData'));
 
     }
 
-    public function all_staff_details_information(){
+    public function allStaffDetailsInformation(){
 
-        $all_parti = Fboneform::where('user_id',Auth::user()->id)
-     ->get();
-
-
-        $all_partiw = Fdoneform_staff::where('user_id',Auth::user()->id)->get();
-
-        //dd($all_partiw);
+        $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
 
 
-        return view('front.form.formone.all_staff_details_information',compact('all_parti','all_partiw'));
+        $formOneMemberList = FormOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->get();
+
+        return view('front.form.formone.allStaffDetailsInformation',compact('particularsOfOrganisationData','formOneMemberList'));
 
     }
 
-    public function others_information(){
+    public function othersInformation(){
 
-        $all_parti = Fboneform::where('user_id',Auth::user()->id)
-        ->get();
+        $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
 
-        return view('front.form.formone.others_information',compact('all_parti'));
+        return view('front.form.formone.othersInformation',compact('particularsOfOrganisationData'));
 
     }
 
 
-    public function fd_one_form_information(){
+    public function fdFormOneInfo(){
 
-        $get_complete_status = Fboneform::where('user_id',Auth::user()->id)->first();
-
-
-
-
-        $get_all_data_adviser_bank = DB::table('bankaccounts')->where('user_id',Auth::user()->id)
-               ->first();
-
-
-               $get_all_data_other= DB::table('acounntotherinfos')->where('user_id',Auth::user()->id)
-               ->get();
-
-               $get_all_data_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::user()->id)
-       ->get();
-
-       $all_partiw = Fdoneform_staff::where('user_id',Auth::user()->id)->get();
-
-
-       $get_all_source_of_fund_data = DB::table('sourceoffunds')
-       ->where('user_id',Auth::user()->id)->get();
+        $allformOneData = FdOneForm::where('user_id',Auth::user()->id)->first();
+        $get_all_data_adviser_bank = DB::table('form_one_bank_accounts')->where('fd_one_form_id',$allformOneData->id)->first();
+        $get_all_data_other= DB::table('form_one_other_pdf_lists')->where('fd_one_form_id',$allformOneData->id)->get();
+        $get_all_data_adviser = DB::table('form_one_adviser_lists')->where('fd_one_form_id',$allformOneData->id)->get();
+        $formOneMemberList = FormOneMemberList::where('fd_one_form_id',$allformOneData->id)->get();
+        $get_all_source_of_fund_data = DB::table('form_one_source_of_funds')->where('fd_one_form_id',$allformOneData->id)->get();
 
        $engDATE = array('1','2','3','4','5','6','7','8','9','0','January','February','March','April',
       'May','June','July','August','September','October','November','December','Saturday','Sunday',
@@ -263,27 +191,48 @@ if(empty($get_complete_status)){
       বুধবার','বৃহস্পতিবার','শুক্রবার'
       );
 
-        return view('front.form.formone.fd_one_form_information',compact('bangDATE','engDATE','get_all_source_of_fund_data','all_partiw','get_all_data_adviser','get_all_data_other','get_all_data_adviser_bank','get_complete_status'));
+        return view('front.form.formone.fdFormOneInfo',compact('bangDATE','engDATE','get_all_source_of_fund_data','formOneMemberList','get_all_data_adviser','get_all_data_other','get_all_data_adviser_bank','allformOneData'));
 
 
     }
 
 
-    public function particulars_of_Organisation_post(Request $request){
+    public function particularsOfOrganisationPost(Request $request){
 
 
          $r_number = mt_rand(1000000000000000, 9999999999999999);
 
          $arr_all = implode(",",$request->citizenship);
 
-         //dd($arr_all);
+         $dt = new DateTime();
+         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+
+         $main_time = $dt->format('H:i:s');
+
+
+
+         $request->validate([
+            'organization_name' => 'required|string',
+            'organization_name_ban' => 'required|string',
+            'address_of_head_office_eng' => 'required|string',
+            'organization_address' => 'required|string',
+            'address_of_head_office' => 'required|string',
+            'country_of_origin' => 'required|string',
+            'name_of_head_in_bd' => 'required|string',
+            'job_type' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|string',
+            'profession' => 'required|string',
+            'complete_status' => 'required|string',
+        ]);
 
 
 
 
-        $category_list = new Fboneform();
+        $category_list = new FdOneForm();
         $category_list->user_id = Auth::user()->id;
-        $category_list->registration_number = $r_number;
+        $category_list->registration_number_given_by_admin = $r_number;
         $category_list->organization_name = $request->organization_name;
         $category_list->organization_name_ban = $request->organization_name_ban;
         $category_list->address_of_head_office_eng = $request->address_of_head_office_eng;
@@ -298,59 +247,33 @@ if(empty($get_complete_status)){
         $category_list->profession = $request->profession;
         $category_list->citizenship = $arr_all;
         $category_list->complete_status = $request->submit_value;
+        $category_list->time_for_api = $main_time;
         $category_list->save();
 
 
         $mm_id = $category_list->id;
 
-
-
-
-
-
-
-
         Session::put('mm_id',$mm_id);
 
+       if($request->submit_value == 'save_and_exit_from_one'){
 
-        //Session::put('user_main_id', Auth::user()->id);
+        return redirect('/fdFormOneInfo');
 
+       }else{
 
-        if($request->submit_value == 'save_and_exit_from_one'){
+        return redirect('/fieldOfProposedActivities');
 
-
-
-            return redirect('/fd_one_form_information');
-
-
-        }else{
+       }
 
 
-
-
-            return redirect('/field_of_proposed_activities');
-
-
-        }
-
-       // dd($request->all());
     }
 
 
-    public function particulars_of_Organisation_update(Request $request){
+    public function particularsOfOrganisationUpdate(Request $request){
 
+       $arr_all = implode(",",$request->citizenship);
 
-
-
-
-        $arr_all = implode(",",$request->citizenship);
-
-        //dd($arr_all);
-
-
-
-
-       $category_list = Fboneform::find($request->id);
+       $category_list = FdOneForm::find($request->id);
        $category_list->user_id = Auth::user()->id;
        $category_list->organization_name_ban = $request->organization_name_ban;
        $category_list->organization_name = $request->organization_name;
@@ -371,49 +294,28 @@ if(empty($get_complete_status)){
 
        $mm_id = $category_list->id;
 
-
-
-
-
-
-
-
        Session::put('mm_id',$mm_id);
 
+      if($request->submit_value == 'save_and_exit_from_one'){
 
-       //Session::put('user_main_id', Auth::user()->id);
-
-
-       if($request->submit_value == 'save_and_exit_from_one'){
-
-
-
-           return redirect('/fd_one_form_information');
-
+       return redirect('/fdFormOneInfo');
 
        }else{
 
-
-
-
-           return redirect('/field_of_proposed_activities');
-
+       return redirect('/fieldOfProposedActivities');
 
        }
-
-
-
-    }
+     }
 
 
     public function upload_from_one_pdf(Request $request){
 
-         $time_dy = time().date("Ymd");
+         $cutomeFileName = time().date("Ymd");
 
-        $category_list = Fboneform::find($request->id);
+        $category_list = FdOneForm::find($request->id);
         if ($request->hasfile('s_pdf')) {
             $file = $request->file('s_pdf');
-            $extension = $time_dy.$file->getClientOriginalName();
+            $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
             $category_list->s_pdf = 'uploads/'.$filename;
@@ -425,107 +327,22 @@ if(empty($get_complete_status)){
     }
 
 
-    public function field_of_proposed_activities_post(Request $request){
 
-        //dd();
-        $time_dy = time().date("Ymd");
-
-       // dd($request->all());
-
-
-        $category_list = Fboneform::find(Session::get('mm_id'));
-        $category_list->user_id = Auth::user()->id;
-
-       $category_list->district = $request->district;
-        $category_list->sub_district = $request->sub_district;
-        $category_list->annual_budget = $request->annual_budget;
-        if ($request->hasfile('plan_of_operation')) {
-            $file = $request->file('plan_of_operation');
-            $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $category_list->plan_of_operation = 'uploads/'.$filename;
-
-        }
-        $category_list->complete_status = $request->submit_value;
-        $category_list->save();
-
-
-        $mm_id = $category_list->id;
-
-
-        $input = $request->all();
-
-
-
-    $new_cat_dec = $input['name'];
-
-
-
-        if (array_key_exists("name", $input)){
-
-            foreach($new_cat_dec as $key => $new_cat_dec){
-             $form= new Sourceoffund();
-             $form->name=$input['name'][$key];
-             $form->address=$input['address'][$key];
-             $file=$input['letter_file'][$key];
-             $name=time().mt_rand(1000000000, 9999999999).'.'.$file->getClientOriginalExtension();
-             $file->move('public/uploads/', $name);
-             $form->letter_file='uploads/'.$name;
-             $form->user_id =  Auth::user()->id;
-             $form->ngo_id = $mm_id;
-             $form->save();
-
-
-
-
-
-         }
-            }
-
-
-
-
-
-
-
-
-        Session::put('mm_id',$mm_id);
-
-
-        if($request->submit_value == 'save_and_exit_from_two'){
-
-
-
-            return redirect('/fd_one_form_information');
-
-
-        }else{
-
-
-
-
-            return redirect('/all_staff_details_information');
-
-
-        }
-
-
-
-    }
 
 
     public function source_of_fund_update(Request $request){
 
-        $time_dy = time().date("Ymd");
 
 
-        $category_list = Sourceoffund::find($request->id);
+        $cutomeFileName = time().date("Ymd");
+
+
+        $category_list = FormOneSourceOfFund::find($request->id);
         $category_list->name = $request->name_sour;
         $category_list->address = $request->address;
         if ($request->hasfile('letter_file')) {
             $file = $request->file('letter_file');
-            $extension = $time_dy.$file->getClientOriginalName();
+            $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
             $category_list->letter_file =  'uploads/'.$filename;
@@ -538,7 +355,7 @@ if(empty($get_complete_status)){
     }
 
     public function adviser_data_update(Request $request){
-        $category_list = Fdoneformadviser::find($request->id);
+        $category_list = FormOneAdviserList::find($request->id);
         $category_list->name = $request->name;
         $category_list->information = $request->information;
 
@@ -549,12 +366,12 @@ if(empty($get_complete_status)){
     }
 
     public function other_information_a_update(Request $request){
-        $time_dy = time().date("Ymd");
-        $category_list = Acounntotherinfo::find($request->mid);
+        $cutomeFileName = time().date("Ymd");
+        $category_list = FormOneOtherPdfList::find($request->mid);
 
         if ($request->hasfile('letter_file')) {
             $file = $request->file('letter_file');
-            $extension = $time_dy.$file->getClientOriginalName();
+            $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
             $category_list->letter_file =  'uploads/'.$filename;
@@ -570,7 +387,7 @@ if(empty($get_complete_status)){
     public function source_of_fund_delete(Request $request)
     {
 
-        $admins = Sourceoffund::find($request->id);
+        $admins = FormOneSourceOfFund::find($request->id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -583,7 +400,7 @@ if(empty($get_complete_status)){
     public function adviser_data_delete(Request $request)
     {
 
-        $admins = Fdoneformadviser::find($request->id);
+        $admins = FormOneAdviserList::find($request->id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -597,7 +414,7 @@ if(empty($get_complete_status)){
     public function other_information_a_delete(Request $request)
     {
 
-        $admins = Acounntotherinfo::find($request->id);
+        $admins = FormOneOtherPdfList::find($request->id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -608,110 +425,101 @@ if(empty($get_complete_status)){
 
 
 
-    public function field_of_proposed_activities_update(Request $request){
+    public function fieldOfProposedActivitiesUpdate(Request $request){
 
-        //dd($request->id);
-        $time_dy = time().date("Ymd");
-        $category_list = Fboneform::find($request->mid);
-        $category_list->user_id = Auth::user()->id;
+        $cutomeFileName = time().date("Ymd");
 
-       $category_list->district = $request->district;
-        $category_list->sub_district = $request->sub_district;
-        $category_list->annual_budget = $request->annual_budget;
+
+
+        $request->validate([
+            'district' => 'required|string',
+            'annual_budget' => 'required|string',
+            'complete_status' => 'required|string',
+        ]);
+
+
+
+        $updateDataStepTwo = FdOneForm::find($request->mid);
+        $updateDataStepTwo->user_id = Auth::user()->id;
+        $updateDataStepTwo->district = $request->district;
+
+        $updateDataStepTwo->annual_budget = $request->annual_budget;
         if ($request->hasfile('plan_of_operation')) {
             $file = $request->file('plan_of_operation');
-            $extension = $time_dy.$file->getClientOriginalName();
+            $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->plan_of_operation ='uploads/'.$filename;
+            $updateDataStepTwo->plan_of_operation ='uploads/'.$filename;
 
         }
-        $category_list->complete_status = $request->submit_value;
-        $category_list->save();
+        $updateDataStepTwo->complete_status = $request->submit_value;
+        $updateDataStepTwo->save();
 
 
-        $mm_id = $category_list->id;
-
-
+        $stepTwoId = $updateDataStepTwo->id;
         $input = $request->all();
 
-       // dd($input);
+        $personName = $input['name'];
 
 
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
-    $new_cat_dec = $input['name'];
+        $main_time = $dt->format('H:i:s');
 
+     if (array_key_exists("letter_file", $input)){
 
+       $deleteData = FormOneSourceOfFund::where('fd_one_form_id',$stepTwoId)->delete();
 
-
-
-
-
-
-    if (array_key_exists("letter_file", $input)){
-
-
-        $delete_data = Sourceoffund::where('user_id',Auth::user()->id)
-        ->where('ngo_id',$mm_id)->delete();
-
-        foreach($new_cat_dec as $key => $new_cat_dec){
-         $form= new Sourceoffund();
+        foreach($personName as $key => $personName){
+         $form= new FormOneSourceOfFund();
          $form->name=$input['name'][$key];
          $form->address=$input['address'][$key];
          $file=$input['letter_file'][$key];
          $name=time().mt_rand(1000000000, 9999999999).'.'.$file->getClientOriginalExtension();
          $file->move('public/uploads/', $name);
          $form->letter_file='uploads/'.$name;
-         $form->user_id =  Auth::user()->id;
-         $form->ngo_id = $mm_id;
+        $form->fd_one_form_id = $stepTwoId;
+        $form->time_for_api = $main_time;
          $form->save();
-
-
-
-
-
-     }
+}
         }
 
 
-
-
-
-
-
-
-
-        Session::put('mm_id',$mm_id);
+        Session::put('mm_id',$stepTwoId);
 
 
         if($request->submit_value == 'save_and_exit_from_two'){
 
-
-
-            return redirect('/fd_one_form_information');
-
+             return redirect('/fdFormOneInfo');
 
         }else{
 
+            return redirect('/allStaffDetailsInformation');
+
+ }
+
+}
 
 
 
-            return redirect('/all_staff_details_information');
+    public function allStaffDetailsInformationPost(Request $request){
 
 
-        }
+        $request->validate([
+            'staff_name.*' => 'required|string',
+            'staff_position.*' => 'required|string',
+            'staff_address.*' => 'required|string',
+            'date_of_join.*' => 'required|string',
+            'address.*' => 'required|string',
+            'salary_statement.*' => 'required|string',
+            'other_occupation.*' => 'required|string',
+            'complete_status' => 'required|string',
+        ]);
 
 
-    }
 
-
-
-    public function all_staff_details_information_post(Request $request){
-
-       // dd($request->all());
-
-
-        $category_list = Fboneform::find($request->id);
+        $category_list = FdOneForm::find($request->id);
         $category_list->user_id = Auth::user()->id;
         $category_list->complete_status = $request->submit_value;
         $category_list->save();
@@ -719,248 +527,261 @@ if(empty($get_complete_status)){
 
         $input = $request->all();
         $new_cat_dec = $input['staff_name'];
-
-
-        if (array_key_exists("now_working_at", $input)){
-
-            foreach($new_cat_dec as $key => $new_cat_dec){
-
-                if($key == 0){
-                    $arr_all = implode(",",$request->citizenship1);
-                }elseif($key == 1){
-
-                    $arr_all = implode(",",$request->citizenship2);
-
-                }elseif($key == 2){
-                    $arr_all = implode(",",$request->citizenship3);
-                }
-                elseif($key == 3){
-                    $arr_all = implode(",",$request->citizenship4);
-                }elseif($key == 4){
-                    $arr_all = implode(",",$request->citizenship5);
-                }
-
-                $form= new Fdoneform_staff();
-                $form->name=$input['staff_name'][$key];
-                $form->now_working_at=$input['now_working_at'][$key];
-                $form->position=$input['staff_position'][$key];
-                $form->address=$input['staff_address'][$key];
-                $form->date_of_join=$input['date_of_join'][$key];
-                $form->citizenship=$arr_all;
-                $form->salary_statement=$input['salary_statement'][$key];
-                $form->other_occupation	=$input['other_occupation'][$key];
-                $form->user_id =  Auth::user()->id;
-                $form->ngo_id = Session::get('mm_id');
-                $form->save();
-            }
-
-
-        }else{
-
-        foreach($new_cat_dec as $key => $new_cat_dec){
-
-            if($key == 0){
-                $arr_all = implode(",",$request->citizenship1);
-            }elseif($key == 1){
-
-                $arr_all = implode(",",$request->citizenship2);
-
-            }elseif($key == 2){
-                $arr_all = implode(",",$request->citizenship3);
-            }
-            elseif($key == 3){
-                $arr_all = implode(",",$request->citizenship4);
-            }elseif($key == 4){
-                $arr_all = implode(",",$request->citizenship5);
-            }
-
-            $form= new Fdoneform_staff();
-            $form->name=$input['staff_name'][$key];
-            $form->position=$input['staff_position'][$key];
-            $form->address=$input['staff_address'][$key];
-            $form->date_of_join=$input['date_of_join'][$key];
-            $form->citizenship=$arr_all;
-            $form->salary_statement=$input['salary_statement'][$key];
-            $form->other_occupation	=$input['other_occupation'][$key];
-            $form->user_id =  Auth::user()->id;
-            $form->ngo_id = Session::get('mm_id');
-            $form->save();
-        }
-
-    }
-
-
-        if($request->submit_value == 'save_and_exit_from_three'){
-
-
-
-            return redirect('/fd_one_form_information');
-
-
-        }else{
-
-
-
-
-            return redirect('/others_information');
-
-
-        }
-
-
-
-    }
-
-
-    public function all_staff_details_information_update(Request $request){
-
-        //dd($request->all());
-
-        $delete_all_the_data = Fdoneform_staff::where('user_id',Auth::user()->id)->delete();
-
-
-        $category_list = Fboneform::find($request->id);
-        $category_list->user_id = Auth::user()->id;
-        $category_list->complete_status = $request->submit_value;
-        $category_list->save();
-
-
-        $input = $request->all();
-        $new_cat_dec = $input['staff_name'];
-
-
-        if (array_key_exists("now_working_at", $input)){
-
-
-            foreach($new_cat_dec as $key => $new_cat_dec){
-
-                if($key == 0){
-                    $arr_all = implode(",",$request->citizenship1);
-                }elseif($key == 1){
-
-                    $arr_all = implode(",",$request->citizenship2);
-
-                }elseif($key == 2){
-                    $arr_all = implode(",",$request->citizenship3);
-                }
-                elseif($key == 3){
-                    $arr_all = implode(",",$request->citizenship4);
-                }elseif($key == 4){
-                    $arr_all = implode(",",$request->citizenship5);
-                }
-
-                $form= new Fdoneform_staff();
-                $form->name=$input['staff_name'][$key];
-                $form->position=$input['staff_position'][$key];
-                $form->now_working_at=$input['now_working_at'][$key];
-                $form->address=$input['staff_address'][$key];
-                $form->date_of_join=$input['date_of_join'][$key];
-                $form->citizenship=$arr_all;
-                $form->salary_statement=$input['salary_statement'][$key];
-                $form->other_occupation	=$input['other_occupation'][$key];
-                $form->user_id =  Auth::user()->id;
-                $form->ngo_id = Session::get('mm_id');
-                $form->save();
-            }
-
-
-        }else{
-
-        foreach($new_cat_dec as $key => $new_cat_dec){
-
-            if($key == 0){
-                $arr_all = implode(",",$request->citizenship1);
-            }elseif($key == 1){
-
-                $arr_all = implode(",",$request->citizenship2);
-
-            }elseif($key == 2){
-                $arr_all = implode(",",$request->citizenship3);
-            }
-            elseif($key == 3){
-                $arr_all = implode(",",$request->citizenship4);
-            }elseif($key == 4){
-                $arr_all = implode(",",$request->citizenship5);
-            }
-
-            $form= new Fdoneform_staff();
-            $form->name=$input['staff_name'][$key];
-            $form->position=$input['staff_position'][$key];
-            $form->address=$input['staff_address'][$key];
-            $form->date_of_join=$input['date_of_join'][$key];
-            $form->citizenship=$arr_all;
-            $form->salary_statement=$input['salary_statement'][$key];
-            $form->other_occupation	=$input['other_occupation'][$key];
-            $form->user_id =  Auth::user()->id;
-            $form->ngo_id = Session::get('mm_id');
-            $form->save();
-        }
-
-    }
-
-
-        if($request->submit_value == 'save_and_exit_from_three'){
-
-
-
-            return redirect('/fd_one_form_information');
-
-
-        }else{
-
-
-
-
-            return redirect('/others_information');
-
-
-        }
-
-    }
-
-
-
-
-    public function others_information_post(Request $request){
-        $time_dy = time().date("Ymd");
 
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
+        $main_time = $dt->format('H:i:s');
+
+
+        if (array_key_exists("now_working_at", $input)){
+
+            foreach($new_cat_dec as $key => $new_cat_dec){
+
+                if($key == 0){
+                    $arr_all = implode(",",$request->citizenship1);
+                }elseif($key == 1){
+
+                    $arr_all = implode(",",$request->citizenship2);
+
+                }elseif($key == 2){
+                    $arr_all = implode(",",$request->citizenship3);
+                }
+                elseif($key == 3){
+                    $arr_all = implode(",",$request->citizenship4);
+                }elseif($key == 4){
+                    $arr_all = implode(",",$request->citizenship5);
+                }
+
+                $form= new FormOneMemberList();
+                $form->name=$input['staff_name'][$key];
+                $form->now_working_at=$input['now_working_at'][$key];
+                $form->position=$input['staff_position'][$key];
+                $form->address=$input['staff_address'][$key];
+                $form->date_of_join=$input['date_of_join'][$key];
+                $form->citizenship=$arr_all;
+                $form->salary_statement=$input['salary_statement'][$key];
+                $form->other_occupation	=$input['other_occupation'][$key];
+                $form->time_for_api =  $main_time;
+                $form->fd_one_form_id = Session::get('mm_id');
+                $form->save();
+            }
+
+
+        }else{
+
+        foreach($new_cat_dec as $key => $new_cat_dec){
+
+            if($key == 0){
+                $arr_all = implode(",",$request->citizenship1);
+            }elseif($key == 1){
+
+                $arr_all = implode(",",$request->citizenship2);
+
+            }elseif($key == 2){
+                $arr_all = implode(",",$request->citizenship3);
+            }
+            elseif($key == 3){
+                $arr_all = implode(",",$request->citizenship4);
+            }elseif($key == 4){
+                $arr_all = implode(",",$request->citizenship5);
+            }
+
+            $form= new FormOneMemberList();
+            $form->name=$input['staff_name'][$key];
+            $form->position=$input['staff_position'][$key];
+            $form->address=$input['staff_address'][$key];
+            $form->date_of_join=$input['date_of_join'][$key];
+            $form->citizenship=$arr_all;
+            $form->salary_statement=$input['salary_statement'][$key];
+            $form->other_occupation	=$input['other_occupation'][$key];
+            $form->time_for_api =  $main_time;
+            $form->fd_one_form_id = Session::get('mm_id');
+            $form->save();
+        }
+
+    }
+
+
+        if($request->submit_value == 'save_and_exit_from_three'){
+
+ return redirect('/fdFormOneInfo');
+}else{
+
+return redirect('/othersInformation');
+
+ }
+
+}
+
+
+    public function allStaffDetailsInformationUpdate(Request $request){
+
+        $request->validate([
+            'staff_name.*' => 'required|string',
+            'staff_position.*' => 'required|string',
+            'staff_address.*' => 'required|string',
+            'date_of_join.*' => 'required|string',
+            'address.*' => 'required|string',
+            'salary_statement.*' => 'required|string',
+            'other_occupation.*' => 'required|string',
+            'complete_status' => 'required|string',
+        ]);
+
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+
+        $main_time = $dt->format('H:i:s');
+
+        $delete_all_the_data = FormOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->delete();
+
+
+        $category_list = FdOneForm::find($request->id);
+        $category_list->user_id = Auth::user()->id;
+        $category_list->complete_status = $request->submit_value;
+        $category_list->save();
+
+
+        $input = $request->all();
+        $new_cat_dec = $input['staff_name'];
+
+
+        if (array_key_exists("now_working_at", $input)){
+
+
+            foreach($new_cat_dec as $key => $new_cat_dec){
+
+                if($key == 0){
+                    $arr_all = implode(",",$request->citizenship1);
+                }elseif($key == 1){
+
+                    $arr_all = implode(",",$request->citizenship2);
+
+                }elseif($key == 2){
+                    $arr_all = implode(",",$request->citizenship3);
+                }
+                elseif($key == 3){
+                    $arr_all = implode(",",$request->citizenship4);
+                }elseif($key == 4){
+                    $arr_all = implode(",",$request->citizenship5);
+                }
+
+                $form= new FormOneMemberList();
+                $form->name=$input['staff_name'][$key];
+                $form->position=$input['staff_position'][$key];
+                $form->now_working_at=$input['now_working_at'][$key];
+                $form->address=$input['staff_address'][$key];
+                $form->date_of_join=$input['date_of_join'][$key];
+                $form->citizenship=$arr_all;
+                $form->salary_statement=$input['salary_statement'][$key];
+                $form->other_occupation	=$input['other_occupation'][$key];
+                $form->time_for_api =  $main_time;
+                $form->fd_one_form_id = $request->id;
+                $form->save();
+            }
+
+
+        }else{
+
+        foreach($new_cat_dec as $key => $new_cat_dec){
+
+            if($key == 0){
+                $arr_all = implode(",",$request->citizenship1);
+            }elseif($key == 1){
+
+                $arr_all = implode(",",$request->citizenship2);
+
+            }elseif($key == 2){
+                $arr_all = implode(",",$request->citizenship3);
+            }
+            elseif($key == 3){
+                $arr_all = implode(",",$request->citizenship4);
+            }elseif($key == 4){
+                $arr_all = implode(",",$request->citizenship5);
+            }
+
+            $form= new FormOneMemberList();
+            $form->name=$input['staff_name'][$key];
+            $form->position=$input['staff_position'][$key];
+            $form->address=$input['staff_address'][$key];
+            $form->date_of_join=$input['date_of_join'][$key];
+            $form->citizenship=$arr_all;
+            $form->salary_statement=$input['salary_statement'][$key];
+            $form->other_occupation	=$input['other_occupation'][$key];
+            $form->time_for_api =  $main_time;
+            $form->fd_one_form_id = $request->id;
+            $form->save();
+        }
+
+    }
+
+
+        if($request->submit_value == 'save_and_exit_from_three'){
+
+ return redirect('/fdFormOneInfo');
+
+}else{
+
+ return redirect('/othersInformation');
+ }
+
+    }
+
+
+
+
+    public function othersInformationPost(Request $request){
+        $cutomeFileName = time().date("Ymd");
+
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
         $main_time = $dt->format('H:i:s a');
-     //dd($request->all());
 
 
-     $category_list = Fboneform::find($request->id);
-     $category_list->user_id = Auth::user()->id;
-     $category_list->main_time = $main_time;
-    $category_list->treasury_number = $request->treasury_number;
-     $category_list->vat_invoice_number = $request->vat_invoice_number;
+        $request->validate([
+
+            'information_type.*' => 'required',
+            'name.*' => 'required',
+            'information.*' => 'required',
+            'complete_status' => 'required|string',
+            'treasury_number' => 'required|string',
+            'vat_invoice_number' => 'required|string',
+            'attach_the__supporting_papers' => 'required',
+            'board_of_revenue_on_fees' => 'required',
+
+        ]);
+
+
+
+     $stepFourData = FdOneForm::find($request->id);
+     $stepFourData->user_id = Auth::user()->id;
+     $stepFourData->treasury_number = $request->treasury_number;
+     $stepFourData->vat_invoice_number = $request->vat_invoice_number;
 
      if ($request->hasfile('attach_the__supporting_papers')) {
          $file = $request->file('attach_the__supporting_papers');
-         $extension = $time_dy.$file->getClientOriginalName();
+         $extension = $cutomeFileName.$file->getClientOriginalName();
          $filename = $extension;
          $file->move('public/uploads/', $filename);
-         $category_list->attach_the__supporting_papers ='uploads/'.$filename;
+         $stepFourData->attach_the__supporting_paper ='uploads/'.$filename;
 
      }
 
 
      if ($request->hasfile('board_of_revenue_on_fees')) {
         $file = $request->file('board_of_revenue_on_fees');
-        $extension = $time_dy.$file->getClientOriginalName();
+        $extension = $cutomeFileName.$file->getClientOriginalName();
         $filename = $extension;
         $file->move('public/uploads/', $filename);
-        $category_list->board_of_revenue_on_fees = 'uploads/'.$filename;
+        $stepFourData->board_of_revenue_on_fees = 'uploads/'.$filename;
 
     }
 
-     $category_list->complete_status = $request->submit_value;
-     $category_list->save();
+     $stepFourData->complete_status = $request->submit_value;
+     $stepFourData->save();
 
 
-     $mm_id = $category_list->id;
+     $mm_id = $stepFourData->id;
 
 
 
@@ -968,33 +789,30 @@ if(empty($get_complete_status)){
 
 
      }else{
-     $form= new Bankaccount();
+     $form= new FormOneBankAccount();
      $form->account_number=$request->account_number;
      $form->account_type=$request->account_type;
      $form->name_of_bank=$request->name_of_bank;
      $form->branch_name_of_bank=$request->branch_name_of_bank;
      $form->bank_address=$request->bank_address;
-     $form->user_id =  Auth::user()->id;
-     $form->ngo_id = $mm_id;
+     $form->fd_one_form_id = $request->id;
+     $form->time_for_api = $main_time;
      $form->save();
     }
 
      $input = $request->all();
 
 
-
-
-
-     if (array_key_exists("name", $input)){
+if (array_key_exists("name", $input)){
 
         $new_cat_dec = $input['name'];
      foreach($new_cat_dec as $key => $new_cat_dec){
 
-        $form1= new Fdoneformadviser();
+        $form1= new FormOneAdviserList();
         $form1->name=$input['name'][$key];
         $form1->information=$input['information'][$key];
-        $form1->user_id =  Auth::user()->id;
-        $form1->ngo_id = $mm_id;
+        $form1->fd_one_form_id = $request->id;
+        $form1->time_for_api = $main_time;
         $form1->save();
 
      }
@@ -1009,14 +827,14 @@ if(empty($get_complete_status)){
      foreach($new_cat_dec_new as $key => $new_cat_dec_new){
 
 
-        $form2= new Acounntotherinfo();
+        $form2= new FormOneOtherPdfList();
 
         $file=$input['information_type'][$key];
         $name=time().mt_rand(1000000000, 9999999999).'.'.$file->getClientOriginalExtension();
         $file->move('public/uploads/', $name);
-        $form2->information_type='uploads/'.$name;
-        $form2->user_id =  Auth::user()->id;
-        $form2->ngo_id = $mm_id;
+        $form2->information_pdf='uploads/'.$name;
+        $form2->fd_one_form_id = $request->id;
+        $form2->time_for_api = $main_time;
         $form2->save();
 
      }
@@ -1026,65 +844,68 @@ if(empty($get_complete_status)){
 
     if($request->submit_value == 'all_complete'){
 
+return redirect('/fdFormOneInfo');
+
+}else{
+
+    return redirect('/othersInformation');
+}
+
+}
 
 
-        return redirect('/fd_one_form_information');
-
-
-    }else{
-
-
-
-
-        return redirect('/others_information');
-
-
-    }
-
-
-    }
-
-
-    public function others_information_update(Request $request){
+    public function othersInformationUpdate(Request $request){
 
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
         $main_time = $dt->format('H:i:s a');
 
-    //dd(Session::get('mm_id'));
-    $time_dy = time().date("Ymd");
 
-    $category_list = Fboneform::find($request->id);
-    $category_list->user_id = Auth::user()->id;
-    $category_list->main_time = $main_time;
-   $category_list->treasury_number = $request->treasury_number;
-    $category_list->vat_invoice_number = $request->vat_invoice_number;
+    $cutomeFileName = time().date("Ymd");
+
+    // $request->validate([
+
+    //     'information_type.*' => 'required',
+    //     'name.*' => 'required',
+    //     'information.*' => 'required',
+    //     'complete_status' => 'required|string',
+    //     'treasury_number' => 'required|string',
+    //     'vat_invoice_number' => 'required|string',
+    //     'attach_the__supporting_papers' => 'required',
+    //     'board_of_revenue_on_fees' => 'required',
+
+    // ]);
+
+    $stepFourData = FdOneForm::find($request->id);
+    $stepFourData->user_id = Auth::user()->id;
+    $stepFourData->treasury_number = $request->treasury_number;
+    $stepFourData->vat_invoice_number = $request->vat_invoice_number;
 
     if ($request->hasfile('attach_the__supporting_papers')) {
         $file = $request->file('attach_the__supporting_papers');
-        $extension = $time_dy.$file->getClientOriginalName();
+        $extension = $cutomeFileName.$file->getClientOriginalName();
         $filename = $extension;
         $file->move('public/uploads/', $filename);
-        $category_list->attach_the__supporting_papers = 'uploads/'.$filename;
+        $stepFourData->attach_the__supporting_paper = 'uploads/'.$filename;
 
     }
 
 
     if ($request->hasfile('board_of_revenue_on_fees')) {
        $file = $request->file('board_of_revenue_on_fees');
-       $extension = $time_dy.$file->getClientOriginalName();
+       $extension = $cutomeFileName.$file->getClientOriginalName();
        $filename = $extension;
        $file->move('public/uploads/', $filename);
-       $category_list->board_of_revenue_on_fees = 'uploads/'.$filename;
+       $stepFourData->board_of_revenue_on_fees = 'uploads/'.$filename;
 
    }
 
-    $category_list->complete_status = $request->submit_value;
-    $category_list->save();
+    $stepFourData->complete_status = $request->submit_value;
+    $stepFourData->save();
 
 
-    $mm_id = $category_list->id;
+    $mm_id = $stepFourData->id;
 
     if(empty($request->account_number)){
 
@@ -1093,31 +914,26 @@ if(empty($get_complete_status)){
 
     if($request->bank_id == 'p'){
 
-        $form= new Bankaccount();
+        $form= new FormOneBankAccount();
         $form->account_number=$request->account_number;
         $form->account_type=$request->account_type;
         $form->name_of_bank=$request->name_of_bank;
         $form->branch_name_of_bank=$request->branch_name_of_bank;
         $form->bank_address=$request->bank_address;
-        $form->user_id =  Auth::user()->id;
-        $form->ngo_id = $mm_id;
+        $form->fd_one_form_id = $request->id;
+        $form->time_for_api = $main_time;
         $form->save();
 
     }else{
 
-
-
-
-
-
-    $form= Bankaccount::find($request->bank_id);
+    $form= FormOneBankAccount::find($request->bank_id);
     $form->account_number=$request->account_number;
     $form->account_type=$request->account_type;
     $form->name_of_bank=$request->name_of_bank;
     $form->branch_name_of_bank=$request->branch_name_of_bank;
     $form->bank_address=$request->bank_address;
-    $form->user_id =  Auth::user()->id;
-    $form->ngo_id = $mm_id;
+    $form->fd_one_form_id = $request->id;
+    $form->time_for_api = $main_time;
     $form->save();
 }
     }
@@ -1130,19 +946,16 @@ if(in_array(null, $input['name'])){
 
 }else{
 
-
-
-
     if (array_key_exists("name", $input)){
 
        $new_cat_dec = $input['name'];
-    foreach($new_cat_dec as $key => $new_cat_dec){
+       foreach($new_cat_dec as $key => $new_cat_dec){
 
-       $form1= new Fdoneformadviser();
+       $form1= new FormOneAdviserList();
        $form1->name=$input['name'][$key];
        $form1->information=$input['information'][$key];
-       $form1->user_id =  Auth::user()->id;
-       $form1->ngo_id = $mm_id;
+       $form1->fd_one_form_id = $request->id;
+       $form1->time_for_api = $main_time;
        $form1->save();
 
     }
@@ -1159,14 +972,14 @@ if(in_array(null, $input['name'])){
     foreach($new_cat_dec_new as $key => $new_cat_dec_new){
 
 
-       $form2= new Acounntotherinfo();
+       $form2= new FormOneOtherPdfList();
 
        $file=$input['information_type'][$key];
        $name=time().mt_rand(1000000000, 9999999999).'.'.$file->getClientOriginalExtension();
        $file->move('public/uploads/', $name);
-       $form2->information_type='uploads/'.$name;
-       $form2->user_id =  Auth::user()->id;
-       $form2->ngo_id = $mm_id;
+       $form2->information_pdf='uploads/'.$name;
+       $form2->fd_one_form_id = $request->id;
+       $form2->time_for_api = $main_time;
        $form2->save();
 
     }
@@ -1176,55 +989,26 @@ if(in_array(null, $input['name'])){
 
    if($request->submit_value == 'all_complete'){
 
+    return redirect('/fdFormOneInfo');
+
+}else{
+
+return redirect('/othersInformation');
+
+}
+
+}
 
 
-       return redirect('/fd_one_form_information');
+    public function fdFormOneInfoPdf(){
 
-
-   }else{
-
-
-
-
-       return redirect('/others_information');
-
-
-   }
-
-
-
-    }
-
-
-    public function fd_one_form_information_pdf(){
-
-        $get_complete_status = Fboneform::where('user_id',Auth::user()->id)->first();
-
-
-
-
-        $getNgoTypeForPdf = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-        ->value('ngo_type');
-
-
-
-
-
-        $get_all_data_adviser_bank = DB::table('bankaccounts')->where('user_id',Auth::user()->id)
-               ->first();
-
-
-               $get_all_data_other= DB::table('acounntotherinfos')->where('user_id',Auth::user()->id)
-               ->get();
-
-               $get_all_data_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::user()->id)
-       ->get();
-
-       $all_partiw = Fdoneform_staff::where('user_id',Auth::user()->id)->get();
-
-
-       $get_all_source_of_fund_data = DB::table('sourceoffunds')
-       ->where('user_id',Auth::user()->id)->get();
+        $allformOneData = FdOneForm::where('user_id',Auth::user()->id)->first();
+        $getNgoTypeForPdf = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+        $get_all_data_adviser_bank = DB::table('form_one_bank_accounts')->where('fd_one_form_id',$allformOneData->id)->first();
+        $get_all_data_other= DB::table('form_one_other_pdf_lists')->where('fd_one_form_id',$allformOneData->id)->get();
+        $get_all_data_adviser = DB::table('form_one_adviser_lists')->where('fd_one_form_id',$allformOneData->id)->get();
+        $formOneMemberList = FormOneMemberList::where('fd_one_form_id',$allformOneData->id)->get();
+        $get_all_source_of_fund_data = DB::table('form_one_source_of_funds')->where('fd_one_form_id',$allformOneData->id)->get();
 
 
         $file_Name_Custome = 'fd_one_form';
@@ -1240,16 +1024,16 @@ if(in_array(null, $input['name'])){
       );
 
 
-        $pdf=PDF::loadView('front.form.formone.fd_one_form_information_pdf',[
+        $pdf=PDF::loadView('front.form.formone.fdFormOneInfoPdf',[
             'getNgoTypeForPdf'=>$getNgoTypeForPdf,
             'engDATE'=>$engDATE,
             'bangDATE'=>$bangDATE,
             'get_all_source_of_fund_data'=>$get_all_source_of_fund_data,
-            'all_partiw'=>$all_partiw,
+            'formOneMemberList'=>$formOneMemberList,
             'get_all_data_adviser'=>$get_all_data_adviser,
             'get_all_data_other'=>$get_all_data_other,
             'get_all_data_adviser_bank'=>$get_all_data_adviser_bank,
-            'get_complete_status'=>$get_complete_status
+            'allformOneData'=>$allformOneData
 
         ],[],['format' => 'A4']);
     return $pdf->stream($file_Name_Custome.''.'.pdf');

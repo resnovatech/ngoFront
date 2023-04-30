@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FdOneForm extends Model
 {
     use HasFactory;
-    public $table = "fboneforms";
+    public $table = "fd_one_forms";
 
     protected $fillable = [
         'registration_number',
@@ -22,6 +22,7 @@ class FdOneForm extends Model
         'name_of_head_in_bd',
         'job_type',
         'address',
+        'district',
         'phone',
         'email',
         'citizenship',

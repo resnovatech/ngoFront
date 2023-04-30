@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('name_of_head_in_bd')->nullable();
             $table->string('job_type')->nullable();
             $table->string('address')->nullable();
+            $table->string('district')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('citizenship')->nullable();

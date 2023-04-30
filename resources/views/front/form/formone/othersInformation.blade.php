@@ -29,7 +29,7 @@
                 <div class="right-side">
                     <?php
 
-                    $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)
+                    $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
                            ->first();
 
 
@@ -38,7 +38,7 @@
 
 
                     ?>
-                    @if(count($all_parti) == 0)
+                    @if(count($particularsOfOrganisationData) == 0)
 
 
                 @else
@@ -49,10 +49,10 @@
 
 
 
-                <form action="{{ route('others_information_update') }}" method="post" enctype="multipart/form-data" id="form" id="form"  data-parsley-validate="">
+                <form action="{{ route('othersInformationUpdate') }}" method="post" enctype="multipart/form-data" id="form" id="form"  data-parsley-validate="">
                     @csrf
 
-                    <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="id"  id="">
+                    <input type="hidden" class="form-control" value="{{ $getFormOneData->id }}" name="id"  id="">
 
                 <div class="main active">
                     <div class="text">
@@ -64,10 +64,10 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="">{{ trans('fd_one_step_four.treasury_number')}} <span class="text-danger">*</span> </label>
-                                <input class="form-control" required value="{{ $get_all_data_1->treasury_number }}" name="treasury_number" type="text" id="">
+                                <input class="form-control" required value="{{ $getFormOneData->treasury_number }}" name="treasury_number" type="text" id="">
                             </div>
 
-                            @if(empty($get_all_data_1->attach_the__supporting_papers))
+                            @if(empty($getFormOneData->attach_the__supporting_paper))
                             <div class="mb-3">
                                 <label class="form-label"  for="">{{ trans('fd_one_step_four.attach_the_supporting_papers')}} <span class="text-danger">*</span> </label>
                                 <input class="form-control" required  name="attach_the__supporting_papers" accept=".pdf" type="file" id="">
@@ -77,7 +77,7 @@
 
                             <?php
 
-$file_path = url($get_all_data_1->attach_the__supporting_papers);
+$file_path = url($getFormOneData->attach_the__supporting_paper);
 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
 $extension = pathinfo($file_path, PATHINFO_EXTENSION);
@@ -97,10 +97,10 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
                             <div class="mb-3">
                                 <label class="form-label" for="">{{ trans('fd_one_step_four.treasury_invoice_number_for_payment_of_vAT')}} <span class="text-danger">*</span> </label>
-                                <input class="form-control" required name="vat_invoice_number" value="{{ $get_all_data_1->vat_invoice_number }}" type="text" id="">
+                                <input class="form-control" required name="vat_invoice_number" value="{{ $getFormOneData->vat_invoice_number }}" type="text" id="">
                             </div>
 
-                            @if(empty($get_all_data_1->board_of_revenue_on_fees))
+                            @if(empty($getFormOneData->board_of_revenue_on_fees))
                             <div class="mb-3">
                                 <label class="form-label" for="">
                                     {{ trans('fd_one_step_four.15_VAT')}} <span class="text-danger">*</span> </label>
@@ -110,7 +110,7 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
                             <?php
 
-$file_path = url($get_all_data_1->board_of_revenue_on_fees);
+$file_path = url($getFormOneData->board_of_revenue_on_fees);
 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
 $extension = pathinfo($file_path, PATHINFO_EXTENSION);
@@ -137,7 +137,7 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
                         <?php
 
 
-$get_all_data_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::user()->id)
+$get_all_data_adviser = DB::table('form_one_adviser_lists')->where('fd_one_form_id',Session::get('mm_id'))
        ->get();
 
 
@@ -271,11 +271,11 @@ $get_all_data_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::us
                             <?php
 
 
-                            $get_all_data_adviser_bank = DB::table('bankaccounts')->where('user_id',Auth::user()->id)
+                            $get_all_data_adviser_bank = DB::table('form_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
                                    ->first();
 
 
-                            $get_all_data_adviser_bank_all = DB::table('bankaccounts')->where('user_id',Auth::user()->id)
+                            $get_all_data_adviser_bank_all = DB::table('form_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
                              ->get();
 
 
@@ -458,7 +458,7 @@ $get_all_data_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::us
              <?php
 
 
-                            $get_all_data_other= DB::table('acounntotherinfos')->where('user_id',Auth::user()->id)
+                            $get_all_data_other= DB::table('form_one_other_pdf_lists')->where('fd_one_form_id',Session::get('mm_id'))
                                    ->get();
 
 
@@ -584,7 +584,7 @@ Update
                     </div>
 
                     <div class="buttons d-flex justify-content-end mt-4">
-                        <a href="{{ route('all_staff_details_information') }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
+                        <a href="{{ route('allStaffDetailsInformation') }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
                         <button class="btn btn-custom submit_button" name="submit_value" value="all_complete" type="submit" >{{ trans('fd_one_step_four.Submit')}}</button>
                     </div>
                 </div>

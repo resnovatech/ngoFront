@@ -55,16 +55,6 @@
         <td>{{ trans('form 8_bn.member_of_service_holder_of_Any_other_ngo')}}</td>
         <td>: {{ $all_data_list->service_status }}</td>
     </tr>
-    <tr>
-        <td>{{ trans('form 8_bn.remarks')}}</td>
-        <td>: {{ $all_data_list->remarks }}</td>
-    </tr>
-    {{-- <tr>
-        <td>Signature</td>
-        <td>: <img src="{{ asset('/') }}{{ $all_data_list->image  }}" style="height:50px;" /></td>
-    </tr>
-    <tr>
-        <td>Date</td>
-        <td>: {{ $all_data_list->main_date }}</td>
-    </tr> --}}
+   
+
 </table>

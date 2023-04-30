@@ -75,35 +75,35 @@
             <td class="number_section">(i)</td>
             <td>{{ trans('fd_one_step_one.Organization_Name_Organization_address')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->organization_name }} <br> {{ trans('fd_one_step_one.Organization_address')}}: {{ $get_complete_status->organization_address }}</td>
+            <td>{{ $allformOneData->organization_name }} <br> {{ trans('fd_one_step_one.Organization_address')}}: {{ $allformOneData->organization_address }}</td>
         </tr>
         <!-- <tr>
             <td></td>
             <td class="number_section">(ii)</td>
             <td>{{ trans('fd_one_step_one.Organization_address')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->organization_address }}</td>
+            <td>{{ $allformOneData->organization_address }}</td>
         </tr>-->
         <tr>
             <td></td>
             <td class="number_section">(iii)</td>
             <td>{{ trans('fd_one_step_one.reg_num')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->reg_no_get_from_admin }}</td>
+            <td>{{ $allformOneData->registration_number }}</td>
         </tr>
         <tr>
             <td></td>
             <td class="number_section">(iv)</td>
             <td>{{ trans('fd_one_step_one.Country_of_Origin')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->country_of_origin }}</td>
+            <td>{{ $allformOneData->country_of_origin }}</td>
         </tr>
         <tr>
             <td></td>
             <td class="number_section">(v)</td>
             <td>{{ trans('fd_one_step_one.Address_of_the_Head_Office')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->address_of_head_office }}</td>
+            <td>{{ $allformOneData->address_of_head_office }}</td>
         </tr>
         <tr>
             <td></td>
@@ -117,26 +117,26 @@
             <td></td>
             <td>{{ trans('form 8_bn.a')}}) {{ trans('fd_one_step_one.name')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->name_of_head_in_bd }}</td>
+            <td>{{ $allformOneData->name_of_head_in_bd }}</td>
         </tr>
-      
-       <?php  
+
+       <?php
                                   $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                                   if($getngoForLanguage =='দেশিও'){
-                                    
-                                    if($get_complete_status->job_type == 'Full-Time'){
-                                       
+
+                                    if($allformOneData->job_type == 'Full-Time'){
+
                                       $getJobType = 'পূর্ণকালীন';
                                     }else{
                                     $getJobType = 'খণ্ডকালীন';
                                     }
-                                  
+
                                   }else{
-                                   $getJobType =$get_complete_status->job_type;
+                                   $getJobType =$allformOneData->job_type;
                                   }
-                                  
+
                                   ?>
-      
+
         <tr>
             <td></td>
             <td></td>
@@ -149,17 +149,17 @@
             <td></td>
             <td>{{ trans('form 8_bn.c')}}) {{ trans('fd_one_step_one.Address_Mobile_Number_Email')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->address }}, {{ $get_complete_status->phone }}, {{ $get_complete_status->email }}</td>
+            <td>{{ $allformOneData->address }}, {{ $allformOneData->phone }}, {{ $allformOneData->email }}</td>
         </tr>
-      
-       <?php  
+
+       <?php
                                     if($getngoForLanguage =='দেশিও'){
-                                    $getCityzendata = DB::table('country')->where('city_eng',$get_complete_status->citizenship)->value('city_bangla');
+                                    $getCityzendata = DB::table('countries')->where('people_english',$allformOneData->citizenship)->value('people_bangla');
                                     }else{
-                                    
-                                    $getCityzendata = $get_complete_status->citizenship;
+
+                                    $getCityzendata = $allformOneData->citizenship;
                                     }
-                                  
+
                                   ?>
         <tr>
             <td></td>
@@ -173,7 +173,7 @@
             <td></td>
             <td>{{ trans('form 8_bn.e')}}) {{ trans('fd_one_step_one.Profession')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->profession }}</td>
+            <td>{{ $allformOneData->profession }}</td>
         </tr>
         <tr>
             <td>{{ trans('fd_one_step_one.two')}}.</td>
@@ -185,7 +185,7 @@
             <td>{{ trans('form 8_bn.a')}}</td>
             <td>(i) {{ trans('fd_one_step_two.Plan_of_Operation')}} </td>
             <td style="width:4px">:</td>
-            <td>@if(empty($get_complete_status->plan_of_operation))
+            <td>@if(empty($allformOneData->plan_of_operation))
 
                 @else
 
@@ -204,7 +204,7 @@
             <td></td>
             <td>(ii) {{ trans('fd_one_step_two.pp')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->district }},{{ $get_complete_status->sub_district }}</td>
+            <td>{{ $allformOneData->district }},{{ $allformOneData->sub_district }}</td>
         </tr>
         <tr>
             <td></td>
@@ -243,14 +243,14 @@
             <td>{{ trans('fd_one_step_one.three')}}.</td>
             <td colspan="2">{{ trans('fd_one_step_two.money')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $get_complete_status->annual_budget }}</td>
+            <td>{{ $allformOneData->annual_budget }}</td>
         </tr>
         <tr>
             <td>{{ trans('fd_one_step_one.four')}}.</td>
             <td colspan="4">{{ trans('fd_one_step_three.staff_position')}}
             </td>
         </tr>
-        @foreach($all_partiw as $key=>$all_all_parti)
+        @foreach($formOneMemberList as $key=>$allFormOneMemberList)
         <tr>
 
             @if(session()->get('locale') == 'en')
@@ -269,33 +269,33 @@
             <td></td>
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.a')}}) {{ trans('fd_one_step_three.name')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $all_all_parti->name }}</td>
+            <td>{{ $allFormOneMemberList->name }}</td>
         </tr>
         <tr>
             <td></td>
 
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.b')}}) {{ trans('fd_one_step_three.desi')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $all_all_parti->position }}</td>
+            <td>{{ $allFormOneMemberList->position }}</td>
         </tr>
         <tr>
             <td></td>
 
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.c')}}) {{ trans('fd_one_step_three.address')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $all_all_parti->address }}</td>
+            <td>{{ $allFormOneMemberList->address }}</td>
         </tr>
-      
-      <?php  
-                                  
-                                  $convetArray = explode(",",$all_all_parti->citizenship);
-                                  
-                                  
+
+      <?php
+
+                                  $convetArray = explode(",",$allFormOneMemberList->citizenship);
+
+
                                     if($getngoForLanguage =='দেশিও'){
-                                    $getCityzendata = DB::table('country')->whereIn('city_eng',$convetArray)->get();
+                                    $getCityzendata = DB::table('countries')->whereIn('people_english',$convetArray)->get();
                                     }else{
-                                    
-                                    $getCityzendata = $all_all_parti->citizenship;
+
+                                    $getCityzendata = $allFormOneMemberList->citizenship;
                                     }
                                   //dd($getCityzendata);
                                   ?>
@@ -306,10 +306,10 @@
             <td style="width:4px">:</td>
             <td> @if($getngoForLanguage =='দেশিও')
                                       @foreach($getCityzendata as $all_getCityzendata)
-                                      {{$all_getCityzendata->city_bangla}},
+                                      {{$all_getCityzendata->people_bangla}},
                                       @endforeach
                                       @else
-                                      {{ $all_all_parti->citizenship }}
+                                      {{ $allFormOneMemberList->citizenship }}
                                       @endif</td>
         </tr>
         <tr>
@@ -317,21 +317,21 @@
 
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.e')}}) {{ trans('fd_one_step_three.date_of_joining')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $all_all_parti->date_of_join }}</td>
+            <td>{{ $allFormOneMemberList->date_of_join }}</td>
         </tr>
         <tr>
             <td></td>
 
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.f')}}) {{ trans('fd_one_step_three.s_statement')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $all_all_parti->salary_statement }}</td>
+            <td>{{ $allFormOneMemberList->salary_statement }}</td>
         </tr>
         <tr>
             <td></td>
 
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.g')}}) {{ trans('fd_one_step_three.detail')}}</td>
             <td style="width:4px">:</td>
-            <td> {{ $all_all_parti->other_occupation }}</td>
+            <td> {{ $allFormOneMemberList->other_occupation }}</td>
         </tr>
         @endforeach
 
@@ -341,7 +341,7 @@
             </td>
             <td style="width:4px">:</td>
             <td>
-                @if(empty($get_complete_status->attach_the__supporting_papers))
+                @if(empty($allformOneData->attach_the__supporting_paper))
 
                 @else
 

@@ -30,20 +30,20 @@
 
                     <?php
 
-                    $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)
+                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
            ->first();
 
 
                                     ?>
 
-                    @if(count($all_parti) == 0)
+                    @if(count($particularsOfOrganisationData) == 0)
 
 
                 @else
 
-                <form action="{{ route('field_of_proposed_activities_update') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                <form action="{{ route('fieldOfProposedActivitiesUpdate') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
                     @csrf
-                    <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="mid"  id="">
+                    <input type="hidden" class="form-control" value="{{ $allFormOneData->id }}" name="mid"  id="">
                 <div class="main active">
                     <div class="text">
                         <h2>{{ trans('fd_one_step_two.Field_of_proposed_activities')}}</h2>
@@ -52,7 +52,7 @@
 
                     <div class="mt-3">
 
-                        @if(empty($get_all_data_1->plan_of_operation))
+                        @if(empty($allFormOneData->plan_of_operation))
 
                             <div class="mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_two.Plan_of_Operation')}} <span class="text-danger">*</span> </label>
@@ -62,7 +62,7 @@
 
 <?php
 
-$file_path = url($get_all_data_1->plan_of_operation);
+$file_path = url($allFormOneData->plan_of_operation);
 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
 $extension = pathinfo($file_path, PATHINFO_EXTENSION);
@@ -84,21 +84,10 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
                                 <label for="" class="form-label">{{ trans('fd_one_step_two.Project_District')}}, {{ trans('fd_one_step_two.Project_Sub_District')}}<span class="text-danger">*</span> </label>
 
 
-                                <input type="text"  name="district" value="{{ $get_all_data_1->district }}" data-parsley-required class="form-control" id="">
-                                <input type="hidden"  name="sub_district" data-parsley-required value="0" class="form-control" id="">
+                                <input type="text"  name="district" value="{{ $allFormOneData->district }}" data-parsley-required class="form-control" id="">
 
-                                {{-- <select required class="distinct-single form-control custom-form-control" name="district" data-parsley-required>
-                                    <option value="Dhaka" {{'Dhaka' == $get_all_data_1->district ? 'selected':'' }}>Dhaka</option>
-                                    <option value="Sylhet" {{'Sylhet' == $get_all_data_1->district ? 'selected':'' }}>Sylhet</option>
-                                </select> --}}
                             </div>
-                            {{-- <div class="mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_two.Project_Sub_District')}} <span class="text-danger">*</span> </label>
-                                <select required class="sub-distinct-single form-control custom-form-control" name="sub_district" data-parsley-required>
-                                    <option value="Tangial" {{'Tangial' == $get_all_data_1->sub_district ? 'selected':'' }}>Tangial</option>
-                                    <option value="Demra"  {{'Demra' == $get_all_data_1->sub_district ? 'selected':'' }}>Demra</option>
-                                </select>
-                            </div> --}}
+
 
                             <div class="mb-3">
                                 <h5 class="form_middle_text">
@@ -110,23 +99,22 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
 <?php
 
-$get_all_source_of_fund_data = DB::table('sourceoffunds')->where('user_id',Auth::user()->id)
-->Where('ngo_id',$get_all_data_1->id)->get();
+$getAllSourceOfFundData = DB::table('form_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
 
 
                 ?>
 
                 <div class="row">
-                    @foreach($get_all_source_of_fund_data as $key=>$all_get_all_source_of_fund_data)
+                    @foreach($getAllSourceOfFundData as $key=>$allGetAllSourceOfFundData)
                     <div class="col-md-6 mt-2">
 
                         <div class="card">
 
                             <div class="card-body">
-                                <p><b>{{ trans('fd_one_step_two.Name_of_donor_organization')}}:</b> {{ $all_get_all_source_of_fund_data->name }}</p>
-                                <p><b>{{ trans('fd_one_step_two.Address_of_donor_organization')}}:</b> {{ $all_get_all_source_of_fund_data->address }}</p>
+                                <p><b>{{ trans('fd_one_step_two.Name_of_donor_organization')}}:</b> {{ $allGetAllSourceOfFundData->name }}</p>
+                                <p><b>{{ trans('fd_one_step_two.Address_of_donor_organization')}}:</b> {{ $allGetAllSourceOfFundData->address }}</p>
 
-                                <p><b>{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}}:</b> <a target="_blank" href="{{ route('source_of_fund_doc_download',$all_get_all_source_of_fund_data->id) }}" class="btn btn-custom next_button btn-sm" >
+                                <p><b>{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}}:</b> <a target="_blank" href="{{ route('source_of_fund_doc_download',$allGetAllSourceOfFundData->id) }}" class="btn btn-custom next_button btn-sm" >
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </a></p>
                             </div>
@@ -136,20 +124,12 @@ $get_all_source_of_fund_data = DB::table('sourceoffunds')->where('user_id',Auth:
 
                                   </button>
 
-                                  <button id="deleteRecord{{ $all_get_all_source_of_fund_data->id }}" class="btn btn-danger btn-sm" data-id="{{ $all_get_all_source_of_fund_data->id }}" type="button" name="deleting">
+                                  <button id="deleteRecord{{ $allGetAllSourceOfFundData->id }}" class="btn btn-danger btn-sm" data-id="{{ $allGetAllSourceOfFundData->id }}" type="button" name="deleting">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </button>
 
 
-                                 {{-- <button type="button"  onclick="deleteTag({{ $all_get_all_source_of_fund_data->id}})"class="btn btn-danger btn-sm" >
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
 
-                                  </button>
-                                  <form id="delete-form-{{ $all_get_all_source_of_fund_data->id }}" action="{{ route('source_of_fund_delete',$all_get_all_source_of_fund_data->id) }}" method="POST" >
-
-                                    @csrf
-
-                                </form> --}}
 
 
                                   <!-- Modal -->
@@ -165,14 +145,14 @@ $get_all_source_of_fund_data = DB::table('sourceoffunds')->where('user_id',Auth:
                 @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">{{ trans('fd_one_step_two.Name_of_donor_organization')}} <span class="text-danger">*</span> </label>
-                <input type="text" name="name_sour" value="{{ $all_get_all_source_of_fund_data->name }}" class="form-control" id="exampleFormControlInput1" >
+                <input type="text" name="name_sour" value="{{ $allGetAllSourceOfFundData->name }}" class="form-control" id="exampleFormControlInput1" >
 
-                <input type="hidden" name="id" value="{{ $all_get_all_source_of_fund_data->id }}" class="form-control" id="exampleFormControlInput1" >
+                <input type="hidden" name="id" value="{{ $allGetAllSourceOfFundData->id }}" class="form-control" id="exampleFormControlInput1" >
               </div>
 
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">{{ trans('fd_one_step_two.Address_of_donor_organization')}} <span class="text-danger">*</span> </label>
-                <input type="text" name="address" value="{{ $all_get_all_source_of_fund_data->address }}" class="form-control" id="exampleFormControlInput1" >
+                <input type="text" name="address" value="{{ $allGetAllSourceOfFundData->address }}" class="form-control" id="exampleFormControlInput1" >
               </div>
 
               <div class="mb-3">
@@ -201,7 +181,7 @@ $get_all_source_of_fund_data = DB::table('sourceoffunds')->where('user_id',Auth:
 
 
 
-@if(count($get_all_source_of_fund_data) == 0)
+@if(count($getAllSourceOfFundData) == 0)
 
 <div class="mb-3 mt-2">
     <table class="table table-light" id="dynamicAddRemove">
@@ -268,7 +248,7 @@ $get_all_source_of_fund_data = DB::table('sourceoffunds')->where('user_id',Auth:
 
                             <div class="mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_two.What_is_Your_Expected_Annual_Budget_Foreign_Currency_or_Bangladeshi_Taka')}} <span class="text-danger">*</span> </label>
-                                <input type="text" name="annual_budget" value="{{ $get_all_data_1->annual_budget }}" data-parsley-required class="form-control" id="">
+                                <input type="text" name="annual_budget" value="{{ $allFormOneData->annual_budget }}" data-parsley-required class="form-control" id="">
                             </div>
 
 

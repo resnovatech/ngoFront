@@ -29,22 +29,22 @@
                 <div class="right-side">
                     <?php
 
-                    $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->first();
+                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
 
                                     ?>
-                    @if(count($all_parti) == 0)
+                    @if(count($particularsOfOrganisationData) == 0)
 
             @else
 
 
 <?php
-$get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
+$getCityzenshipData = DB::table('countries')->whereNotNull('people_english')
+            ->whereNotNull('people_bangla')->orderBy('id','desc')->get();
 ?>
-            <form action="{{ route('all_staff_details_information_update') }}" method="post" enctype="multipart/form-data" id="form"  data-parsley-validate="">
+            <form action="{{ route('allStaffDetailsInformationUpdate') }}" method="post" enctype="multipart/form-data" id="form"  data-parsley-validate="">
                 @csrf
-                <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="id"  id="">
+                <input type="hidden" class="form-control" value="{{ $allFormOneData->id }}" name="id"  id="">
             <div class="main active">
                 <div class="text">
                     <h2>{{ trans('fd_one_step_three.All_staff_details_information')}} </h2>
@@ -58,7 +58,7 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 {{ trans('fd_one_step_three.staff_position')}}
                             </h5>
                         </div>
-                        @if(count($all_partiw) == 0)
+                        @if(count($formOneMemberList) == 0)
 
                         <div class="mb-3">
                             <h5 class="form_middle_text">
@@ -87,11 +87,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
                                 <select name="citizenship1[]" required class="js-example-basic-multiple form-control" name="states[]"
                                         multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
+                                        @foreach($getCityzenshipData as $allGetCityzenshipData)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                        <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_bangla }}</option>
                                         @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_eng }}</option>
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_english }}</option>
                                     @endif
                                     @endforeach
                                 </select>
@@ -143,11 +143,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
                                 <select name="citizenship2[]" required class="js-example-basic-multiple form-control" name="states[]"
                                         multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
+                                        @foreach($getCityzenshipData as $allGetCityzenshipData)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                        <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_bangla }}</option>
                                         @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_eng }}</option>
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_english }}</option>
                                     @endif
                                     @endforeach
                                 </select>
@@ -199,11 +199,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
                                 <select name="citizenship3[]" required class="js-example-basic-multiple form-control" name="states[]"
                                         multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
+                                        @foreach($getCityzenshipData as $allGetCityzenshipData)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                        <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_bangla }}</option>
                                         @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_eng }}</option>
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_english }}</option>
                                     @endif
                                     @endforeach
                                 </select>
@@ -255,11 +255,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
                                 <select name="citizenship4[]" required class="js-example-basic-multiple form-control" name="states[]"
                                         multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
+                                        @foreach($getCityzenshipData as $allGetCityzenshipData)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                        <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_bangla }}</option>
                                         @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_eng }}</option>
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_english }}</option>
                                     @endif
                                     @endforeach
                                 </select>
@@ -311,11 +311,11 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
                                 <select name="citizenship5[]" required class="js-example-basic-multiple form-control" name="states[]"
                                         multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
+                                        @foreach($getCityzenshipData as $allGetCityzenshipData)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                        <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_bangla }}</option>
                                         @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" >{{ $all_get_cityzenship_data->city_eng }}</option>
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" >{{ $allGetCityzenshipData->people_english }}</option>
                                     @endif
                                     @endforeach
                                 </select>
@@ -341,7 +341,7 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                         </div>
 
                         @else
-@foreach($all_partiw as $key=>$all_all_parti)
+@foreach($formOneMemberList as $key=>$allFormOneMemberList)
                         <div class="mb-3">
 
                             <h5 class="form_middle_text">
@@ -362,23 +362,23 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 mb-3">
                                 <label for="" class="form-label">  {{ trans('fd_one_step_three.name')}} <span class="text-danger">*</span> </label>
-                                <input name="staff_name[]" value="{{ $all_all_parti->name }}" required type="text" class="form-control" id="">
+                                <input name="staff_name[]" value="{{ $allFormOneMemberList->name }}" required type="text" class="form-control" id="">
                             </div>
                             <div class="col-lg-6 col-sm-12 mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.desi')}} <span class="text-danger">*</span> </label>
-                                <input name="staff_position[]" value="{{ $all_all_parti->position }}" required type="text" class="form-control" id="">
+                                <input name="staff_position[]" value="{{ $allFormOneMemberList->position }}" required type="text" class="form-control" id="">
                             </div>
                             <div class="col-lg-6 col-sm-12 mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.address')}} <span class="text-danger">*</span> </label>
-                                <input name="staff_address[]" value="{{ $all_all_parti->address }}" required type="text" class="form-control" id="">
+                                <input name="staff_address[]" value="{{ $allFormOneMemberList->address }}" required type="text" class="form-control" id="">
                             </div>
                             <div class="col-lg-6 col-sm-12 mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.date_of_joining')}} <span class="text-danger">*</span> </label>
-                                <input name="date_of_join[]"  value="{{ $all_all_parti->date_of_join }}" required type="text" class="form-control" id="">
+                                <input name="date_of_join[]"  value="{{ $allFormOneMemberList->date_of_join }}" required type="text" class="form-control" id="">
                             </div>
 
                             <?php
-                            $convert_new_ass_cat  = explode(",",$all_all_parti->citizenship);
+                            $convert_new_ass_cat  = explode(",",$allFormOneMemberList->citizenship);
 
                                                ?>
 
@@ -386,13 +386,15 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
                                 <select name="citizenship{{ $key+1 }}[]" required class="js-example-basic-multiple form-control" name="states[]"
                                         multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                                        @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
-                                        @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
-                                    @endif
-                                    @endforeach
+
+
+                                    @foreach($getCityzenshipData as $allGetCityzenshipData)
+                                    @if(session()->get('locale') == 'en')
+                                    <option value="{{ $allGetCityzenshipData->people_english }}" {{ (in_array($allGetCityzenshipData->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $allGetCityzenshipData->people_bangla }}</option>
+                                    @else
+                                <option value="{{ $allGetCityzenshipData->people_english }}" {{ (in_array($allGetCityzenshipData->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $allGetCityzenshipData->people_english }}</option>
+                                @endif
+                                @endforeach
                                 </select>
                             </div>
 
@@ -402,18 +404,18 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
 
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">{{ trans('news.nn')}}<span class="text-danger">*</span> </label>
-                                <input type="text" required name="now_working_at[]" value="{{ $all_all_parti->now_working_at }}" class="form-control" id="">
+                                <input type="text" required name="now_working_at[]" value="{{ $allFormOneMemberList->now_working_at }}" class="form-control" id="">
                             </div>
                             @endif
 
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.s_statement')}} <span class="text-danger">*</span> </label>
-                                <input type="text" required value="{{ $all_all_parti->salary_statement }}" name="salary_statement[]" class="form-control" id="">
+                                <input type="text" required value="{{ $allFormOneMemberList->salary_statement }}" name="salary_statement[]" class="form-control" id="">
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">{{ trans('fd_one_step_three.detail')}} <span class="text-danger">*</span> </label>
 
-                                <input type="text" name="other_occupation[]" value="{{ $all_all_parti->other_occupation }}" required class="form-control" id=""
+                                <input type="text" name="other_occupation[]" value="{{ $allFormOneMemberList->other_occupation }}" required class="form-control" id=""
                                 placeholder="Detail Description (বিস্তারিত বিবরণ)">
 
 
@@ -428,7 +430,7 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                 </div>
 
                 <div class="buttons d-flex justify-content-end mt-4">
-                    <a href="{{ route('field_of_proposed_activities') }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
+                    <a href="{{ route('fieldOfProposedActivities') }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
                     <button class="btn btn-danger me-2" name="submit_value" value="save_and_exit_from_three" type="submit">{{ trans('fd_one_step_one.Save_&_Exit')}}</button>
                     <button class="btn btn-custom next_button" name="submit_value" value="next_step_from_three" type="submit">{{ trans('fd_one_step_one.Next_Step')}}</button>
 

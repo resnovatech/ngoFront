@@ -26,7 +26,7 @@
                     <div class="user_dashboard_right">
                         <h4>{{ trans('fd_one_step_one.f_form')}} </h4>
                     </div>
-                  
+
                   <div class="card-body mt-3 mb-3">
                         <div class="card-body">
                             <p>Download FD-01 PDF, upload with seal, signature of Chief Executive</p>
@@ -39,14 +39,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                       <a class="btn btn-sm btn-success" target="_blank" href = "{{ route('fd_one_form_information_pdf') }}">
+                                       <a class="btn btn-sm btn-success" target="_blank" href = "{{ route('fdFormOneInfoPdf') }}">
                             {{ trans('form 8_bn.download_pdf')}}
                         </a>
                                     </td>
                                     <td>
-                                        @if($get_complete_status->complete_status == 'all_complete')
+                                        @if($allformOneData->complete_status == 'all_complete')
 
-                        @if($get_complete_status->s_pdf == 0)
+                        @if($allformOneData->s_pdf == 0)
                         <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             {{ trans('form 8_bn.upload_pdf')}}
                         </button>
@@ -54,7 +54,7 @@
 
                         <?php
 
-                        $file_path = url($get_complete_status->s_pdf);
+                        $file_path = url($allformOneData->s_pdf);
                         $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
                         $extension = pathinfo($file_path, PATHINFO_EXTENSION);
@@ -88,7 +88,7 @@
                 <div class=" mb-3">
                     <label for="" class="form-label">{{ trans('form 8_bn.pdf')}}:</label>
                     <input type="file" data-parsley-required accept=".pdf" name="s_pdf"  class="form-control" id="">
-                    <input type="hidden" data-parsley-required  name="id"  value="{{ $get_complete_status->id }}" class="form-control" id="">
+                    <input type="hidden" data-parsley-required  name="id"  value="{{ $allformOneData->id }}" class="form-control" id="">
                 </div>
 
                 <button class="btn btn-sm btn-success" type="submit">
@@ -106,7 +106,7 @@
                         @endif
                                     </td>
                                     <td>
-                                       <button class="btn btn-sm btn-success" onclick="location.href = '{{ route('fd_one_form_edit') }}';">
+                                       <button class="btn btn-sm btn-success" onclick="location.href = '{{ route('fdOneFormEdit') }}';">
                             {{ trans('fd_one_step_four.fd_update')}}
                         </button>
                                     </td>
@@ -114,7 +114,7 @@
                             </table>
  <?php
 
-                    $data = DB::table('fboneforms')->where('user_id',Auth::user()->id)
+                    $data = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
                            ->first();
 
 
@@ -139,11 +139,11 @@ foreach ($data   as $a) {
                             <p class="badge bg-danger rounded">{{ trans('form 8_bn.un_complete_status')}}</p>
 
                             @endif
-                            
+
                         </div>
                     </div>
 
-                  
+
 
                     <div class="card">
                         <div class="card-body">
@@ -158,31 +158,31 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td>(i)</td>
                                     <td>{{ trans('fd_one_step_one.Organization_Name_Organization_address')}}</td>
-                                    <td>: {{ $get_complete_status->organization_name }}</td>
+                                    <td>: {{ $allformOneData->organization_name }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>(ii)</td>
                                     <td>{{ trans('fd_one_step_one.Organization_address')}}</td>
-                                    <td>: {{ $get_complete_status->organization_address }}</td>
+                                    <td>: {{ $allformOneData->organization_address }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>(iii)</td>
                                     <td>{{ trans('fd_one_step_one.reg_num')}}</td>
-                                    <td>: {{ $get_complete_status->reg_no_get_from_admin }}</td>
+                                    <td>: {{ $allformOneData->registration_number }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>(iv)</td>
                                     <td>{{ trans('fd_one_step_one.Country_of_Origin')}}</td>
-                                    <td>: {{ $get_complete_status->country_of_origin }}</td>
+                                    <td>: {{ $allformOneData->country_of_origin }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>(v)</td>
                                     <td>{{ trans('fd_one_step_one.Address_of_the_Head_Office')}}</td>
-                                    <td>: {{ $get_complete_status->address_of_head_office }}</td>
+                                    <td>: {{ $allformOneData->address_of_head_office }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -194,27 +194,27 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td></td>
                                     <td>{{ trans('form 8_bn.a')}}) {{ trans('fd_one_step_one.name')}}</td>
-                                    <td>: {{ $get_complete_status->name_of_head_in_bd }}</td>
+                                    <td>: {{ $allformOneData->name_of_head_in_bd }}</td>
                                 </tr>
-                                  
-                                   <?php  
+
+                                   <?php
                                   $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                                   if($getngoForLanguage =='দেশিও'){
-                                    
-                                    if($get_complete_status->job_type == 'Full-Time'){
-                                       
+
+                                    if($allformOneData->job_type == 'Full-Time'){
+
                                       $getJobType = 'পূর্ণকালীন';
                                     }else{
                                     $getJobType = 'খণ্ডকালীন';
                                     }
-                                  
+
                                   }else{
-                                   $getJobType =$get_complete_status->job_type;
+                                   $getJobType =$allformOneData->job_type;
                                   }
-                                  
+
                                   ?>
-                                  
-                                  
+
+
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -225,16 +225,16 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td></td>
                                     <td>{{ trans('form 8_bn.c')}}) {{ trans('fd_one_step_one.Address')}}, {{ trans('fd_one_step_one.Mobile_Number')}}, {{ trans('fd_one_step_one.Email')}}</td>
-                                    <td>: {{ $get_complete_status->address }}, {{ $get_complete_status->phone }}, {{ $get_complete_status->email }}</td>
+                                    <td>: {{ $allformOneData->address }}, {{ $allformOneData->phone }}, {{ $allformOneData->email }}</td>
                                 </tr>
-                                 <?php  
+                                 <?php
                                     if($getngoForLanguage =='দেশিও'){
-                                    $getCityzendata = DB::table('country')->where('city_eng',$get_complete_status->citizenship)->value('city_bangla');
+                                    $getCityzendata = DB::table('countries')->where('people_english',$allformOneData->citizenship)->value('people_bangla');
                                     }else{
-                                    
-                                    $getCityzendata = $get_complete_status->citizenship;
+
+                                    $getCityzendata = $allformOneData->citizenship;
                                     }
-                                  
+
                                   ?>
                                 <tr>
                                     <td></td>
@@ -246,7 +246,7 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td></td>
                                     <td>{{ trans('form 8_bn.e')}}) {{ trans('fd_one_step_one.Profession')}}</td>
-                                    <td>: {{ $get_complete_status->profession }}</td>
+                                    <td>: {{ $allformOneData->profession }}</td>
                                 </tr>
                                 <tr>
                                     <td>{{ trans('fd_one_step_one.two')}}.</td>
@@ -257,7 +257,7 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td>{{ trans('form 8_bn.a')}}</td>
                                     <td>(i) {{ trans('fd_one_step_two.Plan_of_Operation')}} </td>
-                                    <td>: @if(empty($get_complete_status->plan_of_operation))
+                                    <td>: @if(empty($allformOneData->plan_of_operation))
 
                                         @else
 
@@ -275,7 +275,7 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td></td>
                                     <td>(ii) {{ trans('fd_one_step_two.pp')}}</td>
-                                    <td>: {{ $get_complete_status->district }}</td>
+                                    <td>: {{ $allformOneData->district }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -311,14 +311,14 @@ foreach ($data   as $a) {
                                 <tr>
                                     <td>{{ trans('fd_one_step_one.three')}}.</td>
                                     <td colspan="2">{{ trans('fd_one_step_two.money')}}</td>
-                                    <td>: {{ $get_complete_status->annual_budget }}</td>
+                                    <td>: {{ $allformOneData->annual_budget }}</td>
                                 </tr>
                                 <tr>
                                     <td>{{ trans('fd_one_step_one.four')}}.</td>
                                     <td colspan="3">{{ trans('fd_one_step_three.staff_position')}}
                                     </td>
                                 </tr>
-                                @foreach($all_partiw as $key=>$all_all_parti)
+                                @foreach($formOneMemberList as $key=>$allFormOneMemberList)
                                 <tr>
 
                                     @if(session()->get('locale') == 'en')
@@ -337,54 +337,54 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td>({{ trans('form 8_bn.a')}})</td>
                                     <td>{{ trans('fd_one_step_three.name')}}</td>
-                                    <td>: {{ $all_all_parti->name }}</td>
+                                    <td>: {{ $allFormOneMemberList->name }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>({{ trans('form 8_bn.b')}})</td>
                                     <td>{{ trans('fd_one_step_three.desi')}}</td>
-                                    <td>: {{ $all_all_parti->position }}</td>
+                                    <td>: {{ $allFormOneMemberList->position }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>({{ trans('form 8_bn.c')}})</td>
                                     <td>{{ trans('fd_one_step_three.address')}}</td>
-                                    <td>: {{ $all_all_parti->address }}</td>
+                                    <td>: {{ $allFormOneMemberList->address }}</td>
                                 </tr>
                                 <tr>
-                                  <?php  
-                                  
-                                  $convetArray = explode(",",$all_all_parti->citizenship);
-                                  
-                                  
+                                  <?php
+
+                                  $convetArray = explode(",",$allFormOneMemberList->citizenship);
+
+
                                     if($getngoForLanguage =='দেশিও'){
-                                    $getCityzendata = DB::table('country')->whereIn('city_eng',$convetArray)->get();
+                                    $getCityzendata = DB::table('countries')->whereIn('people_english',$convetArray)->get();
                                     }else{
-                                    
-                                    $getCityzendata = $all_all_parti->citizenship;
+
+                                    $getCityzendata = $allFormOneMemberList->citizenship;
                                     }
                                   //dd($getCityzendata);
                                   ?>
-                                  
+
                                     <td></td>
                                     <td>({{ trans('form 8_bn.d')}})</td>
                                     <td>{{ trans('fd_one_step_three.citizenship')}}</td>
-                                    <td>: 
+                                    <td>:
                                         @if($getngoForLanguage =='দেশিও')
                                       @foreach($getCityzendata as $all_getCityzendata)
-                                      {{$all_getCityzendata->city_bangla}},
+                                      {{$all_getCityzendata->people_bangla}},
                                       @endforeach
                                       @else
-                                      {{ $all_all_parti->citizenship }}
+                                      {{ $allFormOneMemberList->citizenship }}
                                       @endif
-                                  
+
                                   </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>({{ trans('form 8_bn.e')}})</td>
                                     <td>{{ trans('fd_one_step_three.date_of_joining')}}</td>
-                                    <td>: {{ $all_all_parti->date_of_join }}</td>
+                                    <td>: {{ $allFormOneMemberList->date_of_join }}</td>
                                 </tr>
 
 
@@ -392,13 +392,13 @@ foreach ($data   as $a) {
                                     <td></td>
                                     <td>({{ trans('form 8_bn.f')}})</td>
                                     <td>{{ trans('fd_one_step_three.s_statement')}}</td>
-                                    <td>: {{ $all_all_parti->salary_statement }}</td>
+                                    <td>: {{ $allFormOneMemberList->salary_statement }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>({{ trans('form 8_bn.g')}})</td>
                                     <td>{{ trans('fd_one_step_three.detail')}}</td>
-                                    <td>: {{ $all_all_parti->other_occupation }}</td>
+                                    <td>: {{ $allFormOneMemberList->other_occupation }}</td>
                                 </tr>
                                 @endforeach
 
@@ -407,7 +407,7 @@ foreach ($data   as $a) {
                                     <td colspan="2">{{ trans('fd_one_step_four.tt1')}}
                                     </td>
                                     <td>:
-                                        @if(empty($get_complete_status->attach_the__supporting_papers))
+                                        @if(empty($allformOneData->attach_the__supporting_paper))
 
                                         @else
 
@@ -495,7 +495,7 @@ foreach ($data   as $a) {
                                     <td>:
 @foreach($get_all_data_other as $all_get_all_data_other)
 
-@if(empty($all_get_all_data_other->information_type))
+@if(empty($all_get_all_data_other->information_pdf))
 
 @else
 
