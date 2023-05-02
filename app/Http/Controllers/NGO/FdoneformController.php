@@ -230,28 +230,30 @@ if(empty($formCompleteStatus)){
 
 
 
-        $category_list = new FdOneForm();
-        $category_list->user_id = Auth::user()->id;
-        $category_list->registration_number_given_by_admin = $r_number;
-        $category_list->organization_name = $request->organization_name;
-        $category_list->organization_name_ban = $request->organization_name_ban;
-        $category_list->address_of_head_office_eng = $request->address_of_head_office_eng;
-        $category_list->organization_address = $request->organization_address;
-        $category_list->address_of_head_office = $request->address_of_head_office;
-        $category_list->country_of_origin = $request->country_of_origin;
-        $category_list->name_of_head_in_bd = $request->name_of_head_in_bd;
-        $category_list->job_type = $request->job_type;
-        $category_list->address = $request->address;
-        $category_list->phone = $request->phone;
-        $category_list->email = $request->email;
-        $category_list->profession = $request->profession;
-        $category_list->citizenship = $arr_all;
-        $category_list->complete_status = $request->submit_value;
-        $category_list->time_for_api = $main_time;
-        $category_list->save();
+        $uploadFormOneData = new FdOneForm();
+        $uploadFormOneData->user_id = Auth::user()->id;
+        $uploadFormOneData->registration_number = 0;
+        $uploadFormOneData->local_address = 0 ;
+        $uploadFormOneData->registration_number_given_by_admin = $r_number;
+        $uploadFormOneData->organization_name = $request->organization_name;
+        $uploadFormOneData->organization_name_ban = $request->organization_name_ban;
+        $uploadFormOneData->address_of_head_office_eng = $request->address_of_head_office_eng;
+        $uploadFormOneData->organization_address = $request->organization_address;
+        $uploadFormOneData->address_of_head_office = $request->address_of_head_office;
+        $uploadFormOneData->country_of_origin = $request->country_of_origin;
+        $uploadFormOneData->name_of_head_in_bd = $request->name_of_head_in_bd;
+        $uploadFormOneData->job_type = $request->job_type;
+        $uploadFormOneData->address = $request->address;
+        $uploadFormOneData->phone = $request->phone;
+        $uploadFormOneData->email = $request->email;
+        $uploadFormOneData->profession = $request->profession;
+        $uploadFormOneData->citizenship = $arr_all;
+        $uploadFormOneData->complete_status = $request->submit_value;
+        $uploadFormOneData->time_for_api = $main_time;
+        $uploadFormOneData->save();
 
 
-        $mm_id = $category_list->id;
+        $mm_id = $uploadFormOneData->id;
 
         Session::put('mm_id',$mm_id);
 
@@ -273,26 +275,26 @@ if(empty($formCompleteStatus)){
 
        $arr_all = implode(",",$request->citizenship);
 
-       $category_list = FdOneForm::find($request->id);
-       $category_list->user_id = Auth::user()->id;
-       $category_list->organization_name_ban = $request->organization_name_ban;
-       $category_list->organization_name = $request->organization_name;
-       $category_list->organization_address = $request->organization_address;
-       $category_list->address_of_head_office_eng = $request->address_of_head_office_eng;
-       $category_list->address_of_head_office = $request->address_of_head_office;
-       $category_list->country_of_origin = $request->country_of_origin;
-       $category_list->name_of_head_in_bd = $request->name_of_head_in_bd;
-       $category_list->job_type = $request->job_type;
-       $category_list->address = $request->address;
-       $category_list->phone = $request->phone;
-       $category_list->email = $request->email;
-       $category_list->profession = $request->profession;
-       $category_list->citizenship = $arr_all;
-       $category_list->complete_status = $request->submit_value;
-       $category_list->save();
+       $uploadFormOneData = FdOneForm::find($request->id);
+       $uploadFormOneData->user_id = Auth::user()->id;
+       $uploadFormOneData->organization_name_ban = $request->organization_name_ban;
+       $uploadFormOneData->organization_name = $request->organization_name;
+       $uploadFormOneData->organization_address = $request->organization_address;
+       $uploadFormOneData->address_of_head_office_eng = $request->address_of_head_office_eng;
+       $uploadFormOneData->address_of_head_office = $request->address_of_head_office;
+       $uploadFormOneData->country_of_origin = $request->country_of_origin;
+       $uploadFormOneData->name_of_head_in_bd = $request->name_of_head_in_bd;
+       $uploadFormOneData->job_type = $request->job_type;
+       $uploadFormOneData->address = $request->address;
+       $uploadFormOneData->phone = $request->phone;
+       $uploadFormOneData->email = $request->email;
+       $uploadFormOneData->profession = $request->profession;
+       $uploadFormOneData->citizenship = $arr_all;
+       $uploadFormOneData->complete_status = $request->submit_value;
+       $uploadFormOneData->save();
 
 
-       $mm_id = $category_list->id;
+       $mm_id = $uploadFormOneData->id;
 
        Session::put('mm_id',$mm_id);
 
@@ -312,16 +314,16 @@ if(empty($formCompleteStatus)){
 
          $cutomeFileName = time().date("Ymd");
 
-        $category_list = FdOneForm::find($request->id);
-        if ($request->hasfile('s_pdf')) {
-            $file = $request->file('s_pdf');
+        $uploadVerifiedPdf = FdOneForm::find($request->id);
+        if ($request->hasfile('verified_fd_one_form')) {
+            $file = $request->file('verified_fd_one_form');
             $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->s_pdf = 'uploads/'.$filename;
+            $uploadVerifiedPdf->verified_fd_one_form = 'uploads/'.$filename;
 
         }
-        $category_list->save();
+        $uploadVerifiedPdf->save();
 
         return redirect()->back()->with('success','Uploaded successfully!');;
     }
@@ -337,29 +339,29 @@ if(empty($formCompleteStatus)){
         $cutomeFileName = time().date("Ymd");
 
 
-        $category_list = FormOneSourceOfFund::find($request->id);
-        $category_list->name = $request->name_sour;
-        $category_list->address = $request->address;
+        $uploadOneSourceOfFund = FormOneSourceOfFund::find($request->id);
+        $uploadOneSourceOfFund->name = $request->name_sour;
+        $uploadOneSourceOfFund->address = $request->address;
         if ($request->hasfile('letter_file')) {
             $file = $request->file('letter_file');
             $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->letter_file =  'uploads/'.$filename;
+            $uploadOneSourceOfFund->letter_file =  'uploads/'.$filename;
 
         }
-        $category_list->save();
+        $uploadOneSourceOfFund->save();
 
         return redirect()->back();
 
     }
 
     public function adviser_data_update(Request $request){
-        $category_list = FormOneAdviserList::find($request->id);
-        $category_list->name = $request->name;
-        $category_list->information = $request->information;
+        $addAdviserData = FormOneAdviserList::find($request->id);
+        $addAdviserData->name = $request->name;
+        $addAdviserData->information = $request->information;
 
-        $category_list->save();
+        $addAdviserData->save();
 
         return redirect()->back();
 
@@ -367,17 +369,17 @@ if(empty($formCompleteStatus)){
 
     public function other_information_a_update(Request $request){
         $cutomeFileName = time().date("Ymd");
-        $category_list = FormOneOtherPdfList::find($request->mid);
+        $otherInformationData = FormOneOtherPdfList::find($request->mid);
 
         if ($request->hasfile('letter_file')) {
             $file = $request->file('letter_file');
             $extension = $cutomeFileName.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->letter_file =  'uploads/'.$filename;
+            $otherInformationData->letter_file =  'uploads/'.$filename;
 
         }
-        $category_list->save();
+        $otherInformationData->save();
 
         return redirect()->back();
 
@@ -519,10 +521,10 @@ if(empty($formCompleteStatus)){
 
 
 
-        $category_list = FdOneForm::find($request->id);
-        $category_list->user_id = Auth::user()->id;
-        $category_list->complete_status = $request->submit_value;
-        $category_list->save();
+        $allStaffDetailInfo = FdOneForm::find($request->id);
+        $allStaffDetailInfo->user_id = Auth::user()->id;
+        $allStaffDetailInfo->complete_status = $request->submit_value;
+        $allStaffDetailInfo->save();
 
 
         $input = $request->all();
@@ -636,10 +638,10 @@ return redirect('/othersInformation');
         $delete_all_the_data = FormOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->delete();
 
 
-        $category_list = FdOneForm::find($request->id);
-        $category_list->user_id = Auth::user()->id;
-        $category_list->complete_status = $request->submit_value;
-        $category_list->save();
+        $allStaffDetailInfo = FdOneForm::find($request->id);
+        $allStaffDetailInfo->user_id = Auth::user()->id;
+        $allStaffDetailInfo->complete_status = $request->submit_value;
+        $allStaffDetailInfo->save();
 
 
         $input = $request->all();

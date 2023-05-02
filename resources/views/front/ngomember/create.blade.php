@@ -26,7 +26,7 @@
                             {{ trans('ngo_member.ngo_member')}}
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('ngo_member_store') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('ngoMemberStore') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
                                 <div class=" mb-3">
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class=" mb-3">
                                     <label for="" class="form-label">{{ trans('ngo_member.mobile_no')}} <span class="text-danger">*</span> </label>
-                                    <input type="number" data-parsley-required name="phone" class="form-control" id="">
+                                    <input type="number" data-parsley-required minlength="11" maxlength="11" name="phone" class="form-control" id="">
                                 </div>
                                 <div class=" mb-3">
                                     <label for="" class="form-label">{{ trans('ngo_member.fathers_name')}} <span class="text-danger">*</span> </label>
@@ -67,18 +67,7 @@
                                     <label for="" class="form-label">{{ trans('ngo_member.name_of_spouse')}} <span class="text-danger">*</span> </label>
                                     <input type="text" data-parsley-required name="name_supouse" class="form-control" id="">
                                 </div>
-                                {{-- <div class=" mb-3">
-                                    <label for="" class="form-label">{{ trans('ngo_member.remarks')}}</label>
-                                    <input type="text" data-parsley-required name="remarks" class="form-control" id="">
-                                </div> --}}
-                                {{-- <div class=" mb-3">
-                                    <label for="" class="form-label">Signature</label>
-                                    <input type="file" data-parsley-required accept=".jpg,.jpeg,.png" name="image" class="form-control" id="">
-                                </div>
-                                <div class=" mb-3">
-                                    <label for="" class="form-label">Date</label>
-                                    <input type="date" data-parsley-required name="main_date" class="form-control" id="">
-                                </div> --}}
+
                                 <div class="d-grid d-md-flex justify-content-md-end">
                                     <button type="submit" class="btn btn-registration"
                                            >{{ trans('form 8_bn.add')}}

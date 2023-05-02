@@ -20,7 +20,7 @@
                 </div>
                 <div class="dashboard_right">
                     <div class="committee_container">
-                        <form method="post" action="{{ route('ngo_member_document_store') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                        <form method="post" action="{{ route('ngoMemberDocumentStore') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                             @csrf
                             <div class="card mb-3">

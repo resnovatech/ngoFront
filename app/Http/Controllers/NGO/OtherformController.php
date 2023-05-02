@@ -22,7 +22,7 @@ class OtherformController extends Controller
 {
 
 
-    public function frequently_ask_question(){
+    public function frequentlyAskQuestion(){
 
         return view('front.frequently_ask_question');
     }
@@ -62,46 +62,26 @@ class OtherformController extends Controller
     }
 
     public function reset_all_data(){
-        $all_ngo_member_doc = Ngo_member_doc::where('user_id',Auth::user()->id)
-       ->count();
-        $all_data_list = Ngomember::where('user_id',Auth::user()->id)
-      ->count();
-        $ngo_list_all = Ngodoc::where('user_id',Auth::user()->id)
-        ->count();
-        $all_data_list1 = Ngo_committee_member::where('user_id',Auth::user()->id)
-        ->count();
-        $all_parti = Fboneform::where('user_id',Auth::user()->id)
-        ->count();
-        $first_form_check = ngoTypeAndLanguage::where('user_id',Auth::user()->id)
-        ->count();
 
-       $first_form_check_adviser = DB::table('fdoneformadvisers')->where('user_id',Auth::user()->id)
-        ->count();
-
-       $first_form_check_staff = DB::table('fdoneform_staffs')->where('user_id',Auth::user()->id)
-        ->count();
-
-      $first_form_check_account = DB::table('bankaccounts')->where('user_id',Auth::user()->id)
-        ->count();
-
-        $first_form_check_account_info = DB::table('acounntotherinfos')->where('user_id',Auth::user()->id)
-        ->count();
-
-       $first_form_check_sourceoffunds = DB::table('sourceoffunds')->where('user_id',Auth::user()->id)
-        ->count();
-
+        $all_ngo_member_doc = NgoMemberNidPhoto::where('user_id',Auth::user()->id)->count();
+        $all_data_list = NgoMemberList::where('user_id',Auth::user()->id)->count();
+        $ngo_list_all = NgoOtherDoc::where('user_id',Auth::user()->id)->count();
+        $all_data_list1 = FormEight::where('user_id',Auth::user()->id)->count();
+        $all_parti = FdOneForm::where('user_id',Auth::user()->id)->count();
+        $first_form_check = NgoTypeAndLanguage::where('user_id',Auth::user()->id)->count();
+        $first_form_check_adviser = DB::table('form_one_adviser_lists')->where('user_id',Auth::user()->id)->count();
+        $first_form_check_staff = DB::table('form_one_member_lists')->where('user_id',Auth::user()->id)->count();
+        $first_form_check_account = DB::table('form_one_bank_accounts')->where('user_id',Auth::user()->id)->count();
+        $first_form_check_account_info = DB::table('form_one_other_pdf_lists')->where('user_id',Auth::user()->id)->count();
+        $first_form_check_sourceoffunds = DB::table('form_one_source_of_funds')->where('user_id',Auth::user()->id)->count();
 
         $get_final_result = $first_form_check_sourceoffunds+$first_form_check_account_info+$first_form_check_account+$first_form_check_staff+$first_form_check_adviser+$all_ngo_member_doc + $all_data_list + $ngo_list_all + $all_data_list + $all_parti + $first_form_check;
 
-
         if($get_final_result == 0){
-
-
 
             return redirect('/dashboard')->with('error','You did not add any information');
 
-
-        }else{
+          }else{
           //e//
 
           session()->forget('locale');
@@ -111,7 +91,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('fdoneformadvisers')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_adviser_lists')->where('user_id',Auth::user()->id)
         ->delete();
 
             }
@@ -123,7 +103,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('fdoneform_staffs')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_member_lists')->where('user_id',Auth::user()->id)
         ->delete();
 
             }
@@ -135,7 +115,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('bankaccounts')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_bank_accounts')->where('user_id',Auth::user()->id)
         ->delete();
 
             }
@@ -145,7 +125,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('acounntotherinfos')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_other_pdf_lists')->where('user_id',Auth::user()->id)
         ->delete();
 
             }
@@ -157,7 +137,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('sourceoffunds')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_source_of_funds')->where('user_id',Auth::user()->id)
         ->delete();
 
             }
@@ -169,7 +149,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = Ngo_member_doc::where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = NgoMemberNidPhoto::where('user_id',Auth::user()->id)
                 ->delete();
 
             }
@@ -180,7 +160,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_data_list1 = Ngo_committee_member::where('user_id',Auth::user()->id)
+                $all_data_list1 = FormEight::where('user_id',Auth::user()->id)
                 ->delete();
 
             }
@@ -191,7 +171,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_data_list = Ngomember::where('user_id',Auth::user()->id)
+                $all_data_list = NgoMemberList::where('user_id',Auth::user()->id)
                 ->delete();
 
             }
@@ -200,7 +180,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $ngo_list_all = Ngodoc::where('user_id',Auth::user()->id)
+                $ngo_list_all = NgoOtherDoc::where('user_id',Auth::user()->id)
                 ->delete();
 
             }
@@ -212,7 +192,7 @@ class OtherformController extends Controller
 
             }else{
 
-                $all_parti = Fboneform::where('user_id',Auth::user()->id)
+                $all_parti = FdOneForm::where('user_id',Auth::user()->id)
                 ->delete();
             }
 
@@ -221,7 +201,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $first_form_check = ngoTypeAndLanguage::where('user_id',Auth::user()->id)
+                $first_form_check = NgoTypeAndLanguage::where('user_id',Auth::user()->id)
                 ->delete();
 
             }
@@ -296,23 +276,7 @@ return redirect('ngoAllRegistrationForm');
 
     }
 
-//     public function ngo_registration_second_info(){
 
-//         return view('front.ngo_registration_second_info');
-
-//     }
-
-
-//     public function ngo_registration_second_info_post(Request $request){
-
-
-//         DB::table('ngo_type_and_languages')
-// ->where('user_id',Auth::user()->id)
-// ->update(['second_form_check_status'=>1]);
-
-// return redirect('ngo_all_registration_form');
-
-//     }
 
     public function ngoAllRegistrationForm(){
 
@@ -343,13 +307,13 @@ return redirect('ngoAllRegistrationForm');
 
     //////3 march ///////////
 
-    public function ngo_instruction_page(){
+    public function ngoInstructionPage(){
 
         return view('front.instruction_page.ngo_instruction_page');
     }
 
 
-    public function ngo_registration_fee_list(){
+    public function ngoRegistrationFeeList(){
 
 
         return view('front.ngo_registration_fee.ngo_registration_fee_list');
@@ -360,10 +324,10 @@ return redirect('ngoAllRegistrationForm');
 
 
 
-        $get_reg_id = Fboneform::where('user_id',Auth::user()->id)->value('registration_number');
+        $get_reg_id = FdOneForm::where('user_id',Auth::user()->id)->value('registration_number');
 
 
-        $category_list = new Ngostatus();
+        $category_list = new NgoStatus();
         $category_list->user_id = Auth::user()->id;
         $category_list->reg_id = $get_reg_id;
         $category_list->reg_type = $request->reg_type;
@@ -385,7 +349,7 @@ return redirect('ngoAllRegistrationForm');
     }
 
 
-    public function status_page(){
+    public function statusPage(){
 
         return view('front.status_page.status_page');
 
@@ -395,12 +359,12 @@ return redirect('ngoAllRegistrationForm');
     public function check_status_reg_from(Request $request){
 
 
-        $get_all_the_data_reg = Ngostatus::where('email',$request->email)
+        $get_all_the_data_reg = NgoStatus::where('email',$request->email)
         ->where('reg_type',$request->reg_type)
         ->where('reg_id',$request->reg_id)->value('reg_id');
 
 
-        $get_all_the_data_status = Ngostatus::where('email',$request->email)
+        $get_all_the_data_status = NgoStatus::where('email',$request->email)
         ->where('reg_type',$request->reg_type)
         ->where('reg_id',$request->reg_id)->value('status');
 

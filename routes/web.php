@@ -108,7 +108,7 @@ Route::controller(RenewController::class)->group(function () {
 
 Route::controller(RegsubmitController::class)->group(function () {
 
-    Route::get('reg_submit_list', 'reg_submit_list')->name('reg_submit_list');
+    Route::get('regSubmitList', 'regSubmitList')->name('regSubmitList');
 });
 
 Route::controller(AuthController::class)->group(function () {
@@ -147,14 +147,14 @@ Route::controller(OtherformController::class)->group(function () {
 
 
     Route::get('informationResetPage', 'informationResetPage')->name('informationResetPage');
-    Route::get('frequently_ask_question', 'frequently_ask_question')->name('frequently_ask_question');
+    Route::get('frequentlyAskQuestion', 'frequentlyAskQuestion')->name('frequentlyAskQuestion');
     Route::post('final_submit_reg_form', 'final_submit_reg_form')->name('final_submit_reg_form');
     Route::post('check_status_reg_from', 'check_status_reg_from')->name('check_status_reg_from');
-    Route::get('status_page', 'status_page')->name('status_page');
+    Route::get('statusPage', 'statusPage')->name('statusPage');
     Route::get('email_verify_page', 'email_verify_page')->name('email_verify_page');
     Route::get('email_verified_page', 'email_verified_page')->name('email_verified_page');
-    Route::get('ngo_instruction_page', 'ngo_instruction_page')->name('ngo_instruction_page');
-    Route::get('ngo_registration_fee_list', 'ngo_registration_fee_list')->name('ngo_registration_fee_list');
+    Route::get('ngoInstructionPage', 'ngoInstructionPage')->name('ngoInstructionPage');
+    Route::get('ngoRegistrationFeeList', 'ngoRegistrationFeeList')->name('ngoRegistrationFeeList');
     Route::get('lang/change', 'change')->name('changeLang');
     Route::get('change_language', 'change_language')->name('change_language');
 
@@ -219,42 +219,42 @@ Route::controller(FdoneformController::class)->group(function () {
 
 Route::controller(NgomemberdocController::class)->group(function () {
 
-    Route::get('/ngo_member_document_download/{id}', 'ngo_member_document_download')->middleware(['auth'])->name('ngo_member_document_download');
+    Route::get('/ngoMemberDocumentDownload/{id}', 'ngoMemberDocumentDownload')->middleware(['auth'])->name('ngoMemberDocumentDownload');
 
 
 
-    Route::get('/ngo_member_document', 'ngo_member_document')->middleware(['auth'])->name('ngo_member_document');
-    Route::get('/ngo_member_document_create', 'ngo_member_document_create')->middleware(['auth'])->name('ngo_member_document_create');
-    Route::post('/ngo_member_document_store', 'ngo_member_document_store')->middleware(['auth'])->name('ngo_member_document_store');
-    Route::post('/ngo_member_document_update', 'ngo_member_document_update')->middleware(['auth'])->name('ngo_member_document_update');
-    Route::get('/ngo_member_document_view', 'ngo_member_document_view')->middleware(['auth'])->name('ngo_member_document_view');
-    Route::get('/ngo_member_document_edit/{id}', 'ngo_member_document_edit')->middleware(['auth'])->name('ngo_member_document_edit');
-    Route::post('ngo_member_document_delete/{id}','delete')->middleware(['auth'])->name('ngo_member_document_delete');
+    Route::get('/ngoMemberDocument', 'ngoMemberDocument')->middleware(['auth'])->name('ngoMemberDocument');
+    Route::get('/ngoMemberDocumentCreate', 'ngoMemberDocumentCreate')->middleware(['auth'])->name('ngoMemberDocumentCreate');
+    Route::post('/ngoMemberDocumentStore', 'ngoMemberDocumentStore')->middleware(['auth'])->name('ngoMemberDocumentStore');
+    Route::post('/ngoMemberDocumentUpdate', 'ngoMemberDocumentUpdate')->middleware(['auth'])->name('ngoMemberDocumentUpdate');
+    Route::get('/ngoMemberDocumentView', 'ngoMemberDocumentView')->middleware(['auth'])->name('ngoMemberDocumentView');
+    Route::get('/ngoMemberDocumentEdit/{id}', 'ngoMemberDocumentEdit')->middleware(['auth'])->name('ngoMemberDocumentEdit');
+    Route::post('ngoMemberDocumentDelete/{id}','delete')->middleware(['auth'])->name('ngoMemberDocumentDelete');
 });
 
 
 Route::controller(NgomemberController::class)->group(function () {
-    Route::get('/ngo_member', 'ngo_member')->middleware(['auth'])->name('ngo_member');
-    Route::get('/ngo_member_create', 'ngo_member_create')->middleware(['auth'])->name('ngo_member_create');
-    Route::post('/ngo_member_store', 'ngo_member_store')->middleware(['auth'])->name('ngo_member_store');
-    Route::post('/ngo_member_update', 'ngo_member_update')->middleware(['auth'])->name('ngo_member_update');
-    Route::get('/ngo_member_view', 'ngo_member_view')->middleware(['auth'])->name('ngo_member_view');
-    Route::get('/ngo_member_edit/{id}', 'ngo_member_edit')->middleware(['auth'])->name('ngo_member_edit');
-    Route::post('ngo_member_delete/{id}','delete')->middleware(['auth'])->name('ngo_member_delete');
+    Route::get('/ngoMember', 'ngoMember')->middleware(['auth'])->name('ngoMember');
+    Route::get('/ngoMemberCreate', 'ngoMemberCreate')->middleware(['auth'])->name('ngoMemberCreate');
+    Route::post('/ngoMemberStore', 'ngoMemberStore')->middleware(['auth'])->name('ngoMemberStore');
+    Route::post('/ngoMemberUpdate', 'ngoMemberUpdate')->middleware(['auth'])->name('ngoMemberUpdate');
+    Route::get('/ngoMemberView', 'ngoMemberView')->middleware(['auth'])->name('ngoMemberView');
+    Route::get('/ngoMemberEdit/{id}', 'ngoMemberEdit')->middleware(['auth'])->name('ngoMemberEdit');
+    Route::post('ngoMemberDelete/{id}','delete')->middleware(['auth'])->name('ngoMemberDelete');
 });
 
 Route::controller(NgodocumentController::class)->group(function () {
 
-    Route::get('/ngo_document_download/{id}', 'ngo_document_download')->middleware(['auth'])->name('ngo_document_download');
+    Route::get('/ngoDocumentDownload/{id}', 'ngoDocumentDownload')->middleware(['auth'])->name('ngoDocumentDownload');
 
 
-    Route::get('/ngo_document', 'ngo_document')->middleware(['auth'])->name('ngo_document');
-    Route::get('/ngo_document_create', 'ngo_document_create')->middleware(['auth'])->name('ngo_document_create');
-    Route::post('/ngo_document_store', 'ngo_document_store')->middleware(['auth'])->name('ngo_document_store');
-    Route::post('/ngo_document_update', 'ngo_document_update')->middleware(['auth'])->name('ngo_document_update');
-    Route::get('/ngo_document_view', 'ngo_document_view')->middleware(['auth'])->name('ngo_document_view');
-    Route::get('/ngo_document_edit/{id}', 'ngo_document_edit')->middleware(['auth'])->name('ngo_document_edit');
-    Route::post('ngo_document_delete/{id}','delete')->middleware(['auth'])->name('ngo_document_delete');
+    Route::get('/ngoDocument', 'ngoDocument')->middleware(['auth'])->name('ngoDocument');
+    Route::get('/ngoDocumentCreate', 'ngoDocumentCreate')->middleware(['auth'])->name('ngoDocumentCreate');
+    Route::post('/ngoDocumentStore', 'ngoDocumentStore')->middleware(['auth'])->name('ngoDocumentStore');
+    Route::post('/ngoDocumentUpdate', 'ngoDocumentUpdate')->middleware(['auth'])->name('ngoDocumentUpdate');
+    Route::get('/ngoDocumentView', 'ngoDocumentView')->middleware(['auth'])->name('ngoDocumentView');
+    Route::get('/ngoDocumentEdit/{id}', 'ngoDocumentEdit')->middleware(['auth'])->name('ngoDocumentEdit');
+    Route::post('ngoDocumentDelete/{id}','delete')->middleware(['auth'])->name('ngoDocumentDelete');
 });
 
 

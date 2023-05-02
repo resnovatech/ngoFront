@@ -87,7 +87,7 @@
 
                 <div class=" mb-3">
                     <label for="" class="form-label">{{ trans('form 8_bn.pdf')}}:</label>
-                    <input type="file" data-parsley-required accept=".pdf" name="s_pdf"  class="form-control" id="">
+                    <input type="file" data-parsley-required accept=".pdf" name="verified_form_eight"  class="form-control" id="">
                     <input type="hidden" data-parsley-required  name="id"  value="{{ $complete_status_fd_eight_id }}" class="form-control" id="">
                 </div>
 

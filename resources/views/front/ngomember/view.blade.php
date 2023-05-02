@@ -39,9 +39,6 @@
         <td>: {{ $all_data_list->name_supouse }}</td>
     </tr>
 
-    <tr>
-        <td>{{ trans('form 8_bn.remarks')}}</td>
-        <td>: {{ $all_data_list->remarks }}</td>
-    </tr>
+   
 
 </table>

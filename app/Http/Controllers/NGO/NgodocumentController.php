@@ -5,24 +5,22 @@ namespace App\Http\Controllers\NGO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ngo_type_and_language;
-use App\Models\Ngo_committee_member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DB;
 use Response;
-use App\Models\Ngomember;
-use App\Models\Ngodoc;
+use App\Models\NgoOtherDoc;
 use DateTime;
 use DateTimezone;
 class NgodocumentController extends Controller
 {
-    public function ngo_document(){
+    public function ngoDocument(){
 
-        $ngo_list_all = Ngodoc::where('user_id',Auth::user()->id)->latest()->get();
+        $ngo_list_all = NgoOtherDoc::where('user_id',Auth::user()->id)->latest()->get();
 
         if(count($ngo_list_all) == 0){
 
-            return redirect('/ngo_document_create');
+            return redirect('/ngoDocumentCreate');
 
         }else{
 
@@ -31,63 +29,59 @@ class NgodocumentController extends Controller
     }
 
 
-    public function ngo_document_create(){
+    public function ngoDocumentCreate(){
 
         return view('front.ngo_doc.create');
 
     }
 
 
-    public function ngo_document_store(Request $request){
+    public function ngoDocumentStore(Request $request){
         $time_dy = time().date("Ymd");
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
         $main_time = $dt->format('H:i:s a');
-        //dd($request->all());
 
-        // $this->validate($request,[
-        //     'primary_portal'=>'required|mimes:pdf|max:10000',
-        //     'attested_copy_of_constitution'=>'required|mimes:pdf|max:10000',
-        //     'activity_report_of_the_organization'=>'required|mimes:pdf|max:10000',
-        //     'receipt_of_donor'=>'required|mimes:pdf|max:10000',
-        //     'attested_copy_of_minutes_of_general_meeting'=>'required|mimes:pdf|max:10000',
+        $request->validate([
+            'pdf_file_list.*'=>'required|mimes:pdf',
 
-        //  ]);
+        ]);
+
+
 
         $input = $request->all();
 
 
-        $condition_main_image = $input['primary_portal'];
+        $condition_main_image = $input['pdf_file_list'];
 
         foreach($condition_main_image as $key => $all_condition_main_image){
 
-            $file_size = number_format($input['primary_portal'][$key]->getSize() / 1048576,2);
+            $file_size = number_format($input['pdf_file_list'][$key]->getSize() / 1048576,2);
 
-            $form= new Ngodoc();
-            $file=$input['primary_portal'][$key];
+            $form= new NgoOtherDoc();
+            $file=$input['pdf_file_list'][$key];
             $name=$time_dy.$file->getClientOriginalName();
             $file->move('public/uploads/', $name);
-            $form->primary_portal='uploads/'.$name;
-            $form->main_time = $main_time;
-            $form->ngo_id = '';
+            $form->pdf_file_list='uploads/'.$name;
+            $form->time_for_api = $main_time;
             $form->user_id = Auth::user()->id;
-            $form->primary_portal_size =$file_size;
+            $form->file_size =$file_size;
             $form->save();
        }
 
 
 
 
-         return redirect('/ngo_document')->with('success','Created Successfully');
+         return redirect('/ngoDocument')->with('success','Created Successfully');
 
 
     }
 
 
-    public function ngo_document_download($id){
+    public function ngoDocumentDownload($id){
 
-        $get_file_data = Ngodoc::where('id',$id)->value('primary_portal');
+        $get_file_data = NgoOtherDoc::where('id',$id)->value('pdf_file_list');
 
         $file_path = url('public/'.$get_file_data);
                                 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
@@ -109,7 +103,7 @@ class NgodocumentController extends Controller
     public function delete($id)
     {
 
-        $admins = Ngodoc::find($id);
+        $admins = NgoOtherDoc::find($id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -119,65 +113,26 @@ class NgodocumentController extends Controller
     }
 
 
-    public function ngo_document_update(Request $request){
+    public function ngoDocumentUpdate(Request $request){
         $time_dy = time().date("Ymd");
 
-        $category_list =Ngodoc::find($request->id);
-        $category_list->ngo_id = '';
-        $category_list->user_id = Auth::user()->id;
-      if ($request->hasfile('primary_portal')) {
-        $file_size = number_format($request->primary_portal->getSize() / 1048576,2);
-            $file = $request->file('primary_portal');
+        $updateOtherPdf =NgoOtherDoc::find($request->id);
+        $updateOtherPdf->user_id = Auth::user()->id;
+      if ($request->hasfile('pdf_file_list')) {
+        $file_size = number_format($request->pdf_file_list->getSize() / 1048576,2);
+            $file = $request->file('pdf_file_list');
             $extension = $time_dy.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->primary_portal =  'uploads/'.$filename;
-            $category_list->primary_portal_size =$file_size;
+            $updateOtherPdf->pdf_file_list =  'uploads/'.$filename;
+            $updateOtherPdf->file_size =$file_size;
 
         }
-        if ($request->hasfile('attested_copy_of_constitution')) {
-            $file_size1 = number_format($request->attested_copy_of_constitution->getSize() / 1048576,2);
-           $file = $request->file('attested_copy_of_constitution');
-           $extension = $time_dy.$file->getClientOriginalName();
-           $filename = $extension;
-           $file->move('public/uploads/', $filename);
-           $category_list->attested_copy_of_constitution =  'uploads/'.$filename;
-           $category_list->attested_copy_of_constitution_size = $file_size1;
 
-       }
-       if ($request->hasfile('activity_report_of_the_organization')) {
-        $file_size2 = number_format($request->activity_report_of_the_organization->getSize() / 1048576,2);
-
-           $file = $request->file('activity_report_of_the_organization');
-           $extension = $time_dy.$file->getClientOriginalName();
-           $filename = $extension;
-           $file->move('public/uploads/', $filename);
-           $category_list->activity_report_of_the_organization =  'uploads/'.$filename;
-           $category_list->activity_report_of_the_organization_size = $file_size2;
-
-       }
-       if ($request->hasfile('receipt_of_donor')) {
-        $file_size3 = number_format($request->receipt_of_donor->getSize() / 1048576,2);
-           $file = $request->file('receipt_of_donor');
-           $extension = $time_dy.$file->getClientOriginalName();
-           $filename = $extension;
-           $file->move('public/uploads/', $filename);
-           $category_list->receipt_of_donor =  'uploads/'.$filename;
-           $category_list->receipt_of_donor_size = $file_size3;
-       }
-       if ($request->hasfile('attested_copy_of_minutes_of_general_meeting')) {
-        $file_size4 = number_format($request->attested_copy_of_minutes_of_general_meeting->getSize() / 1048576,2);
-           $file = $request->file('attested_copy_of_minutes_of_general_meeting');
-           $extension = $time_dy.$file->getClientOriginalName();
-           $filename = $extension;
-           $file->move('public/uploads/', $filename);
-           $category_list->attested_copy_of_minutes_of_general_meeting =  'uploads/'.$filename;
-           $category_list->general_meeting_size = $file_size4;
-       }
-        $category_list->save();
+        $updateOtherPdf->save();
 
 
-        return redirect('/ngo_document')->with('success','Created Successfully');
+        return redirect('/ngoDocument')->with('success','Created Successfully');
 
 
     }

@@ -73,19 +73,19 @@
                 </div>
                 @endif
                 <div class="header_box">
-                    <a href="{{ route('ngo_instruction_page') }}">
+                    <a href="{{ route('ngoInstructionPage') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/instruction.png" alt="">
                         <h3>{{ trans('header.instruction')}}</h3>
                     </a>
                 </div>
                 <div class="header_box">
-                    <a href="{{ route('ngo_registration_fee_list') }}">
+                    <a href="{{ route('ngoRegistrationFeeList') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/fees.png" alt="">
                         <h3>{{ trans('header.registration_fee')}}</h3>
                     </a>
                 </div>
                 <div class="header_box">
-                    <a href="{{ route('status_page') }}">
+                    <a href="{{ route('statusPage') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/status.png" alt="">
                         <h3>{{ trans('header.check_status')}}</h3>
                     </a>

@@ -5,22 +5,21 @@ namespace App\Http\Controllers\NGO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ngo_type_and_language;
-use App\Models\Ngo_committee_member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DB;
-use App\Models\Ngomember;
+use App\Models\NgoMemberList;
 use DateTime;
 use DateTimezone;
 class NgomemberController extends Controller
 {
-    public function ngo_member(){
+    public function ngoMember(){
 
-        $all_data_list = Ngomember::where('user_id',Auth::user()->id)->latest()->get();
+        $all_data_list = NgoMemberList::where('user_id',Auth::user()->id)->latest()->get();
 
         if(count($all_data_list) == 0){
 
-            return redirect('/ngo_member_create');
+            return redirect('/ngoMemberCreate');
 
         }else{
 
@@ -28,19 +27,19 @@ class NgomemberController extends Controller
         }
     }
 
-    public function ngo_member_create(){
+    public function ngoMemberCreate(){
         return view('front.ngomember.create');
 
     }
 
-    public function ngo_member_edit($id){
-        $all_data_list = Ngomember::where('name_slug',$id)->first();
+    public function ngoMemberEdit($id){
+        $all_data_list = NgoMemberList::where('name_slug',$id)->first();
 
         return view('front.ngomember.edit',compact('all_data_list'));
 
     }
 
-    public function ngo_member_store(Request $request){
+    public function ngoMemberStore(Request $request){
         $time_dy = time().date("Ymd");
 
         $dt = new DateTime();
@@ -48,79 +47,57 @@ class NgomemberController extends Controller
 
         $main_time = $dt->format('H:i:s');
 
-        $category_list = new Ngomember();
-        $category_list->name = $request->name;
-        $category_list->name_slug = Str::slug($request->name,"_");
-        $category_list->desi = $request->desi;
-        $category_list->dob = $request->dob;
-        $category_list->main_time = $main_time;
-        $category_list->phone = $request->phone;
-        $category_list->nid_no = $request->nid_no;
-        $category_list->father_name = $request->father_name;
-        $category_list->present_address = $request->present_address;
-        $category_list->permanent_address = $request->permanent_address;
-        $category_list->name_supouse = $request->name_supouse;
-        // $category_list->edu_quali = $request->edu_quali;
-        // $category_list->profession = $request->profession;
-        // $category_list->job_des = $request->job_des;
-        // $category_list->service_status = $request->service_status;
-        $category_list->remarks = 0;
-        $category_list->ngo_id = 0;
-        $category_list->user_id = Auth::user()->id;
+        $request->validate([
+            'name' => 'required|string',
+            'desi' => 'required|string',
+            'dob' => 'required|string',
+            'phone' => 'required|string',
+            'nid_no' => 'required|string',
+            'father_name' => 'required|string',
+            'present_address' => 'required|string',
+            'permanent_address' => 'required|string',
+            'name_supouse' => 'required|string',
+        ]);
 
-        $category_list->main_date = 0;
-
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $category_list->image =  'public/uploads/'.$filename;
-
-        }
-        $category_list->save();
+        $ngoMemberData = new NgoMemberList();
+        $ngoMemberData->name = $request->name;
+        $ngoMemberData->name_slug = Str::slug($request->name,"_");
+        $ngoMemberData->desi = $request->desi;
+        $ngoMemberData->dob = $request->dob;
+        $ngoMemberData->time_for_api = $main_time;
+        $ngoMemberData->verified_file = 0;
+        $ngoMemberData->phone = $request->phone;
+        $ngoMemberData->nid_no = $request->nid_no;
+        $ngoMemberData->father_name = $request->father_name;
+        $ngoMemberData->present_address = $request->present_address;
+        $ngoMemberData->permanent_address = $request->permanent_address;
+        $ngoMemberData->name_supouse = $request->name_supouse;
+        $ngoMemberData->user_id = Auth::user()->id;
+        $ngoMemberData->save();
 
 
-        return redirect('/ngo_member')->with('success','Created Successfully');
+        return redirect('/ngoMember')->with('success','Created Successfully');
     }
 
 
-    public function ngo_member_update(Request $request){
+    public function ngoMemberUpdate(Request $request){
         $time_dy = time().date("Ymd");
 
-        $category_list = Ngomember::find($request->id);
-        $category_list->name = $request->name;
-        $category_list->name_slug = Str::slug($request->name,"_");
-        $category_list->desi = $request->desi;
-        $category_list->dob = $request->dob;
-        $category_list->phone = $request->phone;
-        $category_list->nid_no = $request->nid_no;
-        $category_list->father_name = $request->father_name;
-        $category_list->present_address = $request->present_address;
-        $category_list->permanent_address = $request->permanent_address;
-        $category_list->name_supouse = $request->name_supouse;
-        // $category_list->edu_quali = $request->edu_quali;
-        // $category_list->profession = $request->profession;
-        // $category_list->job_des = $request->job_des;
-        // $category_list->service_status = $request->service_status;
-        $category_list->remarks = 0;
-        $category_list->ngo_id = 0;
-        $category_list->user_id = Auth::user()->id;
-
-        $category_list->main_date = 0;
-
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $category_list->image =  'public/uploads/'.$filename;
-
-        }
-        $category_list->save();
+        $ngoMemberData = NgoMemberList::find($request->id);
+        $ngoMemberData->name = $request->name;
+        $ngoMemberData->name_slug = Str::slug($request->name,"_");
+        $ngoMemberData->desi = $request->desi;
+        $ngoMemberData->dob = $request->dob;
+        $ngoMemberData->phone = $request->phone;
+        $ngoMemberData->nid_no = $request->nid_no;
+        $ngoMemberData->father_name = $request->father_name;
+        $ngoMemberData->present_address = $request->present_address;
+        $ngoMemberData->permanent_address = $request->permanent_address;
+        $ngoMemberData->name_supouse = $request->name_supouse;
+        $ngoMemberData->save();
 
 
-        return redirect('/ngo_member')->with('success','Created Successfully');
+        return redirect('/ngoMember')->with('success','Created Successfully');
 
 
     }
@@ -129,7 +106,7 @@ class NgomemberController extends Controller
     public function delete($id)
     {
 
-        $admins = Ngomember::find($id);
+        $admins = NgoMemberList::find($id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -138,11 +115,11 @@ class NgomemberController extends Controller
         return back()->with('error','Deleted successfully!');
     }
 
-    public function ngo_member_view(Request $request){
+    public function ngoMemberView(Request $request){
 
         //dd($request->id_for_pass);
 
-        $all_data_list = Ngomember::where('id',$request->id_for_pass)->first();
+        $all_data_list = NgoMemberList::where('id',$request->id_for_pass)->first();
 
         return view('front.ngomember.view',compact('all_data_list'));
 

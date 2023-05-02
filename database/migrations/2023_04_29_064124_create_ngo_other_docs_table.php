@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('pdf_file_list')->nullable();
             $table->string('time_for_api')->nullable();
+            $table->string('file_size')->nullable();
             $table->timestamps();
         });
     }

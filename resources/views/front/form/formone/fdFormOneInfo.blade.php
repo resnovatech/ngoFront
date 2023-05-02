@@ -46,7 +46,7 @@
                                     <td>
                                         @if($allformOneData->complete_status == 'all_complete')
 
-                        @if($allformOneData->s_pdf == 0)
+                        @if($allformOneData->verified_fd_one_form == 0)
                         <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             {{ trans('form 8_bn.upload_pdf')}}
                         </button>
@@ -54,7 +54,7 @@
 
                         <?php
 
-                        $file_path = url($allformOneData->s_pdf);
+                        $file_path = url($allformOneData->verified_fd_one_form);
                         $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
                         $extension = pathinfo($file_path, PATHINFO_EXTENSION);
@@ -87,7 +87,7 @@
 
                 <div class=" mb-3">
                     <label for="" class="form-label">{{ trans('form 8_bn.pdf')}}:</label>
-                    <input type="file" data-parsley-required accept=".pdf" name="s_pdf"  class="form-control" id="">
+                    <input type="file" data-parsley-required accept=".pdf" name="verified_fd_one_form"  class="form-control" id="">
                     <input type="hidden" data-parsley-required  name="id"  value="{{ $allformOneData->id }}" class="form-control" id="">
                 </div>
 
@@ -126,7 +126,7 @@ foreach ($data   as $a) {
         $count++;
   }
 }
-//dd($count);
+
 
 
                     ?>

@@ -245,21 +245,23 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
     public function upload_from_eight_pdf(Request $request){
 
+      
+
         $time_dy = time().date("Ymd");
 
-        $category_list =FormEight::find($request->id);
+        $updateVerifiedPdf =FormEight::find($request->id);
         if ($request->hasfile('verified_form_eight')) {
             $file = $request->file('verified_form_eight');
             $extension = $time_dy.$file->getClientOriginalName();
             $filename = $extension;
             $file->move('public/uploads/', $filename);
-            $category_list->verified_form_eight =  'uploads/'.$filename;
+            $updateVerifiedPdf->verified_form_eight =  'uploads/'.$filename;
 
         }
-        $category_list->save();
+        $updateVerifiedPdf->save();
 
 
-        return redirect('/form_8_ngo_committee_member')->with('success','Uploaded Successfully');
+        return redirect('/formEightNgoCommitteeMember')->with('success','Uploaded Successfully');
     }
 
 

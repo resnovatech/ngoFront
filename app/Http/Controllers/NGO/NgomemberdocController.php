@@ -5,25 +5,22 @@ namespace App\Http\Controllers\NGO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ngo_type_and_language;
-use App\Models\Ngo_committee_member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DB;
-use App\Models\Ngomember;
-use App\Models\Ngodoc;
-use App\Models\Ngo_member_doc;
+use App\Models\NgoMemberNidPhoto;
 use Response;
 use DateTime;
 use DateTimezone;
 class NgomemberdocController extends Controller
 {
-    public function ngo_member_document(){
+    public function ngoMemberDocument(){
 
-        $all_ngo_member_doc = Ngo_member_doc::where('user_id',Auth::user()->id)->latest()->get();
+        $all_ngo_member_doc = NgoMemberNidPhoto::where('user_id',Auth::user()->id)->latest()->get();
 
         if(count($all_ngo_member_doc) == 0){
 
-            return redirect('/ngo_member_document_create');
+            return redirect('/ngoMemberDocumentCreate');
 
         }else{
 
@@ -32,7 +29,7 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function ngo_member_document_create(){
+    public function ngoMemberDocumentCreate(){
 
 
         return view('front.ngo_member_doc.create');
@@ -41,14 +38,20 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function ngo_member_document_store(Request $request){
+    public function ngoMemberDocumentStore(Request $request){
         $time_dy = time().date("Ymd");
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
         $main_time = $dt->format('H:i:s');
-
         $input = $request->all();
+
+
+        $request->validate([
+            'person_name.*' => 'required|string',
+            'person_image.*' => 'required',
+            'person_nid_copy.*' => 'required',
+        ]);
 
 
         $condition_main_image = $input['person_name'];
@@ -58,7 +61,7 @@ class NgomemberdocController extends Controller
 
             $file_size = number_format($input['person_nid_copy'][$key]->getSize() / 1048576,2);
 
-            $form= new Ngo_member_doc();
+            $form= new NgoMemberNidPhoto();
 
             $file=$input['person_nid_copy'][$key];
             $file_image=$input['person_image'][$key];
@@ -72,25 +75,24 @@ class NgomemberdocController extends Controller
             $form->person_image='public/uploads/'.$name_image;
             $form->person_nid_copy='uploads/'.$name;
             $form->person_name=$input['person_name'][$key];
-            $form->main_time = $main_time;
-            $form->ngo_id = '';
+            $form->time_for_api = $main_time;
             $form->user_id = Auth::user()->id;
             $form->person_nid_copy_size =$file_size;
             $form->save();
        }
 
-       return redirect('/ngo_member_document')->with('success','Created Successfully');
+       return redirect('/ngoMemberDocument')->with('success','Created Successfully');
 
     }
 
 
-    public function ngo_member_document_update(Request $request){
+    public function ngoMemberDocumentUpdate(Request $request){
 
 
         $time_dy = time().date("Ymd");
 
 
-            $form= Ngo_member_doc::find($request->id);
+            $form= NgoMemberNidPhoto::find($request->id);
 
             if ($request->hasfile('person_nid_copy')) {
                 $file = $request->file('person_nid_copy');
@@ -111,12 +113,11 @@ class NgomemberdocController extends Controller
 
             }
             $form->person_name=$request->person_name;
-            $form->ngo_id = '';
             $form->user_id = Auth::user()->id;
 
             $form->save();
 
-            return redirect('/ngo_member_document')->with('info','Updated Successfully');
+            return redirect('/ngoMemberDocument')->with('info','Updated Successfully');
 
 
     }
@@ -125,7 +126,7 @@ class NgomemberdocController extends Controller
     public function delete($id)
     {
 
-        $admins = Ngo_member_doc::find($id);
+        $admins = NgoMemberNidPhoto::find($id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -134,9 +135,9 @@ class NgomemberdocController extends Controller
         return back()->with('error','Deleted successfully!');
     }
 
-    public function ngo_member_document_download($id){
+    public function ngoMemberDocumentDownload($id){
 
-        $get_file_data = Ngo_member_doc::where('id',$id)->value('person_nid_copy');
+        $get_file_data = NgoMemberNidPhoto::where('id',$id)->value('person_nid_copy');
 
         $file_path = url('public/'.$get_file_data);
                                 $filename  = pathinfo($file_path, PATHINFO_FILENAME);

@@ -27,7 +27,7 @@
                         </div>
                         <div class="p-2">
                             <button class="btn btn-primary btn-custom" type="button"
-                                    onclick="location.href = '{{ route('ngo_member_document_create') }}';">
+                                    onclick="location.href = '{{ route('ngoMemberDocumentCreate') }}';">
                                     {{ trans('ngo_member_doc.add_new_nid')}}
                             </button>
                         </div>
@@ -63,7 +63,7 @@
                                             <p>{{ $all_all_ngo_member_doc->person_nid_copy_size }} {{ trans('other_doc.m_b')}}</p>
 
 
-                                            <a class="btn btn-sm btn-registration" target="_blank" href = '{{ route('ngo_member_document_download',$all_all_ngo_member_doc->id) }}'><i class="fa fa-download"></i>
+                                            <a class="btn btn-sm btn-registration" target="_blank" href = '{{ route('ngoMemberDocumentDownload',$all_all_ngo_member_doc->id) }}'><i class="fa fa-download"></i>
                                             </a>
 
 
@@ -72,7 +72,7 @@
 
                                                     <button class="btn btn-sm btn-danger" onclick="deleteTag({{ $all_all_ngo_member_doc->id}})"><i class="fa fa-trash"></i></button>
 
-                                                    <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngo_member_document_delete',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
+                                                    <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngoMemberDocumentDelete',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
 
                                                         @csrf
 
@@ -91,7 +91,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ route('ngo_member_document_update') }}" enctype="multipart/form-data">
+                                                    <form method="post" action="{{ route('ngoMemberDocumentUpdate') }}" enctype="multipart/form-data">
 
                                                         @csrf
                                                         <div class="mb-3">

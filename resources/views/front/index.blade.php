@@ -12,7 +12,7 @@
 <!-- ======= Menu-box Section ======= -->
 <section>
 
-   
+
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="box_text">
                             <h1>{{ trans('main.NGO_Application_Instruction')}}</h1>
-                            <p><a href="{{ route('ngo_instruction_page') }}">{{ trans('main.sub_one')}}</a></p>
+                            <p><a href="{{ route('ngoInstructionPage') }}">{{ trans('main.sub_one')}}</a></p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="box_text">
                             <h1>{{ trans('main.Application_Status_Update')}}</h1>
-                            <p><a href="{{ route('status_page') }}">{{ trans('main.sub_one')}}</a></p>
+                            <p><a href="{{ route('statusPage') }}">{{ trans('main.sub_one')}}</a></p>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="box_text">
                             <h1>{{ trans('main.NGO_Registrations_Fees_Information')}}</h1>
-                            <p><a href="{{ route('ngo_registration_fee_list') }}">{{ trans('main.sub_one')}}</a></p>
+                            <p><a href="{{ route('ngoRegistrationFeeList') }}">{{ trans('main.sub_one')}}</a></p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="box_text">
                             <h1>{{ trans('main.Frequently_Ask_Question')}}</h1>
-                            <p><a href="{{ route('frequently_ask_question') }}">{{ trans('main.sub_one')}}</a></p>
+                            <p><a href="{{ route('frequentlyAskQuestion') }}">{{ trans('main.sub_one')}}</a></p>
                         </div>
                     </div>
                 </div>

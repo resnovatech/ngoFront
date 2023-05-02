@@ -152,7 +152,7 @@
 
 <!-- ======= Slider Section ======= -->
 
-@if(Route::is('login') || Route::is('email_verify_page')  || Route::is('email_verified_page')  || Route::is('check_status_reg_from')  || Route::is('status_page') || Route::is('register') || Route::is('ngo_instruction_page') || Route::is('ngo_registration_fee_list'))
+@if(Route::is('login') || Route::is('email_verify_page')  || Route::is('email_verified_page')  || Route::is('check_status_reg_from')  || Route::is('status_page') || Route::is('register') || Route::is('ngoInstructionPage') || Route::is('ngoRegistrationFeeList'))
 
 @if(Route::is('login'))
 <div class="faq_header_box">
@@ -273,7 +273,7 @@
 	</div>
 </div>
 
-@elseif(Route::is('ngo_instruction_page'))
+@elseif(Route::is('ngoInstructionPage'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
@@ -293,7 +293,7 @@
 	</div>
 </div>
 
-@elseif(Route::is('ngo_registration_fee_list'))
+@elseif(Route::is('ngoRegistrationFeeList'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
@@ -317,7 +317,7 @@
 
 @elseif(Route::is('index'))
 @include('front.include.banner')
-@elseif(Route::is('frequently_ask_question'))
+@elseif(Route::is('frequentlyAskQuestion'))
 
 <div class="faq_header_box">
     <div class="container">

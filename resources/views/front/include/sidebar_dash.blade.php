@@ -27,7 +27,7 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
         @elseif(Route::is('ngoAllRegistrationForm'))
         <li class="{{ Route::is('ngoAllRegistrationForm')  ? 'active_link' : '' }}"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
 
-    @elseif(Route::is('reg_submit_list'))
+    @elseif(Route::is('regSubmitList'))
 
 
     <li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
@@ -46,7 +46,7 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
    @if(Route::is('dashboard'))
    <li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
-   @elseif(Route::is('reg_submit_list'))
+   @elseif(Route::is('regSubmitList'))
 
 <li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @else
@@ -69,9 +69,9 @@ $get_reg_id = DB::table('ngo_statuses')->where('user_id',Auth::user()->id)->valu
 
 ?>
 @if(empty($get_reg_id))
-<li class="{{ Route::is('reg_submit_list')  ? 'active_link' : '' }}"> <a href="{{ route('reg_submit_list') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('reg_sub.reg_sub')}}</a></li>
+<li class="{{ Route::is('regSubmitList')  ? 'active_link' : '' }}"> <a href="{{ route('regSubmitList') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('reg_sub.reg_sub')}}</a></li>
 @else
-<li class="{{ Route::is('reg_submit_list')  ? 'active_link' : '' }}"> <a href="{{ route('reg_submit_list') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('reg_sub.reg_sub')}}</a></li>
+<li class="{{ Route::is('regSubmitList')  ? 'active_link' : '' }}"> <a href="{{ route('regSubmitList') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('reg_sub.reg_sub')}}</a></li>
 
 @endif
 <li class="{{ Route::is('informationResetPage')  ? 'active_link' : '' }}"> <a href="{{ route('informationResetPage') }}"> <i class="fa fa-cog pe-1 dashboard_icon" aria-hidden="true"></i>{{ trans('first_info.reset')}}</a></li>

@@ -22,7 +22,7 @@
 ?>
 <?php
 
-$get_reg_id = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status');
+$get_reg_id = DB::table('ngo_statuses')->where('user_id',Auth::user()->id)->value('status');
 
 
 ?>

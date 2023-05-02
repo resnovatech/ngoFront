@@ -35,7 +35,7 @@
                             </div>
                             <div class="p-2">
                                 <button class="btn btn-primary btn-custom" type="button"
-                                        onclick="location.href = '{{ route('ngo_member_create') }}';">
+                                        onclick="location.href = '{{ route('ngoMemberCreate') }}';">
                                         {{ trans('form 8_bn.add')}}
                                 </button>
                             </div>
@@ -86,7 +86,7 @@
 
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('ngo_member_edit',$main_all_data_list->name_slug) }}';"><i
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('ngoMemberEdit',$main_all_data_list->name_slug) }}';"><i
                                                             class="bi bi-pencil-fill"></i></button>
 
 
@@ -94,7 +94,7 @@
                                                 <button type="button" onclick="deleteTag({{ $main_all_data_list->id}})" class="btn btn-sm btn-danger"><i
                                                             class="bi bi-trash"></i></button>
 
-                                                            <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('ngo_member_delete',$main_all_data_list->id) }}" method="POST" style="display: none;">
+                                                            <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('ngoMemberDelete',$main_all_data_list->id) }}" method="POST" style="display: none;">
 
                                                                 @csrf
 
@@ -154,7 +154,7 @@
 
 
        $.ajax({
-        url: "{{ route('ngo_member_view') }}",
+        url: "{{ route('ngoMemberView') }}",
         method: 'GET',
         data: {id_for_pass:id_for_pass},
         success: function(data) {
