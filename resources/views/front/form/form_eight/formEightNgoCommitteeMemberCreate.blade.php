@@ -29,7 +29,7 @@
                             {{ trans('form 8_bn.ngo_committee_member_registration')}}
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('formEightNgoCommitteeMemberStore') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('formEightNgoCommitteMember.store') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
 

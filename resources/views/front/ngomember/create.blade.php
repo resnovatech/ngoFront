@@ -26,7 +26,7 @@
                             {{ trans('ngo_member.ngo_member')}}
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('ngoMemberStore') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('ngoMember.store') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
                                 <div class=" mb-3">

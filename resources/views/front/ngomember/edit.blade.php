@@ -29,15 +29,16 @@
                             {{ trans('ngo_member.ngo_member')}}
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('ngoMemberUpdate') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('ngoMember.update',$all_data_list->id ) }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class=" mb-3">
                                     <label for="" class="form-label">{{ trans('form 8_bn.name')}} <span class="text-danger">*</span> </label>
                                     <input type="text" name="name" value="{{ $all_data_list->name }}"  class="form-control" id="">
 
-                                    <input type="hidden" name="id" value="{{ $all_data_list->id }}"  class="form-control" id="">
+                    
 
                                 </div>
                                <div class=" mb-3">

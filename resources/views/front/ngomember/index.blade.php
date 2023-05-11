@@ -35,7 +35,7 @@
                             </div>
                             <div class="p-2">
                                 <button class="btn btn-primary btn-custom" type="button"
-                                        onclick="location.href = '{{ route('ngoMemberCreate') }}';">
+                                        onclick="location.href = '{{ route('ngoMember.create') }}';">
                                         {{ trans('form 8_bn.add')}}
                                 </button>
                             </div>
@@ -86,7 +86,7 @@
 
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('ngoMemberEdit',$main_all_data_list->name_slug) }}';"><i
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('ngoMember.edit',$main_all_data_list->name_slug) }}';"><i
                                                             class="bi bi-pencil-fill"></i></button>
 
 
@@ -94,10 +94,10 @@
                                                 <button type="button" onclick="deleteTag({{ $main_all_data_list->id}})" class="btn btn-sm btn-danger"><i
                                                             class="bi bi-trash"></i></button>
 
-                                                            <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('ngoMemberDelete',$main_all_data_list->id) }}" method="POST" style="display: none;">
+                                                            <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('ngoMember.destroy',$main_all_data_list->id) }}" method="POST" style="display: none;">
 
                                                                 @csrf
-
+@method('DELETE')
                                                             </form>
 
 

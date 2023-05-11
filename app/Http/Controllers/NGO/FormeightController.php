@@ -175,7 +175,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
      }
 
-    public function formEightNgoCommitteeMember(){
+    public function index(){
 
         $all_partiw12 = FormEight::where('user_id',Auth::user()->id)->value('complete_status');
 
@@ -193,7 +193,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
             );
             if(count($all_data_list) == 0){
 
-                return redirect('/formEightNgoCommitteeMemberCreate');
+                return redirect('/formEightNgoCommitteMember/create');
 
             }else{
 
@@ -228,7 +228,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
     }
 
 
-    public function formEightNgoCommitteeMemberEdit($id){
+    public function edit($id){
         $all_data_list = FormEight::where('name_slug',$id)->first();
 
         return view('front.form.form_eight.formEightNgoCommitteeMemberEdit',compact('all_data_list'));
@@ -236,7 +236,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
     }
 
 
-    public function formEightNgoCommitteeMemberCreate(){
+    public function create(){
 
         return view('front.form.form_eight.formEightNgoCommitteeMemberCreate');
     }
@@ -245,7 +245,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
     public function upload_from_eight_pdf(Request $request){
 
-      
+
 
         $time_dy = time().date("Ymd");
 
@@ -261,12 +261,12 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
         $updateVerifiedPdf->save();
 
 
-        return redirect('/formEightNgoCommitteeMember')->with('success','Uploaded Successfully');
+        return redirect('/formEightNgoCommitteMember')->with('success','Uploaded Successfully');
     }
 
 
 
-    public function formEightNgoCommitteeMemberStore(Request $request){
+    public function store(Request $request){
         $time_dy = time().date("Ymd");
 
         $dt = new DateTime();
@@ -292,59 +292,59 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
         ]);
 
 
-        $category_list = new FormEight();
-        $category_list->name = $request->name;
-        $category_list->name_slug = Str::slug($request->name,"_");
-        $category_list->desi = $request->desi;
-        $category_list->dob = $request->dob;
-        $category_list->time_for_api = $main_time;
-        $category_list->phone = $request->phone;
-        $category_list->nid_no = $request->nid_no;
-        $category_list->father_name = $request->father_name;
-        $category_list->present_address = $request->present_address;
-        $category_list->permanent_address = $request->permanent_address;
-        $category_list->name_supouse = $request->name_supouse;
-        $category_list->edu_quali = $request->edu_quali;
-        $category_list->profession = $request->profession;
-        $category_list->job_des = $request->job_des;
-        $category_list->service_status = $request->service_status;
-        $category_list->user_id = Auth::user()->id;
-        $category_list->save();
+        $formEightData = new FormEight();
+        $formEightData->name = $request->name;
+        $formEightData->name_slug = Str::slug($request->name,"_");
+        $formEightData->desi = $request->desi;
+        $formEightData->dob = $request->dob;
+        $formEightData->time_for_api = $main_time;
+        $formEightData->phone = $request->phone;
+        $formEightData->nid_no = $request->nid_no;
+        $formEightData->father_name = $request->father_name;
+        $formEightData->present_address = $request->present_address;
+        $formEightData->permanent_address = $request->permanent_address;
+        $formEightData->name_supouse = $request->name_supouse;
+        $formEightData->edu_quali = $request->edu_quali;
+        $formEightData->profession = $request->profession;
+        $formEightData->job_des = $request->job_des;
+        $formEightData->service_status = $request->service_status;
+        $formEightData->user_id = Auth::user()->id;
+        $formEightData->save();
 
 
-        return redirect('/formEightNgoCommitteeMember')->with('success','Created Successfully');
+        return redirect('/formEightNgoCommitteMember')->with('success','Created Successfully');
 
     }
 
 
-    public function formEightNgoCommitteeMemberUpdate(Request $request){
+    public function update(Request $request,$id){
 
         $time_dy = time().date("Ymd");
 
-        $category_list =FormEight::find($request->id);
-        $category_list->name = $request->name;
-        $category_list->name_slug = Str::slug($request->name,"_");
-        $category_list->desi = $request->desi;
-        $category_list->dob = $request->dob;
-        $category_list->phone = $request->phone;
-        $category_list->nid_no = $request->nid_no;
-        $category_list->father_name = $request->father_name;
-        $category_list->present_address = $request->present_address;
-        $category_list->permanent_address = $request->permanent_address;
-        $category_list->name_supouse = $request->name_supouse;
-        $category_list->edu_quali = $request->edu_quali;
-        $category_list->profession = $request->profession;
-        $category_list->job_des = $request->job_des;
-        $category_list->service_status = $request->service_status;
-       $category_list->save();
+        $formEightData =FormEight::find($id);
+        $formEightData->name = $request->name;
+        $formEightData->name_slug = Str::slug($request->name,"_");
+        $formEightData->desi = $request->desi;
+        $formEightData->dob = $request->dob;
+        $formEightData->phone = $request->phone;
+        $formEightData->nid_no = $request->nid_no;
+        $formEightData->father_name = $request->father_name;
+        $formEightData->present_address = $request->present_address;
+        $formEightData->permanent_address = $request->permanent_address;
+        $formEightData->name_supouse = $request->name_supouse;
+        $formEightData->edu_quali = $request->edu_quali;
+        $formEightData->profession = $request->profession;
+        $formEightData->job_des = $request->job_des;
+        $formEightData->service_status = $request->service_status;
+        $formEightData->save();
 
 
-        return redirect('/formEightNgoCommitteeMember')->with('info','Updated Successfully');
+        return redirect('/formEightNgoCommitteMember')->with('info','Updated Successfully');
 
 
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
 
         $admins = FormEight::find($id);
@@ -359,7 +359,7 @@ return $pdf->stream($file_Name_Custome.''.'.pdf');
 
     public function formEightNgoCommitteeMemberView(Request $request){
 
-        //dd($request->id_for_pass);
+
 
         $all_data_list = FormEight::where('id',$request->id_for_pass)->first();
 

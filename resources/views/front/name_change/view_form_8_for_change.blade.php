@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="p-2">
                                     <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('view_form_8_for_change_add') }}';">
-                                        নতুন কমিটি মেম্বার যোগ করুন 
+                                        নতুন কমিটি মেম্বার যোগ করুন
                                     </button>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                                                     <button type="button" onclick="deleteTag({{ $main_all_data_list->id}})" class="btn btn-sm btn-danger"><i
                                                                 class="bi bi-trash"></i></button>
 
-                                                                <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('form_8_ngo_committee_member_delete',$main_all_data_list->id) }}" method="POST" style="display: none;">
+                                                                <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('formEightNgoCommitteeMemberDelete',$main_all_data_list->id) }}" method="POST" style="display: none;">
 
                                                                     @csrf
 
@@ -249,7 +249,7 @@
 
 
        $.ajax({
-        url: "{{ route('form_8_ngo_committee_member_view') }}",
+        url: "{{ route('formEightNgoCommitteeMemberView') }}",
         method: 'GET',
         data: {id_for_pass:id_for_pass},
         success: function(data) {

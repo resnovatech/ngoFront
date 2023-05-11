@@ -29,15 +29,15 @@
                             {{ trans('form 8_bn.ngo_committee_member_registration')}}
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('formEightNgoCommitteeMemberUpdate') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('formEightNgoCommitteMember.update',$all_data_list->id ) }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
-
+@method('PUT')
                                 <div class=" mb-3">
                                     <label for="" class="form-label">{{ trans('form 8_bn.name')}} <span class="text-danger">*</span> :</label>
                                     <input data-parsley-required type="text" name="name" value="{{ $all_data_list->name }}"  class="form-control" id="">
 
-                                    <input type="hidden" name="id" value="{{ $all_data_list->id }}"  class="form-control" id="">
+
 
                                 </div>
                                 <div class=" mb-3">
@@ -102,7 +102,7 @@
                                         <option value="{{ trans('form 8_bn.no') }}" {{ $all_data_list->profession == trans('form 8_bn.no') ? 'selected':'' }}>{{ trans('form 8_bn.no')}}</option>
                                     </select>
                                 </div>
-         
+
                                 <div class="d-grid d-md-flex justify-content-md-end">
                                     <button type="submit" class="btn btn-registration">{{ trans('form 8_bn.update')}}
                                     </button>

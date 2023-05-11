@@ -32,7 +32,10 @@ Route::get('/clear', function() {
     return redirect()->route('index');
 });
 
+Route::controller(FrontController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
 
+});
 
 
 Route::controller(NamechangeController::class)->group(function () {
@@ -41,13 +44,8 @@ Route::controller(NamechangeController::class)->group(function () {
     Route::get('add_other_doc', 'add_other_doc')->name('add_other_doc');
     Route::post('store_other_doc', 'store_other_doc')->name('store_other_doc');
     Route::post('update_other_doc', 'update_other_doc')->name('update_other_doc');
-
     Route::get('final_submit_name_change', 'final_submit_name_change')->name('final_submit_name_change');
-
-
     Route::get('all_ngo_related_document', 'all_ngo_related_document')->name('all_ngo_related_document');
-
-
     Route::get('ngo_member_id_and_images', 'ngo_member_id_and_images')->name('ngo_member_id_and_images');
     Route::get('ngo_member_id_and_images_add', 'ngo_member_id_and_images_add')->name('ngo_member_id_and_images_add');
     Route::post('ngo_member_id_and_images_store', 'ngo_member_id_and_images_store')->name('ngo_member_id_and_images_store');
@@ -71,10 +69,7 @@ Route::controller(NamechangeController::class)->group(function () {
 
 
     Route::get('send_name_change_page', 'send_name_change_page')->name('send_name_change_page');
-
     Route::get('name_change_page', 'name_change_page')->name('name_change_page');
-
-
     Route::get('/form_one_pdf/{main_id}/{id}',  'form_one_pdf')->name('form_one_pdf');
     Route::get('/form_eight_pdf/{main_id}','form_eight_pdf')->name('form_eight_pdf');
     Route::get('/source_of_fund/{id}', 'source_of_fund')->name('source_of_fund');
@@ -90,14 +85,7 @@ Route::controller(RenewController::class)->group(function () {
     Route::get('renew_page', 'renew_page')->name('renew_page');
     Route::get('ngo_renew_list_new', 'ngo_renew_list_new')->name('ngo_renew_list_new');
     Route::post('store_renew_information_list', 'store_renew_information_list')->name('store_renew_information_list');
-
-
     Route::post('update_renew_information_list', 'update_renew_information_list')->name('update_renew_information_list');
-
-
-
-
-
     Route::get('all_staff_information_for_renew', 'all_staff_information_for_renew')->name('all_staff_information_for_renew');
     Route::post('all_staff_information_for_renew_store', 'all_staff_information_for_renew_store')->name('all_staff_information_for_renew_store');
     Route::get('other_information_for_renew', 'other_information_for_renew')->name('other_information_for_renew');
@@ -116,16 +104,11 @@ Route::controller(AuthController::class)->group(function () {
 
 
     Route::get('/check_mail_already_registered_or_not','check_mail_already_registered_or_not')->name('check_mail_already_registered_or_not');
-
-
-
     Route::get('/check_mail_from_list','check_mail_from_list')->name('check_mail_from_list');
     Route::post('/send_mail_get_from_list','send_mail_get_from_list')->name('send_mail_get_from_list');
     Route::get('/password_reset_page/{id}','password_reset_page')->name('password_reset_page');
     Route::get('/successfully_mail_send/{id}','successfully_mail_send')->name('successfully_mail_send');
-
     Route::post('/password_change_confirmed','password_change_confirmed')->name('password_change_confirmed');
-
     Route::get('/password_reset','showLinkRequestForm')->name('admin.password.request');
 
     ////
@@ -167,8 +150,6 @@ Route::controller(OtherformController::class)->group(function () {
     Route::get('ngoTypeAndLanguage','ngoTypeAndLanguage')->name('ngoTypeAndLanguage');
     Route::get('ngoRegistrationFirstInfo','ngoRegistrationFirstInfo')->name('ngoRegistrationFirstInfo');
     Route::post('ngoRegistrationFirstInfoPost','ngoRegistrationFirstInfoPost')->name('ngoRegistrationFirstInfoPost');
-    // Route::get('ngo_registration_second_info','ngo_registration_second_info')->name('ngo_registration_second_info');
-    // Route::post('ngo_registration_second_info_post','ngo_registration_second_info_post')->name('ngo_registration_second_info_post');
     Route::get('ngoAllRegistrationForm','ngoAllRegistrationForm')->name('ngoAllRegistrationForm');
 });
 
@@ -176,15 +157,13 @@ Route::controller(OtherformController::class)->group(function () {
 });
 
 
-Route::controller(FrontController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
 
-});
 
+Route::group(['middleware' => ['auth']], function() {
 
 Route::controller(FdoneformController::class)->group(function () {
 
-    Route::group(['middleware' => ['auth']], function() {
+
 
     Route::post('/upload_from_one_pdf', 'upload_from_one_pdf')->name('upload_from_one_pdf');
     Route::get('/back_from_step_two', 'back_from_step_two')->name('back_from_step_two');
@@ -212,69 +191,50 @@ Route::controller(FdoneformController::class)->group(function () {
     Route::post('/othersInformationPost', 'othersInformationPost')->name('othersInformationPost');
     Route::post('/othersInformationUpdate', 'othersInformationUpdate')->name('othersInformationUpdate');
 
+
+
 });
 
-});
 
 
-Route::controller(NgomemberdocController::class)->group(function () {
+ Route::resource('ngoMemberDocument',NgomemberdocController::class);
+ Route::controller(NgomemberdocController::class)->group(function () {
 
     Route::get('/ngoMemberDocumentDownload/{id}', 'ngoMemberDocumentDownload')->middleware(['auth'])->name('ngoMemberDocumentDownload');
-
-
-
-    Route::get('/ngoMemberDocument', 'ngoMemberDocument')->middleware(['auth'])->name('ngoMemberDocument');
-    Route::get('/ngoMemberDocumentCreate', 'ngoMemberDocumentCreate')->middleware(['auth'])->name('ngoMemberDocumentCreate');
-    Route::post('/ngoMemberDocumentStore', 'ngoMemberDocumentStore')->middleware(['auth'])->name('ngoMemberDocumentStore');
-    Route::post('/ngoMemberDocumentUpdate', 'ngoMemberDocumentUpdate')->middleware(['auth'])->name('ngoMemberDocumentUpdate');
     Route::get('/ngoMemberDocumentView', 'ngoMemberDocumentView')->middleware(['auth'])->name('ngoMemberDocumentView');
-    Route::get('/ngoMemberDocumentEdit/{id}', 'ngoMemberDocumentEdit')->middleware(['auth'])->name('ngoMemberDocumentEdit');
-    Route::post('ngoMemberDocumentDelete/{id}','delete')->middleware(['auth'])->name('ngoMemberDocumentDelete');
+
 });
 
+
+
+Route::resource('ngoMember',NgomemberController::class);
 
 Route::controller(NgomemberController::class)->group(function () {
-    Route::get('/ngoMember', 'ngoMember')->middleware(['auth'])->name('ngoMember');
-    Route::get('/ngoMemberCreate', 'ngoMemberCreate')->middleware(['auth'])->name('ngoMemberCreate');
-    Route::post('/ngoMemberStore', 'ngoMemberStore')->middleware(['auth'])->name('ngoMemberStore');
-    Route::post('/ngoMemberUpdate', 'ngoMemberUpdate')->middleware(['auth'])->name('ngoMemberUpdate');
-    Route::get('/ngoMemberView', 'ngoMemberView')->middleware(['auth'])->name('ngoMemberView');
-    Route::get('/ngoMemberEdit/{id}', 'ngoMemberEdit')->middleware(['auth'])->name('ngoMemberEdit');
-    Route::post('ngoMemberDelete/{id}','delete')->middleware(['auth'])->name('ngoMemberDelete');
+    Route::get('/ngoMemberView', 'ngoMemberView')->name('ngoMemberView');
+
 });
+
+Route::resource('ngoDocument',NgodocumentController::class);
 
 Route::controller(NgodocumentController::class)->group(function () {
 
-    Route::get('/ngoDocumentDownload/{id}', 'ngoDocumentDownload')->middleware(['auth'])->name('ngoDocumentDownload');
+    Route::get('/ngoDocumentDownload/{id}', 'ngoDocumentDownload')->name('ngoDocumentDownload');
+    Route::get('/ngoDocumentView', 'ngoDocumentView')->name('ngoDocumentView');
 
-
-    Route::get('/ngoDocument', 'ngoDocument')->middleware(['auth'])->name('ngoDocument');
-    Route::get('/ngoDocumentCreate', 'ngoDocumentCreate')->middleware(['auth'])->name('ngoDocumentCreate');
-    Route::post('/ngoDocumentStore', 'ngoDocumentStore')->middleware(['auth'])->name('ngoDocumentStore');
-    Route::post('/ngoDocumentUpdate', 'ngoDocumentUpdate')->middleware(['auth'])->name('ngoDocumentUpdate');
-    Route::get('/ngoDocumentView', 'ngoDocumentView')->middleware(['auth'])->name('ngoDocumentView');
-    Route::get('/ngoDocumentEdit/{id}', 'ngoDocumentEdit')->middleware(['auth'])->name('ngoDocumentEdit');
-    Route::post('ngoDocumentDelete/{id}','delete')->middleware(['auth'])->name('ngoDocumentDelete');
 });
 
 
 
+Route::resource('formEightNgoCommitteMember',FormeightController::class);
 Route::controller(FormeightController::class)->group(function () {
-
-    Route::group(['middleware' => ['auth']], function() {
-
+    Route::get('/formEightNgoCommitteeMemberView', 'formEightNgoCommitteeMemberView')->name('formEightNgoCommitteeMemberView');
     Route::post('/upload_from_eight_pdf', 'upload_from_eight_pdf')->name('upload_from_eight_pdf');
-
     Route::get('/formEightNgoCommitteeMemberTotalView', 'formEightNgoCommitteeMemberTotalView')->name('formEightNgoCommitteeMemberTotalView');
     Route::get('/form_8_ngo_committee_total_year', 'form_8_ngo_committee_total_year')->name('form_8_ngo_committee_total_year');
     Route::get('/form_8_ngo_committee_member_pdf', 'form_8_ngo_committee_member_pdf')->name('form_8_ngo_committee_member_pdf');
     Route::get('/form_8_ngo_committee_member_view_from_edit', 'form_8_ngo_committee_member_view_from_edit')->name('form_8_ngo_committee_member_view_from_edit');
-    Route::get('/formEightNgoCommitteeMember', 'formEightNgoCommitteeMember')->name('formEightNgoCommitteeMember');
-    Route::get('/formEightNgoCommitteeMemberCreate', 'formEightNgoCommitteeMemberCreate')->name('formEightNgoCommitteeMemberCreate');
-    Route::post('/formEightNgoCommitteeMemberStore', 'formEightNgoCommitteeMemberStore')->name('formEightNgoCommitteeMemberStore');
-    Route::post('/formEightNgoCommitteeMemberUpdate', 'formEightNgoCommitteeMemberUpdate')->name('formEightNgoCommitteeMemberUpdate');
-    Route::get('/formEightNgoCommitteeMemberView', 'formEightNgoCommitteeMemberView')->name('formEightNgoCommitteeMemberView');
-    Route::get('/formEightNgoCommitteeMemberEdit/{id}', 'formEightNgoCommitteeMemberEdit')->name('formEightNgoCommitteeMemberEdit');
-    Route::post('/formEightNgoCommitteeMemberDelete/{id}','delete')->name('formEightNgoCommitteeMemberDelete');
+
+
 });
+
 });

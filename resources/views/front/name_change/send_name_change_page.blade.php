@@ -141,8 +141,8 @@
                                   <?php
 
 
-                                  $users = DB::table('namechanges')->where('user_id',Auth::user()->id)->value('present_name_eng');
-                                  $users1 = DB::table('namechanges')->where('user_id',Auth::user()->id)->value('present_ban');
+                                  $users = DB::table('name_changes')->where('user_id',Auth::user()->id)->value('present_name_eng');
+                                  $users1 = DB::table('name_changes')->where('user_id',Auth::user()->id)->value('present_name_ban');
                                   ?>
 
 

@@ -24,7 +24,7 @@
                 <div class="dashboard_right">
                     <div class="committee_container">
                         <h5 class="mb-4">{{ trans('other_doc.reg')}}</h5>
-                        <form method="post" action="{{ route('ngoDocumentStore') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                        <form method="post" action="{{ route('ngoDocument.store') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                             @csrf
                             <div class="card mb-3">

@@ -14,13 +14,13 @@ use DateTime;
 use DateTimezone;
 class NgomemberdocController extends Controller
 {
-    public function ngoMemberDocument(){
+    public function index(){
 
         $all_ngo_member_doc = NgoMemberNidPhoto::where('user_id',Auth::user()->id)->latest()->get();
 
         if(count($all_ngo_member_doc) == 0){
 
-            return redirect('/ngoMemberDocumentCreate');
+            return redirect('/ngoMemberDocument/create');
 
         }else{
 
@@ -29,7 +29,7 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function ngoMemberDocumentCreate(){
+    public function create(){
 
 
         return view('front.ngo_member_doc.create');
@@ -38,7 +38,7 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function ngoMemberDocumentStore(Request $request){
+    public function store(Request $request){
         $time_dy = time().date("Ymd");
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
@@ -86,13 +86,13 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function ngoMemberDocumentUpdate(Request $request){
+    public function update(Request $request,$id){
 
 
         $time_dy = time().date("Ymd");
 
 
-            $form= NgoMemberNidPhoto::find($request->id);
+            $form= NgoMemberNidPhoto::find($id);
 
             if ($request->hasfile('person_nid_copy')) {
                 $file = $request->file('person_nid_copy');
@@ -123,7 +123,7 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function delete($id)
+    public function destroy($id)
     {
 
         $admins = NgoMemberNidPhoto::find($id);
@@ -148,7 +148,7 @@ class NgomemberdocController extends Controller
                   'Content-Type: application/pdf',
                 );
 
-        // return Response::download($file,$filename.'.pdf', $headers);
+
 
 
         return Response::make(file_get_contents($file), 200, [

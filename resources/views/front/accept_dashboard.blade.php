@@ -136,7 +136,7 @@
 
                                                       <?php
 
-                                                      $allEnglishCountry = DB::table('country')->where('name_bn',$ngo_list_all->country_of_origin)->value('name');
+                                                      $allEnglishCountry = DB::table('countries')->where('name_bangla',$ngo_list_all->country_of_origin)->value('name_english');
 
                                                       ?>
                                                         <tr>

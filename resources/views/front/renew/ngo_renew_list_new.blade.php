@@ -37,7 +37,7 @@
 
                 <?php
 
-$get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->first();
+$get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
 
                 ?>
@@ -77,7 +77,7 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
             <div class="mb-3">
                 <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->reg_no_get_from_admin }}" name="reg_no_get_from_admin" data-parsley-required  id="">
+                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->registration_number }}" name="reg_no_get_from_admin" data-parsley-required  id="">
             </div>
 
 
@@ -92,41 +92,16 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
             <?php
 
-            $query_to_get_data = DB::table('country')->where('id','!=',18)->orderBy('id','desc')->get();
+            $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
 
 
-            $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
+            $get_cityzenship_data = DB::table('countries')->whereNotNull('people_english')
+            ->whereNotNull('people_bangla')->orderBy('id','desc')->get();
 
             $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                                             ?>
 
-                                            {{-- @if($get_country_type == 'দেশিও')
 
-                                            <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-                                                @if(session()->get('locale') == 'en')
-                                                <option value="বাংলাদেশ" {{ 'বাংলাদেশ' == $get_all_data_1->country_of_origin ? 'selected':'' }}>বাংলাদেশ</option>
-                                                @else
-                                                <option value="Bangladesh" {{ 'Bangladesh' == $get_all_data_1->country_of_origin ? 'selected':'' }}>Bangladesh</option>
-                                                @endif
-                                            </select>
-
-
-                                            @else
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}}</label>
-                                                <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-
-                                                    @foreach($query_to_get_data as $all_query_to_get_data)
-                                                    @if(session()->get('locale') == 'en')
-                                                    <option value="{{ $all_query_to_get_data->name_bn }}" {{ $all_query_to_get_data->name_bn  == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name_bn }}</option>
-                                                    @else
-                                                    <option value="{{ $all_query_to_get_data->name }}" {{ $all_query_to_get_data->name == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name }}</option>
-                                                    @endif
-            @endforeach
-                                                </select>
-                                            </div>
-                                            @endif --}}
 
 
                                             <div class="mb-3">
@@ -160,12 +135,12 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Whether_part_time_or_full_time')}} <span class="text-danger">*</span> </label>
                 <div class="mt-2 mb-2">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
                                value="{{ trans('fd_one_step_one.Part_Time')}}" {{ trans('fd_one_step_one.Part_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
                                value="{{ trans('fd_one_step_one.Full_Time')}}" {{  trans('fd_one_step_one.Full_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
                     </div>
@@ -202,14 +177,14 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
-                <select  disabled="disabled" class="js-example-basic-multiple form-control"  name="citizenship[]"
+                <select   class="js-example-basic-multiple form-control"  name="citizenship[]"
                 multiple="multiple">
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
                 @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
-                <option value="{{ $all_get_cityzenship_data->city_bangla }}" {{ (in_array($all_get_cityzenship_data->city_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
+                <option value="{{ $all_get_cityzenship_data->people_bangla }}" {{ (in_array($all_get_cityzenship_data->people_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->people_bangla }}</option>
                 @else
-            <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
+            <option value="{{ $all_get_cityzenship_data->people_english }}" {{ (in_array($all_get_cityzenship_data->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->people_english }}</option>
             @endif
             @endforeach
 
@@ -272,7 +247,7 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
             <div class="mb-3">
                 <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span>  </label>
-                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->reg_no_get_from_admin }}" name="reg_no_get_from_admin" data-parsley-required  id="">
+                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->registration_number }}" name="registration_number" data-parsley-required  id="">
             </div>
 
 
@@ -287,41 +262,16 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
             <?php
 
-            $query_to_get_data = DB::table('country')->where('id','!=',18)->orderBy('id','desc')->get();
+            $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
 
 
-            $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
+            $get_cityzenship_data = DB::table('countries')->whereNotNull('people_english')
+            ->whereNotNull('people_bangla')->orderBy('id','desc')->get();
 
             $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                                             ?>
 
-                                            {{-- @if($get_country_type == 'দেশিও')
 
-                                            <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-                                                @if(session()->get('locale') == 'en')
-                                                <option value="বাংলাদেশ" {{ 'বাংলাদেশ' == $get_all_data_1->country_of_origin ? 'selected':'' }}>বাংলাদেশ</option>
-                                                @else
-                                                <option value="Bangladesh" {{ 'Bangladesh' == $get_all_data_1->country_of_origin ? 'selected':'' }}>Bangladesh</option>
-                                                @endif
-                                            </select>
-
-
-                                            @else
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}}</label>
-                                                <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-
-                                                    @foreach($query_to_get_data as $all_query_to_get_data)
-                                                    @if(session()->get('locale') == 'en')
-                                                    <option value="{{ $all_query_to_get_data->name_bn }}" {{ $all_query_to_get_data->name_bn  == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name_bn }}</option>
-                                                    @else
-                                                    <option value="{{ $all_query_to_get_data->name }}" {{ $all_query_to_get_data->name == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name }}</option>
-                                                    @endif
-            @endforeach
-                                                </select>
-                                            </div>
-                                            @endif --}}
 
 
                                             <div class="mb-3">
@@ -355,12 +305,12 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Whether_part_time_or_full_time')}} <span class="text-danger">*</span> </label>
                 <div class="mt-2 mb-2">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
                                value="{{ trans('fd_one_step_one.Part_Time')}}" {{ trans('fd_one_step_one.Part_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
                                value="{{ trans('fd_one_step_one.Full_Time')}}" {{  trans('fd_one_step_one.Full_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
                     </div>
@@ -397,14 +347,14 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
-                <select  disabled="disabled" class="js-example-basic-multiple form-control"  name="citizenship[]"
+                <select   class="js-example-basic-multiple form-control"  name="citizenship[]"
                 multiple="multiple">
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
                 @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
-                <option value="{{ $all_get_cityzenship_data->city_bangla }}" {{ (in_array($all_get_cityzenship_data->city_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
+                <option value="{{ $all_get_cityzenship_data->people_bangla }}" {{ (in_array($all_get_cityzenship_data->people_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->people_bangla }}</option>
                 @else
-            <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
+            <option value="{{ $all_get_cityzenship_data->people_english }}" {{ (in_array($all_get_cityzenship_data->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->people_english }}</option>
             @endif
             @endforeach
 

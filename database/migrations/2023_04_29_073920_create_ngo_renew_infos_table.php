@@ -26,7 +26,11 @@ return new class extends Migration
             $table->string('job_type')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
+            $table->string('phone_new')->nullable();
+            $table->bigInteger('fd_one_form_id')->unsigned();
+            $table->foreign('fd_one_form_id')->references('id')->on('fd_one_forms')->onDelete('cascade');
             $table->string('email')->nullable();
+            $table->string('email_new')->nullable();
             $table->string('telephone_number')->nullable();
             $table->string('telephone_number_new')->nullable();
             $table->string('citizenship')->nullable();

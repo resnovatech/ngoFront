@@ -24,7 +24,7 @@
                             <h5>{{ trans('other_doc.all_doc')}}</h5>
                         </div>
                         <div class="p-2">
-                            <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('ngoDocumentCreate') }}';">
+                            <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('ngoDocument.create') }}';">
                                 {{ trans('other_doc.add_new_document')}}
                             </button>
                         </div>
@@ -167,9 +167,10 @@
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="post" action="{{ route('ngoDocumentUpdate') }}" enctype="multipart/form-data">
-                                                                        <input type="hidden" name="id" value="{{ $all_ngo_list_all->id  }}" class="form-control" id="">
+                                                                    <form method="post" action="{{ route('ngoDocument.update',$all_ngo_list_all->id ) }}" enctype="multipart/form-data">
+
                                                                         @csrf
+                                                                        @method('PUT')
 
                                                                         <div class="mb-3">
 
@@ -193,10 +194,10 @@
                                             <button  onclick="deleteTag({{ $all_ngo_list_all->id}})" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </div>
-                                    <form id="delete-form-{{ $all_ngo_list_all->id }}" action="{{ route('ngoDocumentDelete',$all_ngo_list_all->id) }}" method="POST" style="display: none;">
+                                    <form id="delete-form-{{ $all_ngo_list_all->id }}" action="{{ route('ngoDocument.destroy',$all_ngo_list_all->id) }}" method="POST" style="display: none;">
 
                                         @csrf
-
+@method('DELETE')
                                     </form>
                                     @endforeach
 

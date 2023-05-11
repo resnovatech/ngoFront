@@ -224,7 +224,7 @@ if(empty($formCompleteStatus)){
             'phone' => 'required|string',
             'email' => 'required|string',
             'profession' => 'required|string',
-            'complete_status' => 'required|string',
+            'submit_value' => 'required|string',
         ]);
 
 
@@ -436,7 +436,7 @@ if(empty($formCompleteStatus)){
         $request->validate([
             'district' => 'required|string',
             'annual_budget' => 'required|string',
-            'complete_status' => 'required|string',
+            'submit_value' => 'required|string',
         ]);
 
 
@@ -516,7 +516,7 @@ if(empty($formCompleteStatus)){
             'address.*' => 'required|string',
             'salary_statement.*' => 'required|string',
             'other_occupation.*' => 'required|string',
-            'complete_status' => 'required|string',
+            'submit_value' => 'required|string',
         ]);
 
 
@@ -627,7 +627,7 @@ return redirect('/othersInformation');
             'address.*' => 'required|string',
             'salary_statement.*' => 'required|string',
             'other_occupation.*' => 'required|string',
-            'complete_status' => 'required|string',
+            'submit_value' => 'required|string',
         ]);
 
         $dt = new DateTime();
@@ -745,7 +745,7 @@ return redirect('/othersInformation');
             'information_type.*' => 'required',
             'name.*' => 'required',
             'information.*' => 'required',
-            'complete_status' => 'required|string',
+            'submit_value' => 'required|string',
             'treasury_number' => 'required|string',
             'vat_invoice_number' => 'required|string',
             'attach_the__supporting_papers' => 'required',

@@ -85,7 +85,7 @@
 
             <?php
 
-            $name_change_list = DB::table('namechanges')->where('user_id',Auth::user()->id)->latest()->value('status');
+            $name_change_list = DB::table('name_changes')->where('user_id',Auth::user()->id)->latest()->value('status');
 
 
 
@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="d-grid d-md-flex justify-content-end">
-                                        @if(empty($name_change_list) ||  $name_change_list == 'Ongoing')
+                                        @if(  $name_change_list == 'Ongoing')
                                         <button type="button" disabled class="btn btn-registration"
                                                 onclick="location.href = '{{ route('send_name_change_page') }}';">এনজিওর নাম পরিবর্তন
                                         </button>
@@ -151,7 +151,7 @@
                                         <td>{{ $all_name_change_list_all->created_at->format('d-M-Y')}}</td>
                                         <td>{{ $all_name_change_list_all->previous_name_ban }}</td>
                                         <td>{{ $all_name_change_list_all->previous_name_eng }}</td>
-                                        <td>{{ $all_name_change_list_all->present_ban }}</td>
+                                        <td>{{ $all_name_change_list_all->present_name_ban }}</td>
                                         <td>{{ $all_name_change_list_all->present_name_eng }}</td>
                                         <td><span class="text-success">{{ $all_name_change_list_all->status }}</span></td>
                                     </tr>

@@ -13,13 +13,13 @@ use DateTime;
 use DateTimezone;
 class NgomemberController extends Controller
 {
-    public function ngoMember(){
+    public function index(){
 
         $all_data_list = NgoMemberList::where('user_id',Auth::user()->id)->latest()->get();
 
         if(count($all_data_list) == 0){
 
-            return redirect('/ngoMemberCreate');
+            return redirect('/ngoMember/create');
 
         }else{
 
@@ -27,19 +27,19 @@ class NgomemberController extends Controller
         }
     }
 
-    public function ngoMemberCreate(){
+    public function create(){
         return view('front.ngomember.create');
 
     }
 
-    public function ngoMemberEdit($id){
+    public function edit($id){
         $all_data_list = NgoMemberList::where('name_slug',$id)->first();
 
         return view('front.ngomember.edit',compact('all_data_list'));
 
     }
 
-    public function ngoMemberStore(Request $request){
+    public function store(Request $request){
         $time_dy = time().date("Ymd");
 
         $dt = new DateTime();
@@ -80,10 +80,10 @@ class NgomemberController extends Controller
     }
 
 
-    public function ngoMemberUpdate(Request $request){
+    public function update(Request $request,$id){
         $time_dy = time().date("Ymd");
 
-        $ngoMemberData = NgoMemberList::find($request->id);
+        $ngoMemberData = NgoMemberList::find($id);
         $ngoMemberData->name = $request->name;
         $ngoMemberData->name_slug = Str::slug($request->name,"_");
         $ngoMemberData->desi = $request->desi;
@@ -103,7 +103,7 @@ class NgomemberController extends Controller
     }
 
 
-    public function delete($id)
+    public function destroy($id)
     {
 
         $admins = NgoMemberList::find($id);

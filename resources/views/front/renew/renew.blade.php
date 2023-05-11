@@ -106,16 +106,16 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    @if(empty($name_change_list) || $name_change_list == 'Ongoing')
+                                    @if($name_change_list == 'Ongoing')
                                     <div class="d-grid d-md-flex justify-content-end">
                                         <button type="button" disabled  class="btn btn-registration"
-                                                onclick="location.href = '{{ route('ngo_renew_list_new') }}';">আবেদন পুনর্নবীকরণ করুন 
+                                                onclick="location.href = '{{ route('ngo_renew_list_new') }}';">আবেদন পুনর্নবীকরণ করুন
                                         </button>
                                     </div>
                                     @else
                                     <div class="d-grid d-md-flex justify-content-end">
                                         <button type="button"  class="btn btn-registration"
-                                                onclick="location.href = '{{ route('ngo_renew_list_new') }}';">আবেদন পুনর্নবীকরণ করুন 
+                                                onclick="location.href = '{{ route('ngo_renew_list_new') }}';">আবেদন পুনর্নবীকরণ করুন
                                         </button>
                                     </div>
                                     @endif

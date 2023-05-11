@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\NgoTypeAndLanguage;
 use App\Models\FdOneForm;
+use App\Models\NgoMemberList;
 use App\Models\FormEight;
 use App\Models\NgoMemberNidPhoto;
 use App\Models\NgoOtherDoc;
@@ -69,11 +70,18 @@ class OtherformController extends Controller
         $all_data_list1 = FormEight::where('user_id',Auth::user()->id)->count();
         $all_parti = FdOneForm::where('user_id',Auth::user()->id)->count();
         $first_form_check = NgoTypeAndLanguage::where('user_id',Auth::user()->id)->count();
-        $first_form_check_adviser = DB::table('form_one_adviser_lists')->where('user_id',Auth::user()->id)->count();
-        $first_form_check_staff = DB::table('form_one_member_lists')->where('user_id',Auth::user()->id)->count();
-        $first_form_check_account = DB::table('form_one_bank_accounts')->where('user_id',Auth::user()->id)->count();
-        $first_form_check_account_info = DB::table('form_one_other_pdf_lists')->where('user_id',Auth::user()->id)->count();
-        $first_form_check_sourceoffunds = DB::table('form_one_source_of_funds')->where('user_id',Auth::user()->id)->count();
+
+
+        $getFdOneFormId = FdOneForm::where('user_id',Auth::user()->id)->value('id');
+
+
+
+
+        $first_form_check_adviser = DB::table('form_one_adviser_lists')->where('fd_one_form_id',$getFdOneFormId)->count();
+        $first_form_check_staff = DB::table('form_one_member_lists')->where('fd_one_form_id',$getFdOneFormId)->count();
+        $first_form_check_account = DB::table('form_one_bank_accounts')->where('fd_one_form_id',$getFdOneFormId)->count();
+        $first_form_check_account_info = DB::table('form_one_other_pdf_lists')->where('fd_one_form_id',$getFdOneFormId)->count();
+        $first_form_check_sourceoffunds = DB::table('form_one_source_of_funds')->where('fd_one_form_id',$getFdOneFormId)->count();
 
         $get_final_result = $first_form_check_sourceoffunds+$first_form_check_account_info+$first_form_check_account+$first_form_check_staff+$first_form_check_adviser+$all_ngo_member_doc + $all_data_list + $ngo_list_all + $all_data_list + $all_parti + $first_form_check;
 
@@ -91,7 +99,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('form_one_adviser_lists')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_adviser_lists')->where('fd_one_form_id',$getFdOneFormId)
         ->delete();
 
             }
@@ -103,7 +111,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('form_one_member_lists')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_member_lists')->where('fd_one_form_id',$getFdOneFormId)
         ->delete();
 
             }
@@ -115,7 +123,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('form_one_bank_accounts')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_bank_accounts')->where('fd_one_form_id',$getFdOneFormId)
         ->delete();
 
             }
@@ -125,7 +133,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('form_one_other_pdf_lists')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_other_pdf_lists')->where('fd_one_form_id',$getFdOneFormId)
         ->delete();
 
             }
@@ -137,7 +145,7 @@ class OtherformController extends Controller
 
 
             }else{
-                $all_ngo_member_doc = DB::table('form_one_source_of_funds')->where('user_id',Auth::user()->id)
+                $all_ngo_member_doc = DB::table('form_one_source_of_funds')->where('fd_one_form_id',$getFdOneFormId)
         ->delete();
 
             }

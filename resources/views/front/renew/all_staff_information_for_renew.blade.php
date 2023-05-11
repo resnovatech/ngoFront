@@ -29,7 +29,7 @@
                 <div class="right-side">
                     <?php
 
-                    $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->first();
+                    $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
 
                                     ?>
@@ -37,8 +37,8 @@
 
 
 <?php
-$get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
+$get_cityzenship_data = DB::table('countries')->whereNotNull('people_english')
+            ->whereNotNull('people_bangla')->orderBy('id','desc')->get();
 ?>
             <form action="{{ route('other_information_for_renew') }}" method="get" enctype="multipart/form-data" id="form"  data-parsley-validate="">
 
@@ -104,9 +104,9 @@ $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
                                         multiple="multiple">
                                         @foreach($get_cityzenship_data as $all_get_cityzenship_data)
                                         @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_bangla }}" {{ (in_array($all_get_cityzenship_data->city_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
+                                        <option value="{{ $all_get_cityzenship_data->people_bangla }}" {{ (in_array($all_get_cityzenship_data->people_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->people_bangla }}</option>
                                         @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
+                                    <option value="{{ $all_get_cityzenship_data->people_english }}" {{ (in_array($all_get_cityzenship_data->people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->people_english }}</option>
                                     @endif
                                     @endforeach
                                 </select>

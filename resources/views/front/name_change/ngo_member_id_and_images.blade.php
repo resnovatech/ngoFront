@@ -160,7 +160,7 @@
                                             <p>{{ $all_all_ngo_member_doc->person_nid_copy_size }} {{ trans('other_doc.m_b')}}</p>
 
 
-                                            <a class="btn btn-sm btn-registration" target="_blank" href = '{{ route('ngo_member_document_download',$all_all_ngo_member_doc->id) }}'><i class="fa fa-download"></i>
+                                            <a class="btn btn-sm btn-registration" target="_blank" href = '{{ route('ngoMemberDocumentDownload',$all_all_ngo_member_doc->id) }}'><i class="fa fa-download"></i>
                                             </a>
 
                                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
@@ -168,7 +168,7 @@
 
                                             <button class="btn btn-sm btn-danger" onclick="deleteTag({{ $all_all_ngo_member_doc->id}})"><i class="fa fa-trash"></i></button>
 
-                                            <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngo_member_document_delete',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
+                                            <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngoMemberDocumentDelete',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
 
                                                 @csrf
 

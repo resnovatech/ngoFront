@@ -14,13 +14,13 @@ use DateTime;
 use DateTimezone;
 class NgodocumentController extends Controller
 {
-    public function ngoDocument(){
+    public function index(){
 
         $ngo_list_all = NgoOtherDoc::where('user_id',Auth::user()->id)->latest()->get();
 
         if(count($ngo_list_all) == 0){
 
-            return redirect('/ngoDocumentCreate');
+            return redirect('/ngoDocument/create');
 
         }else{
 
@@ -29,14 +29,14 @@ class NgodocumentController extends Controller
     }
 
 
-    public function ngoDocumentCreate(){
+    public function create(){
 
         return view('front.ngo_doc.create');
 
     }
 
 
-    public function ngoDocumentStore(Request $request){
+    public function store(Request $request){
         $time_dy = time().date("Ymd");
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
@@ -100,7 +100,7 @@ class NgodocumentController extends Controller
     }
 
 
-    public function delete($id)
+    public function destroy($id)
     {
 
         $admins = NgoOtherDoc::find($id);
@@ -113,10 +113,10 @@ class NgodocumentController extends Controller
     }
 
 
-    public function ngoDocumentUpdate(Request $request){
+    public function update(Request $request,$id){
         $time_dy = time().date("Ymd");
 
-        $updateOtherPdf =NgoOtherDoc::find($request->id);
+        $updateOtherPdf =NgoOtherDoc::find($id);
         $updateOtherPdf->user_id = Auth::user()->id;
       if ($request->hasfile('pdf_file_list')) {
         $file_size = number_format($request->pdf_file_list->getSize() / 1048576,2);

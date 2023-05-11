@@ -27,7 +27,7 @@
                         </div>
                         <div class="p-2">
                             <button class="btn btn-primary btn-custom" type="button"
-                                    onclick="location.href = '{{ route('ngoMemberDocumentCreate') }}';">
+                                    onclick="location.href = '{{ route('ngoMemberDocument.create') }}';">
                                     {{ trans('ngo_member_doc.add_new_nid')}}
                             </button>
                         </div>
@@ -72,9 +72,10 @@
 
                                                     <button class="btn btn-sm btn-danger" onclick="deleteTag({{ $all_all_ngo_member_doc->id}})"><i class="fa fa-trash"></i></button>
 
-                                                    <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngoMemberDocumentDelete',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
+                                                    <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngoMemberDocument.destroy',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
 
                                                         @csrf
+                                                        @method('DELETE')
 
                                                     </form>
 
@@ -91,14 +92,14 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ route('ngoMemberDocumentUpdate') }}" enctype="multipart/form-data">
+                                                    <form method="post" action="{{ route('ngoMemberDocument.update',$all_all_ngo_member_doc->id) }}" enctype="multipart/form-data">
 
                                                         @csrf
+                                                        @method('PUT')
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">{{ trans('ngo_member_doc.person_name')}} <span class="text-danger">*</span> </label>
                                                             <input type="text" name="person_name" value="{{ $all_all_ngo_member_doc->person_name  }}" class="form-control" id="">
 
-                                                            <input type="hidden" name="id" value="{{ $all_all_ngo_member_doc->id  }}" class="form-control" id="">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">{{ trans('ngo_member_doc.image')}} <span class="text-danger">*</span> </label>
