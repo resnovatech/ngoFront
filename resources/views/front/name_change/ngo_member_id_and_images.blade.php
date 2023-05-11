@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('ngo_member_id_and_images') || Route::is('committee_ngo_member') || Route::is('view_form_8_for_change') || Route::is('name_change_page') || Route::is('send_name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('ngoMemberNidAndImage') || Route::is('ngoCommitteMember') || Route::is('formEightData') || Route::is('nameChange') || Route::is('sendNameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -125,7 +125,7 @@
                                     <h5>এনআইডি এবং ছবি</h5>
                                 </div>
                                 <div class="p-2">
-                                    <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('ngo_member_id_and_images_add') }}';">
+                                    <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('ngoMemberNidAndImageAdd') }}';">
                                         নতুন নথি যোগ করুন
                                     </button>
                                 </div>
@@ -168,9 +168,10 @@
 
                                             <button class="btn btn-sm btn-danger" onclick="deleteTag({{ $all_all_ngo_member_doc->id}})"><i class="fa fa-trash"></i></button>
 
-                                            <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngoMemberDocumentDelete',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
+                                            <form id="delete-form-{{ $all_all_ngo_member_doc->id }}" action="{{ route('ngoMemberDocument.destroy',$all_all_ngo_member_doc->id) }}" method="POST" style="display: none;">
 
                                                 @csrf
+                                                @method('DELETE')
 
                                             </form>
 
@@ -187,7 +188,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="post" action="{{ route('ngo_member_id_and_images_update') }}" enctype="multipart/form-data">
+                                            <form method="post" action="{{ route('ngoMemberNidAndImageUpdate') }}" enctype="multipart/form-data">
 
                                                 @csrf
                                                 <div class="mb-3">
@@ -232,10 +233,10 @@ style="width:300px; height:150px;" frameborder="0"></iframe>
                             </div>
                             <div class="d-grid d-md-flex justify-content-md-end mt-2">
                                 <button type="button" class="btn btn-danger me-3"
-                                        onclick="location.href = '{{ route('committee_ngo_member') }}';">পূর্ববর্তী
+                                        onclick="location.href = '{{ route('ngoCommitteMember') }}';">পূর্ববর্তী
                                 </button>
                                 <button type="button" class="btn btn-registration"
-                                        onclick="location.href = '{{ route('all_ngo_related_document') }}';">পরবর্তী
+                                        onclick="location.href = '{{ route('allNgoRelatedDocument') }}';">পরবর্তী
                                 </button>
                             </div>
                         </div>

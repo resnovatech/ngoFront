@@ -74,8 +74,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('nameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -131,7 +131,7 @@
                                                     <table class="table table-bordered">
                                                         <tr>
                                                             <td>নিবন্ধন নম্বর</td>
-                                                            <td>{{ $ngo_list_all->reg_no_get_from_admin }}</td>
+                                                            <td>{{ $ngo_list_all->registration_number }}</td>
                                                         </tr>
 
                                                       <?php
@@ -248,7 +248,7 @@
                                                                     </div>
                                                                     <div class="ms-3 flex-grow-1">
                                                                         <h6 class="fs-15 mb-0">
-                                                                            <a target="_blank" href="{{ route('form_one_pdf',['main_id'=>$ngo_list_all->user_id,'id'=>'plan']) }}" >পরিচালন পরিকল্পনা</a>
+                                                                            <a target="_blank" href="{{ route('formOnePdf',['main_id'=>$ngo_list_all->user_id,'id'=>'plan']) }}" >পরিচালন পরিকল্পনা</a>
                                                                         </h6>
                                                                     </div>
                                                                 </div>
@@ -269,29 +269,7 @@
                                                                     </div>
                                                                     <div class="ms-3 flex-grow-1">
                                                                         <h6 class="fs-15 mb-0"><a
-                                                                            target="_blank" href="{{ route('form_one_pdf',['main_id'=>$ngo_list_all->user_id,'id'=>'treasury_bill']) }}">চালানের কপি</a>
-                                                                        </h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>Pdf File</td>
-
-                                                            <td>{{ $ngo_list_all->created_at->format('d-M-Y')}}</td>
-
-                                                        </tr>
-
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-soft-primary text-primary rounded fs-20">
-                                                                            <i class="ri-file-zip-fill"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h6 class="fs-15 mb-0"><a
-                                                                            target="_blank" href="{{ route('form_one_pdf',['main_id'=>$ngo_list_all->user_id,'id'=>'treasury_bill']) }}">ট্রেজারি চালানের মূলকপি</a>
+                                                                            target="_blank" href="{{ route('formOnePdf',['main_id'=>$ngo_list_all->user_id,'id'=>'treasury_bill']) }}">চালানের কপি</a>
                                                                         </h6>
                                                                     </div>
                                                                 </div>
@@ -313,7 +291,29 @@
                                                                     </div>
                                                                     <div class="ms-3 flex-grow-1">
                                                                         <h6 class="fs-15 mb-0"><a
-                                                                            target="_blank" href="{{ route('form_one_pdf',['main_id'=>$ngo_list_all->user_id,'id'=>'final_pdf']) }}">কর্মকর্তার স্বাক্ষর ও তারিখ সহ ফরম - ০১ এর ফাইনাল কপি</a>
+                                                                            target="_blank" href="{{ route('formOnePdf',['main_id'=>$ngo_list_all->user_id,'id'=>'treasury_bill']) }}">ট্রেজারি চালানের মূলকপি</a>
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>Pdf File</td>
+
+                                                            <td>{{ $ngo_list_all->created_at->format('d-M-Y')}}</td>
+
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="avatar-sm">
+                                                                        <div class="avatar-title bg-soft-primary text-primary rounded fs-20">
+                                                                            <i class="ri-file-zip-fill"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="ms-3 flex-grow-1">
+                                                                        <h6 class="fs-15 mb-0"><a
+                                                                            target="_blank" href="{{ route('formOnePdf',['main_id'=>$ngo_list_all->user_id,'id'=>'final_pdf']) }}">কর্মকর্তার স্বাক্ষর ও তারিখ সহ ফরম - ০১ এর ফাইনাল কপি</a>
                                                                         </h6>
                                                                     </div>
                                                                 </div>
@@ -335,7 +335,7 @@
                                                                     </div>
                                                                     <div class="ms-3 flex-grow-1">
                                                                         <h6 class="fs-15 mb-0"><a target="_blank"
-                                                                                    href="{{ route('form_eight_pdf',['main_id'=>$ngo_list_all->user_id]) }}">কর্মকর্তার স্বাক্ষর ও তারিখ সহ ফরম - ০৮ এর ফাইনাল কপি</a>
+                                                                                    href="{{ route('formEightPdf',['main_id'=>$ngo_list_all->user_id]) }}">কর্মকর্তার স্বাক্ষর ও তারিখ সহ ফরম - ০৮ এর ফাইনাল কপি</a>
                                                                         </h6>
                                                                     </div>
                                                                 </div>

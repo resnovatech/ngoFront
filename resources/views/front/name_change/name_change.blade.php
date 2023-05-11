@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('nameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -109,11 +109,11 @@
                                     <div class="d-grid d-md-flex justify-content-end">
                                         @if(  $name_change_list == 'Ongoing')
                                         <button type="button" disabled class="btn btn-registration"
-                                                onclick="location.href = '{{ route('send_name_change_page') }}';">এনজিওর নাম পরিবর্তন
+                                                onclick="location.href = '{{ route('sendNameChange') }}';">এনজিওর নাম পরিবর্তন
                                         </button>
                                         @else
                                         <button type="button"  class="btn btn-registration"
-                                        onclick="location.href = '{{ route('send_name_change_page') }}';">এনজিওর নাম পরিবর্তন
+                                        onclick="location.href = '{{ route('sendNameChange') }}';">এনজিওর নাম পরিবর্তন
                                 </button>
 
                                         @endif

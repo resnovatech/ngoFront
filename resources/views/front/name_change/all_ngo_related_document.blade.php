@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('all_ngo_related_document') ||  Route::is('committee_ngo_member') || Route::is('view_form_8_for_change') || Route::is('name_change_page') || Route::is('send_name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন </p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('allNgoRelatedDocument') ||  Route::is('ngoCommitteMember') || Route::is('formEightData') || Route::is('nameChange') || Route::is('sendNameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন </p>
                             </a>
                         </div>
 
@@ -125,7 +125,7 @@
                                     <h5>সকল নথি </h5>
                                 </div>
                                 <div class="p-2">
-                                    <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('add_other_doc') }}';">
+                                    <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('addOtherDoc') }}';">
                                        নতুন নথি যুক্ত করুন
                                     </button>
                                 </div>
@@ -175,7 +175,7 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form method="post" action="{{ route('update_other_doc') }}" enctype="multipart/form-data">
+                                                                <form method="post" action="{{ route('updateOtherDoc') }}" enctype="multipart/form-data">
                                                                     <input type="hidden" name="id" value="{{ $all_ngo_list_all->id  }}" class="form-control" id="">
                                                                     @csrf
 
@@ -202,10 +202,10 @@
                                                 <button  onclick="deleteTag({{ $all_ngo_list_all->id}})" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                             </div>
                                         </div>
-                                        <form id="delete-form-{{ $all_ngo_list_all->id }}" action="{{ route('ngoDocumentDelete',$all_ngo_list_all->id) }}" method="POST" style="display: none;">
+                                        <form id="delete-form-{{ $all_ngo_list_all->id }}" action="{{ route('ngoDocument.destroy',$all_ngo_list_all->id) }}" method="POST" style="display: none;">
 
                                             @csrf
-
+@method('DELETE')
                                         </form>
                                         @endforeach
                                         </div>
@@ -214,10 +214,10 @@
                             </div>
                             <div class="d-grid d-md-flex justify-content-md-end mt-2">
                                 <button type="button" class="btn btn-danger me-3"
-                                        onclick="location.href = '{{ route('ngo_member_id_and_images') }}';">Previous
+                                        onclick="location.href = '{{ route('ngoMemberNidAndImage') }}';">Previous
                                 </button>
                                 <button type="button" class="btn btn-registration"
-                                        onclick="location.href = '{{ route('final_submit_name_change') }}';">Submit
+                                        onclick="location.href = '{{ route('finalSubmitNameChange') }}';">Submit
                                 </button>
                             </div>
                         </div>

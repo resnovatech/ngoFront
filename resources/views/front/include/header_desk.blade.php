@@ -51,7 +51,7 @@
                     </a>
                 </div>
                 <div class="header_box">
-                    <a href="{{ route('name_change_page') }}">
+                    <a href="{{ route('nameChange') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/name_change.png" alt="">
                         <h3>{{ trans('header.name_change')}}</h3>
                     </a>

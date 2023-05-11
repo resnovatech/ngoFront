@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('view_form_8_for_change') || Route::is('name_change_page') || Route::is('send_name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('formEightData') || Route::is('nameChange') || Route::is('sendNameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -125,7 +125,7 @@
                                     <h5>কমিটি মেম্বার</h5>
                                 </div>
                                 <div class="p-2">
-                                    <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('view_form_8_for_change_add') }}';">
+                                    <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('formEightDataAdd') }}';">
                                         নতুন কমিটি মেম্বার যোগ করুন
                                     </button>
                                 </div>
@@ -173,7 +173,7 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('view_form_8_for_change_edit',$main_all_data_list->name_slug) }}';"><i
+                                                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href = '{{ route('formEightDataEdit',$main_all_data_list->name_slug) }}';"><i
                                                                 class="bi bi-pencil-fill"></i></button>
 
 
@@ -181,9 +181,10 @@
                                                     <button type="button" onclick="deleteTag({{ $main_all_data_list->id}})" class="btn btn-sm btn-danger"><i
                                                                 class="bi bi-trash"></i></button>
 
-                                                                <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('formEightNgoCommitteeMemberDelete',$main_all_data_list->id) }}" method="POST" style="display: none;">
+                                                                <form id="delete-form-{{ $main_all_data_list->id }}" action="{{ route('formEightNgoCommitteMember.destroy',$main_all_data_list->id) }}" method="POST" style="display: none;">
 
                                                                     @csrf
+                                                                    @method('DELETE')
 
                                                                 </form>
 
@@ -202,10 +203,10 @@
                                     </table>
                                     <div class="d-grid d-md-flex justify-content-md-end">
                                         <button type="button" class="btn btn-registration me-3"
-                                                onclick="location.href = '{{ route('send_name_change_page') }}';">পূর্ববর্তী
+                                                onclick="location.href = '{{ route('sendNameChange') }}';">পূর্ববর্তী
                                         </button>
                                         <button type="button" class="btn btn-registration"
-                                                onclick="location.href = '{{ route('committee_ngo_member') }}';">পরবর্তী
+                                                onclick="location.href = '{{ route('ngoCommitteMember') }}';">পরবর্তী
                                         </button>
                                     </div>
                                 </div>

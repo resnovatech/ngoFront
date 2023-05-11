@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         $id = $id;
 
-        return view('front.password_reset_page',compact('id'));
+        return view('front.auth_page.password_reset_page',compact('id'));
 
     }
 
@@ -93,17 +93,17 @@ class AuthController extends Controller
 
     public function showLinkRequestForm(){
 
-        return view('front.showLinkRequestForm');
+        return view('front.auth_page.showLinkRequestForm');
     }
 
     public function index(){
 
-        return view('front.login');
+        return view('front.auth_page.login');
     }
 
     public function registration(){
 
-        return view('front.register');
+        return view('front.auth_page.register');
     }
 
     public function postLogin(Request $request)
@@ -249,7 +249,7 @@ class AuthController extends Controller
             if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing'){
 
 
-            return view('front.dashboard');
+            return view('front.dashboard.dashboard');
 
             }else{
 
@@ -265,7 +265,7 @@ $all_source_of_fund = FormOneSourceOfFund::where('fd_one_form_id',$ngo_list_all-
 $get_all_data_other= FormOneOtherPdfList::where('fd_one_form_id',$ngo_list_all->id)
             ->get();
 
-                return view('front.accept_dashboard',compact('name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
+                return view('front.dashboard.accept_dashboard',compact('name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
             }
         }
 

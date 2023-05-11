@@ -25,7 +25,7 @@ use App\Models\NameChange;
 use Illuminate\Support\Str;
 class NamechangeController extends Controller
 {
-    public function name_change_page(){
+    public function nameChange(){
 
         $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
         ->value('ngo_type');
@@ -36,14 +36,14 @@ class NamechangeController extends Controller
     }
 
 
-    public function send_name_change_page(){
+    public function sendNameChange(){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         return view('front.name_change.send_name_change_page',compact('ngo_list_all'));
     }
 
 
-    public function view_form_8_for_change(Request $request){
+    public function formEightData(Request $request){
 
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
@@ -61,7 +61,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function view_form_8_for_change_add(Request $request){
+    public function formEightDataAdd(Request $request){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = FormEight::where('user_id',Auth::user()->id)->get();
@@ -71,7 +71,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function committee_ngo_member_add(Request $request){
+    public function ngoCommitteMemberAdd(Request $request){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = NgoMemberList::where('user_id',Auth::user()->id)->get();
@@ -81,7 +81,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function committee_ngo_member_edit($id){
+    public function ngoCommitteMemberEdit($id){
         $all_data_list = NgoMemberList::where('name_slug',$id)->first();
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         return view('front.name_change.committee_ngo_member_edit',compact('all_data_list','ngo_list_all'));
@@ -89,7 +89,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function committee_ngo_member_store(Request $request){
+    public function ngoCommitteMemberStore(Request $request){
 
         $time_dy = time().date("Ymd");
 
@@ -127,12 +127,12 @@ class NamechangeController extends Controller
         $ngoMemberData->save();
 
 
-        return redirect('/committee_ngo_member')->with('success','Created Successfully');
+        return redirect('/ngoCommitteMember')->with('success','Created Successfully');
     }
 
 
 
-    public function committee_ngo_member_update(Request $request){
+    public function ngoCommitteMemberUpdate(Request $request){
         $time_dy = time().date("Ymd");
 
         $ngoMemberData = NgoMemberList::find($request->id);
@@ -149,13 +149,13 @@ class NamechangeController extends Controller
         $ngoMemberData->save();
 
 
-        return redirect('/committee_ngo_member')->with('success','Created Successfully');
+        return redirect('/ngoCommitteMember')->with('success','Created Successfully');
 
 
     }
 
 
-    public function view_form_8_for_change_store(Request $request){
+    public function formEightDataStore(Request $request){
 
         $time_dy = time().date("Ymd");
 
@@ -203,11 +203,11 @@ class NamechangeController extends Controller
         $formEightData->save();
 
 
-        return redirect('/view_form_8_for_change')->with('success','Created Successfully');
+        return redirect('/formEightData')->with('success','Created Successfully');
     }
 
 
-    public function view_form_8_for_change_edit($id){
+    public function formEightDataEdit($id){
 
 
  $all_data_list = FormEight::where('name_slug',$id)->first();
@@ -217,7 +217,7 @@ class NamechangeController extends Controller
 
 
 
-    public function view_form_8_for_change_update(Request $request){
+    public function formEightDataUpdate(Request $request){
         $time_dy = time().date("Ymd");
 
         $formEightData =FormEight::find($request->id);
@@ -238,13 +238,13 @@ class NamechangeController extends Controller
         $formEightData->save();
 
 
-        return redirect('/view_form_8_for_change')->with('info','Updated Successfully');
+        return redirect('/formEightData')->with('info','Updated Successfully');
 
 
     }
 
 
-    public function committee_ngo_member(Request $request){
+    public function ngoCommitteMember(Request $request){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = NgoMemberList::where('user_id',Auth::user()->id)->get();
@@ -253,7 +253,7 @@ class NamechangeController extends Controller
 
 
 
-    public function ngo_member_id_and_images(Request $request){
+    public function ngoMemberNidAndImage(Request $request){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = NgoMemberNidPhoto::where('user_id',Auth::user()->id)->get();
@@ -261,7 +261,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function ngo_member_id_and_images_add(){
+    public function ngoMemberNidAndImageAdd(){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = NgoMemberNidPhoto::where('user_id',Auth::user()->id)->get();
@@ -270,7 +270,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function ngo_member_id_and_images_store(Request $request){
+    public function ngoMemberNidAndImageStore(Request $request){
 
 
         $time_dy = time().date("Ymd");
@@ -309,12 +309,12 @@ class NamechangeController extends Controller
             $form->save();
        }
 
-       return redirect('/ngo_member_id_and_images')->with('success','Created Successfully');
+       return redirect('/ngoMemberNidAndImage')->with('success','Created Successfully');
     }
 
 
 
-    public function ngo_member_id_and_images_update(Request $request){
+    public function ngoMemberNidAndImageUpdate(Request $request){
 
         $time_dy = time().date("Ymd");
 
@@ -344,12 +344,12 @@ class NamechangeController extends Controller
 
         $form->save();
 
-        return redirect('/ngo_member_id_and_images')->with('info','Updated Successfully');
+        return redirect('/ngoMemberNidAndImage')->with('info','Updated Successfully');
     }
 
 
 
-    public function all_ngo_related_document(Request $request){
+    public function allNgoRelatedDocument(Request $request){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = NgoOtherDoc::where('user_id',Auth::user()->id)->get();
@@ -358,7 +358,7 @@ class NamechangeController extends Controller
     }
 
 
-    public function add_other_doc(){
+    public function addOtherDoc(){
 
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $form_eight_list = NgoOtherDoc::where('user_id',Auth::user()->id)->get();
@@ -369,7 +369,7 @@ class NamechangeController extends Controller
 
 
 
-    public function store_other_doc(Request $request){
+    public function storeOtherDoc(Request $request){
 
         $time_dy = time().date("Ymd");
         $dt = new DateTime();
@@ -401,13 +401,13 @@ class NamechangeController extends Controller
 
 
 
-         return redirect('/all_ngo_related_document')->with('success','Uploaded Successfully');
+         return redirect('/allNgoRelatedDocument')->with('success','Uploaded Successfully');
 
 
     }
 
 
-    public function update_other_doc(Request $request){
+    public function updateOtherDoc(Request $request){
         $time_dy = time().date("Ymd");
 
         $ngoOtherDoc =NgoOtherDoc::find($request->id);
@@ -426,14 +426,14 @@ class NamechangeController extends Controller
         $ngoOtherDoc->save();
 
 
-        return redirect('/all_ngo_related_document')->with('success','Created Successfully');
+        return redirect('/allNgoRelatedDocument')->with('success','Created Successfully');
 
 
     }
 
 
 
-    public function final_submit_name_change(Request $request){
+    public function finalSubmitNameChange(Request $request){
 
 
        // dd(Session::get('previous_name'));
@@ -454,13 +454,13 @@ class NamechangeController extends Controller
         $new_data_add->save();
 
 
-        return redirect('/name_change_page')->with('success','Request Send Successfully');
+        return redirect('/nameChange')->with('success','Request Send Successfully');
 
     }
 
 
 
-    public function form_one_pdf($main_id,$id){
+    public function formOnePdf($main_id,$id){
 
         if($id = 'plan'){
 
@@ -495,7 +495,7 @@ return Response::make(file_get_contents($file), 200, [
     }
 
 
-    public function form_eight_pdf($main_id){
+    public function formEightPdf($main_id){
 
         $form_one_data = DB::table('form_eights')->where('user_id',$main_id)->value('s_pdf');
 

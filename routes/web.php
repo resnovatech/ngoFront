@@ -41,37 +41,39 @@ Route::controller(FrontController::class)->group(function () {
 Route::controller(NamechangeController::class)->group(function () {
 
 
-    Route::get('add_other_doc', 'add_other_doc')->name('add_other_doc');
-    Route::post('store_other_doc', 'store_other_doc')->name('store_other_doc');
-    Route::post('update_other_doc', 'update_other_doc')->name('update_other_doc');
-    Route::get('final_submit_name_change', 'final_submit_name_change')->name('final_submit_name_change');
-    Route::get('all_ngo_related_document', 'all_ngo_related_document')->name('all_ngo_related_document');
-    Route::get('ngo_member_id_and_images', 'ngo_member_id_and_images')->name('ngo_member_id_and_images');
-    Route::get('ngo_member_id_and_images_add', 'ngo_member_id_and_images_add')->name('ngo_member_id_and_images_add');
-    Route::post('ngo_member_id_and_images_store', 'ngo_member_id_and_images_store')->name('ngo_member_id_and_images_store');
-    Route::post('ngo_member_id_and_images_update', 'ngo_member_id_and_images_update')->name('ngo_member_id_and_images_update');
+    Route::get('addOtherDoc', 'addOtherDoc')->name('addOtherDoc');
+    Route::post('storeOtherDoc', 'storeOtherDoc')->name('storeOtherDoc');
+    Route::post('updateOtherDoc', 'updateOtherDoc')->name('updateOtherDoc');
+    Route::get('finalSubmitNameChange', 'finalSubmitNameChange')->name('finalSubmitNameChange');
+    Route::get('allNgoRelatedDocument', 'allNgoRelatedDocument')->name('allNgoRelatedDocument');
+
+    Route::get('ngoMemberNidAndImage', 'ngoMemberNidAndImage')->name('ngoMemberNidAndImage');
+    Route::get('ngoMemberNidAndImageAdd', 'ngoMemberNidAndImageAdd')->name('ngoMemberNidAndImageAdd');
+    Route::post('ngoMemberNidAndImageStore', 'ngoMemberNidAndImageStore')->name('ngoMemberNidAndImageStore');
+    Route::post('ngoMemberNidAndImageUpdate', 'ngoMemberNidAndImageUpdate')->name('ngoMemberNidAndImageUpdate');
 
 
-    Route::get('view_form_8_for_change', 'view_form_8_for_change')->name('view_form_8_for_change');
-    Route::get('view_form_8_for_change_add', 'view_form_8_for_change_add')->name('view_form_8_for_change_add');
-    Route::get('view_form_8_for_change_edit/{id}', 'view_form_8_for_change_edit')->name('view_form_8_for_change_edit');
-    Route::post('view_form_8_for_change_store', 'view_form_8_for_change_store')->name('view_form_8_for_change_store');
-    Route::post('view_form_8_for_change_update', 'view_form_8_for_change_update')->name('view_form_8_for_change_update');
-    Route::post('view_form_8_for_change_delete/{id}','delete')->middleware(['auth'])->name('view_form_8_for_change_delete');
-
-
-    Route::get('committee_ngo_member', 'committee_ngo_member')->name('committee_ngo_member');
-    Route::get('committee_ngo_member_add', 'committee_ngo_member_add')->name('committee_ngo_member_add');
-    Route::get('committee_ngo_member_edit/{id}', 'committee_ngo_member_edit')->name('committee_ngo_member_edit');
-    Route::post('committee_ngo_member_store', 'committee_ngo_member_store')->name('committee_ngo_member_store');
-    Route::post('committee_ngo_member_update', 'committee_ngo_member_update')->name('committee_ngo_member_update');
+    Route::get('formEightData', 'formEightData')->name('formEightData');
+    Route::get('formEightDataAdd', 'formEightDataAdd')->name('formEightDataAdd');
+    Route::get('formEightDataEdit/{id}', 'formEightDataEdit')->name('formEightDataEdit');
+    Route::post('formEightDataStore', 'formEightDataStore')->name('formEightDataStore');
+    Route::post('formEightDataUpdate', 'formEightDataUpdate')->name('formEightData_update');
+    Route::post('formEightDataDelete/{id}','delete')->name('formEightDataDelete');
 
 
 
-    Route::get('send_name_change_page', 'send_name_change_page')->name('send_name_change_page');
-    Route::get('name_change_page', 'name_change_page')->name('name_change_page');
-    Route::get('/form_one_pdf/{main_id}/{id}',  'form_one_pdf')->name('form_one_pdf');
-    Route::get('/form_eight_pdf/{main_id}','form_eight_pdf')->name('form_eight_pdf');
+    Route::get('ngoCommitteMember', 'ngoCommitteMember')->name('ngoCommitteMember');
+    Route::get('ngoCommitteMemberAdd', 'ngoCommitteMemberAdd')->name('ngoCommitteMemberAdd');
+    Route::get('ngoCommitteMemberEdit/{id}', 'ngoCommitteMemberEdit')->name('ngoCommitteMemberEdit');
+    Route::post('ngoCommitteMemberStore', 'ngoCommitteMemberStore')->name('ngoCommitteMemberStore');
+    Route::post('ngoCommitteMemberUpdate', 'ngoCommitteMemberUpdate')->name('ngoCommitteMemberUpdate');
+
+
+
+    Route::get('sendNameChange', 'sendNameChange')->name('sendNameChange');
+    Route::get('nameChange', 'nameChange')->name('nameChange');
+    Route::get('/formOnePdf/{main_id}/{id}',  'formOnePdf')->name('formOnePdf');
+    Route::get('/formEightPdf/{main_id}','formEightPdf')->name('formEightPdf');
     Route::get('/source_of_fund/{id}', 'source_of_fund')->name('source_of_fund');
     Route::get('/other_pdf_view/{id}','other_pdf_view')->name('other_pdf_view');
 

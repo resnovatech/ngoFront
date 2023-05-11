@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('view_form_8_for_change_edit') || Route::is('name_change_page') || Route::is('send_name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('formEightDataEdit') || Route::is('nameChange') || Route::is('sendNameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -93,7 +93,7 @@
                         {{ trans('form 8_bn.ngo_committee_member_registration')}}
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('view_form_8_for_change_update') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                        <form method="post" action="{{ route('formEightDataUpdate') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                             @csrf
 

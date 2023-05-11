@@ -25,13 +25,13 @@ class OtherformController extends Controller
 
     public function frequentlyAskQuestion(){
 
-        return view('front.frequently_ask_question');
+        return view('front.other.frequently_ask_question');
     }
 
 
     public function informationResetPage(){
 
-        return view('front.informationResetPage');
+        return view('front.other.informationResetPage');
     }
 
     public function change_language(Request $request){

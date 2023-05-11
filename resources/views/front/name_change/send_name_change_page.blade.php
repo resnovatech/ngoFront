@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('name_change_page') || Route::is('send_name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('nameChange') || Route::is('sendNameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -125,7 +125,7 @@
                                এনজিওর নতুন নাম
                             </div>
                             <div class="card-body">
-                                <form method="get" action="{{ route('view_form_8_for_change') }}">
+                                <form method="get" action="{{ route('formEightData') }}">
 
                                     <div class=" mb-3">
                                         <label for="" class="form-label">পুরাতন  নাম(English)</label>

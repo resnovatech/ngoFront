@@ -63,8 +63,8 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('add_other_doc') ||  Route::is('committee_ngo_member') || Route::is('view_form_8_for_change') || Route::is('name_change_page') || Route::is('send_name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('addOtherDoc') ||  Route::is('ngoCommitteMember') || Route::is('formEightData') || Route::is('nameChange') || Route::is('sendNameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
                             </a>
                         </div>
 
@@ -90,7 +90,7 @@
                     <div class="card-body">
                         <div class="committee_container">
                             <h5 class="mb-4">এনজিও নথি নিবন্ধন</h5>
-                            <form method="post" action="{{ route('store_other_doc') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                            <form method="post" action="{{ route('storeOtherDoc') }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
 
                                 @csrf
                                 <div class="card mb-3">
@@ -231,7 +231,7 @@
                                 </div>
                                 <div class="d-grid d-md-flex justify-content-md-end">
                                     <button type="submit" class="btn btn-registration"
-                                            >যুক্ত করুন 
+                                            >যুক্ত করুন
                                     </button>
                                 </div>
 
