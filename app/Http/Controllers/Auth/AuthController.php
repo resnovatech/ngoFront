@@ -12,56 +12,63 @@ use Hash;
 use Illuminate\Support\Str;
 use Mail;
 use DB;
-use App\Models\Namechange;
-use App\Models\Renew;
-use App\Models\Ngo_committee_member;
-use App\Models\Fboneform;
-use App\Models\Acounntotherinfo;
-use App\Models\Bankaccount;
+use App\Models\NgoTypeAndLanguage;
+use App\Models\NgoNameChange;
+use App\Models\NgoRenew;
+use App\Models\RenewalFile;
+use App\Models\FormEight;
+use App\Models\FdOneForm;
+use App\Models\FdOneOtherPdfList;
+use App\Models\FormOneOtherPdfList;
+use App\Models\FormOneBankAccount;
 use App\Models\Fdoneformadviser;
-use App\Models\Sourceoffund;
-use App\Models\Fdoneform_staff;
-use App\Models\Ngomember;
-use App\Models\Ngodoc;
-use App\Models\Ngo_member_doc;
+use App\Models\FdOneSourceOfFund;
+use App\Models\FdOneMemberList;
+use App\Models\NgoMemberNidPhoto;
+use App\Models\NgoOtherDoc;
+use App\Http\Controllers\NGO\CommonController;
 class AuthController extends Controller
 {
 
-    public function password_change_confirmed(Request $request){
+    public function passwordChangeConfirmed(Request $request){
+        try{
 
-        $get_all_data = User::find($request->id);
+            DB::beginTransaction();
 
-        $get_all_data->password = Hash::make($request->password);
+            $get_all_data = User::find($request->id);
+            $get_all_data->password = Hash::make($request->password);
+            $get_all_data->save();
 
-        $get_all_data->save();
+            DB::commit();
 
-          return redirect('/login')->with('success','Password Successfully Changed!');
+            return redirect('/login')->with('success','Password Successfully Changed!');
 
-
-    }
-
-    public function password_reset_page($id){
-
-$id = $id;
-
-        return view('front.password_reset_page',compact('id'));
-
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
+        }
 
     }
 
-    public function check_mail_from_list(Request $request){
+    public function passwordResetPage($id){
+
+        $id = $id;
+
+        return view('front.auth_page.password_reset_page',compact('id'));
+
+    }
+
+    public function checkMailFromList(Request $request){
 
         $type_email = $request->type_email;
         $data = User::where('email',$type_email)->value('email');
 
+        return response()->json($data);
 
-
-    // $data = view('backend.product.main_search_button_product',compact('product_list','total_serial_number','search'))->render();
-     return response()->json($data);
      }
 
 
-     public function check_mail_already_registered_or_not(Request $request){
+     public function checkMailAlreadyRegisteredOrNot(Request $request){
 
         $main_data = User::where('email',$request->pass)->value('email');
 
@@ -75,245 +82,327 @@ $id = $id;
 
         }
 
-
         return $data;
 
-     }
+    }
 
 
-     public function send_mail_get_from_list(Request $request){
+     public function sendMailGetFromList(Request $request){
+        try{
 
-        $useremail = $request->email;
+            $useremail = $request->email;
+            $main_data = User::where('email',$useremail)->first();
+            $id = $main_data->id;
+            $email = $main_data->email;
 
-        $main_data = User::where('email',$useremail)->first();
+            Mail::send('emails.passwordResetEmail', ['id' => $id], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('NGOAB Registration Service || Password Reset ');
+            });
 
-        $id = $main_data->id;
+            return redirect('/login')->with('success','Email Sent Successfully!');
 
-        $email = $main_data->email;
+        } catch (\Exception $e) {
 
-        //dd($main_data->email);
+            return redirect()->route('error_404');
+        }
 
-        Mail::send('emails.passwordResetEmail', ['id' => $id], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Password Reset Email');
-        });
-
-
-        return redirect('/login')->with('success','Email Sent Successfully!');
-
-}
+    }
 
     public function showLinkRequestForm(){
 
-        return view('front.showLinkRequestForm');
+        return view('front.auth_page.showLinkRequestForm');
     }
+
     public function index(){
 
-        return view('front.login');
+        return view('front.auth_page.login');
     }
 
     public function registration(){
 
-        return view('front.register');
+        return view('front.auth_page.register');
     }
 
     public function postLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required | string',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                        ->with('success','You have Successfully logged in');
-        }
+        try{
 
-        return redirect("login")->with('error','Oppes! You have entered invalid credentials');
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+
+                return redirect()->intended('dashboard')->with('success','You have Successfully logged in');
+            }
+
+            return redirect("login")->with('error','Opps! You have entered invalid credentials');
+
+        } catch (\Exception $e) {
+            return redirect()->route('error_404');
+        }
     }
 
     public function postRegistration(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
             'password' => 'required|min:5',
         ]);
 
         $data = $request->all();
-        $createUser = $this->create($data);
 
-        $token = Str::random(10);
+        try{
 
-        UserVerify::create([
-              'user_id' => $createUser->id,
-              'token' => $token
-            ]);
+            DB::beginTransaction();
 
-        Mail::send('emails.emailVerificationEmail', ['token' => $token], function($message) use($request){
-              $message->to($request->email);
-              $message->subject('Email Verification Mail');
-          });
+            $createUser = new User;
+            $createUser->user_name = $request->name;
+            $createUser->non_verified_email = $request->email;
+            $createUser->password = Hash::make($request->password);
+            $createUser->user_phone = $request->phone;
+            $createUser->save();
 
 
-          return redirect("email_verify_page");
+            $token = Str::random(10);
 
+            UserVerify::create([
+                'user_id' => $createUser->id,
+                'token' => $token
+                ]);
 
+            Mail::send('emails.emailVerificationEmail', ['token' => $token], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('NGOAB Registration Service || User Sign Up & Email Verification');
+            });
 
-        //return redirect("dashboard")->with('success','Great! You have Successfully loggedin');
+            DB::commit();
+            return redirect("emailVerifyPage");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
+        }
+
     }
 
 
     public function updateRegistration(Request $request){
 
-        //dd($request->is_email_verified);
-        $time_dy = time().date("Ymd");
+        $filePath="userImage";
         $get_previous_email_all = User::where('id',$request->id)->value('email');
 
         if($get_previous_email_all == $request->email){
 
-            $get_all_data = User::find($request->id);
-            $get_all_data->name = $request->name;
-            $get_all_data->email = $request->email;
+            try{
 
-            if ($request->hasfile('image')) {
-                $file = $request->file('image');
-                $extension = $time_dy.$file->getClientOriginalName();
-                $filename = $extension;
-                $file->move('public/uploads/', $filename);
-                $get_all_data->image =  'public/uploads/'.$filename;
+                DB::beginTransaction();
 
+                $get_all_data = User::find($request->id);
+                $get_all_data->user_name = $request->name;
+                $get_all_data->user_phone = $request->phone;
+                $get_all_data->user_address = $request->address;
+                $get_all_data->email = $request->email;
+
+                if ($request->hasfile('user_image')) {
+
+                    $file = $request->file('user_image');
+                    $get_all_data->user_image =  CommonController::imageUpload($request,$file,$filePath);
+
+                }
+
+                if ($request->password) {
+                    $get_all_data->password = Hash::make($request->password);
+                }
+
+                $get_all_data->save();
+
+                if ($request->password) {
+
+                Auth::logout();
+                DB::commit();
+                return Redirect('login')->with('success','Password Changed Login Again');
+
+                }else{
+
+                    return Redirect()->back()->with('success','updated Successfully');
+
+                }
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->route('error_404');
             }
-
-            if ($request->password) {
-                $get_all_data->password = Hash::make($request->password);
-            }
-          $get_all_data->save();
-
-          if ($request->password) {
-
-          Auth::logout();
-
-          return Redirect('login')->with('success','Password Changed Login Again');
-          }else{
-            return Redirect()->back()->with('success','updated Successfully');
-          }
 
         }else{
 
+            try{
 
-        $get_all_data = User::find($request->id);
-        $get_all_data->name = $request->name;
-        $get_all_data->email = $request->email;
-        $get_all_data->is_email_verified = 0;
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $get_all_data->image =  'public/uploads/'.$filename;
+                DB::beginTransaction();
+
+                $get_all_data = User::find($request->id);
+                $get_all_data->user_name = $request->name;
+                $get_all_data->user_phone = $request->phone;
+                $get_all_data->user_address = $request->address;
+                $get_all_data->email = $request->email;
+                $get_all_data->is_email_verified = 0;
+                if ($request->hasfile('user_image')) {
+
+                    $file = $request->file('user_image');
+                    $get_all_data->user_image =  CommonController::imageUpload($request,$file,$filePath);
+
+                }
+                if ($request->password) {
+                    $get_all_data->password = Hash::make($request->password);
+                }
+                $get_all_data->save();
+
+                $token = Str::random(10);
+
+                UserVerify::where('user_id',$request->id)->delete();
+
+                UserVerify::create([
+                    'user_id' => $request->id,
+                    'token' => $token
+                ]);
+
+                Mail::send('emails.emailVerificationEmail', ['token' => $token], function($message) use($request){
+                        $message->to($request->email);
+                        $message->subject('NGOAB Registration Service || User Sign Up & Email Verification');
+                    });
+
+                Session::flush();
+                Auth::logout();
+                DB::commit();
+
+                return Redirect('login')->with('success','Please Check Mail For Varification');;
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->route('error_404');
+            }
 
         }
-        if ($request->password) {
-            $get_all_data->password = Hash::make($request->password);
-        }
-      $get_all_data->save();
-
-      $token = Str::random(10);
-
-      UserVerify::where('user_id',$request->id)->delete();
-
-      UserVerify::create([
-        'user_id' => $request->id,
-        'token' => $token
-      ]);
-
-  Mail::send('emails.emailVerificationEmail', ['token' => $token], function($message) use($request){
-        $message->to($request->email);
-        $message->subject('Email Verification Mail');
-    });
-
-    Session::flush();
-    Auth::logout();
-
-    return Redirect('login')->with('success','Please Check Mail For Varification');;
-
-
-        }
-
-
-
-
     }
+
+
     public function create(array $data)
     {
       return User::create([
-        'name' => $data['name'],
+        'user_name' => $data['name'],
         'email' => $data['email'],
-        'phone' => $data['phone'],
+        'user_phone' => $data['phone'],
         'password' => Hash::make($data['password'])
       ]);
     }
 
+
     public function dashboard()
     {
-        if(Auth::check()){
 
-            $ngo_status_list = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status');
+        try{
 
-            if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing'){
+            if(Auth::check()){
+
+                $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->value('id');
+                $newOldNgo = CommonController::newOldNgo();
+
+                if($newOldNgo != 'Old'){
+                    $ngo_status_list = DB::table('ngo_statuses')->where('fd_one_form_id',$ngo_list_all)->value('status');
+                }else{
+                    $ngo_status_list = DB::table('ngo_renews')->where('fd_one_form_id',$ngo_list_all)->value('status');
+                }
 
 
-            return view('front.dashboard');
+                if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing' || $ngo_status_list == 'Old Ngo Renew'){
 
-            }else{
-                $name_change_list_r = Renew::where('user_id',Auth::user()->id)->get();
-                $name_change_list = Namechange::where('user_id',Auth::user()->id)->get();
+                    $get_reg_id = DB::table('ngo_statuses')->where('fd_one_form_id',$ngo_list_all)->value('status');
+                    $mainNgoType = CommonController::changeView();
 
-                $ngo_list_all_form_eight = Ngo_committee_member::where('user_id',Auth::user()->id)->first();
+                    if($mainNgoType== 'দেশিও'){
 
-$ngo_list_all = Fboneform::where('user_id',Auth::user()->id)->first();
-$form_member_data_doc = Ngo_member_doc::where('user_id',$ngo_list_all->user_id)->get();
-$form_ngo_data_doc = Ngodoc::where('user_id',$ngo_list_all->user_id)->get();
-$all_source_of_fund = Sourceoffund::where('user_id',$ngo_list_all->user_id)->get();
-$get_all_data_other= Acounntotherinfo::where('user_id',$ngo_list_all->user_id)
-            ->get();
+                    return view('front.dashboard.dashboard',compact('get_reg_id'));
 
-                return view('front.accept_dashboard',compact('name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
+                    }else{
+
+                        return view('front.dashboard.foreign.dashboard',compact('get_reg_id'));
+
+                    }
+
+                }else{
+
+                    $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
+                    $name_change_list_r = NgoRenew::where('fd_one_form_id',$ngo_list_all->id)->get();
+                    $name_change_list = NgoNameChange::where('fd_one_form_id',$ngo_list_all->id)->get();
+                    $ngo_list_all_form_eight = FormEight::where('fd_one_form_id',$ngo_list_all->id)->first();
+                    $form_member_data_doc = NgoMemberNidPhoto::where('fd_one_form_id',$ngo_list_all->id)->get();
+                    $form_ngo_data_doc = NgoOtherDoc::where('fd_one_form_id',$ngo_list_all->id)->get();
+                    $all_source_of_fund = FdOneSourceOfFund::where('fd_one_form_id',$ngo_list_all->id)->get();
+                    $get_all_data_other= FdOneOtherPdfList::where('fd_one_form_id',$ngo_list_all->id)->get();
+                    $oldOrNewStatus = NgoTypeAndLanguage::where('user_id',Auth::user()->id)->first();
+
+                    CommonController::checkNgotype(1);
+                    $mainNgoType = CommonController::changeView();
+                    $ngoOtherDocLists = RenewalFile::where('fd_one_form_id',$ngo_list_all->id)->latest()->get();
+
+                    if($mainNgoType== 'দেশিও'){
+
+                        return view('front.dashboard.accept_dashboard',compact('ngoOtherDocLists','oldOrNewStatus','name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
+                    }else{
+
+                        return view('front.dashboard.foreign.accept_dashboard',compact('ngoOtherDocLists','oldOrNewStatus','name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
+                    }
+
+                }
             }
-        }
 
-        return redirect("login")->with('error','Opps! You do not have access');
+            return redirect("login")->with('error','Opps! You do not have access');
+
+        } catch (\Exception $e) {
+            return redirect()->route('error_404');
+        }
     }
 
     public function logout() {
-        //Session::flush();
+
         Auth::logout();
 
         return Redirect('login');
     }
 
+
     public function verifyAccount($token)
     {
-        $verifyUser = UserVerify::where('token', $token)->first();
 
-        $message = 'Sorry your email cannot be identified.';
+        try{
 
-        if(!is_null($verifyUser) ){
-            $user = $verifyUser->user;
+            DB::beginTransaction();
 
-            if(!$user->is_email_verified) {
-                $verifyUser->user->is_email_verified = 1;
-                $verifyUser->user->save();
-                $message = "Your e-mail is verified. You can now login.";
-            } else {
-                $message = "Your e-mail is already verified. You can now login.";
+            $verifyUser = UserVerify::where('token', $token)->first();
+            $message = 'Sorry your email cannot be identified.';
+
+            if(!is_null($verifyUser) ){
+                $user = $verifyUser->user;
+
+                if(!$user->is_email_verified) {
+                    $verifyUser->user->email = $verifyUser->user->non_verified_email;
+                    $verifyUser->user->is_email_verified = 1;
+                    $verifyUser->user->save();
+                    $message = "Your e-mail is verified. You can now login.";
+                } else {
+                    $message = "Your e-mail is already verified. You can now login.";
+                }
             }
+            DB::commit();
+            return redirect("emailVerifiedPage");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
         }
-
-        return redirect("email_verified_page");
-
-      //return redirect()->route('login')->with('info', $message);
     }
 }

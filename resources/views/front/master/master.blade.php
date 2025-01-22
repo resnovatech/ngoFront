@@ -16,20 +16,43 @@
     <!-- ResNova App favicon -->
     <link rel="shortcut icon" href="{{ asset('/') }}public/front/assets/img/logo/logo.png">
     <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="{{ asset('/') }}public/front/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}public/front/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="{{ asset('/') }}public/front/assets/vendor/slick-slider/slick.css" rel="stylesheet">
     <link href="{{ asset('/') }}public/front/assets/vendor/select2/css/select2.min.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('/') }}public/front/assets/css/style.css" rel="stylesheet">
+  <link href="{{ asset('/') }}public/front/assets/css/responsive_style.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/') }}public/front/assets/vendor/fontawesome4.7.0/css/font-awesome.min.css">
 
-
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nokshaia/angkur@latest/PublicFonts/Nikosh/stylesheet_Normal_DisplaySwap.css"/> --}}
     <style>
-
+/* body {
+	font-family: 'Nikosh', serif !important;
+} */
 .swal2-confirm{
 
     margin-left: 20px;
+}
+
+#pageloader
+{
+  background: rgba( 255, 255, 255, 0.8 );
+  display: none;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+
+#pageloader img
+{
+  left: 50%;
+  margin-left: -32px;
+  margin-top: -32px;
+  position: absolute;
+  top: 50%;
 }
 
         </style>
@@ -42,6 +65,7 @@
 @else
 <script src="{{ asset('/')}}public/front/assets/parsely1.js"></script>
 @endif
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style>
 
     .parsley-required{
@@ -138,13 +162,18 @@
 
     }
 
-
+    .progress { position:relative; width:100%; }
+.bar { background-color: #24695c; width:0%; height:50px; }
+.percent { position:absolute; display:inline-block; left:50%; color: white;}
 
     </style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
 
 <body>
-
+@include('front.include.loader')
 <!-- ======= Hero Section ======= -->
 
 
@@ -152,20 +181,20 @@
 
 <!-- ======= Slider Section ======= -->
 
-@if(Route::is('login') || Route::is('email_verify_page')  || Route::is('email_verified_page')  || Route::is('check_status_reg_from')  || Route::is('status_page') || Route::is('register') || Route::is('ngo_instruction_page') || Route::is('ngo_registration_fee_list'))
+@if(Route::is('login') || Route::is('emailVerifyPage')  || Route::is('emailVerifiedPage')  || Route::is('checkStatusRegFrom')  || Route::is('statusPage') || Route::is('register') || Route::is('ngoInstructionPage') || Route::is('ngoRegistrationFeeList'))
 
 @if(Route::is('login'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও লগ ইন
 		@else
         	NGO Log In
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -177,14 +206,14 @@
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
-			এনজিও রেজিস্ট্রেশান
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
+        এনজিও'র রেজিস্ট্রেশন
 		@else
-        	 Registration For User
+        	 Registration For NGO
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -193,18 +222,18 @@
 	</div>
 </div>
 
-@elseif(Route::is('email_verify_page'))
+@elseif(Route::is('emailVerifyPage'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			ইমেল যাচাইকরণ
 		@else
         	Email Verification Page
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -213,18 +242,18 @@
 	</div>
 </div>
 
-@elseif(Route::is('email_verified_page'))
+@elseif(Route::is('emailVerifiedPage'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			ইমেল যাচাই সম্পন্ন
 		@else
         	Email Verified
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -233,18 +262,18 @@
 	</div>
 </div>
 
-@elseif(Route::is('check_status_reg_from'))
+@elseif(Route::is('checkStatusRegFrom'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			আবেদনের অবস্থান পর্যবেক্ষণ
 		@else
         	Application Status Check
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -253,18 +282,18 @@
 	</div>
 </div>
 
-@elseif(Route::is('status_page'))
+@elseif(Route::is('statusPage'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			আবেদনের অবস্থান ফলাফল
 		@else
         	Application Status Result
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -273,18 +302,18 @@
 	</div>
 </div>
 
-@elseif(Route::is('ngo_instruction_page'))
+@elseif(Route::is('ngoInstructionPage'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিওর সকল কার্যাবলীর নির্দেশনা
 		@else
         	NGO Instruction
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -293,18 +322,18 @@
 	</div>
 </div>
 
-@elseif(Route::is('ngo_registration_fee_list'))
+@elseif(Route::is('ngoRegistrationFeeList'))
 <div class="faq_header_box">
 	<div class="container">
       <h1>
-		@if(session()->get('locale') == 'en')
+		@if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিওর নিবন্ধন ফি তালিকা
 		@else
         	NGO Registration Fee List
 		@endif
 	  </h1>
       <h4>
-        @if(session()->get('locale') == 'en')
+        @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
 			এনজিও বিষয়ক ব্যুরো ডিজিটাল প্ল্যাটফর্ম
 		@else
         	NGO Affairs Bureau Digital Platform
@@ -317,7 +346,14 @@
 
 @elseif(Route::is('index'))
 @include('front.include.banner')
-@elseif(Route::is('frequently_ask_question'))
+@elseif(Route::is('allNoticeBoard') || Route::is('viewNotice'))
+<div class="faq_header_box">
+    <div class="container">
+        <h1> নোটিশ বোর্ড </h1>
+
+    </div>
+</div>
+@elseif(Route::is('frequentlyAskQuestion'))
 
 <div class="faq_header_box">
     <div class="container">
@@ -331,6 +367,7 @@
     <div class="container">
         <h1>{{ trans('first_info.user_dash')}}</h1>
         {{-- <h4>User History</h4> --}}
+
     </div>
 </div>
 
@@ -367,7 +404,16 @@
 <!-- Template Main JS File -->
 <script src="{{ asset('/') }}public/front/assets/js/main.js"></script>
 {{-- <script src="{{ asset('/') }}public/front/assets/js/custom_js.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
 <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+  $('#summernote').summernote();
+  $('.summernote').summernote();
+});
+</script>
 <script type="text/javascript">
     function deleteTag(id) {
         swal({
@@ -385,8 +431,12 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
+
+
                 event.preventDefault();
                 document.getElementById('delete-form-'+id).submit();
+
+
             } else if (
                 // Read more about handling dismissals
                 result.dismiss === swal.DismissReason.cancel
@@ -402,7 +452,7 @@
 </script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 {{-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> --}}
-
+@include('front.firstTwoStep.fileSizeScript')
 @yield('script')
 
 <script>
@@ -433,6 +483,116 @@ $("document").ready(function(){
 
 });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-multiple, .distinct-single, .sub-distinct-single').select2();
+    });
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+
+<script>
+
+    $(document).ready(function() {
+      $(".js-example-basic-multipleo").select2({
+        dropdownParent: $("#exampleModal")
+      });
+    });
+
+</script>
+
+
+<script>
+
+    $(document).ready(function() {
+      $(".js-example-basic-multipleo1").select2({
+        dropdownParent: $(".modal")
+      });
+    });
+
+</script>
+
+
+<script>
+   $( function() {
+	$( "#datepicker" ).datepicker({
+		dateFormat: "yy-mm-dd"
+		,	duration: "fast"
+	});
+} );
+    </script>
+
+<script>
+    $( function() {
+     $( ".datepicker" ).datepicker({
+         dateFormat: "yy-mm-dd"
+         ,	duration: "fast"
+     });
+ } );
+     </script>
+
+<script>
+    $( function() {
+     $( "#datepicker1" ).datepicker({
+         dateFormat: "yy-mm-dd"
+         ,	duration: "fast"
+     });
+ } );
+
+ //
+
+
+ $( function() {
+     $( "#registration_date0" ).datepicker({
+         dateFormat: "dd-mm-yy"
+         ,	duration: "fast"
+     });
+ } );
+
+
+ $( function() {
+     $( "#form_date" ).datepicker({
+         dateFormat: "dd-mm-yy"
+         ,	duration: "fast"
+     });
+ } );
+
+
+ $( function() {
+     $( ".datepickerOne" ).datepicker({
+         dateFormat: "dd-mm-yy"
+         ,	duration: "fast"
+     });
+ } );
+
+ //
+
+ $( function() {
+     $( "#to_date" ).datepicker({
+         dateFormat: "dd-mm-yy"
+         ,	duration: "fast"
+     });
+ } );
+     </script>
+
+
+<script>
+    $(document).ready(function(){
+  $("#form").on("submit", function(){
+    //alert(123);
+    $("#pageloader").fadeIn();
+  });//submit
+});//document ready
+</script>
+
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
 </body>
 
 </html>

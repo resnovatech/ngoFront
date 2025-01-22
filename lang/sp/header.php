@@ -1,21 +1,28 @@
 <?php
 return [
+
+    'old'=>'Old',
+    'new'=>'New',
+    'ngo_type'=>'Type of NGO',
+    'reg_number'=>'Registration Number',
+    'last_renew_date'=>'Date of last registration/renewal',
+    'last_renew_date1'=>'Registration Date',
     'in1'=>'This field is required',
     'reg1'=>'Registration',
     'sm'=>'Must be use valid email for varification',
     'reg'=>'Register',
     'step'=>'Step 01',
-    'tt_one'=>' Registration for new User',
-    'person_name'=>'Registration Person Name',
+    'tt_one'=>' Registration for NGO',
+    'person_name'=>'NGO Name',
     'phone_number'=>'Mobile Number',
 
 
     'office'=>'NGO Affairs Bureau',
     'office1'=>'NGO Online Registration Portal, v1.0.0. All Rights Reserved.',
     'home'=>'Home',
-    'apply_online'=>'Apply Online',
-    'renew_application'=>'Renew Application',
-    'name_change' =>'Name Change',
+    'apply_online'=>'Apply Online Instruction',
+    'renew_application'=>'Renew Application Instruction',
+    'name_change' =>'Name Change Instruction',
     'instruction'=>'Instruction',
     'registration_fee'=>'Registration Fee',
     'sign_in' => 'Sign In',

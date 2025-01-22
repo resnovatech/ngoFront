@@ -10,82 +10,51 @@
                 </div>
                 <div class="header_box">
 
-                    @if (Auth::check())
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('/') }}public/front/assets/img/icon/apply_online.png" alt="">
-                        <h3>{{ trans('header.apply_online')}} </h3>
-                    </a>
-                    @else
-                    <a href="{{ route('login') }}">
+
+                    <a href="{{ route('ngoInstructionPageApply') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/apply_online.png" alt="">
                         <h3>{{ trans('header.apply_online')}}</h3>
                     </a>
 
 
-                    @endif
                 </div>
+
                 @if (Auth::check())
 
-             <?php   $ngo_status_list = DB::table('ngostatuses')->where('user_id',Auth::user()->id)->value('status'); ?>
-
-                @if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing')
+             <?php
+             $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
+                                           ->value('id');
+             $ngo_status_list = DB::table('ngo_statuses')->where('fd_one_form_id',$fdoneFormId)->value('status');
+              ?>
+@endif
 
                 <div class="header_box">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('ngoInstructionPageaRenew') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/renew.png" alt="">
                         <h3>{{ trans('header.renew_application')}}</h3>
                     </a>
                 </div>
                 <div class="header_box">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('ngoInstructionPageNameChange') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/name_change.png" alt="">
                         <h3>{{ trans('header.name_change')}}</h3>
                     </a>
                 </div>
-                @else
 
                 <div class="header_box">
-                    <a href="{{ route('renew_page') }}">
-                        <img src="{{ asset('/') }}public/front/assets/img/icon/renew.png" alt="">
-                        <h3>{{ trans('header.renew_application')}}</h3>
-                    </a>
-                </div>
-                <div class="header_box">
-                    <a href="{{ route('name_change_page') }}">
-                        <img src="{{ asset('/') }}public/front/assets/img/icon/name_change.png" alt="">
-                        <h3>{{ trans('header.name_change')}}</h3>
-                    </a>
-                </div>
-                @endif
-
-                @else
-                <div class="header_box">
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('/') }}public/front/assets/img/icon/renew.png" alt="">
-                        <h3>{{ trans('header.renew_application')}}</h3>
-                    </a>
-                </div>
-                <div class="header_box">
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('/') }}public/front/assets/img/icon/name_change.png" alt="">
-                        <h3>{{ trans('header.name_change')}}</h3>
-                    </a>
-                </div>
-                @endif
-                <div class="header_box">
-                    <a href="{{ route('ngo_instruction_page') }}">
+                    <a href="{{ route('ngoInstructionPage') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/instruction.png" alt="">
                         <h3>{{ trans('header.instruction')}}</h3>
                     </a>
                 </div>
                 <div class="header_box">
-                    <a href="{{ route('ngo_registration_fee_list') }}">
+                    <a href="{{ route('ngoRegistrationFeeList') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/fees.png" alt="">
                         <h3>{{ trans('header.registration_fee')}}</h3>
                     </a>
                 </div>
                 <div class="header_box">
-                    <a href="{{ route('status_page') }}">
+                    <a href="{{ route('statusPage') }}">
                         <img src="{{ asset('/') }}public/front/assets/img/icon/status.png" alt="">
                         <h3>{{ trans('header.check_status')}}</h3>
                     </a>

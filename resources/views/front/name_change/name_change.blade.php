@@ -10,16 +10,7 @@
 
 @section('body')
 
-<?php
- $engDATE = array('1','2','3','4','5','6','7','8','9','0','January','February','March','April',
-      'May','June','July','August','September','October','November','December','Saturday','Sunday',
-      'Monday','Tuesday','Wednesday','Thursday','Friday');
-      $bangDATE = array('১','২','৩','৪','৫','৬','৭','৮','৯','০','জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল','মে',
-      'জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর','শনিবার','রবিবার','সোমবার','মঙ্গলবার','
-      বুধবার','বৃহস্পতিবার','শুক্রবার'
-      );
 
-?>
 
 
 <section>
@@ -31,24 +22,22 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
+
                                 @if(empty(Auth::user()->image))
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                     class="rounded-circle" width="100">
+                                {{-- <img src="{{ asset('/') }}public/demo_315x315.jpg" alt="Admin"
+                                     class="rounded-circle" width="100"> --}}
                                      @else
-                                     <img src="{{ asset('/') }}{{ Auth::user()->image }}" alt="Admin"
-                                     class="rounded-circle" width="100">
+                                     {{-- <img src="{{ asset('/') }}{{ Auth::user()->image }}" alt="Admin"
+                                     class="rounded-circle" width="100"> --}}
                                      @endif
                                 <div class="mt-3">
-                                    @if(session()->get('locale') == 'en')
+                                    @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
                                     <h4>{{ $ngo_list_all->organization_name_ban }}</h4>
                                     @else
-
-
-
                                     <h4>{{ $ngo_list_all->organization_name }}</h4>
                                     @endif
-                                    <p class="text-secondary mb-1">{{ $ngo_list_all->name_of_head_in_bd }}</p>
-                                    <p class="text-muted font-size-sm">{{ $ngo_list_all->organization_address }}</p>
+                                    {{-- <p class="text-secondary mb-1">{{ $ngo_list_all->name_of_head_in_bd }}</p>
+                                    <p class="text-muted font-size-sm">{{ $ngo_list_all->organization_address }}</p> --}}
 
                                 </div>
                             </div>
@@ -59,24 +48,126 @@
                     <div class="card-body">
                        <div class="profile_link_box">
                             <a href="{{ route('dashboard') }}">
-                                <p class="{{ Route::is('dashboard')  ? 'active_link' : '' }}"><i class="fa fa-user pe-2"></i>ব্যবহারকারীর প্রোফাইল</p>
+                                <p class="{{ Route::is('dashboard')  ? 'active_link' : '' }}"><i class="fa fa-user pe-2"></i>{{ trans('fd9.m1')}}</p>
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('name_change_page') }}">
-                                <p class="{{ Route::is('name_change_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>এনজিওর নাম পরিবর্তন</p>
+                            <a href="{{ route('nameChange') }}">
+                                <p class="{{ Route::is('nameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.m2')}}</p>
                             </a>
                         </div>
 
                         <div class="profile_link_box">
-                            <a href="{{ route('renew_page') }}">
-                                <p class="{{ Route::is('renew_page')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>আবেদন পুনর্নবীকরণ</p>
+                            <a href="{{ route('renew') }}">
+                                <p class="{{ Route::is('renew')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.m3')}}</p>
                             </a>
                         </div>
 
+                        <div class="profile_link_box">
+                            <a href="{{ route('fdNineForm.index') }}">
+                                <p class="{{ Route::is('fdNineForm.index') || Route::is('fdNineForm.create') || Route::is('fdNineForm.create')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.nvisa')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fdNineOneForm.index') }}">
+                                <p class="{{ Route::is('fdNineOneForm.index') ||  Route::is('fdNineOneForm.create') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fd09formone')}}</p>
+                            </a>
+                        </div>
+
+
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fd6Form.index') }}">
+                                <p class="{{ Route::is('fd6Form.index') ||  Route::is('fd6Form.create') || Route::is('fd6Form.view') || Route::is('fd2Form.create') || Route::is('fd2Form.index') || Route::is('fd6Form.edit') || Route::is('fd2Form.view') || Route::is('fd2Form.edit')? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fd6')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fd7Form.index') }}">
+                                <p class="{{ Route::is('fd7Form.index') ||  Route::is('fd7Form.create') || Route::is('fd7Form.view') || Route::is('addFd2DetailForFd7') || Route::is('editFd2DetailForFd7') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fd7')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fc1Form.index') }}">
+                                <p class="{{ Route::is('fc1Form.index') ||  Route::is('fc1Form.create') || Route::is('fc1Form.view') || Route::is('addFd2DetailForFc1') || Route::is('editFd2DetailForFc1') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fc1')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fc2Form.index') }}">
+                                <p class="{{ Route::is('fc2Form.index') ||  Route::is('fc2Form.create') || Route::is('fc2Form.view') || Route::is('addFd2DetailForFc2') || Route::is('editFd2DetailForFc2') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fc2')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fd3Form.index') }}">
+                                <p class="{{ Route::is('fd3Form.index') ||  Route::is('fd3Form.create') || Route::is('fd3Form.view') || Route::is('addFd2DetailForFd3') || Route::is('editFd2DetailForFd3') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fd3')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('fdFiveForm.index') }}">
+                                <p class="{{ Route::is('fdFiveForm.index') ||  Route::is('fdFiveForm.create') || Route::is('fdFiveForm.view')  || Route::is('fdFiveForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.fd5')}}</p>
+                            </a>
+                        </div>
+                        <div class="profile_link_box">
+                            <a href="{{ route('fdFourForm.index') }}">
+                                <p class="{{ Route::is('fdFourForm.index') ||  Route::is('fdFourForm.create') || Route::is('fdFourForm.view')  || Route::is('fdFourForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourForm.fdFourForm')}}</p>
+                            </a>
+                        </div>
+                        <div class="profile_link_box">
+                            <a href="{{ route('fdFourOneForm.index') }}">
+                                <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
+                            </a>
+                        </div>
+
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('formNoFour.index') }}">
+                                <p class="{{ Route::is('formNoFour.index') ||  Route::is('formNoFour.create') || Route::is('formNoFour.view')  || Route::is('formNoFour.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('formNoFour.formNoFour')}}</p>
+                            </a>
+                        </div>
+                        <div class="profile_link_box">
+                            <a href="{{ route('formNoSeven.index') }}">
+                                <p class="{{ Route::is('formNoSeven.index') ||  Route::is('formNoSeven.create') || Route::is('formNoSeven.view')  || Route::is('formNoSeven.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('formNoSeven.formNoSeven')}}</p>
+                            </a>
+                        </div>
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('formNoFive.index') }}">
+                                <p class="{{ Route::is('formNoFive.index') ||  Route::is('formNoFive.create') || Route::is('formNoFive.view')  || Route::is('formNoFive.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('formNoFive.formNoFive')}}</p>
+                            </a>
+                        </div>
+
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('complain.index') }}">
+                                <p class="{{ Route::is('complain.index') ||  Route::is('complain.create') || Route::is('complain.view')  || Route::is('complain.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.complain')}}</p>
+                            </a>
+                        </div>
+                        {{-- <div class="profile_link_box">
+                            <a href="{{ route('duplicateCertificate.index') }}">
+                                <p class="{{ Route::is('duplicateCertificate.index')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.cf1')}}</p>
+                            </a>
+                        </div>
+                        <div class="profile_link_box">
+                            <a href="{{ route('approvalOfConstitution.index') }}">
+                                <p class="{{ Route::is('approvalOfConstitution.index')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.cf2')}}</p>
+                            </a>
+                        </div>
+
+
+
+                        <div class="profile_link_box">
+                            <a href="{{ route('executiveCommitteeApproval.index') }}">
+                                <p class="{{ Route::is('executiveCommitteeApproval.index')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.cf3')}}</p>
+                            </a>
+                        </div> --}}
                         <div class="profile_link_box">
                             <a href="{{ route('logout') }}">
-                                <p class=""><i class="fa fa-cog pe-2"></i>লগ আউট</p>
+                                <p class=""><i class="fa fa-cog pe-2"></i>{{ trans('fd9.l')}}</p>
                             </a>
                         </div>
                     </div>
@@ -84,8 +175,8 @@
             </div>
 
             <?php
-
-            $name_change_list = DB::table('namechanges')->where('user_id',Auth::user()->id)->latest()->value('status');
+$fdOneFormid = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+            $name_change_list = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormid->id)->latest()->value('status');
 
 
 
@@ -107,13 +198,13 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="d-grid d-md-flex justify-content-end">
-                                        @if(empty($name_change_list) ||  $name_change_list == 'Ongoing')
+                                        @if(  $name_change_list == 'Ongoing' || $name_change_list == 'Review')
                                         <button type="button" disabled class="btn btn-registration"
-                                                onclick="location.href = '{{ route('send_name_change_page') }}';">এনজিওর নাম পরিবর্তন
+                                                onclick="location.href = '{{ route('sendNameChange') }}';">এনজিওর নাম পরিবর্তন
                                         </button>
                                         @else
                                         <button type="button"  class="btn btn-registration"
-                                        onclick="location.href = '{{ route('send_name_change_page') }}';">এনজিওর নাম পরিবর্তন
+                                        onclick="location.href = '{{ route('sendNameChange') }}';">এনজিওর নাম পরিবর্তন
                                 </button>
 
                                         @endif
@@ -144,16 +235,28 @@
                                         <th>নতুন নাম (বাংলা)</th>
                                         <th>নতুন নাম (ইংরেজি)</th>
                                         <th>স্ট্যাটাস</th>
+                                        <th>কার্যকলাপ </th>
                                     </tr>
                                     @foreach($name_change_list_all as $key=>$all_name_change_list_all)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $all_name_change_list_all->created_at->format('d-M-Y')}}</td>
+                                        <td>{{ $all_name_change_list_all->created_at->format('d-m-Y')}}</td>
                                         <td>{{ $all_name_change_list_all->previous_name_ban }}</td>
                                         <td>{{ $all_name_change_list_all->previous_name_eng }}</td>
-                                        <td>{{ $all_name_change_list_all->present_ban }}</td>
+                                        <td>{{ $all_name_change_list_all->present_name_ban }}</td>
                                         <td>{{ $all_name_change_list_all->present_name_eng }}</td>
                                         <td><span class="text-success">{{ $all_name_change_list_all->status }}</span></td>
+                                        <td>
+
+                                            <a  href="{{ route('nameChange.view',base64_encode($all_name_change_list_all->id)) }}" class="btn btn-sm btn-outline-success"> <i class="fa fa-eye"></i> </a>
+
+                                            @if(  $name_change_list == 'Ongoing' || $name_change_list == 'Accepted')
+
+                                            @else
+                                            <button class="btn btn-sm btn-primary" onclick="location.href = '{{ route('namechangeApplicationEdit',base64_encode($all_name_change_list_all->id)) }}';" data-toggle="tooltip" data-placement="top" title="{{ trans('message.update')}}"><i class="fa fa-edit"></i></button>
+@endif
+
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </table>
@@ -180,19 +283,19 @@
                                         <table class="table table-borderless instruction_table">
                                             <tr>
                                                 <td>ক)</td>
-                                                <td>০২টি জাতীয় পত্রিকায় ( বাংলা ও ইংরেজী পত্রিকায় "নাম পরিবর্তন বিষয়ে বিজ্ঞাপনের
+                                                <td>০২টি জাতীয় পত্রিকায় (বাংলা ও ইংরেজী পত্রিকায়) নাম পরিবর্তন বিষয়ে বিজ্ঞাপনের
                                                     মূলকপি
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>খ)</td>
-                                                <td>নাম পরিবর্তন ফি বাবদ-২৬,০০০/- (ছাব্বিশ হাজার) টাকার (কোড নং-১-০৩২৩-০০০০-
+                                                <td>নাম পরিবর্তন ফি বাবদ- ২৬,০০০/- (ছাব্বিশ হাজার) টাকার (কোড নং-১-০৩২৩-০০০০-
                                                     ১৮৩৬) চালানের মূলকপিসহ অনুলিপি
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>গ)</td>
-                                                <td>গঠনতন্ত্র পরিবর্তন ফি বাবদ-১৩,০০০/ (তের হাজার) টাকার (কোড নং-১-০৩২৩-০০০০-
+                                                <td>গঠনতন্ত্র পরিবর্তন ফি বাবদ- ১৩,০০০/- (তের হাজার) টাকার (কোড নং-১-০৩২৩-০০০০-
                                                     ১৮৩৬) চালানের মূলকপিসহ
                                                 </td>
                                             </tr>
@@ -208,7 +311,7 @@
                                             </tr>
                                             <tr>
                                                 <td>চ)</td>
-                                                <td>৩০০/তিনশত) টাকার স্টাম্পে নাম পরিবর্তনের বিষয়ে এফিডেবিট এর কপি</td>
+                                                <td>৩০০/- (তিনশত) টাকার স্টাম্পে নাম পরিবর্তনের বিষয়ে এফিডেবিট এর কপি</td>
                                             </tr>
                                             <tr>
                                                 <td>ছ)</td>
@@ -230,7 +333,7 @@
                                             </tr>
                                             <tr>
                                                 <td>ট)</td>
-                                                <td>নাম পরিবর্তন সংক্রান্ত বিষয়ে সাধারণ সভার কা্যবিবরণীর (উপস্থিত সদস্যদের
+                                                <td>নাম পরিবর্তন সংক্রান্ত বিষয়ে সাধারণ সভার কার্যবিবরণীর (উপস্থিত সদস্যদের
                                                     তালিকাসহ) সত্যায়িত কপি
                                                 </td>
                                             </tr>
@@ -243,7 +346,7 @@
                                             </tr>
                                             <tr>
                                                 <td>ড)</td>
-                                                <td>দাখিলকৃত চালানের ডপর ১৫% ভ্যাট নির্ধারিত কোডে জমাপূর্বক চালানের মূলকলিসহ (কোড
+                                                <td>দাখিলকৃত চালানের উপর ১৫% ভ্যাট নির্ধারিত কোডে জমাপূর্বক চালানের মূলকলিসহ (কোড
                                                     নং-১-১১৩৩-০০৩৫-০৩১১)
                                                 </td>
                                             </tr>
@@ -262,19 +365,19 @@
                                         <table class="table table-borderless instruction_table">
                                             <tr>
                                                 <td>ক)</td>
-                                                <td>২টি জাতীয় পত্রিকায় ( বাংলা ও ইংরেজী পত্রিকায় ) নাম পরিবর্তন বিষয়ে বিজ্ঞাপনের
+                                                <td>২টি জাতীয় পত্রিকায় (বাংলা ও ইংরেজী পত্রিকায়) নাম পরিবর্তন বিষয়ে বিজ্ঞাপনের
                                                     মূলকপিসহ
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>খ)</td>
-                                                <td>নাম পরিবর্তন ফি বাবদ-২৬,০০০/- (ছাব্বিশ হাজার) টাকার (কোড নং-১-০৩২৩- ০০০০-১৮৩৬)
+                                                <td>নাম পরিবর্তন ফি বাবদ- ২৬,০০০/- (ছাব্বিশ হাজার) টাকার (কোড নং-১-০৩২৩- ০০০০-১৮৩৬)
                                                     চালানের মূলকপি এবং ১৫% ভ্যাট (কোড নং-১-১১৩৩-০০৩৫-০৩১১) প্রদানপূর্বক চালানের মূলকপিসহ
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>গ)</td>
-                                                <td>গঠনতন্ত্র পরিবর্তন ফি বাবদ-১৩,০০০/-(তের হাজার) টাকার (কোড নং-১-০৩২৩-০০০০-১৮৩৬)
+                                                <td>গঠনতন্ত্র পরিবর্তন ফি বাবদ- ১৩,০০০/- (তের হাজার) টাকার (কোড নং-১-০৩২৩-০০০০-১৮৩৬)
                                                     চালানের মুলকপি এবং ১৫% ভ্যাট (কোড নং-১-১১৩৩-০০৩৫-০৩১১)জমাপূর্বক চালানের মূলকপিসহ
                                                 </td>
                                             </tr>
@@ -286,12 +389,12 @@
                                             </tr>
                                             <tr>
                                                 <td>ঙ)</td>
-                                                <td>নাম পরিবর্তন বিষয়ে সংশ্লিষ্ট দেশের বোর্ড অব ডিরেন্টরস/বোর্ড অব ট্রাস্টির সিদ্ধান্তের কপি (সংশ্লিষ্ট দেশের পিস অব জান্টিস কর্তৃক নোটারীকৃত মূলকপিসহ)
+                                                <td>নাম পরিবর্তন বিষয়ে সংশ্লিষ্ট দেশের বোর্ড অব ডিরেন্টরস/বোর্ড অব ট্রাস্টির সিদ্ধান্তের কপি (সংশ্লিষ্ট দেশের পিস অব জাস্টিস কর্তৃক নোটারীকৃত মূলকপিসহ)
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>চ)</td>
-                                                <td>৩০০/(তিনশত) টাকার স্টাম্পে নাম পরিবর্তনের বিষয়ে এফিডেবিট এর মুলকপিসহ</td>
+                                                <td>৩০০/-(তিনশত) টাকার স্টাম্পে নাম পরিবর্তনের বিষয়ে এফিডেবিট এর মুলকপিসহ</td>
                                             </tr>
                                             <tr>
                                                 <td>ছ)</td>
@@ -299,12 +402,12 @@
                                             </tr>
                                             <tr>
                                                 <td>জ)</td>
-                                                <td>সংস্থার পরিবর্তিত নামের সনদপত্রইনকর্পোরেট সার্টিফিকেট (সংশ্লিষ্ট দেশের নোটারীকৃত মূলকপি)</td>
+                                                <td>সংস্থার পরিবর্তিত নামের সনদপত্র/ ইনকর্পোরেট সার্টিফিকেট (সংশ্লিষ্ট দেশের নোটারীকৃত মূলকপি)</td>
                                             </tr>
                                             <tr>
                                                 <td>ঝ)</td>
-                                                <td>সংস্থার পরিবর্তিত নামের বাই লজ(3% 18%/5)/গঠনতন্ত্রের কপি (সংশ্লিষ্ট দেশের
-                                                    পিস অব জান্টিস কর্তৃক নোটারীকৃত মূলকপিসহ)</td>
+                                                <td>সংস্থার পরিবর্তিত নামের বাই লজ(By laws)/গঠনতন্ত্রের কপি (সংশ্লিষ্ট দেশের
+                                                    পিস অব জাস্টিস কর্তৃক নোটারীকৃত মূলকপিসহ)</td>
                                             </tr>
                                             <tr>
                                                 <td>ঞ)</td>
@@ -312,7 +415,7 @@
                                                     উপর বর্তাইবে মর্মে অংগীকার নামা (সংস্থা প্রধান কর্তৃক স্বাক্ষরিত)</td>
                                             </tr>
                                             <tr>
-                                                <td></td>
+                                                <td>ট)</td>
                                                 <td>২০১০-২০১১ অর্থবছর হতে হালনাগাদ পর্যন্ত সংস্থার নিবন্ধন/নিবদ্ধন নবায়ন/নাম পরিবর্তন/গঠনতন্ত্রের যে কোন ধারা পরিবর্তনের বিষয়ে দাখিলকৃত ফি এর উপর
                                                     ১৫% বকেয়া ভ্যাট (যদি ইতোমধ্যে প্রদান না করা হয়ে থাকে) সংশ্লিষ্ট কোডে জমাপূর্বক চালানের মূলকপিসহ</td>
                                             </tr>

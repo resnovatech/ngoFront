@@ -24,7 +24,7 @@
                             <h5>{{ trans('other_doc.all_doc')}}</h5>
                         </div>
                         <div class="p-2">
-                            <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('ngo_document_create') }}';">
+                            <button class="btn btn-primary btn-custom" type="button" onclick="location.href = '{{ route('ngoDocument.create') }}';">
                                 {{ trans('other_doc.add_new_document')}}
                             </button>
                         </div>
@@ -38,7 +38,7 @@
 
                                 <?php
 
-                                $file_path = url($all_ngo_list_all->primary_portal);
+                                $file_path = url($all_ngo_list_all->pdf_file_list);
                                 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
 
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="mt-2">
                                             <h6>{{ $filename }}</h6>
-                                            <p class="mb-1">{{ $all_ngo_list_all->primary_portal_size }} {{ trans('other_doc.m_b')}}</p>
+                                            <p class="mb-1">{{ $all_ngo_list_all->file_size }} {{ trans('other_doc.m_b')}}</p>
                                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal{{ $all_ngo_list_all->id  }}"><i class="fa fa-pencil"></i></button>
 
@@ -167,15 +167,16 @@
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="post" action="{{ route('ngo_document_update') }}" enctype="multipart/form-data">
-                                                                        <input type="hidden" name="id" value="{{ $all_ngo_list_all->id  }}" class="form-control" id="">
+                                                                    <form id="form" method="post" action="{{ route('ngoDocument.update',$all_ngo_list_all->id ) }}" enctype="multipart/form-data">
+
                                                                         @csrf
+                                                                        @method('PUT')
 
                                                                         <div class="mb-3">
 
-                                                                            <input type="file" name="primary_portal" class="form-control" id="">
+                                                                            <input type="file" name="pdf_file_list" class="form-control" id="">
 
-                                                                            <iframe src="{{ asset('/') }}{{'public/'. $all_ngo_list_all->primary_portal  }}"
+                                                                            <iframe src="{{ asset('/') }}{{'public/'. $all_ngo_list_all->pdf_file_list  }}"
                 style="width:300px; height:150px;" frameborder="0"></iframe>
                                                                         </div>
                                                                         <div class="modal-footer">
@@ -189,14 +190,14 @@
                                                     </div>
                                                     <!--model end -->
 
-                                            <a class="btn btn-sm btn-registration" target="_blank"  href = '{{ route('ngo_document_download',$all_ngo_list_all->id) }}'><i class="fa fa-download"></i></a>
+                                            <a class="btn btn-sm btn-registration" target="_blank"  href = '{{ route('ngoDocumentDownload',$all_ngo_list_all->id) }}'><i class="fa fa-download"></i></a>
                                             <button  onclick="deleteTag({{ $all_ngo_list_all->id}})" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </div>
-                                    <form id="delete-form-{{ $all_ngo_list_all->id }}" action="{{ route('ngo_document_delete',$all_ngo_list_all->id) }}" method="POST" style="display: none;">
+                                    <form id="delete-form-{{ $all_ngo_list_all->id }}" action="{{ route('ngoDocument.destroy',$all_ngo_list_all->id) }}" method="POST" style="display: none;">
 
                                         @csrf
-
+@method('DELETE')
                                     </form>
                                     @endforeach
 

@@ -4,35 +4,72 @@ namespace App\Http\Controllers\NGO;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Ngo_type_and_language;
-use App\Models\Ngo_committee_member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DB;
-use App\Models\Ngomember;
-use App\Models\Ngodoc;
-use App\Models\Ngo_member_doc;
+use App\Models\NgoMemberNidPhoto;
+use App\Models\FormCompleteStatus;
 use Response;
 use DateTime;
 use DateTimezone;
+use App\Http\Controllers\NGO\CommonController;
 class NgomemberdocController extends Controller
 {
-    public function ngo_member_document(){
+    public function index(){
 
-        $all_ngo_member_doc = Ngo_member_doc::where('user_id',Auth::user()->id)->latest()->get();
+        CommonController::checkNgotype(1);
+        $mainNgoType = CommonController::changeView();
 
-        if(count($all_ngo_member_doc) == 0){
-
-            return redirect('/ngo_member_document_create');
-
+        if($mainNgoType== 'দেশিও'){
+            return view('front.ngo_member_doc.index');
         }else{
-
-        return view('front.ngo_member_doc.index',compact('all_ngo_member_doc'));
+            return view('front.foreign.ngo_member_doc.index');
         }
+
+
+
+    }
+
+    public function ngoMemberDocFinalUpdate(){
+
+        $checkCompleteStatusData = DB::table('form_complete_statuses')->where('user_id',Auth::user()->id)->first();
+
+        try{
+
+            DB::beginTransaction();
+
+                if(!$checkCompleteStatusData){
+
+                    $newStatusData = new FormCompleteStatus();
+                    $newStatusData->user_id = Auth::user()->id;
+                    $newStatusData->fd_one_form_step_one_status = 1;
+                    $newStatusData->fd_one_form_step_two_status = 1;
+                    $newStatusData->fd_one_form_step_three_status = 1;
+                    $newStatusData->fd_one_form_step_four_status = 1;
+                    $newStatusData->form_eight_status = 1;
+                    $newStatusData->ngo_member_status = 1;
+                    $newStatusData->ngo_member_nid_photo_status = 1;
+                    $newStatusData->ngo_other_document_status = 0;
+                    $newStatusData->save();
+                }else{
+
+                    FormCompleteStatus::where('id', $checkCompleteStatusData->id)
+                    ->update([
+                        'ngo_member_nid_photo_status' => 1
+                        ]);
+
+
+                }
+            DB::commit();
+            return redirect('/ngoAllRegistrationForm');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->route('error_404');
+            }
     }
 
 
-    public function ngo_member_document_create(){
+    public function create(){
 
 
         return view('front.ngo_member_doc.create');
@@ -41,114 +78,119 @@ class NgomemberdocController extends Controller
     }
 
 
-    public function ngo_member_document_store(Request $request){
+    public function store(Request $request){
+
+
         $time_dy = time().date("Ymd");
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
 
         $main_time = $dt->format('H:i:s');
-
         $input = $request->all();
 
 
-        $condition_main_image = $input['person_name'];
+        $request->validate([
+            'member_name.*' => 'required|string',
+            'member_image.*' => 'required',
+            'member_nid_copy.*' => 'required',
+        ]);
 
 
-        foreach($condition_main_image as $key => $all_condition_main_image){
+        $condition_main_image = $input['member_name'];
+        $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
+        try{
+            DB::beginTransaction();
+                foreach($condition_main_image as $key => $all_condition_main_image){
 
-            $file_size = number_format($input['person_nid_copy'][$key]->getSize() / 1048576,2);
+                    $file_size = number_format($input['member_nid_copy'][$key]->getSize() / 1048576,2);
 
-            $form= new Ngo_member_doc();
+                    $form= new NgoMemberNidPhoto();
+                    $filePath="NgoMemberNidPhoto";
+                    $file=$input['member_nid_copy'][$key];
+                    $file_image=$input['member_image'][$key];
 
-            $file=$input['person_nid_copy'][$key];
-            $file_image=$input['person_image'][$key];
-
-            $name=$time_dy.$file->getClientOriginalName();
-            $name_image=$time_dy.$file_image->getClientOriginalName();
-
-            $file->move('public/uploads/', $name);
-            $file_image->move('public/uploads/', $name_image);
-
-            $form->person_image='public/uploads/'.$name_image;
-            $form->person_nid_copy='uploads/'.$name;
-            $form->person_name=$input['person_name'][$key];
-            $form->main_time = $main_time;
-            $form->ngo_id = '';
-            $form->user_id = Auth::user()->id;
-            $form->person_nid_copy_size =$file_size;
-            $form->save();
-       }
-
-       return redirect('/ngo_member_document')->with('success','Created Successfully');
+                    $form->member_image=CommonController::imageUpload($request,$file_image,$filePath);
+                    $form->member_nid_copy=CommonController::pdfUpload($request,$file,$filePath);
+                    $form->member_name=$input['member_name'][$key];
+                    $form->time_for_api = $main_time;
+                    $form->fd_one_form_id = $fdOneFormId;
+                    $form->member_nid_copy_size =$file_size;
+                    $form->save();
+                }
+            DB::commit();
+            return redirect()->back()->with('success','Created Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
+        }
 
     }
 
 
-    public function ngo_member_document_update(Request $request){
+    public function update(Request $request,$id){
 
 
         $time_dy = time().date("Ymd");
+        try{
+            DB::beginTransaction();
 
+            $form= NgoMemberNidPhoto::find($id);
+            $filePath="NgoMemberNidPhoto";
+            if ($request->hasfile('member_nid_copy')) {
 
-            $form= Ngo_member_doc::find($request->id);
-
-            if ($request->hasfile('person_nid_copy')) {
-                $file = $request->file('person_nid_copy');
+                $file = $request->file('member_nid_copy');
                 $file_size = number_format($file->getSize() / 1048576,2);
-                $extension = $time_dy.$file->getClientOriginalName();
-            $filename = $extension;
-            $file->move('public/uploads/', $filename);
-            $form->person_nid_copy =  'uploads/'.$filename;
-            $form->person_nid_copy_size =$file_size;
+                $form->member_nid_copy=CommonController::pdfUpload($request,$file,$filePath);
+                $form->member_nid_copy_size =$file_size;
 
             }
-            if ($request->hasfile('person_image')) {
-                $file1 = $request->file('person_image');
-              $extension1 = $time_dy.$file1->getClientOriginalName();
-            $filename1 = $extension1;
-            $file->move('public/uploads/', $filename1);
-            $form->person_image =  'public/uploads/'.$filename1;
-
+            if ($request->hasfile('member_image')) {
+            $file1 = $request->file('member_image');
+            $form->member_image =CommonController::imageUpload($request,$file1,$filePath);
             }
-            $form->person_name=$request->person_name;
-            $form->ngo_id = '';
-            $form->user_id = Auth::user()->id;
+            $form->member_name=$request->member_name;
+
 
             $form->save();
-
-            return redirect('/ngo_member_document')->with('info','Updated Successfully');
-
-
-    }
-
-
-    public function delete($id)
-    {
-
-        $admins = Ngo_member_doc::find($id);
-        if (!is_null($admins)) {
-            $admins->delete();
+            DB::commit();
+            return redirect()->back()->with('info','Updated Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
         }
 
-
-        return back()->with('error','Deleted successfully!');
     }
 
-    public function ngo_member_document_download($id){
 
-        $get_file_data = Ngo_member_doc::where('id',$id)->value('person_nid_copy');
+    public function destroy($id)
+    {
+        try{
+            DB::beginTransaction();
+            $admins = NgoMemberNidPhoto::find($id);
+            if (!is_null($admins)) {
+                $admins->delete();
+            }
+
+            DB::commit();
+            return back()->with('error','Deleted successfully!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
+        }
+    }
+
+    public function ngoMemberDocumentDownload($id){
+
+        $get_file_data = NgoMemberNidPhoto::where('id',$id)->value('member_nid_copy');
 
         $file_path = url('public/'.$get_file_data);
-                                $filename  = pathinfo($file_path, PATHINFO_FILENAME);
-
+        $filename  = pathinfo($file_path, PATHINFO_FILENAME);
         $file= public_path('/'). $get_file_data;
 
         $headers = array(
                   'Content-Type: application/pdf',
                 );
-
-        // return Response::download($file,$filename.'.pdf', $headers);
-
 
         return Response::make(file_get_contents($file), 200, [
             'content-type'=>'application/pdf',
