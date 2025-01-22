@@ -16,12 +16,12 @@
             <div class="form">
                 <div class="left-side">
                     <div class="steps-content">
-                        <h3>{{ trans('fd_one_step_three.Step_3')}}</h3>
+                        <h3>{{ trans('fd_one_step_one.Step_1')}}</h3>
                     </div>
                     <ul class="progress-bar">
 
-                        <li >{{ trans('fd_one_step_two.Field_of_proposed_activities')}}</li>
-                        <li class="active">{{ trans('fd_one_step_three.All_staff_details_information')}} </li>
+                        <li class="active">এফডি -৮ ফরম </li>
+                        {{-- <li class="active">{{ trans('fd_one_step_three.All_staff_details_information')}} </li> --}}
                         <li>{{ trans('fd_one_step_four.o_info')}}</li>
                     </ul>
 
@@ -29,7 +29,7 @@
                 <div class="right-side">
                     <?php
 
-                    $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->first();
+                    $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
 
                                     ?>
@@ -37,124 +37,331 @@
 
 
 <?php
-$get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
+$get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
+            ->whereNotNull('country_people_bangla')->orderBy('id','asc')->get();
 ?>
-            <form action="{{ route('other_information_for_renew') }}" method="get" enctype="multipart/form-data" id="form"  data-parsley-validate="">
 
-                <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="id"  id="">
+                <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="fd_one_id"  id="">
             <div class="main active">
+
+                <div class="fd01_tablist">
+                    <div class="fd01_tab"></div>
+                    <div class="fd01_tab"></div>
+                    <div class="fd01_tab fd01_checked"></div>
+                    <div class="fd01_tab"></div>
+                </div>
+
+
                 <div class="text">
                     <h2>{{ trans('fd_one_step_three.All_staff_details_information')}} </h2>
                     {{-- <p>Enter your information to get closer to Registration.</p> --}}
                 </div>
 
                 <div class="mt-3">
+                    <div class="d-flex justify-content-between ">
+                        <div class="p-2">
 
-                        <div class="mb-3">
-                            <h5 class="form_middle_text">
-                                {{ trans('fd_one_step_three.staff_position')}}
-                            </h5>
+
                         </div>
-
-@foreach($all_partiw as $key=>$all_all_parti)
-                        <div class="mb-3">
-
-                            <h5 class="form_middle_text">
-                                @if(($key+1) == 1)
-                                {{ trans('fd_one_step_three.staff_one')}}
-                                @elseif(($key+1) == 2)
-                                {{ trans('fd_one_step_three.staff_two')}}
-                                @elseif(($key+1) == 3)
-                                {{ trans('fd_one_step_three.staff_three')}}
-                                @elseif(($key+1) == 4)
-                                {{ trans('fd_one_step_three.staff_four')}}
-                                @elseif(($key+1) == 5)
-                                {{ trans('fd_one_step_three.staff_five')}}
-                                @endif
-                            </h5>
+                        <div class="p-2">
+                            <button class="btn btn-primary btn-custom" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                                {{ trans('form 8_bn.add')}}
+                            </button>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="form_middle_text">
+                            <b>{{ trans('fd_one_step_three.staff_position')}}</b>
+                        </h5>
+                        <h5 class="form_middle_text">
+                           <span class="text-danger">{{ trans('fd_one_step_three.staff_position1')}}</span>
+                        </h5>
+                    </div>
+                        <?php
+                        $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
 
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12 mb-3">
-                                <label for="" class="form-label">  {{ trans('fd_one_step_three.name')}} <span class="text-danger">*</span> </label>
-                                <input name="staff_name[]" readonly value="{{ $all_all_parti->name }}" required type="text" class="form-control" id="">
-                            </div>
-                            <div class="col-lg-6 col-sm-12 mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_three.desi')}} <span class="text-danger">*</span> </label>
-                                <input name="staff_position[]" readonly value="{{ $all_all_parti->position }}" required type="text" class="form-control" id="">
-                            </div>
-                            <div class="col-lg-6 col-sm-12 mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_three.address')}} <span class="text-danger">*</span> </label>
-                                <input name="staff_address[]" readonly value="{{ $all_all_parti->address }}" required type="text" class="form-control" id="">
-                            </div>
-                            <div class="col-lg-6 col-sm-12 mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_three.date_of_joining')}} <span class="text-danger">*</span> </label>
-                                <input name="date_of_join[]" readonly  value="{{ $all_all_parti->date_of_join }}" required type="text" class="form-control" id="">
-                            </div>
 
-                            <?php
-                            $convert_new_ass_cat  = explode(",",$all_all_parti->citizenship);
+                       ?>
 
-                                               ?>
+                        <!-- new code start --->
 
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
-                                <select name="citizenship{{ $key+1 }}[]" disabled="disabled"  class="js-example-basic-multiple form-control" name="states[]"
-                                        multiple="multiple">
-                                        @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                                        @if(session()->get('locale') == 'en')
-                                        <option value="{{ $all_get_cityzenship_data->city_bangla }}" {{ (in_array($all_get_cityzenship_data->city_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
-                                        @else
-                                    <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            @if(session()->get('locale') == 'en')
 
-                            @else
 
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">Now Working At <span class="text-danger">*</span> </label>
-                                <input type="text" readonly required name="now_working_at[]" value="{{ $all_all_parti->now_working_at }}" class="form-control" id="">
-                            </div>
+<!--modal-->
+<div class="modal modal-xl fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+
+        {{-- {{ trans('form 8_bn.ngo_committee_member_registration')}} --}}
+
+         যোগ করুন
+
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('singleStaffDetailsInformationAdd') }}" method="post" enctype="multipart/form-data" id="form"  data-parsley-validate="">
+                @csrf
+                <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="id"  id="">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.name')}} <span class="text-danger">*</span> </label>
+                        <input name="staff_name" required type="text" class="form-control" id="">
+                    </div>
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.desi')}} <span class="text-danger">*</span> </label>
+                        <input name="staff_position" required type="text" class="form-control" id="">
+                    </div>
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.address')}} <span class="text-danger">*</span> </label>
+                        <input name="staff_address" required type="text" class="form-control" id="">
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_one.Mobile_Number')}} <span class="text-danger">*</span> </label>
+                        <input name="staff_mobile"   required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        type = "number"
+                        maxlength = "11" minlength="11" data-parsley-required class="form-control" id="">
+                    </div>
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_one.Email')}} <span class="text-danger">*</span> </label>
+                        <input name="staff_email"   required type="email" class="form-control" id="">
+                    </div>
+
+
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.date_of_joining')}} <span class="text-danger">*</span> </label>
+                        <input name="date_of_join" required type="text" class="form-control datepicker" id="">
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
+                        <select name="citizenship[]" required class="js-example-basic-multipleo form-control" multiple="multiple">
+                                <option value="">{{ trans('civil.select')}}</option>
+                                @foreach($get_cityzenship_data as $allGetCityzenshipData)
+                                  @if($get_country_type == 'Foreign')
+                                <option value="{{ $allGetCityzenshipData->country_people_english }}" >{{ $allGetCityzenshipData->country_people_english }}</option>
+                                @else
+                            <option value="{{ $allGetCityzenshipData->country_people_bangla }}" >{{ $allGetCityzenshipData->country_people_bangla }}</option>
                             @endif
-
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_three.s_statement')}} <span class="text-danger">*</span> </label>
-                                <input type="text" readonly required value="{{ $all_all_parti->salary_statement }}" name="salary_statement[]" class="form-control" id="">
-                            </div>
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">{{ trans('fd_one_step_three.detail')}} <span class="text-danger">*</span> </label>
-
-                                <input type="text" readonly name="other_occupation[]" value="{{ $all_all_parti->other_occupation }}" required class="form-control" id=""
-                                placeholder="Detail Description (বিস্তারিত বিবরণ)">
-
-
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
+                        </select>
+                    </div>
+                    @if($get_country_type == 'Foreign')
+                    <div class="col-lg-12 mb-3">
+                        <label for="" class="form-label">{{ trans('news.nn')}} <span class="text-danger">*</span> </label>
+                        <input type="text" required name="now_working_at" class="form-control" id="">
+                    </div>
+                    @else
 
 
+                    @endif
+                    <div class="col-lg-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.s_statement')}} <span class="text-danger">*</span> </label>
+                        <input type="text" required name="salary_statement" class="form-control" id="">
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <label for="" class="form-label">{{ trans('fd_one_step_three.detail')}} <span class="text-danger">*</span> </label>
+                        <input type="text" name="other_occupation" required class="form-control" id=""
+                                  placeholder="Detail Description (বিস্তারিত বিবরণ)">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-registration">{{ trans('form 8_bn.add')}}</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- end modal -->
+
+<div class="table-responsive">
+                                <table class="table table-bordered ">
+                                    <tr>
+                                        <th>{{ trans('form 8_bn.sl')}}</th>
+                                        <th>{{ trans('fd_one_step_three.name')}} & {{ trans('fd_one_step_three.desi')}}</th>
+                                        <th>{{ trans('fd_one_step_three.address')}}</th>
+                                        <th>{{ trans('fd_one_step_one.Mobile_Number')}}</th>
+                                        <th>{{ trans('fd_one_step_one.Email')}}</th>
+                                        <th>{{ trans('fd_one_step_three.date_of_joining')}}</th>
+                                        <th>{{ trans('fd_one_step_three.citizenship')}} </th>
+                                        <th>{{ trans('news.nn')}}  </th>
+                                        <th>{{ trans('fd_one_step_three.s_statement')}} </th>
+                                        <th>{{ trans('fd_one_step_three.detail')}}</th>
+                                        <th>{{ trans('form 8_bn.action')}}</th>
+                                    </tr>
+                                    @foreach($all_partiw as $key=>$allFormOneMemberList)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $allFormOneMemberList->name }} <br> <span class="text-success">{{ trans('form 8_bn.designation')}}:</span>
+                                            {{ $allFormOneMemberList->position }}
+                                        </td>
+                                        <td>{{ $allFormOneMemberList->address }}</td>
+                                        <td>{{ $allFormOneMemberList->mobile }}</td>
+                                        <td>{{ $allFormOneMemberList->email }}</td>
+                                        <td>{{ $allFormOneMemberList->date_of_join }}</td>
+                                        <td>{{ $allFormOneMemberList->citizenship }}</td>
+                                        <td>{{ $allFormOneMemberList->now_working_at }}</td>
+
+                                        <td>{{ $allFormOneMemberList->salary_statement }}</td>
+                                        <td>{{ $allFormOneMemberList->other_occupation }}</td>
+
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
 
 
+                                                <a href="{{ route('singleStaffDetailsInformationEditRenew',$allFormOneMemberList->id) }}" type="button" class="btn btn-sm btn-primary" ><i
+                                                            class="bi bi-pencil-fill"></i></a>
+
+                                                            <div class="modal modal-xl fade" id="exampleModal{{ $allFormOneMemberList->id }}"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel"> {{ trans('form 8_bn.ngo_committee_member_registration')}}</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="card">
+                                                                                <div class="card-body">
+                                                                                    <form method="post" action="{{ route('formEightNgoCommitteMember.update',$allFormOneMemberList->id ) }}" enctype="multipart/form-data" id="form" data-parsley-validate="">
+
+                                                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-sm-12 mb-3">
+                                                                <label for="" class="form-label">  {{ trans('fd_one_step_three.name')}} <span class="text-danger">*</span> </label>
+                                                                <input name="staff_name" value="{{ $allFormOneMemberList->name }}" required type="text" class="form-control" id="">
+                                                            </div>
+                                                            <div class="col-lg-6 col-sm-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_three.desi')}} <span class="text-danger">*</span> </label>
+                                                                <input name="staff_position" value="{{ $allFormOneMemberList->position }}" required type="text" class="form-control" id="">
+                                                            </div>
+                                                            <div class="col-lg-6 col-sm-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_three.address')}} <span class="text-danger">*</span> </label>
+                                                                <input name="staff_address" value="{{ $allFormOneMemberList->address }}" required type="text" class="form-control" id="">
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-sm-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_one.Mobile_Number')}} <span class="text-danger">*</span> </label>
+                                                                <input name="staff_mobile" value="{{ $allFormOneMemberList->mobile }}"   required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                type = "number"
+                                                                maxlength = "11" minlength="11" data-parsley-required class="form-control" id="">
+                                                            </div>
+                                                            <div class="col-lg-6 col-sm-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_one.Email')}} <span class="text-danger">*</span> </label>
+                                                                <input name="staff_email" value="{{ $allFormOneMemberList->email }}"   required type="email" class="form-control" id="">
+                                                            </div>
+
+
+                                                            <div class="col-lg-6 col-sm-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_three.date_of_joining')}} <span class="text-danger">*</span> </label>
+                                                                <input name="date_of_join"  value="{{ $allFormOneMemberList->date_of_join }}" required type="text" class="form-control datepicker" id="">
+                                                            </div>
+
+                                                            <?php
+                                                            $convert_new_ass_cat  = explode(",",$allFormOneMemberList->citizenship);
+
+                                                                               ?>
+
+                                                            <div class="col-lg-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_three.citizenship')}} <span class="text-danger">*</span> </label>
+                                                                <select name="citizenship[]" required class="js-example-basic-multiple form-control"
+                                                                        multiple="multiple">
+                                                                        <option value="">{{ trans('civil.select')}}</option>
+
+                                                                    @foreach($get_cityzenship_data as $allGetCityzenshipData)
+                                                                    @if($get_country_type == 'Foreign')
+                                                                        <option value="{{ $allGetCityzenshipData->country_people_english }}" >{{ $allGetCityzenshipData->country_people_english }}</option>
+                                                                        @else
+                                                                    <option value="{{ $allGetCityzenshipData->country_people_bangla }}" >{{ $allGetCityzenshipData->country_people_bangla }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            @if($get_country_type == 'Foreign')
+                                                            <div class="col-lg-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('news.nn')}}<span class="text-danger">*</span> </label>
+                                                                <input type="text" required name="now_working_at" value="{{ $allFormOneMemberList->now_working_at }}" class="form-control" id="">
+                                                            </div>
+                                                            @else
+
+
+                                                            @endif
+
+                                                            <div class="col-lg-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_three.s_statement')}} <span class="text-danger">*</span> </label>
+                                                                <input type="text" required value="{{ $allFormOneMemberList->salary_statement }}" name="salary_statement[]" class="form-control" id="">
+                                                            </div>
+                                                            <div class="col-lg-12 mb-3">
+                                                                <label for="" class="form-label">{{ trans('fd_one_step_three.detail')}} <span class="text-danger">*</span> </label>
+
+                                                                <input type="text" name="other_occupation" value="{{ $allFormOneMemberList->other_occupation }}" required class="form-control" id=""
+                                                                placeholder="Detail Description (বিস্তারিত বিবরণ)">
+
+
+                                                            </div>
+                                                        </div>
+                                                                                        <button type="submit" class="btn btn-registration">{{ trans('form 8_bn.update')}}</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                <button type="button" onclick="deleteTag({{ $allFormOneMemberList->id}})" class="btn btn-sm btn-danger"><i
+                                                            class="bi bi-trash"></i></button>
+
+                                                            <form id="delete-form-{{ $allFormOneMemberList->id }}" action="{{ route('singleStaffDetailsInformationDelete',$allFormOneMemberList->id) }}" method="POST" style="display: none;">
+
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
+
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                </table>
+
+</div>
+
+                        <!-- new code end -->
 
                 </div>
 
                 <div class="buttons d-flex justify-content-end mt-4">
-                    <a href="{{ route('ngo_renew_list_new') }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
 
-                    <a href="{{ route('other_information_for_renew') }}" class="btn btn-custom next_button" name="submit_value" >{{ trans('fd_one_step_one.Next_Step')}}</a>
+                    <?php
+
+$lastRenewData =DB::table('ngo_renew_infos')
+->where('user_id',Auth::user()->id)
+->orderBy('id','desc')->value('id');
+
+
+                    ?>
+                    <a href="{{ route('ngoRenewStepTwo',base64_encode($lastRenewData)) }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
+
+                    <a href="{{ route('ngoRenewStepFour',base64_encode($lastRenewData)) }}" class="btn btn-custom next_button" >{{ trans('fd_one_step_one.Next_Step')}}</a>
 
                 </div>
             </div>
-
-
-    </form>
-
-
-
 
                 </div>
             </div>

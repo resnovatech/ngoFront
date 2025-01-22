@@ -16,22 +16,35 @@
             <div class="form">
                 <div class="left-side">
                     <div class="steps-content">
-                        <h3>{{ trans('fd_one_step_three.Step_3')}}</h3>
+                        <h3>{{ trans('fd_one_step_two.Step_2')}}</h3>
                     </div>
                     <ul class="progress-bar">
-
-                        <li >{{ trans('fd_one_step_two.Field_of_proposed_activities')}}</li>
+                        <li >এফডি -৮ ফরম </li>
+                        {{-- <li class="active">{{ trans('fd_one_step_three.All_staff_details_information')}} </li> --}}
+                        <li class="active">{{ trans('fd_one_step_four.o_info')}}</li>
+                        {{-- <li >{{ trans('fd_one_step_two.Field_of_proposed_activities')}}</li>
                         <li >{{ trans('fd_one_step_three.All_staff_details_information')}} </li>
-                        <li  class="active">{{ trans('fd_one_step_four.o_info')}}</li>
+                        <li  class="active">{{ trans('fd_one_step_four.o_info')}}</li> --}}
                     </ul>
 
                 </div>
                 <div class="right-side">
 
-                    <form action="{{ route('other_information_for_renew_get') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                    <?php
+
+                    $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
+                                               ->value('ngo_type');
+
+                                                    ?>
+
+@if($checkNgoTypeForForeginNgo == 'Foreign')
+
+                    <form action="{{ route('otherInformationForRenewGet') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
                         @csrf
 
                     <div class="main active">
+
+
                         <div class="text">
                             <h2>অন্যান্য তথ্য </h2>
                             <p>নিবন্ধনের কাছাকাছি যেতে  আপনার তথ্য লিখুন.</p>
@@ -39,120 +52,299 @@
 
                         <div class="mt-3">
 
-                                <div class="mb-3">
-                                    <label class="form-label" for="">
-                                        Whether registration fee and VAT have been paid (copy of invoice to be attached)(নিবন্ধন ফি ও ভ্যাট পরিশোধ করা হয়েছে কিনা (চালানের কপি সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-                                    <input class="form-control" name="copy_of_chalan" data-parsley-required accept=".pdf" type="file" id="">
+                            <div class="mb-3">
+                                <label for="" class="form-label">সংস্থার গঠনতন্ত্রের পরিবর্তন হয়েছে কি না ? <span class="text-danger">*</span> </label>
+                                <div class="mt-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input organizational_structure" data-parsley-checkmin="1" data-parsley-required type="radio" name="organizational_structure_type" id=""
+                                           value="Yes" >
+                                    <label class="form-check-label" for="inlineRadio1">হ্যাঁ</label>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="">
-                                        Whether VAT due, if any, on any fees mentioned in Schedule-1 has been paid (copy of invoice to be attached): (তফসিল-১ এ বর্ণিত যেকোন ফি এর ভ্যাট বকেয়া থাকলে পরিশোধ করা হয়েছে কিনা (চালানের কপি সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-                                    <input class="form-control" name="due_vat_pdf"  accept=".pdf" type="file" id="">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input organizational_structure" data-parsley-checkmin="1" data-parsley-required type="radio" name="organizational_structure_type" id=""
+                                           value="No" >
+                                    <label class="form-check-label" for="inlineRadio2">না</label>
                                 </div>
-
-                                <div class="mb-3">
-                                    <h5 class="form_middle_text">
-                                        Main Account Details (মাদার একাউন্ট এর বিস্তারিত বিবরণ)
-                                    </h5>
                                 </div>
+                            </div>
 
 
-                                <?php
 
-$checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-                           ->value('ngo_type');
+                            <div class="mb-3" id="mResult">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="">
+                                    ফরম-৮ মোতাবেক কার্যনির্বাহী কমিটির সদস্যদের তালিকা<span class="text-danger">*</span>
+                                <br><span class="text-danger" style="font-size: 12px;">(maximum 5 MB)</span></label>
+                                <input class="form-control" name="form_eight_executive_committee_member" data-parsley-required accept=".pdf" type="file" id="structurePartTwo402">
 
-                                ?>
-    @if($checkNgoTypeForForeginNgo == 'Foreign')
-    <div class="mb-3">
-        <div class="row">
-            <div class="col-lg-6 col-sm-12">
-                <div class="mb-3">
-                    <label for="" class="form-label">Account Number (হিসাব নম্বর) <span class="text-danger">*</span> </label>
-                    <input type="text"  name="main_account_number" class="form-control" id="">
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-                <div class="mb-3">
-                    <label for="" class="form-label">Account Type (ধরণ) <span class="text-danger">*</span> </label>
-                    <input type="text"  name="main_account_type" class="form-control" id="">
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-                <div class="mb-3">
-                    <label for="" class="form-label">Name of Bank (ব্যাংকের নাম) <span class="text-danger">*</span> </label>
-                    <input type="text"  name="name_of_bank" class="form-control" id="">
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-                <div class="mb-3">
-                    <label for="" class="form-label">Branch Name of Bank(ব্যাংকের শাখা) <span class="text-danger">*</span> </label>
-                    <input type="text"  name="main_account_name_of_branch" class="form-control" id="">
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="mb-3">
-                    <label for="" class="form-label">Bank Address (ব্যাংকের ঠিকানা) <span class="text-danger">*</span> </label>
-                    <input type="text"  name="bank_address_main" class="form-control" id="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="">In case of change of bank account number, copy of approval letter from Bureau should be attached: (ব্যাংক হিসাব নম্বর পরিবর্তন হয়ে থাকলে ব্যুরোর অনুমদনপত্রের কপি সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-        <input class="form-control" name="change_ac_number" data-parsley-required accept=".pdf"  type="file" id="">
-    </div>
-    @else
+                                <p class="text-danger mt-2" style="font-size:12px;" id="structurePartTwo402_text"></p>
+                            </div>
+                            <div class="mb-3">
+                            <label class="form-label" for="">
+                                (নিবন্ধন ফি ও ভ্যাট পরিশোধ করা হয়েছে কিনা (চালানের কপি সংযুক্ত করতে হবে) <span class="text-danger">*</span>
+                                <br><span class="text-danger">পিডিএফ এর সাইজ ৫০০ কেবি বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" name="copy_of_chalan" data-parsley-required accept=".pdf" type="file" id="">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="">
+                                (তফসিল-১ এ বর্ণিত যেকোন ফি এর ভ্যাট বকেয়া থাকলে পরিশোধ করা হয়েছে কিনা (চালানের কপি সংযুক্ত করতে হবে) <span class="text-danger">*</span>
+                                <br><span class="text-danger">পিডিএফ এর সাইজ ৫০০ কেবি বেশি হওয়া যাবে না</span> </label>
+                                                <input class="form-control" name="due_vat_pdf"  accept=".pdf" type="file" id="">
+                                            </div>
 
-                                <div class="mb-3">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-sm-12">
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Account Number (হিসাব নম্বর) <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required name="main_account_number" class="form-control" id="">
+                                                <label class="form-label" for="">
+                                                    নির্বাহী কমিটির সদস্যদের পাসপোর্ট সাইজের ছবিসহ জাতীয় পরিচয়পত্রে সত্যায়িত অনুলিপি <span class="text-danger">*</span>
+
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ২ এমবি  বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" name="nid_and_image_of_executive_committee_members" data-parsley-required accept=".pdf" type="file" id="">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 col-sm-12">
+
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Account Type (ধরণ) <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required name="main_account_type" class="form-control" id="">
+                                                <label class="form-label" for="">
+                                                    প্রাথমিক নিবন্ধনকারী কতৃপক্ষের অনুমোদিত গঠনতন্ত্রের সত্যায়িত অনুলিপি<span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ১ এমবি  বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" data-parsley-required name="work_procedure_of_organization"  accept=".pdf" type="file" id="">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 col-sm-12">
+
+
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Name of Bank (ব্যাংকের নাম) <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required name="name_of_bank" class="form-control" id="">
+                                                <label class="form-label" for="">
+                                                    নিবন্ধন নবায়ন ফি জমাদানের চালানের মূলকপিসহ সত্যায়িত অনুলিপি   <span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ৫০০ কেবি বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" data-parsley-required name="registration_renewal_fee"  accept=".pdf" type="file" id="">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 col-sm-12">
+
+
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Branch Name of Bank(ব্যাংকের শাখা) <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required name="main_account_name_of_branch" class="form-control" id="">
+                                                <label class="form-label" for="">
+                                                    উপস্থিত সাধারণ সদস্যদের উপস্থিতির স্বাক্ষরিত তালিকাসহ নির্বাহী কমিটি অনুমোদন সংক্রান্ত সাধারণ সভার কার্যবিবরণীর সত্যায়িত অনুলিপি <span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ১ এমবি  বেশি হওয়া যাবে না</span> </label>
+                                                <input class="form-control" data-parsley-required name="approval_of_executive_committee"  accept=".pdf" type="file" id="">
                                             </div>
-                                        </div>
-                                        <div class="col-12">
+
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Bank Address (ব্যাংকের ঠিকানা) <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required name="bank_address_main" class="form-control" id="">
+                                                <label class="form-label" for="">
+                                                    বিগত 10 (দশ) বছরের অডিট রিপোর্ট এবং সংস্থার বার্ষিক প্রতিবেদনের সত্যায়িত অনুলিপি
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ৫ এমবি  বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control"  name="last_ten_years_audit_report_and_annual_report_of_the_company"  accept=".pdf" type="file" id="">
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="mb-3">
-                                    <label class="form-label" for="">In case of change of bank account number, copy of approval letter from Bureau should be attached: (ব্যাংক হিসাব নম্বর পরিবর্তন হয়ে থাকলে ব্যুরোর অনুমদনপত্রের কপি সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-                                    <input class="form-control" name="change_ac_number" data-parsley-required accept=".pdf"  type="file" id="">
-                                </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="">
+                                                    অন্য কোনো আইনে নিবন্ধিত হলে সংশিষ্ট কতৃপক্ষের অনুমোদিত নির্বাহী কমিটির তালিকার সত্যায়িত অনুলিপি <span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ৫০০ কেবি বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" data-parsley-required name="organization_by_laws_or_constitution"  accept=".pdf" type="file" id="">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="">
+                                                    সর্বশেষ নিবন্ধন /নবায়ন সনদের সত্যায়িত অনুলিপি<span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ৫০০ কেবি বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" data-parsley-required name="attested_copy_of_latest_registration_or_renewal_certificate"  accept=".pdf" type="file" id="">
+                                            </div>
+
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="">
+                                                    Right To Information Act - 2009-এর আওতায় ফোকাল Focal Point করত :ব্যুরোকে অবহিতকরণ পত্রের অনুলিপি <span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ৫০০ কেবি বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" data-parsley-required name="right_to_information_act"  accept=".pdf" type="file" id="">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="">
+                                                    নিবন্ধনকালীন দাখিলকৃত সাধারণ ও নির্বাহী কমিটির তালিকা এবং বর্তমান সাধারণ সদস্য ও নির্বাহী কমিটির তালিকা  <span class="text-danger">*</span>
+                                                    <br><span class="text-danger">পিডিএফ এর সাইজ ২ এমবি  বেশি হওয়া যাবে না</span></label>
+                                                <input class="form-control" data-parsley-required name="committee_members_list"  accept=".pdf" type="file" id="">
+                                            </div>
+
+
+
 
 
                         </div>
 
                         <div class="buttons d-flex justify-content-end mt-4">
-                            <button class="btn btn-dark back_button me-2" onclick="location.href = '{{ route('all_staff_information_for_renew') }}';">Back</button>
-                            <button class="btn btn-custom submit_button" type="submit" >Submit</button>
+                            <?php
+
+                            $lastRenewData =DB::table('ngo_renew_infos')
+                            ->where('user_id',Auth::user()->id)
+                            ->orderBy('id','desc')->value('id');
+
+
+                                                ?>
+                                                <a href="{{ route('ngoRenewStepFour',base64_encode($lastRenewData)) }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
+                            <button class="btn btn-custom submit_button" type="submit" >জমা দিন</button>
                         </div>
                     </div>
                 </form>
+
+@else
+<!--local Ngo-->
+<form action="{{ route('otherInformationForRenewGet') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+    @csrf
+
+<div class="main active">
+
+    <div class="mb-3">
+
+    <div class="text">
+        <h2>অন্যান্য তথ্য </h2>
+        <p>নিবন্ধনের কাছাকাছি যেতে  আপনার তথ্য লিখুন.</p>
+    </div>
+
+    <div class="mt-3">
+
+        <div class="mb-3">
+            <label for="" class="form-label">সংস্থার গঠনতন্ত্রের পরিবর্তন হয়েছে কি না ? <span class="text-danger">*</span> </label>
+            <div class="mt-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input organizational_structure" data-parsley-checkmin="1" data-parsley-required type="radio" name="organizational_structure_type" id=""
+                       value="Yes" >
+                <label class="form-check-label" for="inlineRadio1">হ্যাঁ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input organizational_structure" data-parsley-checkmin="1" data-parsley-required type="radio" name="organizational_structure_type" id=""
+                       value="No" >
+                <label class="form-check-label" for="inlineRadio2">না</label>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="mb-3" id="mResult">
+        </div>
+
+    <div class="mt-3">
+        <div class="mb-3">
+            <label class="form-label" for="">
+                ফরম-৮ মোতাবেক কার্যনির্বাহী কমিটির সদস্যদের তালিকা<span class="text-danger">*</span>
+            <br><span class="text-danger" style="font-size: 12px;">(maximum 5 MB)</span></label>
+            <input class="form-control" name="form_eight_executive_committee_member" data-parsley-required accept=".pdf" type="file" id="structurePartTwo402">
+
+            <p class="text-danger mt-2" style="font-size:12px;" id="structurePartTwo402_text"></p>
+        </div>
+        <div class="mb-3">
+
+                <label class="form-label" for="">
+                    নির্বাহী কমিটির সদস্যদের পাসপোর্ট সাইজের ছবিসহ জাতীয় পরিচয়পত্রে সত্যায়িত অনুলিপি <span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 2 MB)</span></label>
+                <input class="form-control" name="nid_and_image_of_executive_committee_members" data-parsley-required accept=".pdf" type="file" id="renewFileOld3">
+                <p id="renewFileOld3_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    প্রাথমিক নিবন্ধনকারী কতৃপক্ষের অনুমোদিত গঠনতন্ত্রের সত্যায়িত অনুলিপি<span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 1 MB)</span></label>
+                <input class="form-control" data-parsley-required name="work_procedure_of_organization"  accept=".pdf" type="file" id="renewFileOld4">
+                <p id="renewFileOld4_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    নিবন্ধন নবায়ন ফি জমাদানের চালানের মূলকপিসহ সত্যায়িত অনুলিপি   <span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 500 KB)</span></label>
+                <input class="form-control" data-parsley-required name="registration_renewal_fee"  accept=".pdf" type="file" id="renewFileOld5">
+                <p id="renewFileOld5_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    উপস্থিত সাধারণ সদস্যদের উপস্থিতির স্বাক্ষরিত তালিকাসহ নির্বাহী কমিটি অনুমোদন সংক্রান্ত সাধারণ সভার কার্যবিবরণীর সত্যায়িত অনুলিপি <span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 1 MB)</span></label>
+                <input class="form-control" data-parsley-required name="approval_of_executive_committee"  accept=".pdf" type="file" id="renewFileOld6">
+                <p id="renewFileOld6_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    সংস্থার গঠনতন্ত্র পরিবর্তন হয়ে থাকলে নির্ধারিত ফিসহ ভ্যাট বাবদ অর্থ জমাদানের মূলকপিসহ তার সত্যায়িত অনুলিপি অথবা সংস্থার গঠনতন্ত্র পরিবর্তন না হয়ে থাকলে "পরিবর্তন হয়নি' মর্মে প্রত্যয়নের অনুলিপি <span class="text-danger">*</span>
+                    <br><span class="text-danger">(maximum 5 MB)</span></label>
+                <input class="form-control" data-parsley-required name="constitution_extra"  accept=".pdf" type="file" id="structurePartTwo800">
+
+                <p class="text-danger mt-2" style="font-size:12px;" id="structurePartTwo800_text"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    সংস্থার বিগত ১০(দশ) বছরের অডিট রিপোর্টের সত্যায়িত অনুলিপি
+                    <br><span class="text-danger" style="font-size: 12px;">(maximum 5 MB)</span></label>
+                <input class="form-control"  name="last_ten_years_audit_report_and_annual_report_of_the_company"  accept=".pdf" type="file" id="structurePartTwo400">
+                <p class="text-danger mt-2" style="font-size:12px;" id="structurePartTwo400_text"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    সংস্থার বিগত ১০(দশ) বছরের বার্ষিক প্রতিবেদনের সত্যায়িত অনুলিপি
+                    <br><span class="text-danger" style="font-size: 12px;">(maximum 5 MB)</span></label>
+                <input class="form-control"  name="last_ten_year_annual_report"  accept=".pdf" type="file" id="structurePartTwo401">
+
+                <p class="text-danger mt-2" style="font-size:12px;" id="structurePartTwo401_text"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    অন্য কোনো আইনে নিবন্ধিত হলে সংশিষ্ট কতৃপক্ষের অনুমোদিত নির্বাহী কমিটির তালিকার সত্যায়িত অনুলিপি <span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 500 KB)</span> </label>
+                <input class="form-control" data-parsley-required name="organization_by_laws_or_constitution"  accept=".pdf" type="file" id="renewFileOld8">
+                <p id="renewFileOld8_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    সর্বশেষ নিবন্ধন /নবায়ন সনদের সত্যায়িত অনুলিপি<span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 500 KB)</span></label>
+                <input class="form-control" data-parsley-required name="attested_copy_of_latest_registration_or_renewal_certificate"  accept=".pdf" type="file" id="renewFileOld9">
+                <p id="renewFileOld9_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    Right To Information Act - 2009-এর আওতায় ফোকাল Focal Point করত :ব্যুরোকে অবহিতকরণ পত্রের অনুলিপি <span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 500 KB)</span></label>
+                <input class="form-control" data-parsley-required name="right_to_information_act"  accept=".pdf" type="file" id="renewFileOld10">
+                <p id="renewFileOld10_text" class="text-danger" style="font-size: 12px;"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="">
+                    নিবন্ধনকালীন দাখিলকৃত সাধারণ ও নির্বাহী কমিটির তালিকা এবং বর্তমান সাধারণ সদস্য ও নির্বাহী কমিটির তালিকা  <span class="text-danger">*</span>
+                    <br><span class="text-danger" style="font-size: 12px;">(Maximum 500 KB)</span></label>
+                <input class="form-control" data-parsley-required name="committee_members_list"  accept=".pdf" type="file" id="renewFileOld11">
+                <p id="renewFileOld11_text" class="text-danger" style="font-size: 12px;"></p>
+
+            </div>
+
+
+
+
+
+    </div>
+
+    <div class="buttons d-flex justify-content-end mt-4">
+        <?php
+
+        $lastRenewData =DB::table('ngo_renew_infos')
+        ->where('user_id',Auth::user()->id)
+        ->orderBy('id','desc')->value('id');
+
+
+                            ?>
+                            <a href="{{ route('ngoRenewStepFour',base64_encode($lastRenewData)) }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
+        <button class="btn btn-custom submit_button" type="submit" >জমা দিন </button>
+    </div>
+</div>
+</form>
+
+<!--end local ngo -->
+@endif
 
 
                 </div>
@@ -163,6 +355,30 @@ $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id
 @endsection
 
 @section('script')
+
+<script>
+    $(document).on('click', '.organizational_structure', function () {
+
+        var structureStatus = $(this).val();
+
+
+        //alert(structureStatus);
+
+
+        $.ajax({
+        url: "{{ route('localNgoType') }}",
+        method: 'GET',
+        data: {structureStatus:structureStatus},
+        success: function(data) {
+           $("#mResult").html('');
+           $("#mResult").html(data);
+        }
+        });
+    });
+</script>
+
+
+
 
 
 <script>

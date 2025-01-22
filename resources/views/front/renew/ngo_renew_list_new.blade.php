@@ -5,7 +5,34 @@
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
+
+
+<style>
+    img {
+        display: block;
+        max-width: 100%;
+    }
+    .preview {
+        text-align: center;
+        overflow: hidden;
+        width: 160px;
+        height: 160px;
+        margin: 10px;
+        border: 1px solid red;
+    }
+
+    .section{
+        margin-top:150px;
+        background:#fff;
+        padding:50px 30px;
+    }
+    .modal-lg{
+        max-width: 1000px !important;
+    }
+</style>
 @endsection
 
 @section('body')
@@ -19,13 +46,16 @@
                         <h3>{{ trans('fd_one_step_one.Step_1')}}</h3>
                     </div>
                     <ul class="progress-bar">
-                        <li class="active">{{ trans('fd_one_step_one.Particulars_of_Organisation')}} </li>
-                        <li>{{ trans('fd_one_step_three.All_staff_details_information')}} </li>
+                        <li class="active">এফডি-৮ ফরম</li>
+                        {{-- <li>{{ trans('fd_one_step_three.All_staff_details_information')}} </li> --}}
                         <li>{{ trans('fd_one_step_four.o_info')}}</li>
                     </ul>
 
                 </div>
                 <div class="right-side">
+
+
+
 
 
 
@@ -37,7 +67,7 @@
 
                 <?php
 
-$get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->first();
+$get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
 
                 ?>
@@ -47,9 +77,33 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
-<form action="{{ route('store_renew_information_list') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+<form action="{{ route('storeRenewInformationList') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
     @csrf
+
+
+    <?php
+
+    $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
+
+
+    $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
+    ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
+
+    $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+
+
+    $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+
+$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
+                                    ?>
 <div class="main active">
+
+    <div class="fd01_tablist">
+        <div class="fd01_tab fd01_checked"></div>
+        <div class="fd01_tab"></div>
+        <div class="fd01_tab"></div>
+        <div class="fd01_tab"></div>
+    </div>
     <div class="text">
         <h2>{{ trans('fd_one_step_one.Particulars_of_Organisation')}} </h2>
         {{-- <p>Enter your personal information to get closer to copanies.</p> --}}
@@ -75,10 +129,18 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
+            @if($mainNgoTypeRenew == 'Old')
+
             <div class="mb-3">
                 <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->reg_no_get_from_admin }}" name="reg_no_get_from_admin" data-parsley-required  id="">
+                <input type="text" class="form-control" readonly value="{{ $registrationNumberForOld }}" name="reg_no_get_from_admin" data-parsley-required  id="">
             </div>
+            @else
+            <div class="mb-3">
+                <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span> </label>
+                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->registration_number }}" name="reg_no_get_from_admin" data-parsley-required  id="">
+            </div>
+@endif
 
 
 
@@ -90,62 +152,30 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
-            <?php
-
-            $query_to_get_data = DB::table('country')->where('id','!=',18)->orderBy('id','desc')->get();
 
 
-            $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
-
-            $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                            ?>
-
-                                            {{-- @if($get_country_type == 'দেশিও')
-
-                                            <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-                                                @if(session()->get('locale') == 'en')
-                                                <option value="বাংলাদেশ" {{ 'বাংলাদেশ' == $get_all_data_1->country_of_origin ? 'selected':'' }}>বাংলাদেশ</option>
-                                                @else
-                                                <option value="Bangladesh" {{ 'Bangladesh' == $get_all_data_1->country_of_origin ? 'selected':'' }}>Bangladesh</option>
-                                                @endif
-                                            </select>
 
 
-                                            @else
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}}</label>
-                                                <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
 
-                                                    @foreach($query_to_get_data as $all_query_to_get_data)
-                                                    @if(session()->get('locale') == 'en')
-                                                    <option value="{{ $all_query_to_get_data->name_bn }}" {{ $all_query_to_get_data->name_bn  == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name_bn }}</option>
-                                                    @else
-                                                    <option value="{{ $all_query_to_get_data->name }}" {{ $all_query_to_get_data->name == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name }}</option>
-                                                    @endif
-            @endforeach
-                                                </select>
-                                            </div>
-                                            @endif --}}
+            <div class="mb-3">
+                <label for="" class="form-label">টেলিফোন নম্বর <span class="text-danger">*</span> </label>
+                <input type="text" data-parsley-required value="{{ $get_all_data_1->org_phone }}"  name="phone_new" class="form-control" id="">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">মোবাইল নম্বর <span class="text-danger">*</span> </label>
+                <input type="text" value="{{ $get_all_data_1->org_mobile }}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type = "number"
+                maxlength = "11" minlength="11" data-parsley-required  name="mobile_new" class="form-control" id="">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">ইমেইল এড্রেস <span class="text-danger">*</span> </label>
+                <input type="email" value="{{ $get_all_data_1->org_email }}" data-parsley-required  name="email_new" class="form-control" id="">
+            </div>
 
-
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">টেলিফোন নম্বর <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required  name="phone_new" class="form-control" id="">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">মোবাইল নম্বর <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required  name="mobile_new" class="form-control" id="">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">ইমেইল এড্রেস <span class="text-danger">*</span> </label>
-                                                <input type="email" data-parsley-required  name="email_new" class="form-control" id="">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for=""  class="form-label">ওয়েবসাইট <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required  name="web_site_name" class="form-control" id="">
-                                            </div>
+            <div class="mb-3">
+                <label for=""  class="form-label">ওয়েবসাইট <span class="text-danger">*</span> </label>
+                <input type="text" data-parsley-required value="{{ $get_all_data_1->web_site_name }}"  name="web_site_name" class="form-control" id="">
+            </div>
 
             <div class="mb-3">
                 <h5 class="form_middle_text">
@@ -159,16 +189,33 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Whether_part_time_or_full_time')}} <span class="text-danger">*</span> </label>
                 <div class="mt-2 mb-2">
+
+@if($get_country_type == 'Foreign')
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
-                               value="{{ trans('fd_one_step_one.Part_Time')}}" {{ trans('fd_one_step_one.Part_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="Part Time" {{ 'Part Time' == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
-                               value="{{ trans('fd_one_step_one.Full_Time')}}" {{  trans('fd_one_step_one.Full_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="Full Time" {{  'Full Time' == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
                     </div>
+                    @else
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="খণ্ডকালীন" {{ 'খণ্ডকালীন' == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="পূর্ণকালীন" {{  'পূর্ণকালীন' == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
+                    </div>
+
+                    @endif
+
+
                 </div>
             </div>
             <div class="mb-3">
@@ -177,13 +224,40 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
             </div>
 
             <div class="mb-3">
-                <label for="" class="form-label">Telephone Number (টেলিফোন নম্বর) <span class="text-danger">*</span> </label>
-                <input type="text"  data-parsley-required name="mobile" class="form-control" id="">
+                <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
+                <input type="text" value="{{ $get_all_data_1->nationality }}"  data-parsley-required name="nationality" class="form-control" id="">
             </div>
+
+            <!--new code for ngo-->
+            {{-- <div class="mb-3">
+                <label for="" class="form-label">Digital Signature  <span class="text-danger">*</span> </label>
+                <input type="file"  value="" name="digital_signature" accept="image/*" class="form-control" id="">
+
+                <img src="{{asset('/')}}{{ $get_all_data_1->digital_signature }}" style="height:40px;"/>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="" class="form-label">Digital Seal  <span class="text-danger">*</span> </label>
+                <input type="file"  value="" name="digital_seal" accept="image/*" class="form-control" id="">
+
+                <img src="{{asset('/')}}{{ $get_all_data_1->digital_seal }}" style="height:40px;"/>
+
+            </div> --}}
+            <!-- end new code -->
+
+
+
+        <div class="mb-3">
+            <label for="" class="form-label">টেলিফোন নম্বর<span class="text-danger">*</span> </label>
+            <input type="text"  data-parsley-required name="mobile" value="{{ $get_all_data_1->tele_phone_number }}"  class="form-control" id="">
+        </div>
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Mobile_Number')}} <span class="text-danger">*</span> </label>
-                <input type="number" readonly data-parsley-required minlength="11" name="phone" value="{{ $get_all_data_1->phone }}"  class="form-control" id="">
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type = "number"
+                maxlength = "11" readonly data-parsley-required minlength="11" name="phone" value="{{ $get_all_data_1->phone }}"  class="form-control" id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Email')}} <span class="text-danger">*</span> </label>
@@ -194,6 +268,10 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
                     <?php
  $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
+//dd($convert_new_ass_cat);
+
+$ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
+ ->value('ngo_type');
 
                     ?>
 
@@ -202,29 +280,148 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
-                <select  disabled="disabled" class="js-example-basic-multiple form-control"  name="citizenship[]"
-                multiple="multiple">
+                <select   class="js-example-basic-multiple form-control"  name="citizenship[]"
+                multiple="multiple" required>
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
-                <option value="{{ $all_get_cityzenship_data->city_bangla }}" {{ (in_array($all_get_cityzenship_data->city_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
+                @if($ngoType == 'Foreign')
+                <option value="{{ $all_get_cityzenship_data->country_people_english }}" {{ (in_array($all_get_cityzenship_data->country_people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_english }}</option>
+
                 @else
-            <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
+                <option value="{{ $all_get_cityzenship_data->country_people_bangla }}" {{ (in_array($all_get_cityzenship_data->country_people_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_bangla }}</option>
             @endif
             @endforeach
 
         </select>
 
             </div>
-            <div class="mb-3">
-                                    <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-                                    <input type="file" name="foregin_pdf" data-parsley-required accept=".pdf" class="form-control" id="">
+            {{-- <div class="mb-3">
+                                    <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 5 MB)</span></label>
+                                    <input type="file" name="foregin_pdf" data-parsley-required accept=".pdf" class="form-control" id="foregin_pdf"/>
+                                    <p id="foregin_pdf_text" class="text-danger" style="font-size: 12px;"></p>
+
+
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> </label>
-                                    <input type="file" name="yearly_budget" data-parsley-required accept=".pdf" class="form-control" id="">
+                                    <label for="" class="form-label">সংস্থার সম্ভাব্য /প্রত্যাশিত বার্ষিক বাজেট<span class="text-danger">*</span> </label>
+                                    <input type="text" name="yearly_budget" value="{{ $get_all_data_1->annual_budget }}" data-parsley-required class="form-control" id="">
                                 </div>
+
+
+                          <div class="mb-3">
+                                    <label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 2 MB)</span></label>
+                                    <input type="file" name="yearly_budget_file" data-parsley-required accept=".pdf" class="form-control" id="annual_budget_file">
+                                    <p id="annual_budget_file_text" class="text-danger mt-2" style="font-size:12px;"></p>
+                                </div> --}}
+
+                                <div class="mb-3">
+                                    <h5 class="form_middle_text">
+                                        প্রধান নির্বাহীর তথ্যাদি
+                                    </h5>
+                                </div>
+
+                                @if($mainNgoTypeRenew == 'Old')
+                                <!--new code for ngo-->
+                                <div class="mb-3">
+                                <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
+                                     <input type="text" data-parsley-required  name="chief_name" value=""  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
+                                    <input type="text" data-parsley-required value=""  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
+                                </div>
+
+
+
+
+
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
+                                        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
+                <br>
+                                        <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
+                <br>
+                                    <input type="hidden"  name="image_base64">
+                                    <div class="croppedInput mt-2">
+
+                                    </div>
+                                    <!-- new code for image cropper start --->
+                                    @include('front.signature_modal.sign_main_modal')
+                                    <!-- new code for image cropper end -->
+
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
+                                        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
+                                     <br>
+                                    <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
+
+                                    <input type="hidden"  name="image_seal_base64">
+                                    <div class="croppedInputss mt-2">
+
+                                    </div>
+                                    <!-- new code for image cropper start --->
+                                    @include('front.signature_modal.seal_main_modal')
+                                    <!-- new code for image cropper end -->
+                                </div>
+                                <!-- end new code -->
+
+                                @else
+
+ <!--new code for ngo-->
+ <div class="mb-3">
+    <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
+         <input type="text" data-parsley-required  name="chief_name"   class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
+        <input type="text" data-parsley-required  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
+    </div>
+
+
+
+    <div class="mb-3">
+        <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
+            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
+<br>
+            <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
+<br>
+        <input type="hidden"  name="image_base64">
+        <div class="croppedInput mt-2">
+
+        </div>
+        <!-- new code for image cropper start --->
+        @include('front.signature_modal.sign_main_modal')
+        <!-- new code for image cropper end -->
+
+    </div>
+
+
+    <div class="mb-3">
+        <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
+            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
+         <br>
+        <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
+
+        <input type="hidden"  name="image_seal_base64">
+        <div class="croppedInputss mt-2">
+
+        </div>
+        <!-- new code for image cropper start --->
+        @include('front.signature_modal.seal_main_modal')
+        <!-- new code for image cropper end -->
+    </div>
+    <!-- end new code -->
+    <!-- end new code -->
+
+                                @endif
+
 
     </div>
     <div class="buttons d-flex justify-content-end mt-4">
@@ -237,14 +434,23 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 @else
 
 <?php
-   $get_all_data_new_first =DB::table('ngorenewinfos')->where('user_id',Auth::user()->id)->latest()->first();
+   $get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
 
+   $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
 
+$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
 
 ?>
-<form action="{{ route('update_renew_information_list') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+<form action="{{ route('updateRenewInformationList') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
     @csrf
 <div class="main active">
+
+    <div class="fd01_tablist">
+        <div class="fd01_tab fd01_checked"></div>
+        <div class="fd01_tab"></div>
+        <div class="fd01_tab"></div>
+        <div class="fd01_tab"></div>
+    </div>
     <div class="text">
         <h2>{{ trans('fd_one_step_one.Particulars_of_Organisation')}} </h2>
         {{-- <p>Enter your personal information to get closer to copanies.</p> --}}
@@ -270,10 +476,18 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
+            @if($mainNgoTypeRenew == 'Old')
+
             <div class="mb-3">
-                <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span>  </label>
-                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->reg_no_get_from_admin }}" name="reg_no_get_from_admin" data-parsley-required  id="">
+                <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span> </label>
+                <input type="text" class="form-control" readonly value="{{ $registrationNumberForOld }}" name="reg_no_get_from_admin" data-parsley-required  id="">
             </div>
+            @else
+            <div class="mb-3">
+                <label for="" class="form-label">নিবন্ধন নম্বর <span class="text-danger">*</span> </label>
+                <input type="text" class="form-control" readonly value="{{ $get_all_data_1->registration_number }}" name="reg_no_get_from_admin" data-parsley-required  id="">
+            </div>
+@endif
 
 
 
@@ -287,41 +501,16 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
             <?php
 
-            $query_to_get_data = DB::table('country')->where('id','!=',18)->orderBy('id','desc')->get();
+            $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
 
 
-            $get_cityzenship_data = DB::table('country')->whereNotNull('city_eng')
-            ->whereNotNull('city_bangla')->orderBy('id','desc')->get();
+            $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
+            ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
 
             $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                                             ?>
 
-                                            {{-- @if($get_country_type == 'দেশিও')
 
-                                            <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-                                                @if(session()->get('locale') == 'en')
-                                                <option value="বাংলাদেশ" {{ 'বাংলাদেশ' == $get_all_data_1->country_of_origin ? 'selected':'' }}>বাংলাদেশ</option>
-                                                @else
-                                                <option value="Bangladesh" {{ 'Bangladesh' == $get_all_data_1->country_of_origin ? 'selected':'' }}>Bangladesh</option>
-                                                @endif
-                                            </select>
-
-
-                                            @else
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}}</label>
-                                                <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
-
-                                                    @foreach($query_to_get_data as $all_query_to_get_data)
-                                                    @if(session()->get('locale') == 'en')
-                                                    <option value="{{ $all_query_to_get_data->name_bn }}" {{ $all_query_to_get_data->name_bn  == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name_bn }}</option>
-                                                    @else
-                                                    <option value="{{ $all_query_to_get_data->name }}" {{ $all_query_to_get_data->name == $get_all_data_1->country_of_origin ? 'selected':'' }}>{{ $all_query_to_get_data->name }}</option>
-                                                    @endif
-            @endforeach
-                                                </select>
-                                            </div>
-                                            @endif --}}
 
 
                                             <div class="mb-3">
@@ -330,7 +519,9 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">মোবাইল নম্বর <span class="text-danger">*</span> </label>
-                                                <input type="text" data-parsley-required value="{{ $get_all_data_new_first->mobile_new }}"  name="mobile_new" class="form-control" id="">
+                                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                type = "number"
+                                                maxlength = "11" minlength="11" data-parsley-required value="{{ $get_all_data_new_first->mobile_new }}"  name="mobile_new" class="form-control" id="">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">ইমেইল এড্রেস <span class="text-danger">*</span> </label>
@@ -354,16 +545,34 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Whether_part_time_or_full_time')}} <span class="text-danger">*</span> </label>
                 <div class="mt-2 mb-2">
+
+
+                    @if($get_country_type == 'Foreign')
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
-                               value="{{ trans('fd_one_step_one.Part_Time')}}" {{ trans('fd_one_step_one.Part_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="Part Time" {{ 'Part Time' == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input"  disabled="disabled" data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
-                               value="{{ trans('fd_one_step_one.Full_Time')}}" {{  trans('fd_one_step_one.Full_Time') == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="Full Time" {{  'Full Time' == $get_all_data_1->job_type ? 'checked':'' }}>
                         <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
                     </div>
+                    @else
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="খণ্ডকালীন" {{ 'খণ্ডকালীন' == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <label class="form-check-label" for="inlineRadio1">{{ trans('fd_one_step_one.Part_Time')}}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"   data-parsley-checkmin="1" data-parsley-required type="radio" name="job_type" id=""
+                               value="পূর্ণকালীন" {{  'পূর্ণকালীন' == $get_all_data_1->job_type ? 'checked':'' }}>
+                        <label class="form-check-label" for="inlineRadio2">{{ trans('fd_one_step_one.Full_Time')}}</label>
+                    </div>
+
+                    @endif
+
+
                 </div>
             </div>
             <div class="mb-3">
@@ -372,13 +581,20 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
             </div>
 
             <div class="mb-3">
-                <label for="" class="form-label">Telephone Number (টেলিফোন নম্বর) <span class="text-danger">*</span> </label>
+                <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
+                <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_new_first->nationality }}" class="form-control" id="">
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">টেলিফোন নম্বর<span class="text-danger">*</span> </label>
                 <input type="text"  data-parsley-required name="mobile" value="{{ $get_all_data_new_first->mobile }}" class="form-control" id="">
             </div>
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Mobile_Number')}} <span class="text-danger">*</span> </label>
-                <input type="number" readonly data-parsley-required minlength="11" name="phone" value="{{ $get_all_data_1->phone }}"  class="form-control" id="">
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type = "number"
+                maxlength = "11" readonly data-parsley-required minlength="11" name="phone" value="{{ $get_all_data_1->phone }}"  class="form-control" id="">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.Email')}} <span class="text-danger">*</span> </label>
@@ -389,7 +605,8 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
                     <?php
  $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
-
+$ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
+ ->value('ngo_type');
                     ?>
 
 
@@ -397,14 +614,15 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
 
 
-                <select  disabled="disabled" class="js-example-basic-multiple form-control"  name="citizenship[]"
-                multiple="multiple">
+                <select   class="js-example-basic-multiple form-control"  name="citizenship[]"
+                multiple="multiple" required>
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
-                <option value="{{ $all_get_cityzenship_data->city_bangla }}" {{ (in_array($all_get_cityzenship_data->city_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_bangla }}</option>
+                @if($ngoType == 'Foreign')
+                <option value="{{ $all_get_cityzenship_data->country_people_english }}" {{ (in_array($all_get_cityzenship_data->country_people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_english }}</option>
+
                 @else
-            <option value="{{ $all_get_cityzenship_data->city_eng }}" {{ (in_array($all_get_cityzenship_data->city_eng,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->city_eng }}</option>
+                <option value="{{ $all_get_cityzenship_data->country_people_bangla }}" {{ (in_array($all_get_cityzenship_data->country_people_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_bangla }}</option>
             @endif
             @endforeach
 
@@ -412,11 +630,12 @@ $get_all_data_1 = DB::table('fboneforms')->where('user_id',Auth::user()->id)->fi
 
             </div>
 
-            @if(empty($get_all_data_new_first->foregin_pdf))
+            {{-- @if(empty($get_all_data_new_first->foregin_pdf))
 
             <div class="mb-3">
-                <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-                <input type="file" name="foregin_pdf" data-parsley-required accept=".pdf" class="form-control" id="">
+                <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 5 MB)</span></label>
+                <input type="file" name="foregin_pdf" data-parsley-required accept=".pdf" class="form-control" id="foregin_pdf"/>
+                <p id="foregin_pdf_text" class="text-danger" style="font-size: 12px;"></p>
             </div>
 @else
 
@@ -432,25 +651,31 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
 ?>
  <div class="mb-3">
-    <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> </label>
-    <input type="file" name="foregin_pdf"  accept=".pdf" class="form-control" id="">
+    <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 5 MB)</span></label>
+    <input type="file" name="foregin_pdf"  accept=".pdf" class="form-control" id="foregin_pdf"/>
+    <p id="foregin_pdf_text" class="text-danger" style="font-size: 12px;"></p>
 </div>
 <b>{{ $filename.'.'.$extension }}</b>
         @endif
 
 
 
-        @if(empty($get_all_data_new_first->yearly_budget))
+        <div class="mb-3">
+            <label for="" class="form-label">সংস্থার সম্ভাব্য /প্রত্যাশিত বার্ষিক বাজেট<span class="text-danger">*</span> </label>
+            <input type="text" name="yearly_budget" value="{{ $get_all_data_1->annual_budget }}" data-parsley-required class="form-control" id="">
+        </div>
+        @if(empty($get_all_data_new_first->yearly_budget_file))
 
         <div class="mb-3">
-            <label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> </label>
-            <input type="file" name="yearly_budget" data-parsley-required accept=".pdf" class="form-control" id="">
+            <label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 2 MB)</span></label>
+            <input type="file" name="yearly_budget_file" data-parsley-required accept=".pdf" class="form-control" id="annual_budget_file">
+            <p id="annual_budget_file_text" class="text-danger mt-2" style="font-size:12px;"></p>
         </div>
 @else
 
 <?php
 
-$file_path = url($get_all_data_new_first->yearly_budget);
+$file_path = url($get_all_data_new_first->yearly_budget_file);
 $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
 $extension = pathinfo($file_path, PATHINFO_EXTENSION);
@@ -460,14 +685,71 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
 ?>
 <div class="mb-3">
-<label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> </label>
-<input type="file" name="yearly_budget"  accept=".pdf" class="form-control" id="">
+<label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 2 MB)</span></label>
+<input type="file" name="yearly_budget_file"  accept=".pdf" class="form-control" id="annual_budget_file">
+
+<p id="annual_budget_file_text" class="text-danger mt-2" style="font-size:12px;"></p>
+
 </div>
 <b>{{ $filename.'.'.$extension }}</b>
-    @endif
+    @endif --}}
 
 
 
+
+    <div class="mb-3">
+        <h5 class="form_middle_text">
+            প্রধান নির্বাহীর তথ্যাদি
+        </h5>
+    </div>
+
+
+    <!--new code for ngo-->
+    <div class="mb-3">
+    <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
+         <input type="text" data-parsley-required  name="chief_name" value="{{ $get_all_data_new_first->chief_name }}"  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
+        <input type="text" data-parsley-required value="{{ $get_all_data_new_first->chief_desi }}"  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
+    </div>
+
+
+
+    <div class="mb-3">
+        <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
+            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
+<br>
+            <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
+<br>
+        <input type="hidden"  name="image_base64">
+        <div class="croppedInput mt-2">
+        <img src="{{asset('/')}}{{ $get_all_data_new_first->digital_signature }}" style="width: 200px;" class="show-image">
+        </div>
+        <!-- new code for image cropper start --->
+        @include('front.signature_modal.sign_main_modal')
+        <!-- new code for image cropper end -->
+
+    </div>
+
+
+    <div class="mb-3">
+        <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
+            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
+         <br>
+        <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
+
+        <input type="hidden"  name="image_seal_base64">
+        <div class="croppedInputss mt-2">
+        <img src="{{asset('/')}}{{ $get_all_data_new_first->digital_seal }}" style="width: 200px;" class="show_image_seal">
+        </div>
+        <!-- new code for image cropper start --->
+        @include('front.signature_modal.seal_main_modal')
+        <!-- new code for image cropper end -->
+    </div>
+    <!-- end new code -->
+    <!-- end new code -->
 
 
 
@@ -495,11 +777,38 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
     </div>
 </section>
 
-
+<!-- modal start --->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{-- <h5 class="modal-title" id="modalLabel">{{ trans('oldorg.digiSign')}}</h5> --}}
+                <h4 id="mmT"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="img-container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="preview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelImage" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  modal end -->
 @endsection
 
 @section('script')
-
+@include('front.zoomButtonImage')
 <script>
     $(document).ready(function () {
     $('#form').validate({ // initialize the plugin

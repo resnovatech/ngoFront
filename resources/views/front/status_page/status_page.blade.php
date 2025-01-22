@@ -15,7 +15,7 @@
             <div class="card-body p-5">
                 <div class="others_inner_section">
                     <h1>
-                      	@if(session()->get('locale') == 'en')
+                      	@if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 							আবেদনের অবস্থান যাচায় করুন
 						@else
         					Check Application Status
@@ -23,7 +23,7 @@
                       </h1>
                     <div class="notice_underline"></div>
                     <p class="pt-4">
-                    	@if(session()->get('locale') == 'en')
+                    	@if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 							আপনার আবেদনের অবস্থান যাচায়ের জন্য আপনাকে <br>
                       		আপনার ইমেইল এড্রেস, আবেদনের ধরণ এবং আবেদন আইডি (যেমন: 4000-10000000) যা আপনি আপনার প্রদত্ত ইমেইল এ পেয়ে যাবেন
 						@else
@@ -32,13 +32,13 @@
 						@endif
 					</p>
                 </div>
-                <form action="{{ route('check_status_reg_from') }}" method="post">
+                <form id="form" action="{{ route('checkStatusRegFrom') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
                             <div class=" mb-3">
                                 <label for="" class="form-label">
-                                	@if(session()->get('locale') == 'en')
+                                	@if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 										ইমেইল এড্রেস <span class="text-danger">*</span>
 									@else
         								Email Address <span class="text-danger">*</span>
@@ -48,7 +48,7 @@
                             </div>
                             <div class=" mb-3">
                                 <label for="" class="form-label">
-                                  	@if(session()->get('locale') == 'en')
+                                  	@if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 										আবেদনের ধরণ <span class="text-danger">*</span>
 									@else
         								Application Type <span class="text-danger">*</span>
@@ -62,10 +62,10 @@
                             </div>
                             <div class=" mb-3">
                                 <label for="" class="form-label">
-                                  	@if(session()->get('locale') == 'en')
+                                  	@if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 										আবেদনের আইডি <span class="text-danger">*</span>
 									@else
-        								Application ID <span class="text-danger">*</span> 
+        								Application ID <span class="text-danger">*</span>
 									@endif
                                 </label>
                                 <input type="text" name="reg_id" class="form-control" id="" placeholder="e.g. 400-100000000000">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="d-grid d-md-flex justify-content-start">
                         <button type="submit" class="btn btn-registration">
-                        	@if(session()->get('locale') == 'en')
+                        	@if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 								চেক করুন
 							@else
         						Check
