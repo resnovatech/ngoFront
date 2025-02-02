@@ -15,56 +15,56 @@
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর নাম<span class="text-danger">*</span></label>
-                                <input type="text" required name="name" class="form-control" id="name0"
+                                <input type="text"  name="name" class="form-control" id="name0"
                                 placeholder="কর্মকর্তা-কর্মচারীর নাম">
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর পদবি<span class="text-danger">*</span></label>
-                                <input type="text" required name="designation" class="form-control" id="designation0"
+                                <input type="text"  name="designation" class="form-control" id="designation0"
                                 placeholder="কর্মকর্তা-কর্মচারীর পদবি">
                             </div>
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর জাতীয়তা<span class="text-danger">*</span></label>
-                                <input type="text" required name="nationality" class="form-control" id="nationality0"
+                                <input type="text"  name="nationality" class="form-control" id="nationality0"
                                 placeholder="কর্মকর্তা-কর্মচারীর জাতীয়তা">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর মেয়াদ (জনমাস)<span class="text-danger">*</span></label>
-                                <input type="text" required name="duration" class="form-control" id="duration0"
+                                <input type="text"  name="duration" class="form-control" id="duration0"
                                 placeholder="কর্মকর্তা-কর্মচারীর মেয়াদ (জনমাস)">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর শিক্ষাগত যোগ্যতা<span class="text-danger">*</span></label>
-                                <input type="text" required name="educational_qualification" class="form-control" id="educational_qualification0"
+                                <input type="text"  name="educational_qualification" class="form-control" id="educational_qualification0"
                                 placeholder=" কর্মকর্তা-কর্মচারীর শিক্ষাগত যোগ্যতা">
                             </div>
 
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর অভিজ্ঞতা<span class="text-danger">*</span></label>
-                                <input type="text" required name="experience" class="form-control" id="experience0"
+                                <input type="text"  name="experience" class="form-control" id="experience0"
                                 placeholder="কর্মকর্তা-কর্মচারীর অভিজ্ঞতা">
                             </div>
 
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর দায়িত্বসমূহ<span class="text-danger">*</span></label>
-                                <input type="text" required name="responsibility" class="form-control" id="responsibility0"
+                                <input type="text"  name="responsibility" class="form-control" id="responsibility0"
                                 placeholder="কর্মকর্তা-কর্মচারীর দায়িত্বসমূহ">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর বেতন-ভাতাদি(এই প্রকল্প হতে)<span class="text-danger">*</span></label>
-                                <input type="text" required name="salary_from_this_project" class="form-control" id="salary_from_this_project0"
+                                <input type="text"  name="salary_from_this_project" class="form-control" id="salary_from_this_project0"
                                 placeholder="কর্মকর্তা-কর্মচারীর বেতন-ভাতাদি(এই প্রকল্প হতে)">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর বেতন-ভাতাদি(অন্যান্য প্রকল্প হতে)<span class="text-danger">*</span></label>
-                                <input type="text" required name="salary_from_other_project" class="form-control" id="salary_from_other_project0"
+                                <input type="text"  name="salary_from_other_project" class="form-control" id="salary_from_other_project0"
                                 placeholder="কর্মকর্তা-কর্মচারীর বেতন-ভাতাদি(অন্যান্য প্রকল্প হতে)">
                             </div>
 

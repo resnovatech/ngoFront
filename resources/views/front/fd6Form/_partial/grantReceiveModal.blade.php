@@ -102,7 +102,7 @@
 
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">মন্তব্য</label>
-                                <textarea required name="comment_grant" class="form-control" id="comment_grant0" placeholder=""></textarea>
+                                <textarea  name="comment_grant" class="form-control" id="comment_grant0" placeholder=""></textarea>
                             </div>
 
                         </div>

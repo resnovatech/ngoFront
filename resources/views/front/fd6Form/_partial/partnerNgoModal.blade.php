@@ -16,18 +16,18 @@
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র নাম <span class="text-danger">*</span></label>
-                                <input type="text" required name="partner_ngo_name" class="form-control" id="partner_ngo_name0"
+                                <input type="text"  name="partner_ngo_name" class="form-control" id="partner_ngo_name0"
                                 placeholder="পার্টনার এনজিও'র নাম">
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র ঠিকানা <span class="text-danger">*</span></label>
-                                <input type="text" required name="partner_ngo_address" class="form-control" id="partner_ngo_address0"
+                                <input type="text"  name="partner_ngo_address" class="form-control" id="partner_ngo_address0"
                                 placeholder="পার্টনার এনজিও'র ঠিকানা">
                             </div>
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র টেলিফোন <span class="text-danger">*</span></label>
-                                <input type="text" required name="partner_ngo_telephone" class="form-control" id="partner_ngo_telephone0"
+                                <input type="text"  name="partner_ngo_telephone" class="form-control" id="partner_ngo_telephone0"
                                 placeholder="পার্টনার এনজিও'র টেলিফোন">
                             </div>
 
@@ -35,31 +35,31 @@
                                 <label for="" class="form-label">পার্টনার এনজিও'র মোবাইল <span class="text-danger">*</span></label>
                                 <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                 type = "number"
-                                maxlength = "11" data-parsley-required minlength="11"  data-parsley-trigger=“keyup” required name="partner_ngo_mobile" class="form-control" id="partner_ngo_mobile0"
+                                maxlength = "11" data-parsley- minlength="11"  data-parsley-trigger=“keyup”  name="partner_ngo_mobile" class="form-control" id="partner_ngo_mobile0"
                                 placeholder="পার্টনার এনজিও'র মোবাইল">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র ইমেইল <span class="text-danger">*</span></label>
-                                <input type="email" required name="partner_ngo_email" class="form-control" id="partner_ngo_email0"
+                                <input type="email"  name="partner_ngo_email" class="form-control" id="partner_ngo_email0"
                                 placeholder="পার্টনার এনজিও'র ইমেইল">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র নিবন্ধন নং <span class="text-danger">*</span></label>
-                                <input type="text" required name="partner_ngo_reg_name" class="form-control" id="partner_ngo_reg_name0"
+                                <input type="text"  name="partner_ngo_reg_name" class="form-control" id="partner_ngo_reg_name0"
                                 placeholder="পার্টনার এনজিও'র নিবন্ধন নং">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র মেয়াদ <span class="text-danger">*</span></label>
-                                <input type="text" required name="partner_ngo_duration" class="form-control" id="partner_ngo_duration0"
+                                <input type="text"  name="partner_ngo_duration" class="form-control" id="partner_ngo_duration0"
                                 placeholder="পার্টনার এনজিও'র মেয়াদ">
                             </div>
 
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও /সংস্থা কর্তৃক বাস্তবায়িতব্য কার্যক্রমসমূহ <span class="text-danger">*</span></label>
-                                <textarea required name="partner_ngo_work_detail" class="form-control summernote" id="partner_ngo_work_detail0"
+                                <textarea  name="partner_ngo_work_detail" class="form-control summernote" id="partner_ngo_work_detail0"
                                 placeholder="পার্টনার এনজিও /সংস্থা কর্তৃক বাস্তবায়িতব্য কার্যক্রমসমূহ"></textarea>
                             </div>
 
@@ -147,20 +147,20 @@
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">বাজেট <span class="text-danger">*</span></label>
-                                <input type="text" required name="budget_detail" class="form-control" id="budget_detail0"
+                                <input type="text"  name="budget_detail" class="form-control" id="budget_detail0"
                                 placeholder="বাজেট">
                             </div>
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">সম্পাদনের সময়সীমা <span class="text-danger">*</span></label>
-                                <input type="text" required name="execution_deadline" class="form-control" id="execution_deadline0"
+                                <input type="text"  name="execution_deadline" class="form-control" id="execution_deadline0"
                                 placeholder="সম্পাদনের সময়সীমা">
                             </div>
 
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">উপকারভোগী <span class="text-danger">*</span></label>
-                                <input type="text" required name="beneficiary" class="form-control" id="beneficiary0"
+                                <input type="text"  name="beneficiary" class="form-control" id="beneficiary0"
                                 placeholder="উপকারভোগী">
                             </div>
 
