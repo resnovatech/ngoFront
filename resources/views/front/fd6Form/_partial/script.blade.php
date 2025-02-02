@@ -299,6 +299,18 @@ data: {
 },
 success: function(data) {
 
+    if(prokolpo_year_grant == '১ম বছর'){
+        $('#prokolpo_year_grant0').val('২য় বছর');
+    }else if(prokolpo_year_grant == '২য় বছর'){
+        $('#prokolpo_year_grant0').val('৩য় বছর');
+    }else if(prokolpo_year_grant == '৩য় বছর'){
+        $('#prokolpo_year_grant0').val('৪র্থ বছর');
+    }else if(prokolpo_year_grant == '৪র্থ বছর'){
+        $('#prokolpo_year_grant0').val('৫ম বছর');
+    }else if(prokolpo_year_grant == '৫ম বছর'){
+        $('#prokolpo_year_grant0').val('৫ম বছর');
+    }
+
 
 
     $('#expenseId').val(1);
@@ -315,7 +327,7 @@ success: function(data) {
 $('#donations_made_by_foreign_donors0').val('');
 $('#local_grants0').val('');
  $('#grants_total0').val('');
-$('#prokolpo_year_grant0').val('');
+//$('#prokolpo_year_grant0').val('');
  $('#prokolpo_year_grant_start_date0').val('');
 $('#prokolpo_year_grant_end_date0').val('');
 $('#comment_grant0').val('');
@@ -1120,6 +1132,62 @@ $('#pageloader').hide();
 
 //donation modal edit end
 
+</script>
+
+<script type="text/javascript">
+    function deleteTagExp(id) {
+        swal({
+            title: '{{ trans('notification.success_one')}}',
+            text: "{{ trans('notification.success_two')}}",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '{{ trans('notification.success_three')}}',
+            cancelButtonText: '{{ trans('notification.success_four')}}',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+
+                var mainEditId = $('#mainEditId').val();
+                var fd6Id = $('#fd6Id').val();
+
+                $.ajax({
+    url: "{{ route('fd6SourceOfFundDelete') }}",
+    method: 'GET',
+    data: {mainEditId:mainEditId,id:id,fd6Id:fd6Id},
+    success: function(data) {
+
+      alertify.set('notifier','position', 'top-center');
+      alertify.error('Data Delete Successfully');
+      $("#tableAjaxDataexp").html('');
+      $("#tableAjaxDataexp").html(data);
+
+    },
+    beforeSend: function(){
+       $('#pageloader').show()
+   },
+  complete: function(){
+       $('#pageloader').hide();
+  }
+    });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swal(
+                    '{{ trans('notification.success_five')}}',
+                    '{{ trans('notification.success_six')}} :)',
+                    'error'
+                )
+            }
+        })
+    }
 </script>
 
 

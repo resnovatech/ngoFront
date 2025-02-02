@@ -801,6 +801,58 @@
 
     </td>
 </tr>
+
+@if(!$fd6ProjectManagement)
+<tr>
+    <td rowspan="7" style="width:40px;">০৮</td>
+    <td colspan="3">প্রকল্প ব্যবস্থাপনা :</td>
+</tr>
+<tr>
+    <td style="width:40px;">ক)</td>
+    <td style="width:30%"> প্রত্যেক প্রধান কার্যক্রম বাস্তবায়ন পদ্ধতি
+        সংক্ষেপে বর্ণনা করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">খ)</td>
+    <td style="width:30%">প্রকল্পটি সহযোগী এনজিও বা সংস্থার মাদ্ধমে
+        বাস্তবায়িত হবে কিনা, হলে সংলগ্নি - ''ক'' মোতাবেক প্রত্যেক সহযোগী
+        এনজিওর তথ্য দিতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">গ)</td>
+    <td style="width:30%"> সংলগ্নি ''খ '' -তে প্রকল্পের কর্মকর্তা/
+        কর্মচারীদের বিস্তারিত বিবরণ (দেশি ও বিদেশী উভয়ের জন্য প্রযোজ্য )
+        দাখিল করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঘ)</td>
+    <td style="width:30%"> নির্মাণ সংক্রান্ত বিস্তারিত তথ্য সংলগ্নি ''ঘ
+        '' - তে প্রদান করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঙ)</td>
+    <td style="width:30%"> আর্থিক খাত/ উপখাত ভিত্তিক বরাদ্দ সংলগ্নি
+        ''ঘ''-তে প্রদান করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;"> চ)</td>
+    <td style="width:30%"> প্রকল্পটি সমাপ্তির পর প্রকল্পটি কিভাবে টিকিয়া
+        থাকবে ও পরিচালিত হবে তা উল্লেখ করতে হবে।
+    </td>
+    <td></td>
+</tr>
+
+@else
                                     <tr>
                                         <td rowspan="7" style="width:40px;">০৮</td>
                                         <td colspan="3">প্রকল্প ব্যবস্থাপনা :</td>
@@ -849,9 +901,11 @@
                                         </td>
                                         <td>{{ $fd6ProjectManagement->project_sustained_and_managed }}</td>
                                     </tr>
+                                    @endif
 
                                     <!--FD06 Section 09-->
-
+@if(!$fd6GovernanceAndTransparency)
+@else
                                     <tr>
                                         <td rowspan="9" style="width:40px;">০৯</td>
                                         <td colspan="3"> সুশাসন ও স্বচ্ছতা :</td>
@@ -962,6 +1016,11 @@
                                     </tr>
 
                                     <!--FD06 Section 10-->
+                                    @endif
+
+                                    @if(!$fd6StepThree)
+
+                                    @else
 
                                     <tr>
                                         <td rowspan="4" style="width:40px;">১০</td>
@@ -1047,7 +1106,7 @@
                                         <td>{{ $fd6StepThree->project_benifit }}</td>
                                     </tr>
                                      <!--FD06 Section Shonglognni-->
-
+@endif
   <tr>
     <td colspan="4">
         <h3 class="text-center mt-2">সংলগ্নী ‘’ক’’</h3>

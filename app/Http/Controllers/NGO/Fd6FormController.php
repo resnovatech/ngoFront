@@ -47,6 +47,10 @@ use Illuminate\Support\Facades\App;
 class Fd6FormController extends Controller
 {
 
+    //fd6SourceOfFundDelete
+
+
+
 
     public function fd6StepFiveMainPost(Request $request){
 
@@ -399,14 +403,19 @@ class Fd6FormController extends Controller
         $fd6Id = base64_decode($id);
 
 //dd($fd6Id);
-
+try{
         $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
         $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
         $fd2FormList = Fd2Form::where('fd_one_form_id',$ngo_list_all->id)
         ->where('fd_six_form_id',$fd6Id)->latest()->first();
 
+        if(!$fd2FormList){
+            $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',0)->latest()->get();
+        }else{
+            $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',$fd2FormList->id)->latest()->get();
+        }
 
-        $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',$fd2FormList->id)->latest()->get();
+
         $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
         $renewWebsiteName = NgoRenewInfo::where('fd_one_form_id',$ngo_list_all->id)->value('web_site_name');
         $divisionList = DB::table('civilinfos')->groupBy('division_bn')->select('division_bn')->get();
@@ -457,7 +466,10 @@ class Fd6FormController extends Controller
     $fd6AdjoiningGList = Fd6AdjoiningG::where('fd6_form_id',$fd6Id)->latest()->get();
 
         return view('front.fd6Form.newview',compact('fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
-
+    } catch (\Exception $e) {
+       // DB::rollBack();
+        return redirect()->route('error_404');
+    }
     }
 
 

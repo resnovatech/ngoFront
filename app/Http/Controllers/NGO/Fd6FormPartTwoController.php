@@ -47,7 +47,107 @@ use App\Models\Fd6FurnitureEquipment;
 use App\Models\Fd6AdjoiningG;
 class Fd6FormPartTwoController extends Controller
 {
+    public function fd6SourceOfFundDelete(Request $request){
 
+        if($request->id == 1){
+
+
+            $fd6FormInfo = Fd6Form::find($request->fd6Id);
+            $fd6FormInfo->grants_received_from_abroad_first_year =null;
+            $fd6FormInfo->donations_made_by_foreign_donors_first_year =null;
+            $fd6FormInfo->local_grants_first_year =null;
+            $fd6FormInfo->prokolpo_year_grant_start_date_first =null;
+            $fd6FormInfo->prokolpo_year_grant_end_date_first =null;
+
+
+            if(empty($request->comment_grant)){
+
+            }else{
+
+            $fd6FormInfo->total_donors_comment =null;
+            }
+
+            $fd6FormInfo->total_first_year =null;
+            $fd6FormInfo->save();
+
+
+
+        }elseif($request->id == 2){
+
+            $fd6FormInfo = Fd6Form::find($request->fd6Id);
+            $fd6FormInfo->grants_received_from_abroad_second_year =null;
+            $fd6FormInfo->donations_made_by_foreign_donors_second_year =null;
+            $fd6FormInfo->local_grants_second_year =null;
+            $fd6FormInfo->prokolpo_year_grant_start_date_second =null;
+            $fd6FormInfo->prokolpo_year_grant_end_date_second =null;
+            if(empty($request->comment_grant)){
+
+            }else{
+
+            $fd6FormInfo->total_donors_comment =null;
+            }
+            $fd6FormInfo->total_second_year =null;
+            $fd6FormInfo->save();
+
+
+
+        }elseif($request->id == 3){
+
+            $fd6FormInfo = Fd6Form::find($request->fd6Id);
+            $fd6FormInfo->grants_received_from_abroad_third_year =null;
+            $fd6FormInfo->donations_made_by_foreign_donors_third_year =null;
+            $fd6FormInfo->local_grants_third_year =null;
+            $fd6FormInfo->prokolpo_year_grant_start_date_third =null;
+            $fd6FormInfo->prokolpo_year_grant_end_date_third =null;
+            if(empty($request->comment_grant)){
+
+            }else{
+
+            $fd6FormInfo->total_donors_comment =null;
+            }
+            $fd6FormInfo->total_third_year =null;
+            $fd6FormInfo->save();
+
+        }elseif($request->id == 4){
+
+
+            $fd6FormInfo = Fd6Form::find($request->fd6Id);
+            $fd6FormInfo->grants_received_from_abroad_fourth_year =null;
+            $fd6FormInfo->donations_made_by_foreign_donors_fourth_year =null;
+            $fd6FormInfo->local_grants_fourth_year =null;
+            $fd6FormInfo->prokolpo_year_grant_start_date_fourth =null;
+            $fd6FormInfo->prokolpo_year_grant_end_date_fourth =null;
+            $fd6FormInfo->total_donors_comment =null;
+            $fd6FormInfo->total_fourth_year =null;
+            $fd6FormInfo->save();
+
+
+        }elseif($request->id == 5){
+
+
+            $fd6FormInfo = Fd6Form::find($request->fd6Id);
+            $fd6FormInfo->grants_received_from_abroad_fifth_year =null;
+            $fd6FormInfo->donations_made_by_foreign_donors_fifth_year =null;
+            $fd6FormInfo->local_grants_fifth_year =null;
+            $fd6FormInfo->prokolpo_year_grant_start_date_fifth =null;
+            $fd6FormInfo->prokolpo_year_grant_end_date_fifth =null;
+            if(empty($request->comment_grant)){
+
+            }else{
+
+            $fd6FormInfo->total_donors_comment =null;
+            }
+            $fd6FormInfo->total_fifth_year =null;
+            $fd6FormInfo->save();
+
+       }
+
+       $fd6FormList = Fd6Form::where('id',$request->fd6Id)->latest()->first();
+
+       $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormList'))->render();
+        return response()->json($data);
+
+    }
     public function fd6pdfview($id){
 
         $fd6Id = base64_decode($id);
@@ -110,7 +210,7 @@ class Fd6FormPartTwoController extends Controller
 
     $fd6AdjoiningGList = Fd6AdjoiningG::where('fd6_form_id',$fd6Id)->latest()->get();
 
-       
+
         $file_Name_Custome = 'fd_six_form';
        $data =view('front.fd6Form.fd6pdfview',[
         'fd6AdjoiningGList'=>$fd6AdjoiningGList,
@@ -643,8 +743,12 @@ class Fd6FormPartTwoController extends Controller
     $thanaList = DB::table('civilinfos')
     ->groupBy('thana_bn')->select('thana_bn')->get();
 
-        return view('front.fd6Form.partTwo.fd6StepThreeEdit',compact('fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+    if(!$fd6ProjectManagement || !$fd6GovernanceAndTransparency || !$fd6StepThree){
+        return view('front.fd6Form.fd6StepThree',compact('fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+    }else{
 
+        return view('front.fd6Form.partTwo.fd6StepThreeEdit',compact('fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+    }
     }
 
 
@@ -690,8 +794,12 @@ class Fd6FormPartTwoController extends Controller
     $fd6AdjoiningCList = Fd6AdjoiningC::where('fd6_form_id',$fd6Id)->first();
     $fd6AdjoiningDList = Fd6AdjoiningD::where('fd6_form_id',$fd6Id)->first();
 
-    return view('front.fd6Form.partTwo.fd6StepFourEdit',compact('fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+    if(!$fd6AdjoiningAList || !$fd6AdjoiningCList || !$fd6AdjoiningDList){
+        return view('front.fd6Form.fd6StepFour',compact('fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+    }else{
 
+    return view('front.fd6Form.partTwo.fd6StepFourEdit',compact('fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+    }
     }
 
 

@@ -333,7 +333,7 @@
                                                         <td rowspan="4" style="width:40px;">০৩</td>
                                                         <td colspan="2">প্রকল্পের মেয়াদ <span style="color:red;">*</span></td>
                                                         <td>
-                                                            <input type="number" name="ngo_prokolpo_duration" required class="form-control" id=""
+                                                            <input type="text" name="ngo_prokolpo_duration" required class="form-control" id=""
                                                                    placeholder="প্রকল্পের মেয়াদ">
                                                         </td>
                                                     </tr>
