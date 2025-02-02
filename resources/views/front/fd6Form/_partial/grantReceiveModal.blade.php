@@ -48,7 +48,7 @@
                             @if(empty($getYearVal->total_first_year))
 
                             <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
+                                <label for="" class="form-label">প্রকল্প বর্ষ32</label>
                                 <input type="text" value="১ম বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
                                 placeholder="প্রকল্প বর্ষ">
                             </div>
@@ -56,7 +56,7 @@
                             @elseif(empty($getYearVal->total_second_year))
 
                             <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
+                                <label for="" class="form-label">প্রকল্প বর্ষ3</label>
                                 <input type="text" value="২য় বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
                                 placeholder="প্রকল্প বর্ষ">
                             </div>
@@ -64,7 +64,7 @@
                             @elseif(empty($getYearVal->total_third_year))
 
                             <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
+                                <label for="" class="form-label">প্রকল্প বর্ষ322</label>
                                 <input type="text" value="৩য় বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
                                 placeholder="প্রকল্প বর্ষ">
                             </div>
@@ -72,7 +72,7 @@
                             @elseif(empty($getYearVal->total_fourth_year))
 
                             <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
+                                <label for="" class="form-label">প্রকল্প বর্ষ2</label>
                                 <input type="text" value="৪র্থ বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
                                 placeholder="প্রকল্প বর্ষ">
                             </div>
@@ -80,7 +80,7 @@
                             @elseif(empty($getYearVal->total_fifth_year))
 
                             <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
+                                <label for="" class="form-label">প্রকল্প বর্ষ1</label>
                                 <input type="text" value="৫ম বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
                                 placeholder="প্রকল্প বর্ষ">
                             </div>
