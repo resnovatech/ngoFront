@@ -688,7 +688,17 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                     <td style="width:30%"> প্রত্যেক প্রধান কার্যক্রম বাস্তবায়ন পদ্ধতি
                         সংক্ষেপে বর্ণনা করতে হবে।
                     </td>
-                    <td>{{ $fd6ProjectManagement->implementation_of_activities }}</td>
+                    <td>
+
+                        @if(!$fd6ProjectManagement)
+
+                        @else
+
+                        {{ $fd6ProjectManagement->implementation_of_activities }}
+
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="">খ)</td>
@@ -696,7 +706,17 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                         বাস্তবায়িত হবে কিনা, হলে সংলগ্নি - ''ক'' মোতাবেক প্রত্যেক সহযোগী
                         এনজিওর তথ্য দিতে হবে।
                     </td>
-                    <td>{{ $fd6ProjectManagement->associate_NGO_detail }}</td>
+                    <td>
+
+                        @if(!$fd6ProjectManagement)
+
+                        @else
+
+                        {{ $fd6ProjectManagement->associate_NGO_detail }}
+
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="">গ)</td>
@@ -704,28 +724,64 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                         কর্মচারীদের বিস্তারিত বিবরণ (দেশি ও বিদেশী উভয়ের জন্য প্রযোজ্য )
                         দাখিল করতে হবে।
                     </td>
-                    <td>{{ $fd6ProjectManagement->details_of_project_Officers_and_employees }}</td>
+                    <td>
+
+                        @if(!$fd6ProjectManagement)
+
+                        @else
+
+                        {{ $fd6ProjectManagement->details_of_project_Officers_and_employees }}
+
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="">ঘ)</td>
                     <td style="width:30%"> নির্মাণ সংক্রান্ত বিস্তারিত তথ্য সংলগ্নি ''ঘ
                         '' - তে প্রদান করতে হবে।
                     </td>
-                    <td>{{ $fd6ProjectManagement->construction_details }}</td>
+                    <td>
+                        @if(!$fd6ProjectManagement)
+
+                        @else
+                        {{ $fd6ProjectManagement->construction_details }}
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="">ঙ)</td>
                     <td style="width:30%"> আর্থিক খাত/ উপখাত ভিত্তিক বরাদ্দ সংলগ্নি
                         ''ঘ''-তে প্রদান করতে হবে।
                     </td>
-                    <td>{{ $fd6ProjectManagement->financial_sector_sub_sector_wise_allocation }}</td>
+                    <td>
+                        @if(!$fd6ProjectManagement)
+
+                        @else
+
+                        {{ $fd6ProjectManagement->financial_sector_sub_sector_wise_allocation }}
+
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td style=""> চ)</td>
                     <td style="width:30%"> প্রকল্পটি সমাপ্তির পর প্রকল্পটি কিভাবে টিকিয়া
                         থাকবে ও পরিচালিত হবে তা উল্লেখ করতে হবে।
                     </td>
-                    <td>{{ $fd6ProjectManagement->project_sustained_and_managed }}</td>
+                    <td>
+
+                        @if(!$fd6ProjectManagement)
+
+                        @else
+
+                        {{ $fd6ProjectManagement->project_sustained_and_managed }}
+
+                        @endif
+
+                    </td>
                 </tr>
 
                 <!--FD06 Section 09-->
@@ -740,7 +796,18 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                         বেসরকারি ব্যক্তিবর্গের সাথে পরামর্শক্রমে কিংবা মাঠ জরিপের
                         মাধ্যমে প্রণয়ন করা হয়েছে কিনা, হলে সংক্ষিপ্ত বর্ণনা (প্রমাণক)
                     </td>
-                    <td>{{ $fd6GovernanceAndTransparency->private_individuals_advice }}</td>
+                    <td>
+
+                        @if(!$fd6GovernanceAndTransparency)
+
+                        @else
+
+                        {{ $fd6GovernanceAndTransparency->private_individuals_advice }}
+
+                        @endif
+
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="">খ)</td>
@@ -748,7 +815,14 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                         থাকে) বিবেচনান্তে কাজ ও কর্ম - এলাকার দৈত্বতা এড়ানোর কি কি
                         ব্যবস্থা গৃহীত হয়েছে।
                     </td>
-                    <td>{{ $fd6GovernanceAndTransparency->govt_ongoing_activities }}</td>
+                    <td>
+                        @if(!$fd6GovernanceAndTransparency)
+
+                        @else
+                        {{ $fd6GovernanceAndTransparency->govt_ongoing_activities }}
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="">গ)</td>
@@ -756,7 +830,17 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                         দাখিল করা হয়েছিল কি না সরকার কর্তৃক তা অনুমোদিত বা পরবর্তীতে
                         বাতিল করা হয়েছিল কি না:
                     </td>
-                    <td>{{ $fd6GovernanceAndTransparency->similar_project_run_previously }}</td>
+                    <td>
+
+                        @if(!$fd6GovernanceAndTransparency)
+
+                        @else
+
+                        {{ $fd6GovernanceAndTransparency->similar_project_run_previously }}
+
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <td rowspan="2" style="">ঘ)</td>
@@ -777,45 +861,101 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                             <tr>
                                 <td>০১</td>
                                 <td>প্রকল্প ছক ৮ নং ফরমে</td>
-                                <td>{{$fd6GovernanceAndTransparency->project_in_form_no_eight}}
+                                <td>
+
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+                                    {{$fd6GovernanceAndTransparency->project_in_form_no_eight}}
+                                    @endif
                                 </td>
 
                             </tr>
                             <tr>
                                 <td>০২</td>
                                 <td>নিরীক্ষা প্রতিবেদন</td>
-                                <td>{{ $fd6GovernanceAndTransparency->audit_report}}
+                                <td>
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+                                    {{ $fd6GovernanceAndTransparency->audit_report}}
+                                    @endif
                                 </td>
 
                             </tr>
                             <tr>
                                 <td>০৩</td>
                                 <td>বার্ষিক প্রতিবেদন</td>
-                                <td> {{$fd6GovernanceAndTransparency->annual_report }}</td>
+                                <td>
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+                                    {{$fd6GovernanceAndTransparency->annual_report }}
+
+                                    @endif
+
+                                </td>
 
                             </tr>
                             <tr>
                                 <td>০৪</td>
                                 <td>প্রত্যেক কর্ম- এলাকার বাজেটসহ কর্মপরিকল্পনা</td>
-                                <td>{{ $fd6GovernanceAndTransparency->action_plan_with_budget }}</td>
+                                <td>
+
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+
+                                    {{ $fd6GovernanceAndTransparency->action_plan_with_budget }}
+@endif
+                                </td>
 
                             </tr>
                             <tr>
                                 <td>০৫</td>
                                 <td>উপকারভোগীদের ডাটাবেইজ</td>
-                                <td> {{ $fd6GovernanceAndTransparency->beneficiary_database }}</td>
+                                <td>
+
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+
+                                    {{ $fd6GovernanceAndTransparency->beneficiary_database }}
+
+                                    @endif
+
+
+                                </td>
 
                             </tr>
                             <tr>
                                 <td>০৬</td>
                                 <td>প্রকল্পের বিস্তারিত ফলাফল</td>
-                                <td> {{ $fd6GovernanceAndTransparency->detailed_results_of_the_project }}</td>
+                                <td>
+
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+                                    {{ $fd6GovernanceAndTransparency->detailed_results_of_the_project }}
+@endif
+
+                                </td>
 
                             </tr>
                             <tr>
                                 <td>০৭</td>
                                 <td>অভিযোগ বহি ও অভিযোগ নিম্পত্তি</td>
-                                <td> {{ $fd6GovernanceAndTransparency->complaints_detail}}</td>
+                                <td>
+
+                                    @if(!$fd6GovernanceAndTransparency)
+
+                                    @else
+
+                                    {{ $fd6GovernanceAndTransparency->complaints_detail}}
+
+                                    @endif
+
+                                </td>
 
                             </tr>
                         </table>
@@ -830,16 +970,105 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                     <td style="width:30%">ক. ফোকাল পয়েন্ট এর নাম, মোবাইল, ইমেইল
                         নম্বরসহ
                     </td>
-                    <td>{{ $fd6GovernanceAndTransparency->focal_point_name_mobile_email }}</td>
+                    <td>
+                        @if(!$fd6GovernanceAndTransparency)
+
+                        @else
+
+                        {{ $fd6GovernanceAndTransparency->focal_point_name_mobile_email }}
+
+                        @endif
+
+
+                    </td>
                 </tr>
                 <tr>
                     <td style="width:30%">খ. তথ্য অধিকার বিষয়ক অনলাইন প্রশিক্ষণ রয়েছে
                         কিনা? করে থাকলে তার প্রমাণক:
                     </td>
-                    <td>{{ $fd6GovernanceAndTransparency->online_training }}</td>
+                    <td>
+                        @if(!$fd6GovernanceAndTransparency)
+
+                        @else
+
+                        {{ $fd6GovernanceAndTransparency->online_training }}
+
+                        @endif
+
+                    </td>
                 </tr>
 
                 <!--FD06 Section 10-->
+
+                @if(!$fd6StepThree)
+
+                <tr>
+                    <td rowspan="4" style="">১০</td>
+                    <td colspan="3"> প্রকল্পটি ইতোপূর্বে সমাপ্ত কোন প্রকল্পের
+                        সম্প্রসারিত বা নতুন ফেইজ কিনা, হলে নিচের তথ্যসমূহ প্রদান করতে
+                        হবে :
+                    </td>
+                </tr>
+                <tr>
+                    <td style="">ক)</td>
+                    <td style="width:30%"> সংলগ্নি ''ঙ'' তে পূর্বের প্রকল্পের
+                        লক্ষ্যমাত্রা ও অর্জণ উল্লেখ করতে হবে :
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="">খ)</td>
+                    <td style="width:30%"> প্রকল্পটি নিরীক্ষিত কিনা, হলে কত তারিখে
+                        নিরীক্ষা প্রতিবেদন দাখিল
+                        ও গ্রহণ করা হয়েছে (নিরীক্ষা প্রতিবেদন গৃহীত হওয়ার প্রমানসহ)
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="">গ)</td>
+                    <td style="width:30%"> সম্প্রসারিত প্রকল্প/ নতুন ফেইজ প্রকল্প
+                        গ্রহণের কারণসমূহ
+                    </td>
+                    <td></td>
+                </tr>
+
+                <!--FD06 Section 11-->
+
+                <tr>
+                    <td style="">১১</td>
+                    <td colspan="2"> বিস্তারিত বাজেট বিবরণ :</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style=""> ১১.১</td>
+                    <td colspan="2"> উপকারভোগীদের জন্য প্রত্যেক্ষ বরাদ্দ :</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="">১২</td>
+                    <td colspan="2"> প্রকল্প বাস্তবায়নে বরাদ্দকৃত ওভারহেড কস্ট/প্রশাসনিক
+                        ব্যয় বিভাজন (বিস্তারিত)
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style=""> ১৩</td>
+                    <td colspan="2">
+                        প্রশাসনিক ব্যয় ও প্রকল্প ব্যায়ের অনুপাত:
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style=""> ১৪</td>
+                    <td colspan="2">পরিবেশ সংরক্ষণে প্রকল্পটি কিভাবে সহায়তা করবে।
+                        প্রকল্পটি জলবায়ু পরিবর্তনে নেতিবাচক প্রভাব ফেলিবে কিনা :
+                    </td>
+                    <td></td>
+                </tr>
+
+                @else
 
                 <tr>
                     <td rowspan="4" style="">১০</td>
@@ -921,6 +1150,8 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
                     </td>
                     <td>{{ $fd6StepThree->project_benifit }}</td>
                 </tr>
+
+                @endif
                  <!--FD06 Section Shonglognni-->
 
 <tr>
@@ -997,6 +1228,45 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 <td rowspan="8" style="">খ)</td>
 <td colspan="3">মোট অনুদানের পরিমান</td>
 </tr>
+
+@if(!$fd6AdjoiningAList)
+<tr>
+    <td style="">০১</td>
+    <td>নগদ</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০২</td>
+    <td>কৌশলগত সহযোগিতা (বিস্তারিত বিবরণ)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৩</td>
+    <td> পণ্য/দ্রব্য সহযোগিতা</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৪</td>
+    <td>অন্যান্য</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৫</td>
+    <td>প্রকল্প বাস্তবায়নাধীন এলাকা</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৬</td>
+    <td> উল্লেখযোগ্য অন্যান্য তথ্য</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৭</td>
+    <td>চুক্তিপত্রের কপি</td>
+    <td></td>
+    </tr>
+
+@else
 <tr>
 <td style="">০১</td>
 <td>নগদ</td>
@@ -1040,6 +1310,7 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 @endif
 </td>
 </tr>
+@endif
 
 <!--FD06 Section Shonglognni kh-->
 
@@ -1124,7 +1395,37 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 (ভৌত নির্মাণের বিস্তারিত বর্ণনা)
 </td>
 </tr>
+@if(!$fd6AdjoiningCList)
+<tr>
+    <td style="">ক)</td>
+    <td colspan="2"> জমির মালিকানার প্রমাণক (নামজারী ও জমাখারিজ সহ )
+    </td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">খ)</td>
+    <td colspan="2"> ভূমি উন্নয়ন কর পরিশোধের প্রমাণক (দাখিলা)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">গ)</td>
+    <td colspan="2"> প্রকৌশল ডিজাইন (প্রকৌশলীর নাম, পদবীসহ সিল ও
+    সাক্ষরসহ)
+    </td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">ঘ)</td>
+    <td colspan="2"> নির্মাণের লে-আউট প্লান</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">ঙ)</td>
+    <td colspan="2"> প্রাক্কলিক ব্যয়</td>
+    <td></td>
+    </tr>
 
+@else
 <tr>
 <td style="">ক)</td>
 <td colspan="2"> জমির মালিকানার প্রমাণক (নামজারী ও জমাখারিজ সহ )
@@ -1174,6 +1475,7 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 <td colspan="2"> প্রাক্কলিক ব্যয়</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6AdjoiningCList->estimated_expenses) }}</td>
 </tr>
+@endif
 
 <!--FD06 Section Shonglognni Gha-->
 
@@ -1188,7 +1490,43 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 প্রদর্শন বিষয়ক তথ্যাদি :
 </td>
 </tr>
-
+@if(!$fd6AdjoiningDList)
+<tr>
+    <td style="">ক)</td>
+    <td colspan="2"> প্রকল্পের নাম</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">খ)</td>
+    <td colspan="2"> প্রকল্পের মেয়াদকাল</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">গ)</td>
+    <td colspan="2">প্রকল্পের মোট বরাদ্দ</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">ঘ)</td>
+    <td colspan="2">প্রকল্প এলাকায় মোট বরাদ্দ</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">ঙ)</td>
+    <td colspan="2"> মোট উপকারভোগীর সংখ্যা</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">চ)</td>
+    <td colspan="2"> প্রকল্প এলাকায় মোট জনসংখ্যা</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">ছ)</td>
+    <td colspan="2">দাতা সংস্থার নাম</td>
+    <td></td>
+    </tr>
+@else
 <tr>
 <td style="">ক)</td>
 <td colspan="2"> প্রকল্পের নাম</td>
@@ -1224,6 +1562,7 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 <td colspan="2">দাতা সংস্থার নাম</td>
 <td>{{ $fd6AdjoiningDList->donor_name }}</td>
 </tr>
+@endif
 
 <tr>
 <td colspan="4">
@@ -1236,6 +1575,46 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 </td>
 </tr>
 
+
+@if(!$fd6AdjoiningEList)
+<tr>
+    <td style="">০১)</td>
+    <td colspan="2"> প্রকল্পের নাম</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০২)</td>
+    <td colspan="2"> প্রকল্পের মেয়াদ</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৩)</td>
+    <td colspan="2">এনজিও বিষয়ক ব্যুরোর অনুমোদন ও তারিখ</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৪)</td>
+    <td colspan="2"> প্রকল্প মূল্য</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৫)</td>
+    <td colspan="2"> প্রকল্পের অডিট ও সমাপনী প্রতিবেদন দাখিল ও গ্রহণের
+    প্রমাণক
+    </td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৬)</td>
+    <td colspan="2">স্থানীয় প্রশাসনের প্রত্যয়নপত্র দাখিলের প্রমাণক</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td style="">০৭)</td>
+    <td colspan="2">অর্থ-সামাজিক উন্নয়নে অর্জিত প্রভাবক</td>
+    <td></td>
+    </tr>
+@else
 <tr>
 <td style="">০১)</td>
 <td colspan="2"> প্রকল্পের নাম</td>
@@ -1299,6 +1678,7 @@ $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;
 <td colspan="2">অর্থ-সামাজিক উন্নয়নে অর্জিত প্রভাবক</td>
 <td>{{ $fd6AdjoiningEList->development_detail }}</td>
 </tr>
+@endif
 <tr>
 <td colspan="4">
 
@@ -1492,10 +1872,20 @@ $totalExpenseTwo = 0;
 </tr>
 <tr>
 <td style="">০৪)</td>
-<td colspan="3">প্রকল্প সমাপ্ত হওয়ার পরে এই অফিস যন্ত্রপাতি, মেশিনপত্র এবং যানবাহনগুলো কিভাবে ব্যবহার হবে সেই বিষয়ে বর্ণনা : @if(empty($fd6AdjoiningEList->after_end_prokolpo))
+<td colspan="3">প্রকল্প সমাপ্ত হওয়ার পরে এই অফিস যন্ত্রপাতি, মেশিনপত্র এবং যানবাহনগুলো কিভাবে ব্যবহার হবে সেই বিষয়ে বর্ণনা :
+
+    @if(!$fd6AdjoiningEList)
+
+    @else
+
+    @if(empty($fd6AdjoiningEList->after_end_prokolpo))
     @else
     সংযুক্ত
-    @endif</td>
+    @endif
+
+    @endif
+
+</td>
 
 </tr>
 
