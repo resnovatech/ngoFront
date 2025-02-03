@@ -801,6 +801,58 @@
 
     </td>
 </tr>
+
+@if(!$fd6ProjectManagement)
+<tr>
+    <td rowspan="7" style="width:40px;">০৮</td>
+    <td colspan="3">প্রকল্প ব্যবস্থাপনা :</td>
+</tr>
+<tr>
+    <td style="width:40px;">ক)</td>
+    <td style="width:30%"> প্রত্যেক প্রধান কার্যক্রম বাস্তবায়ন পদ্ধতি
+        সংক্ষেপে বর্ণনা করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">খ)</td>
+    <td style="width:30%">প্রকল্পটি সহযোগী এনজিও বা সংস্থার মাদ্ধমে
+        বাস্তবায়িত হবে কিনা, হলে সংলগ্নি - ''ক'' মোতাবেক প্রত্যেক সহযোগী
+        এনজিওর তথ্য দিতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">গ)</td>
+    <td style="width:30%"> সংলগ্নি ''খ '' -তে প্রকল্পের কর্মকর্তা/
+        কর্মচারীদের বিস্তারিত বিবরণ (দেশি ও বিদেশী উভয়ের জন্য প্রযোজ্য )
+        দাখিল করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঘ)</td>
+    <td style="width:30%"> নির্মাণ সংক্রান্ত বিস্তারিত তথ্য সংলগ্নি ''ঘ
+        '' - তে প্রদান করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঙ)</td>
+    <td style="width:30%"> আর্থিক খাত/ উপখাত ভিত্তিক বরাদ্দ সংলগ্নি
+        ''ঘ''-তে প্রদান করতে হবে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;"> চ)</td>
+    <td style="width:30%"> প্রকল্পটি সমাপ্তির পর প্রকল্পটি কিভাবে টিকিয়া
+        থাকবে ও পরিচালিত হবে তা উল্লেখ করতে হবে।
+    </td>
+    <td></td>
+</tr>
+
+@else
                                     <tr>
                                         <td rowspan="7" style="width:40px;">০৮</td>
                                         <td colspan="3">প্রকল্প ব্যবস্থাপনা :</td>
@@ -849,9 +901,121 @@
                                         </td>
                                         <td>{{ $fd6ProjectManagement->project_sustained_and_managed }}</td>
                                     </tr>
+                                    @endif
 
                                     <!--FD06 Section 09-->
+@if(!$fd6GovernanceAndTransparency)
+<tr>
+    <td rowspan="9" style="width:40px;">০৯</td>
+    <td colspan="3"> সুশাসন ও স্বচ্ছতা :</td>
+</tr>
+<tr>
+    <td style="width:40px;">ক)</td>
+    <td style="width:30%"> প্রকল্পটি এলাকার জনগণ এবং সংশ্লিষ্ট সরকারি ও
+        বেসরকারি ব্যক্তিবর্গের সাথে পরামর্শক্রমে কিংবা মাঠ জরিপের
+        মাধ্যমে প্রণয়ন করা হয়েছে কিনা, হলে সংক্ষিপ্ত বর্ণনা (প্রমাণক)
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">খ)</td>
+    <td style="width:30%">অন্যান্য এনজিও এবং সরকারি চলমান কর্মকান্ড (যদি
+        থাকে) বিবেচনান্তে কাজ ও কর্ম - এলাকার দৈত্বতা এড়ানোর কি কি
+        ব্যবস্থা গৃহীত হয়েছে।
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">গ)</td>
+    <td style="width:30%"> এ প্রকল্পটি বা একই ধরণের প্রকল্প ইতোপূর্বে
+        দাখিল করা হয়েছিল কি না সরকার কর্তৃক তা অনুমোদিত বা পরবর্তীতে
+        বাতিল করা হয়েছিল কি না:
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td rowspan="2" style="width:40px;">ঘ)</td>
+    <td colspan="2" style="width:30%"> সংস্থা স্বেচ্ছায় বা তথ্য অধিকার
+        আইনের কারণে নিম্নবর্তীত তথ্যাবলী জনসম্মুখে প্রকাশ করতে ইচ্ছুক
+        কিনা (ডিসক্লোজার পলিসি ):
+    </td>
+</tr>
+<tr>
+    <td colspan="3">
+        <table class="table table-bordered">
+            <tr>
+                <td>ত্রু নং</td>
+                <td>তথ্যাবলী</td>
+                <td>হ্যা/না</td>
 
+            </tr>
+            <tr>
+                <td>০১</td>
+                <td>প্রকল্প ছক ৮ নং ফরমে</td>
+                <td>
+                </td>
+
+            </tr>
+            <tr>
+                <td>০২</td>
+                <td>নিরীক্ষা প্রতিবেদন</td>
+                <td>
+                </td>
+
+            </tr>
+            <tr>
+                <td>০৩</td>
+                <td>বার্ষিক প্রতিবেদন</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>০৪</td>
+                <td>প্রত্যেক কর্ম- এলাকার বাজেটসহ কর্মপরিকল্পনা</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>০৫</td>
+                <td>উপকারভোগীদের ডাটাবেইজ</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>০৬</td>
+                <td>প্রকল্পের বিস্তারিত ফলাফল</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>০৭</td>
+                <td>অভিযোগ বহি ও অভিযোগ নিম্পত্তি</td>
+                <td></td>
+
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td rowspan="3" style="width:40px;">ঙ)</td>
+    <td colspan="2" style="width:30%"> RTI বিষয়ক তথ্যাদি :
+    </td>
+</tr>
+<tr>
+    <td style="width:30%">ক. ফোকাল পয়েন্ট এর নাম, মোবাইল, ইমেইল
+        নম্বরসহ
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:30%">খ. তথ্য অধিকার বিষয়ক অনলাইন প্রশিক্ষণ রয়েছে
+        কিনা? করে থাকলে তার প্রমাণক:
+    </td>
+    <td></td>
+</tr>
+
+<!--FD06 Section 10-->
+@else
                                     <tr>
                                         <td rowspan="9" style="width:40px;">০৯</td>
                                         <td colspan="3"> সুশাসন ও স্বচ্ছতা :</td>
@@ -962,6 +1126,81 @@
                                     </tr>
 
                                     <!--FD06 Section 10-->
+                                    @endif
+
+                                    @if(!$fd6StepThree)
+                                    <tr>
+                                        <td rowspan="4" style="width:40px;">১০</td>
+                                        <td colspan="3"> প্রকল্পটি ইতোপূর্বে সমাপ্ত কোন প্রকল্পের
+                                            সম্প্রসারিত বা নতুন ফেইজ কিনা, হলে নিচের তথ্যসমূহ প্রদান করতে
+                                            হবে :
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;">ক)</td>
+                                        <td style="width:30%"> সংলগ্নি ''ঙ'' তে পূর্বের প্রকল্পের
+                                            লক্ষ্যমাত্রা ও অর্জণ উল্লেখ করতে হবে :
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;">খ)</td>
+                                        <td style="width:30%"> প্রকল্পটি নিরীক্ষিত কিনা, হলে কত তারিখে
+                                            নিরীক্ষা প্রতিবেদন দাখিল
+                                            ও গ্রহণ করা হয়েছে (নিরীক্ষা প্রতিবেদন গৃহীত হওয়ার প্রমানসহ)
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;">গ)</td>
+                                        <td style="width:30%"> সম্প্রসারিত প্রকল্প/ নতুন ফেইজ প্রকল্প
+                                            গ্রহণের কারণসমূহ
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                    <!--FD06 Section 11-->
+
+                                    <tr>
+                                        <td style="width:40px;">১১</td>
+                                        <td colspan="2"> বিস্তারিত বাজেট বিবরণ :</td>
+                                        <td>
+
+
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;"> ১১.১</td>
+                                        <td colspan="2"> উপকারভোগীদের জন্য প্রত্যেক্ষ বরাদ্দ :</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;">১২</td>
+                                        <td colspan="2"> প্রকল্প বাস্তবায়নে বরাদ্দকৃত ওভারহেড কস্ট/প্রশাসনিক
+                                            ব্যয় বিভাজন (বিস্তারিত)
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;"> ১৩</td>
+                                        <td colspan="2">
+                                            প্রশাসনিক ব্যয় ও প্রকল্প ব্যায়ের অনুপাত:
+                                        </td>
+                                        <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6StepThree->ratio_of_expenditure) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:40px;"> ১৪</td>
+                                        <td colspan="2">পরিবেশ সংরক্ষণে প্রকল্পটি কিভাবে সহায়তা করবে।
+                                            প্রকল্পটি জলবায়ু পরিবর্তনে নেতিবাচক প্রভাব ফেলিবে কিনা :
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                    @else
 
                                     <tr>
                                         <td rowspan="4" style="width:40px;">১০</td>
@@ -1047,7 +1286,7 @@
                                         <td>{{ $fd6StepThree->project_benifit }}</td>
                                     </tr>
                                      <!--FD06 Section Shonglognni-->
-
+@endif
   <tr>
     <td colspan="4">
         <h3 class="text-center mt-2">সংলগ্নী ‘’ক’’</h3>
@@ -1118,6 +1357,49 @@
     </div>
     </td>
 </tr>
+@if(!$fd6AdjoiningAList)
+<tr>
+    <td rowspan="8" style="width:40px;">খ)</td>
+    <td colspan="3">মোট অনুদানের পরিমান</td>
+</tr>
+<tr>
+    <td style="width:40px;">০১</td>
+    <td>নগদ</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০২</td>
+    <td>কৌশলগত সহযোগিতা (বিস্তারিত বিবরণ)</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৩</td>
+    <td> পণ্য/দ্রব্য সহযোগিতা</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৪</td>
+    <td>অন্যান্য</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৫</td>
+    <td>প্রকল্প বাস্তবায়নাধীন এলাকা</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৬</td>
+    <td> উল্লেখযোগ্য অন্যান্য তথ্য</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৭</td>
+    <td>চুক্তিপত্রের কপি</td>
+    <td>
+
+    </td>
+</tr>
+@else
 <tr>
     <td rowspan="8" style="width:40px;">খ)</td>
     <td colspan="3">মোট অনুদানের পরিমান</td>
@@ -1166,7 +1448,7 @@
                 @endif
     </td>
 </tr>
-
+@endif
 <!--FD06 Section Shonglognni kh-->
 
 <tr>
@@ -1238,6 +1520,49 @@
 
 <!--FD06 Section Shonglognni Ga-->
 
+@if(!$fd6AdjoiningCList)
+<tr>
+    <td colspan="4">
+        <h3 class="text-center mt-2">সংলগ্নী ‘’গ’’</h3>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="4"> নির্মাণ কাজের বিস্তারিত বিবরণ (প্রযোজ্যক্ষেত্রে )
+        <br>
+        (ভৌত নির্মাণের বিস্তারিত বর্ণনা)
+    </td>
+</tr>
+
+<tr>
+    <td style="width:40px;">ক)</td>
+    <td colspan="2"> জমির মালিকানার প্রমাণক (নামজারী ও জমাখারিজ সহ )
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">খ)</td>
+    <td colspan="2"> ভূমি উন্নয়ন কর পরিশোধের প্রমাণক (দাখিলা)</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">গ)</td>
+    <td colspan="2"> প্রকৌশল ডিজাইন (প্রকৌশলীর নাম, পদবীসহ সিল ও
+        সাক্ষরসহ)
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঘ)</td>
+    <td colspan="2"> নির্মাণের লে-আউট প্লান</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঙ)</td>
+    <td colspan="2"> প্রাক্কলিক ব্যয়</td>
+    <td></td>
+</tr>
+@else
 <tr>
     <td colspan="4">
         <h3 class="text-center mt-2">সংলগ্নী ‘’গ’’</h3>
@@ -1300,8 +1625,58 @@
     <td colspan="2"> প্রাক্কলিক ব্যয়</td>
     <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6AdjoiningCList->estimated_expenses) }}</td>
 </tr>
-
+@endif
 <!--FD06 Section Shonglognni Gha-->
+
+@if(!$fd6AdjoiningDList)
+<tr>
+    <td colspan="4">
+        <h3 class="text-center mt-2">সংলগ্নী ‘’ঘ’’</h3>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="4"> প্রকল্প এলাকাসমূহে প্রকল্পের বিস্তারিত সাইনবোর্ড
+        প্রদর্শন বিষয়ক তথ্যাদি :
+    </td>
+</tr>
+
+<tr>
+    <td style="width:40px;">ক)</td>
+    <td colspan="2"> প্রকল্পের নাম</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">খ)</td>
+    <td colspan="2"> প্রকল্পের মেয়াদকাল</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">গ)</td>
+    <td colspan="2">প্রকল্পের মোট বরাদ্দ</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঘ)</td>
+    <td colspan="2">প্রকল্প এলাকায় মোট বরাদ্দ</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ঙ)</td>
+    <td colspan="2"> মোট উপকারভোগীর সংখ্যা</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">চ)</td>
+    <td colspan="2"> প্রকল্প এলাকায় মোট জনসংখ্যা</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">ছ)</td>
+    <td colspan="2">দাতা সংস্থার নাম</td>
+    <td></td>
+</tr>
+@else
 
 <tr>
     <td colspan="4">
@@ -1350,7 +1725,60 @@
     <td colspan="2">দাতা সংস্থার নাম</td>
     <td>{{ $fd6AdjoiningDList->donor_name }}</td>
 </tr>
+@endif
+@if(!$fd6AdjoiningEList)
+<tr>
+    <td colspan="4">
+        <h3 class="text-center mt-2">সংলগ্নী ‘’ঙ’’</h3>
+    </td>
+</tr>
 
+<tr>
+    <td colspan="4">সমাপ্ত অনুরূপ প্রকল্পের অর্জন
+    </td>
+</tr>
+
+<tr>
+    <td style="width:40px;">০১)</td>
+    <td colspan="2"> প্রকল্পের নাম</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০২)</td>
+    <td colspan="2"> প্রকল্পের মেয়াদ</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৩)</td>
+    <td colspan="2">এনজিও বিষয়ক ব্যুরোর অনুমোদন ও তারিখ</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৪)</td>
+    <td colspan="2"> প্রকল্প মূল্য</td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৫)</td>
+    <td colspan="2"> প্রকল্পের অডিট ও সমাপনী প্রতিবেদন দাখিল ও গ্রহণের
+        প্রমাণক
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td style="width:40px;">০৬)</td>
+    <td colspan="2">স্থানীয় প্রশাসনের প্রত্যয়নপত্র দাখিলের প্রমাণক</td>
+    <td>
+
+
+    </td>
+</tr>
+<tr>
+    <td style="width:40px;">০৭)</td>
+    <td colspan="2">অর্থ-সামাজিক উন্নয়নে অর্জিত প্রভাবক</td>
+    <td></td>
+</tr>
+@else
 <tr>
     <td colspan="4">
         <h3 class="text-center mt-2">সংলগ্নী ‘’ঙ’’</h3>
@@ -1425,6 +1853,7 @@
     <td colspan="2">অর্থ-সামাজিক উন্নয়নে অর্জিত প্রভাবক</td>
     <td>{{ $fd6AdjoiningEList->development_detail }}</td>
 </tr>
+@endif
 <tr>
     <td colspan="4">
 
@@ -1621,12 +2050,17 @@
     <td colspan="2">প্রকল্প সমাপ্ত হওয়ার পরে এই অফিস যন্ত্রপাতি, মেশিনপত্র এবং যানবাহনগুলো কিভাবে ব্যবহার হবে সেই বিষয়ে বর্ণনা :</td>
     <td>
 
+        @if(!($fd6AdjoiningEList))
+
+        @else
+
                @if(empty($fd6AdjoiningEList->after_end_prokolpo))
 
 
                @else
 
                <a href="{{ route('allPdfForFd6',['title'=>'after_end_prokolpo','id'=>$fd6AdjoiningEList->id]) }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-file-pdf-o"></i> পিডিএফ দেখুন</a>
+                @endif
                 @endif
     </td>
 </tr>
@@ -1705,7 +2139,8 @@
 
                 <!-- new code end -->
 
-
+@if(!$fd2FormList)
+@else
                         <div class="form9_upper_box">
                             <h3>এফডি -২ ফরম</h3>
                             <h4>অর্থছাড়ের আবেদন ফরম</h4>
@@ -1902,6 +2337,7 @@
 
 
                                                     </table>
+                                                    @endif
                     </div>
                 </div>
 

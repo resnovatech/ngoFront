@@ -464,6 +464,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::controller(Fd6FormPartTwoController::class)->group(function () {
 
+        Route::get('fd6SourceOfFundDelete', 'fd6SourceOfFundDelete')->name('fd6SourceOfFundDelete');
+
         Route::get('fd6pdfview/{id}', 'fd6pdfview')->name('fd6pdfview');
 
         Route::get('fd2pdfviewdfd6/{id}', 'fd2pdfviewdfd6')->name('fd2pdfviewdfd6');

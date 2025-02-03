@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'mail.musatech.net'),
+            'host' => env('MAIL_HOST', 'mail.privateemail.com'),
             'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION', 'SSL'),
-            'username' => 'ngo@musatech.net',
-            'password' => 'Ngo@12345',
+            'username' => 'info@spotlightattires.com',
+            'password' => 'w!dY*#26sZ$jmWT',
             'timeout' => null,
         ],
 
@@ -91,7 +91,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'ngo@musatech.net'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@spotlightattires.com'),
         'name' => env('MAIL_FROM_NAME', 'NGOAB'),
     ],
 

@@ -38,7 +38,7 @@
 
                                     <div class="col-lg-12 mb-3">
                                         <label for="" class="form-label">মন্তব্য</label>
-                                        <textarea required name="comment" class="form-control" id="comment{{ $SDGDevelopmentGoals->id }}" placeholder="">
+                                        <textarea  name="comment" class="form-control" id="comment{{ $SDGDevelopmentGoals->id }}" placeholder="">
                                             {{ $SDGDevelopmentGoals->comment }}
                                         </textarea>
                                     </div>

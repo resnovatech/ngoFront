@@ -56,7 +56,7 @@
 
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">মন্তব্য</label>
-                                <textarea required name="comment_grant" class="form-control" id="comment_grantfd61" placeholder="">{{ $fd6FormList->total_donors_comment }}</textarea>
+                                <textarea  name="comment_grant" class="form-control" id="comment_grantfd61" placeholder="">{{ $fd6FormList->total_donors_comment }}</textarea>
                             </div>
                         </div>
 

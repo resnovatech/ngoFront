@@ -499,7 +499,7 @@
                                                 <tr>
                                                     <td>প্রকল্পের মেয়াদকাল <span class="text-danger">*</span></td>
                                                     <td>
-                                                        <input type="text" required value="{{ $fd6FormList->duration_of_project }}" name="duration_of_project" class="form-control" id="duration_of_project"
+                                                        <input type="number" required value="{{ $fd6FormList->duration_of_project }}" name="duration_of_project" class="form-control" id="duration_of_project"
                                                                placeholder="">
                                                     </td>
                                                 </tr>
