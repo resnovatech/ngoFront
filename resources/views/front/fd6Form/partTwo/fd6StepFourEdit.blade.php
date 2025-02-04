@@ -217,6 +217,8 @@
                                 </div>
                             </div>
 
+                          
+
                             <div class="card mt-3 card-custom-color">
                                 <div class="card-body">
                                     <div class="form9_upper_box">
@@ -224,7 +226,7 @@
                                         <h4>প্রকল্প প্রস্তাব ফরম</h4>
                                     </div>
 
-                                    <form action="{{ route('fd6StepFourMainUpdate') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
+                                    <form action="{{ route('fd6StepFourMainUpdate') }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="fd6Id" id="fd6Id" value="{{ $fd6Id }}"/>
 
@@ -437,7 +439,7 @@
 <br>
             <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
 <br>
-        <input type="hidden" required  name="image_base64">
+        <input type="hidden"   name="image_base64">
         <div class="croppedInput mt-2">
 
             <img src="{{ asset('/') }}{{ $fd6AdjoiningCList->engineer_sign }}"  />
@@ -456,7 +458,7 @@
          <br>
         <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
 
-        <input type="hidden" required  name="image_seal_base64">
+        <input type="hidden"   name="image_seal_base64">
         <div class="croppedInputss mt-2">
             <img src="{{ asset('/') }}{{ $fd6AdjoiningCList->engineer_seal }}"  />
         </div>
@@ -611,5 +613,5 @@
 @section('script')
 @include('front.zoomButtonImage')
 @include('front.fd6Form._partial.script')
-@include('front.fd6Form._partial.stepFourscript')
+@include('front.fd6Form._partial.stepFourScript')
 @endsection

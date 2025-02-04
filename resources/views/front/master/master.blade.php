@@ -61,7 +61,7 @@
 
 <link rel="stylesheet" href="https://parsleyjs.org/src/parsley.css">
 @if(session()->get('locale') == 'en')
-<script src="{{ asset('/')}}public/front/assets/parsely.js"></script>
+{{--  <script src="{{ asset('/')}}public/front/assets/parsely.js"></script>  --}}
 @else
 <script src="{{ asset('/')}}public/front/assets/parsely1.js"></script>
 @endif

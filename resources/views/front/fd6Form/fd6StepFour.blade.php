@@ -411,7 +411,7 @@
 <br>
             <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
 <br>
-        <input type="hidden" required  name="image_base64">
+        <input type="hidden"   name="image_base64">
         <div class="croppedInput mt-2">
 
         </div>
@@ -428,7 +428,7 @@
          <br>
         <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
 
-        <input type="hidden" required  name="image_seal_base64">
+        <input type="hidden"   name="image_seal_base64">
         <div class="croppedInputss mt-2">
 
         </div>
@@ -563,5 +563,5 @@
 @section('script')
 @include('front.zoomButtonImage')
 @include('front.fd6Form._partial.script')
-@include('front.fd6Form._partial.stepFourscript')
+@include('front.fd6Form._partial.stepFourScript')
 @endsection

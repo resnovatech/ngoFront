@@ -22,7 +22,7 @@
                 <div class="header_right_text">
                    @if(session()->get('locale') == 'en' ||  empty(session()->get('locale')))
                     <h1>এনজিও বিষয়ক ব্যুরো<br>
-                        প্রধানমন্ত্রীর কার্যালয়
+                        প্রধান উপদেষ্টার কার্যালয়
                     </h1>
                     @else
                     <h1>NGO Affairs Bureau <br>

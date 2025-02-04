@@ -300,8 +300,15 @@ class Fd2FormController extends Controller
            ->where('type','fd6')
            ->get();
 }
-        return view('front.fd2Form.fd6Edit',compact('fd2AllFormLastYearDetail','fd2FormList','fd2OtherInfo','fd6Id','ngo_list_all','divisionList','fd6FormList'));
 
+if(!$fd2FormList){
+
+return redirect()->route('addFd2Detail',base64_encode($fd6Id))->with('success','Added Successfuly');
+
+}else{
+
+        return view('front.fd2Form.fd6Edit',compact('fd2AllFormLastYearDetail','fd2FormList','fd2OtherInfo','fd6Id','ngo_list_all','divisionList','fd6FormList'));
+}
     }
 
 

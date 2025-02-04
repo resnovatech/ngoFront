@@ -859,7 +859,13 @@ class Fd6FormPartTwoController extends Controller
     ->where('stepFiveType','যানবাহনের বর্ণনা')->latest()->get();
 
     $fd6AdjoiningGList = Fd6AdjoiningG::where('fd6_form_id',$fd6Id)->latest()->get();
+
+    if(!$fd6AdjoiningEList){
+        return view('front.fd6Form.fd6StepFive',compact('fd6AdjoiningEList','fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','detailAsPerForm6','employeeDataPostList','partnerDataPostList','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+
+    }else{
     return view('front.fd6Form.partTwo.fd6StepFiveEdit',compact('fd6AdjoiningEList','fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','detailAsPerForm6','employeeDataPostList','partnerDataPostList','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+}
     }
 
 
