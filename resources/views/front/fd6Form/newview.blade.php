@@ -2239,7 +2239,7 @@
                             $totalBeni = 0;
 
                             ?>
-                            @foreach($fd2AllFormLastYearDetail as $key=>$fd2AllFormLastYearDetails)
+                            @foreach($fd2AllFormLastYearDetailForFd2 as $key=>$fd2AllFormLastYearDetails)
                             <?php
 
                             $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;

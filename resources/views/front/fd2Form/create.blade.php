@@ -198,7 +198,7 @@
                                     <form action="{{ route('fd2Form.store') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
                                         @csrf
 
-                                        <input type="hidden" id="mainType"  value="fd6"/>
+                                        <input type="hidden" id="mainType"  value="fd6fd2"/>
                                         <input type="hidden" id="mainEditId"  value="0"/>
 
                                         <table class="table table-bordered" style="width:100%">

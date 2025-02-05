@@ -411,8 +411,14 @@ try{
 
         if(!$fd2FormList){
             $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',0)->latest()->get();
+            $fd2AllFormLastYearDetailForFd2 = Fd2AllFormLastYearDetail::where('main_id',0)
+        ->where('type','fd6fd2')
+        ->get();
         }else{
             $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',$fd2FormList->id)->latest()->get();
+            $fd2AllFormLastYearDetailForFd2 = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
+        ->where('type','fd6fd2')
+        ->get();
         }
 
 
@@ -465,7 +471,7 @@ try{
 
     $fd6AdjoiningGList = Fd6AdjoiningG::where('fd6_form_id',$fd6Id)->latest()->get();
 
-        return view('front.fd6Form.newview',compact('fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+        return view('front.fd6Form.newview',compact('fd2AllFormLastYearDetailForFd2','fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
     } catch (\Exception $e) {
        // DB::rollBack();
         return redirect()->route('error_404');

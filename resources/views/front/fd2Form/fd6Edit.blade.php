@@ -14,7 +14,7 @@
         @csrf
         @method('PUT')
         <input type="hidden" id="mainEditId" name="id" value="{{ $fd2FormList->id }}"/>
-        <input type="hidden" id="mainType"  value="fd6"/>
+        <input type="hidden" id="mainType"  value="fd6fd2"/>
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-12">

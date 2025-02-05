@@ -60,10 +60,15 @@
 @yield('css')
 
 <link rel="stylesheet" href="https://parsleyjs.org/src/parsley.css">
+
+@if(Route::is('fd6StepFourEdit') || Route::is('fd6StepFour') || Route::is('fd6StepFiveEdit') || Route::is('fd6StepFive'))
+
+@else
 @if(session()->get('locale') == 'en')
-{{--  <script src="{{ asset('/')}}public/front/assets/parsely.js"></script>  --}}
+<script src="{{ asset('/')}}public/front/assets/parsely.js"></script>
 @else
 <script src="{{ asset('/')}}public/front/assets/parsely1.js"></script>
+@endif
 @endif
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style>
