@@ -620,7 +620,7 @@ class NamechangeController extends Controller
          $regDakData->sender_admin_id =null;
          $regDakData->receiver_admin_id = 2;
          $regDakData->main_dak_id =base64_decode($id);
-         $regDakData->dak_type = 'namechange';
+         $regDakData->dak_type = 'nameChange';
          $regDakData->receive_from_ngo = 1;
          $regDakData->receive_status = 1;
          $regDakData->status = 1;
