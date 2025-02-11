@@ -8,6 +8,7 @@ use App\Models\NgoTypeAndLanguage;
 use App\Models\FdOneForm;
 use App\Models\NgoMemberList;
 use App\Models\FormEight;
+use App\Models\DakListDetail;
 use App\Models\NgoMemberNidPhoto;
 use App\Models\NgoOtherDoc;
 use App\Models\NgoStatus;
@@ -397,6 +398,35 @@ class OtherformController extends Controller
                 $add_renew_request->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
                 $add_renew_request->save();
 
+                $dt = new DateTime();
+                $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+                $created_at = $dt->format('Y-m-d h:i:s ');
+
+                $amPmValue = $dt->format('a');
+               // $amPmValueFinal = 0;
+                if($amPmValue == 'pm'){
+
+                    $amPmValueFinal = 'অপরাহ্ন';
+                }else{
+                    $amPmValueFinal = 'পূর্বাহ্ন';
+
+                }
+
+                 $regDakData = new DakListDetail();
+                 $regDakData->sender_admin_id =null;
+                 $regDakData->receiver_admin_id = 2;
+                 $regDakData->main_dak_id =$add_renew_request->id;
+                 $regDakData->dak_type = 'renew';
+                 $regDakData->receive_from_ngo = 1;
+                 $regDakData->receive_status = 1;
+         $regDakData->status = 1;
+                 $regDakData->nothi_jat_id = 0;
+                 $regDakData->nothi_jat_status = 0;
+                 $regDakData->sent_status =null;
+                 $regDakData->amPmValue = $amPmValueFinal;
+                 $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+                 $regDakData->save();
+
                 $get_v_email = Auth::user()->email;
 
                 $first_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
@@ -419,6 +449,35 @@ class OtherformController extends Controller
                 $category_list->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
                 $category_list->email = Auth::user()->email;
                 $category_list->save();
+
+                $dt = new DateTime();
+                $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+                $created_at = $dt->format('Y-m-d h:i:s ');
+
+                $amPmValue = $dt->format('a');
+               // $amPmValueFinal = 0;
+                if($amPmValue == 'pm'){
+
+                    $amPmValueFinal = 'অপরাহ্ন';
+                }else{
+                    $amPmValueFinal = 'পূর্বাহ্ন';
+
+                }
+
+                 $regDakData = new DakListDetail();
+                 $regDakData->sender_admin_id =null;
+                 $regDakData->receiver_admin_id = 2;
+                 $regDakData->main_dak_id =$category_list->id;
+                 $regDakData->dak_type = 'registration';
+                 $regDakData->receive_from_ngo = 1;
+                 $regDakData->receive_status = 1;
+         $regDakData->status = 1;
+                 $regDakData->nothi_jat_id = 0;
+                 $regDakData->nothi_jat_status = 0;
+                 $regDakData->sent_status =null;
+                 $regDakData->amPmValue = $amPmValueFinal;
+                 $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+                 $regDakData->save();
 
                 $get_v_email = Auth::user()->email;
 
@@ -455,6 +514,35 @@ class OtherformController extends Controller
             $add_renew_request->status = 'Ongoing';
             $add_renew_request->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
             $add_renew_request->save();
+
+            $dt = new DateTime();
+            $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+            $created_at = $dt->format('Y-m-d h:i:s ');
+
+            $amPmValue = $dt->format('a');
+           // $amPmValueFinal = 0;
+            if($amPmValue == 'pm'){
+
+                $amPmValueFinal = 'অপরাহ্ন';
+            }else{
+                $amPmValueFinal = 'পূর্বাহ্ন';
+
+            }
+
+             $regDakData = new DakListDetail();
+             $regDakData->sender_admin_id =null;
+             $regDakData->receiver_admin_id = 2;
+             $regDakData->main_dak_id =$add_renew_request->id;
+             $regDakData->dak_type = 'renew';
+             $regDakData->receive_from_ngo = 1;
+             $regDakData->receive_status = 1;
+         $regDakData->status = 1;
+             $regDakData->nothi_jat_id = 0;
+             $regDakData->nothi_jat_status = 0;
+             $regDakData->sent_status =null;
+             $regDakData->amPmValue = $amPmValueFinal;
+             $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+             $regDakData->save();
 
             $get_v_email = Auth::user()->email;
 

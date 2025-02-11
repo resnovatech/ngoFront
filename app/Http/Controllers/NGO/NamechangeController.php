@@ -17,7 +17,9 @@ use App;
 use Session;
 use DateTime;
 use DateTimezone;
+//use App\Models\DakListDetail;
 use App\Models\NgoNameChange;
+use App\Models\DakListDetail;
 use Illuminate\Support\Str;
 use App\Http\Controllers\NGO\CommonController;
 class NamechangeController extends Controller
@@ -598,6 +600,36 @@ class NamechangeController extends Controller
         $new_data_add = NgoNameChange::find(base64_decode($id));
         $new_data_add->status = 'Ongoing';
         $new_data_add->save();
+
+
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+        $created_at = $dt->format('Y-m-d h:i:s ');
+
+        $amPmValue = $dt->format('a');
+       // $amPmValueFinal = 0;
+        if($amPmValue == 'pm'){
+
+            $amPmValueFinal = 'অপরাহ্ন';
+        }else{
+            $amPmValueFinal = 'পূর্বাহ্ন';
+
+        }
+
+         $regDakData = new DakListDetail();
+         $regDakData->sender_admin_id =null;
+         $regDakData->receiver_admin_id = 2;
+         $regDakData->main_dak_id =base64_decode($id);
+         $regDakData->dak_type = 'namechange';
+         $regDakData->receive_from_ngo = 1;
+         $regDakData->receive_status = 1;
+         $regDakData->status = 1;
+         $regDakData->nothi_jat_id = 0;
+         $regDakData->nothi_jat_status = 0;
+         $regDakData->sent_status =null;
+         $regDakData->amPmValue = $amPmValueFinal;
+         $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+         $regDakData->save();
 
         session()->forget('previous_name');
             session()->forget('previous_name_ban');
