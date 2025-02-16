@@ -48,6 +48,8 @@ class FormNoSevenController extends Controller
         ->whereNotNull('thana_bn')->groupBy('thana_bn')
             ->select('thana_bn')->get();
 
+           // dd($upozilaList);
+
         $data = view('front.fd6Form.getUpozilaList',compact('upozilaList'))->render();
         return response()->json($data);
 

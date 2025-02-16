@@ -262,6 +262,8 @@ class Fd6FormController extends Controller
 
         //dd($request->all());
 
+        if($request->areaId > 0){
+
         try{
             DB::beginTransaction();
 
@@ -314,6 +316,11 @@ class Fd6FormController extends Controller
             DB::rollBack();
             return redirect()->route('error_404');
         }
+
+    }else{
+
+        return redirect()->back()->with('error','Please Add Prokolpo Area');
+    }
     }
 
 
@@ -382,7 +389,13 @@ class Fd6FormController extends Controller
 
 
     public function update(Request $request,$id){
+
+        if($request->areaId > 0){
+
+
         try{
+
+           // dd($request->all());
 
             $subject_all = implode(",",$request->subject_id);
 
@@ -424,6 +437,11 @@ class Fd6FormController extends Controller
             DB::rollBack();
             return redirect()->route('error_404');
         }
+
+    }else{
+
+        return redirect()->back()->with('error','Please Add Prokolpo Area');
+    }
     }
 
 
@@ -1706,6 +1724,7 @@ try{
 
         try{
 
+          
 
         $form=new Fd6AdjoiningA();
         $form->fd6_form_id=$request->fd6Id;

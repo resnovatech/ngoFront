@@ -502,7 +502,7 @@
       </div>
 
           <button type="submit" class="btn btn-custom next_button btn-sm">
-              জমা দিন
+              দাখিল করুন
           </button>
           </form>
 
@@ -554,7 +554,7 @@
                                                 onclick="location.href = '{{ route('fc1FormStepThree',base64_encode($fc1Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit"  class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন
                                         </button>
                                     </div>
 
@@ -639,7 +639,7 @@
                                     </div>
 
                             </div>
-                            <a id="fd2alldataPostFcOne"  class="btn btn-registration">জমা দিন</a>
+                            <a id="fd2alldataPostFcOne"  class="btn btn-registration">দাখিল করুন </a>
 
                     </div>
                 </div>

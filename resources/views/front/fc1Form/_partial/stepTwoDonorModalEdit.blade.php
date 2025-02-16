@@ -68,7 +68,7 @@
                                     </div>
 
                             </div>
-                            <a id="{{ $donationLists->id }}"  class="btn btn-registration fc1DonationAjaxEdit">জমা দিন</a>
+                            <a id="{{ $donationLists->id }}"  class="btn btn-registration fc1DonationAjaxEdit">দাখিল করুন</a>
 
                     </div>
                 </div>

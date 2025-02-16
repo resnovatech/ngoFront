@@ -45,7 +45,7 @@
 
 
                             </div>
-                            <a id="{{ $employeeDetailLists->id }}"  class="btn btn-registration employeeAddUpdate">জমা দিন</a>
+                            <a id="{{ $employeeDetailLists->id }}"  class="btn btn-registration employeeAddUpdate">দাখিল করুন</a>
 
                     </div>
                 </div>

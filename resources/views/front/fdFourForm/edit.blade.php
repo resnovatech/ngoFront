@@ -384,7 +384,7 @@
                                         >পূর্ববর্তী পৃষ্ঠায় যান
                             </a> --}}
                                         <button type="submit"  style="margin-left: 12px;" class="btn btn-registration"
-                                                >আপডেট করুন
+                                                >দাখিল করুন
                         </button>
                                     </div>
                                 </form>

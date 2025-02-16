@@ -27,6 +27,6 @@
 </div>
 
     <button type="submit" class="btn btn-custom next_button btn-sm">
-        জমা দিন
+        দাখিল করুন 
     </button>
     </form>

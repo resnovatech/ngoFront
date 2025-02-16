@@ -92,7 +92,7 @@ $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->g
                                         <textarea  name="comment" class="form-control" id="comment{{ $distributionListOnes->id }}" placeholder="">{{ $distributionListOnes->comment }}</textarea>
                                     </div>
                             </div>
-                            <a id="{{ $distributionListOnes->id }}"  class="btn btn-registration distributionAjaxEdit">আপডেট করুন</a>
+                            <a id="{{ $distributionListOnes->id }}"  class="btn btn-registration distributionAjaxEdit">দাখিল করুন</a>
 
                     </div>
                 </div>

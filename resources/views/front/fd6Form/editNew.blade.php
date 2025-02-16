@@ -391,7 +391,7 @@
 
                                     <div class="d-grid d-md-flex justify-content-md-end">
                                         <button type="submit"  class="btn btn-registration"
-                                                >পরবর্তী পৃষ্ঠা
+                                                >দাখিল করুন 
                                         </button>
                                     </div>
                                 </form>

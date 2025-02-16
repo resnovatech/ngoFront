@@ -106,6 +106,9 @@ return new class extends Migration
             $table->string('estimated_expenses_file')->nullable();
             $table->string('donor_organization_mobile')->nullable();
             $table->string('donor_organization_email')->nullable();
+            $table->string('partner_ngo_status')->nullable();
+
+
             $table->timestamps();
         });
     }

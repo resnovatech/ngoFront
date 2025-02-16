@@ -119,7 +119,7 @@
                                     </div>
 
                             </div>
-                            <a id="{{ $prokolpoAreaListAll->id }}"  class="btn btn-registration prokolpoAreaDataUpdate">আপডেট করুন</a>
+                            <a id="{{ $prokolpoAreaListAll->id }}"  class="btn btn-registration prokolpoAreaDataUpdate">দাখিল করুন</a>
 
                     </div>
                 </div>

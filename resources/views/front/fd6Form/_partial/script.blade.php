@@ -1499,7 +1499,7 @@ $('#pageloader').hide();
 
         var districtName = $(this).val();
 
-        //alert(districtName);
+       // alert(districtName);
 
         var main_id = $(this).attr('id');
         var get_id_from_main = main_id.slice(13);
@@ -1510,8 +1510,11 @@ $('#pageloader').hide();
             method: 'GET',
             data: {districtName:districtName},
             success: function(data) {
-              $("#upazila_id"+get_id_from_main).html('');
-              $("#upazila_id"+get_id_from_main).html(data);
+              $("#upozila_name"+get_id_from_main).html('');
+              $("#upozila_name"+get_id_from_main).html(data);
+
+              $("#thana_name"+get_id_from_main).html('');
+              $("#thana_name"+get_id_from_main).html(data);
             },
 
             beforeSend: function(){

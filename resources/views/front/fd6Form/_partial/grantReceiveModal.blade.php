@@ -16,9 +16,9 @@
 
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <label for="" class="form-label">বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি তাকে পরিবর্তিত)</label>
+                                <label for="" class="form-label">বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি টাকায় পরিবর্তিত)</label>
                                 <input type="number" name="grants_received_from_abroad" class="form-control" id="grants_received_from_abroad0"
-                                placeholder="বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি তাকে পরিবর্তিত)">
+                                placeholder="বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি টাকায় পরিবর্তিত)">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত অনুদান</label>
@@ -106,7 +106,7 @@
                             </div>
 
                         </div>
-                        <a id="GrantAjax"  class="btn btn-registration">জমা দিন</a>
+                        <a id="GrantAjax"  class="btn btn-registration">দাখিল করুন</a>
                     </div>
                 </div>
 

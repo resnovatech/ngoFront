@@ -957,6 +957,7 @@ class Fd6FormPartTwoController extends Controller
 
         try{
 
+          
 
         $form=Fd6AdjoiningA::find($request->fd6AdjoiningAListId);
         $form->fd6_form_id=$request->fd6Id;

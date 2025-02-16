@@ -247,7 +247,20 @@
 
 <tr>
     <td colspan="3">
-        <div class="d-flex justify-content-end">
+
+        <label for="" class="form-label">প্রযোজ্য নয় (যদি কোনো পার্টনার না থাকে)</label>
+        {{-- <input type="text"  name="target_year" class="form-control" id="target_year0"
+        placeholder="" > --}}
+
+        <select  name="partner_ngo_status" class="form-control" id="partner_ngo_status"
+        placeholder="" >
+
+        <option value="" >অনুগ্রহ করে নির্বাচন করুন</option>
+
+<option value="প্রযোজ্য নয়">প্রযোজ্য নয়</option>
+
+        </select>
+        <div class="d-flex justify-content-end mt-3">
             <a class="btn btn-custom mb-3" data-bs-toggle="modal"
                     data-bs-target="#PartnerNGO">নতুন
                 পার্টনার এনজিও
@@ -539,7 +552,7 @@
                                      </a>
 
                                         <button type="submit" style="margin-left:10px;"  class="btn btn-registration"
-                                                >পরবর্তী পৃষ্ঠা
+                                                >দাখিল করুন
                                         </button>
                                     </div>
                                 </form>

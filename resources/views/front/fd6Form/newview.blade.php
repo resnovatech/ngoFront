@@ -1300,6 +1300,10 @@
 <tr>
     <td colspan="3">
 
+        @if(count($partnerDataPostList) == 0 )
+        প্রযোজ্য নয়  
+        @else
+
         <div class="table-responsive" id="tableAjaxDataPartner">
 
             <table class="table table-bordered"  id="">
@@ -1355,6 +1359,7 @@
                 </table>
 
     </div>
+    @endif
     </td>
 </tr>
 @if(!$fd6AdjoiningAList)

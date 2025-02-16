@@ -4,7 +4,15 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর</th>
+        <th >১ম বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal1" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+        </div></th>
 
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
@@ -15,7 +23,7 @@
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-            তাকে পরিবর্তিত)
+            টাকায় পরিবর্তিত)
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
@@ -58,8 +66,25 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর</th>
-        <th>২য় বছর</th>
+        <th>১ম বছর  <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal1" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+        </div></th>
+        <th>২য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal2" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
         <th rowspan="2"></th>
@@ -70,7 +95,7 @@
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-            তাকে পরিবর্তিত)
+            টাকায় পরিবর্তিত)
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year) }}</td>
@@ -117,9 +142,35 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর</th>
-        <th>২য় বছর</th>
-        <th>৩য় বছর</th>
+        <th>১ম বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal1" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+        </div></th>
+        <th>২য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal2" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
+        <th>৩য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal3">
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
 
 
         <th rowspan="2">মোট</th>
@@ -133,7 +184,7 @@
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-            তাকে পরিবর্তিত)
+            টাকায় পরিবর্তিত)
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year) }}</td>
@@ -186,10 +237,45 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর</th>
-        <th>২য় বছর</th>
-        <th>৩য় বছর</th>
-        <th>৪র্থ বছর</th>
+        <th>১ম বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal1" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+        </div></th>
+        <th>২য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal2" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
+        <th>৩য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal3">
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
+        <th>৪র্থ বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal4">
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
 
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
@@ -204,7 +290,7 @@
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-            তাকে পরিবর্তিত)
+            টাকায় পরিবর্তিত)
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year) }}</td>
@@ -260,11 +346,55 @@
 
     <tr>
         <th rowspan="3" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর</th>
-        <th>২য় বছর</th>
-        <th>৩য় বছর</th>
-        <th>৪র্থ বছর</th>
-        <th>৫ম বছর</th>
+        <th>১ম বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal1" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+        </div></th>
+        <th>২য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal2" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
+        <th>৩য় বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal3">
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
+        <th>৪র্থ বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal4">
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
+        <th>৫ম বছর <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
+            data-bs-target="#expenseEditModal5" >
+                <i class="fa fa-pencil"></i>
+            </button>
+
+
+
+
+        </div></th>
         <th rowspan="3">মোট</th>
         <th rowspan="3">মন্তব্য</th>
 
@@ -277,60 +407,11 @@
         <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fifth))) }}</th>
     </tr>
     <tr style="text-align: center;">
-        <th><div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
-                <i class="fa fa-pencil"></i>
-            </button>
 
-
-
-        </div>
-    </th>
-        <th><div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
-        <th><div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
-        <th><div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal4">
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
-        <th><div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal5" >
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-            তাকে পরিবর্তিত)
+            টাকায় পরিবর্তিত)
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year) }}</td>
@@ -397,7 +478,7 @@
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-            তাকে পরিবর্তিত)
+            টাকায় পরিবর্তিত)
         </td>
         <td></td>
         <td></td>

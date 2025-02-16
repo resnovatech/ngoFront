@@ -108,7 +108,7 @@
                                     </div>
 
                             </div>
-                            <a id="prokolpoAreaDataPost"  class="btn btn-registration">জমা দিন</a>
+                            <a id="prokolpoAreaDataPost"  class="btn btn-registration">দাখিল করুন</a>
 
                     </div>
                 </div>

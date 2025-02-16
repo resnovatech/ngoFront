@@ -93,7 +93,7 @@ $divisionListName = DB::table('civilinfos')->where('district_bn',$sectorWiseExpe
                                     </div>
 
                             </div>
-                            <a id="{{ $sectorWiseExpenditureLists->id }}"  class="btn btn-registration fc1StepTwoBudgetEdit">জমা দিন</a>
+                            <a id="{{ $sectorWiseExpenditureLists->id }}"  class="btn btn-registration fc1StepTwoBudgetEdit">দাখিল করুন</a>
 
                     </div>
                 </div>

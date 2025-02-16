@@ -302,7 +302,7 @@
 
                                     <div class="d-grid d-md-flex justify-content-md-end mt-4">
                                         <button type="submit" class="btn btn-registration"
-                                                >জমা দিন
+                                                >দাখিল করুন
                                         </button>
                                     </div>
                                 </form>
@@ -428,7 +428,7 @@
 
                                 <div class="d-grid d-md-flex justify-content-md-end mt-4">
                                     <button type="submit" class="btn btn-registration"
-                                            >জমা দিন
+                                            >দাখিল করুন
                                     </button>
                                 </div>
                             </form>

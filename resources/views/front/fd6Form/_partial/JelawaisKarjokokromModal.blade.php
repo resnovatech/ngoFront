@@ -12,7 +12,39 @@
             <div class="modal-body">
                 <div class="card">
                     <div class="card-body">
+                        <?php
 
+                        $prokolpoPriod = \App\Models\Fd6Form::where('id',$fd6Id)->get();
+
+                        $divisionListNew = DB::table('fd6_form_prokolpo_areas')
+                                          ->where('fd6_form_id',$fd6Id)
+                                             ->whereNotNull('division_name')
+                                           ->groupBy('division_name')
+                                           ->select('division_name')->get();
+                        $districtListNew = DB::table('fd6_form_prokolpo_areas')
+                        ->where('fd6_form_id',$fd6Id)
+                                         ->whereNotNull('district_name')
+                                           ->groupBy('district_name')
+                                           ->select('district_name')->get();
+                        $cityCorporationListNew =  DB::table('fd6_form_prokolpo_areas')
+                        ->where('fd6_form_id',$fd6Id)
+                                           ->whereNotNull('city_corparation_name')
+                                           ->groupBy('city_corparation_name')
+                                           ->select('city_corparation_name')->get();
+                        $subdDistrictListNew = DB::table('fd6_form_prokolpo_areas')
+                        ->where('fd6_form_id',$fd6Id)
+                                        ->whereNotNull('upozila_name')
+                                            ->groupBy('upozila_name')
+                                            ->select('upozila_name')->get();
+                        $thanaListNew = DB::table('fd6_form_prokolpo_areas')
+                        ->where('fd6_form_id',$fd6Id)
+                                             ->whereNotNull('thana_name')
+                                            ->groupBy('thana_name')
+                                            ->select('thana_name')->get();
+
+
+
+                            ?>
 
                             <div class="row">
 
@@ -26,9 +58,9 @@
 
                                 <select  name="division_name" class="form-control division_name" id="division_name0">
                                     <option value="">--- অনুগ্রহ করে বিভাগ নির্বাচন করুন ---</option>
-                                    @foreach($divisionList as $districtListAll)
+                                    @foreach($divisionListNew as $districtListAll)
 
-                                    <option value="{{ $districtListAll->division_bn }}">{{ $districtListAll->division_bn }}</option>
+                                    <option value="{{ $districtListAll->division_name }}">{{ $districtListAll->division_name }}</option>
                                     @endforeach
 
                                 </select>
@@ -99,7 +131,38 @@
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">প্রকল্প সময়<span class="text-danger">*</span></label>
-                                        <input type="text"  name="prokolpo_time" class="form-control" id="prokolpo_time0" placeholder="">
+                                        {{-- <input type="text"  name="prokolpo_time" class="form-control" id="prokolpo_time0" placeholder=""> --}}
+
+
+                                        <select  name="prokolpo_time" class="form-control" id="prokolpo_time0"
+                                        placeholder="" >
+
+                                        <option value="" >অনুগ্রহ করে নির্বাচন করুন</option>
+
+                                        @foreach($prokolpoPriod as $sprokolpoPriod)
+
+
+
+                                @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_first))
+
+                                <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_first))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_first))) }}</option>
+@endif
+@if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_second))
+
+                                <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_second))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_second))) }}</option>
+                                @endif
+                                @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_third))
+                                <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_third))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_third))) }}</option>
+                                @endif
+                                @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_fourth))
+                                <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fourth))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fourth))) }}</option>
+                                @endif
+                                @if(!empty($sprokolpoPriod->fifth))
+                                <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fifth))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fifth))) }}</option>
+@endif
+                                        @endforeach
+
+                                        </select>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">লক্ষ্যমাত্রা (বছর)<span class="text-danger">*</span></label>
@@ -126,7 +189,7 @@
                                     </div>
 
                             </div>
-                            <a id="jelawaisKarjokokromPost"  class="btn btn-registration">জমা দিন</a>
+                            <a id="jelawaisKarjokokromPost"  class="btn btn-registration">দাখিল করুন</a>
 
                     </div>
                 </div>

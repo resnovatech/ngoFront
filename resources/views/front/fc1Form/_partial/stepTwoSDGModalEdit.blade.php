@@ -44,7 +44,7 @@
                                     </div>
 
                             </div>
-                            <a id="{{ $SDGDevelopmentGoals->id }}"  class="btn btn-registration SDGAjaxData">জমা দিন</a>
+                            <a id="{{ $SDGDevelopmentGoals->id }}"  class="btn btn-registration SDGAjaxData">দাখিল করুন</a>
 
                     </div>
                 </div>

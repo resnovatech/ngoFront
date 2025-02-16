@@ -12,7 +12,13 @@
             <div class="modal-body">
                 <div class="card">
                     <div class="card-body">
+                        <?php
 
+                        $prokolpoPriod = \App\Models\Fd6Form::where('id',$fd6Id)->get();
+
+
+
+                            ?>
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র নাম <span class="text-danger">*</span></label>
@@ -153,8 +159,38 @@
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">সম্পাদনের সময়সীমা <span class="text-danger">*</span></label>
-                                <input type="text"  name="execution_deadline" class="form-control" id="execution_deadline0"
-                                placeholder="সম্পাদনের সময়সীমা">
+                                {{-- <input type="text"  name="execution_deadline" class="form-control" id="execution_deadline0"
+                                placeholder="সম্পাদনের সময়সীমা"> --}}
+
+                                <select  name="execution_deadline" class="form-control" id="execution_deadline0"
+                                placeholder="" >
+
+                                <option value="" >অনুগ্রহ করে নির্বাচন করুন</option>
+
+                                @foreach($prokolpoPriod as $sprokolpoPriod)
+
+
+
+                        @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_first))
+
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_first))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_first))) }}</option>
+@endif
+@if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_second))
+
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_second))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_second))) }}</option>
+                        @endif
+                        @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_third))
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_third))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_third))) }}</option>
+                        @endif
+                        @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_fourth))
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fourth))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fourth))) }}</option>
+                        @endif
+                        @if(!empty($sprokolpoPriod->fifth))
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fifth))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fifth))) }}</option>
+@endif
+                                @endforeach
+
+                                </select>
                             </div>
 
 
@@ -165,7 +201,7 @@
                             </div>
 
                         </div>
-                        <a id="partnerNgoPost"  class="btn btn-registration">জমা দিন</a>
+                        <a id="partnerNgoPost"  class="btn btn-registration">দাখিল করুন</a>
                     </div>
                 </div>
 
