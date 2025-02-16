@@ -74,6 +74,24 @@
                         <hr>
 
                         <div class="row">
+
+                        <div class="col-lg-12 mb-3">
+
+   <label for="" class="form-label">এলাকার ধরণ  <span class="text-danger">*</span></label>
+        <select  name="new_area_type" class="form-control new_area_type" id="new_area_type{{ $partnerDataPostLists->id }}">
+      <option value="">--- অনুগ্রহ করে নির্বাচন করুন ---</option>
+         @if(!empty($partnerDataPostLists->district_name ))
+         <option value="জেলা" selected>জেলা</option>
+         <option value="সিটি কর্পোরেশন" >সিটি কর্পোরেশন</option>
+         @else
+          <option value="জেলা" >জেলা</option>
+            <option value="সিটি কর্পোরেশন" selected>সিটি কর্পোরেশন</option>
+            @endif
+            </select>
+
+</div>
+
+
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">বিভাগ <span class="text-danger">*</span></label>
                         {{-- <input type="text"  name="division_name[]" class="form-control" id=""
@@ -91,7 +109,7 @@
 
                         </select>
                             </div>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-4 mb-3" id="districtDiv{{ $partnerDataPostLists->id }}">
                                 <label for="" class="form-label">জেলা <span class="text-danger">*</span></label>
                                 {{-- <input type="text"  name="district_name[]" class="form-control" id=""
                                 placeholder=""> --}}
@@ -104,7 +122,9 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-4 mb-3">
+
+                             @if(!empty($partnerDataPostLists->district_name ))
+                            <div class="col-lg-4 mb-3" style="display:none;" id="cityDiv{{ $partnerDataPostLists->id }}">
                                 <label for="" class="form-label">সিটি কর্পোরেশন</label>
                                 {{-- <input type="text" name="city_corparation_name[]" class="form-control" id=""
                                 placeholder=""> --}}
@@ -118,7 +138,25 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            @else
+
+                              <div class="col-lg-4 mb-3" id="cityDiv{{ $partnerDataPostLists->id }}">
+                                <label for="" class="form-label">সিটি কর্পোরেশন</label>
+                                {{-- <input type="text" name="city_corparation_name[]" class="form-control" id=""
+                                placeholder=""> --}}
+
+
+                                <select  name="city_corparation_name" class="form-control city_corparation_name" id="city_corparation_name{{ $partnerDataPostLists->id }}">
+                                    <option value="">--- অনুগ্রহ করে সিটি কর্পোরেশন নির্বাচন করুন ---</option>
+                                    @foreach($cityCorporationList as $districtListAll)
+                                    <option value="{{ $districtListAll->city_orporation }}" {{ $partnerDataPostLists->city_corparation_name == $districtListAll->city_orporation ? 'selected':'' }}>{{ $districtListAll->city_orporation }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+
+                            @endif
+                            <div class="col-lg-3 mb-3" id="upoDiv{{ $partnerDataPostLists->id }}">
                                 <label for="" class="form-label">উপজেলা</label>
                                 {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                 placeholder=""> --}}
@@ -131,7 +169,7 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="thanatDiv{{ $partnerDataPostLists->id }}">
                                 <label for="" class="form-label">থানা <span class="text-danger">*</span></label>
                                 {{-- <input type="text"  name="thana_name[]" class="form-control" id=""
                                 placeholder="" > --}}
@@ -144,12 +182,12 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="munDiv{{ $partnerDataPostLists->id }}">
                                 <label for="" class="form-label">পৌরসভা/ইউনিয়ন</label>
                                 <input type="text" value="{{ $partnerDataPostLists->municipality_name }}" name="municipality_name" class="form-control" id="municipality_name{{ $partnerDataPostLists->id }}"
                                 placeholder="পৌরসভা/ইউনিয়ন">
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="wardDiv{{ $partnerDataPostLists->id }}">
                                 <label for="" class="form-label">ওয়ার্ড</label>
                                 <input type="text" value="{{ $partnerDataPostLists->ward_name }}" name="ward_name" class="form-control" id="ward_name{{ $partnerDataPostLists->id }}"
                                 placeholder="ওয়ার্ড">

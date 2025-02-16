@@ -419,14 +419,6 @@ if(!$('#division_name0').val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#district_name0').val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name0').val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
-
 }else if(!$('#prokolpoType0').val()){
 
     alertify.alert('Error', 'প্রকল্পের ধরণ সম্পর্কিত তথ্য দিন');
@@ -515,14 +507,6 @@ $(document).on('click', '.prokolpoAreaDataUpdate', function () {
 if(!$('#division_name'+mainId).val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name'+mainId).val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name'+mainId).val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#prokolpoType'+mainId).val()){
 
