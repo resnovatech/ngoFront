@@ -1,5 +1,55 @@
 <script>
 
+
+
+
+$(document).on('change', '.new_area_type', function () {
+
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(13);
+    var thisAreaType = $(this).val();
+
+
+    //alert(thisAreaType);
+
+    if(thisAreaType == 'জেলা'){
+
+
+        $('#districtDiv'+get_id_from_main).show();
+        $('#upoDiv'+get_id_from_main).show();
+        $('#thanaDiv'+get_id_from_main).show();
+        $('#munDiv'+get_id_from_main).show();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).hide();
+
+
+    }else if(thisAreaType == 'সিটি কর্পোরেশন'){
+
+        $('#districtDiv'+get_id_from_main).hide();
+        $('#upoDiv'+get_id_from_main).hide();
+        $('#thanaDiv'+get_id_from_main).hide();
+        $('#munDiv'+get_id_from_main).hide();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).show();
+
+
+    }else{
+
+
+        $('#districtDiv'+get_id_from_main).show();
+        $('#upoDiv'+get_id_from_main).show();
+        $('#thanaDiv'+get_id_from_main).show();
+        $('#munDiv'+get_id_from_main).show();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).show();
+
+    }
+
+  });
+</script>
+
+<script>
+
     //division,district,city corporation ,thana start
 
     $(document).on('change', 'select.division_name', function () {
@@ -70,14 +120,6 @@ $(document).on('click', '#prokolpoAreaDataPost', function () {
 if(!$('#division_name0').val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name0').val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name0').val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#prokolpoType0').val()){
 
@@ -163,14 +205,6 @@ $(document).on('click', '.prokolpoAreaDataUpdate', function () {
 if(!$('#division_name'+mainId).val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name'+mainId).val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name'+mainId).val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#prokolpoType'+mainId).val()){
 
@@ -1102,8 +1136,11 @@ $('#pageloader').hide();
             method: 'GET',
             data: {districtName:districtName},
             success: function(data) {
-              $("#upazila_id"+get_id_from_main).html('');
-              $("#upazila_id"+get_id_from_main).html(data);
+                  $("#upozila_name"+get_id_from_main).html('');
+              $("#upozila_name"+get_id_from_main).html(data);
+
+              $("#thana_name"+get_id_from_main).html('');
+              $("#thana_name"+get_id_from_main).html(data);
             },
 
             beforeSend: function(){
