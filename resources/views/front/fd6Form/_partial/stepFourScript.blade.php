@@ -10,22 +10,6 @@ $(document).on('click', '.NewpartnerNgoUpdate', function () {
 
 alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#district_name'+mainId).val()){
-
-alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name'+mainId).val()){
-
-alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#municipality_name'+mainId).val()){
-
-alertify.alert('Error', 'পৌরসভা/ইউনিয়ন সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#ward_name'+mainId).val()){
-
-alertify.alert('Error', 'ওয়ার্ড সম্পর্কিত তথ্য দিন');
-
 }else if(!$('#partner_ngo_name'+mainId).val()){
 
 alertify.alert('Error', 'পার্টনার এনজিওর নাম সম্পর্কিত তথ্য দিন');
@@ -258,22 +242,6 @@ var fd6Id = $('#fd6Id').val();
 if(!$('#division_name0').val()){
 
    alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name0').val()){
-
-   alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name0').val()){
-
-   alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#municipality_name0').val()){
-
-alertify.alert('Error', 'পৌরসভা/ইউনিয়ন সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#ward_name0').val()){
-
-alertify.alert('Error', 'ওয়ার্ড সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#partner_ngo_name0').val()){
 
