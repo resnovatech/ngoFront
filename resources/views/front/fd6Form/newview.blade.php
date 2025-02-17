@@ -1300,6 +1300,10 @@
 <tr>
     <td colspan="3">
 
+        @if(count($partnerDataPostList) == 0 )
+        প্রযোজ্য নয়  
+        @else
+
         <div class="table-responsive" id="tableAjaxDataPartner">
 
             <table class="table table-bordered"  id="">
@@ -1355,6 +1359,7 @@
                 </table>
 
     </div>
+    @endif
     </td>
 </tr>
 @if(!$fd6AdjoiningAList)
@@ -2239,7 +2244,7 @@
                             $totalBeni = 0;
 
                             ?>
-                            @foreach($fd2AllFormLastYearDetail as $key=>$fd2AllFormLastYearDetails)
+                            @foreach($fd2AllFormLastYearDetailForFd2 as $key=>$fd2AllFormLastYearDetails)
                             <?php
 
                             $totalBeni = $totalBeni + $fd2AllFormLastYearDetails->total_benificiari;

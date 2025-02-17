@@ -696,7 +696,7 @@
                                                 >পূর্ববর্তী পৃষ্ঠায় যান
                                     </a>
                                           <button type="submit" style="margin-left:10px;" class="btn btn-registration"
-                                                >পরবর্তী পৃষ্ঠা
+                                                >দাখিল করুন 
                                            </button>
                                     </div>
                                 </form>

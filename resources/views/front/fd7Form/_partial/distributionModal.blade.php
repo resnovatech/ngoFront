@@ -84,7 +84,7 @@
                                         <textarea  name="comment" class="form-control" id="comment" placeholder=""></textarea>
                                     </div>
                             </div>
-                            <a id="distributionAjax"  class="btn btn-registration">জমা দিন</a>
+                            <a id="distributionAjax"  class="btn btn-registration">দাখিল করুন</a>
 
                     </div>
                 </div>

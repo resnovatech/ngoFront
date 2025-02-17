@@ -222,9 +222,9 @@
     <th style="text-align: center;" colspan="2">১.</th>
     <td style="font-weight:bold;text-align: center;" >সংস্থার নাম ও ঠিকানা <span style="color:red;">*</span></td>
     <th style="text-align: center;">
-        <input type="text" required value="{{ $fc2FormList->ngo_name }}" name="ngo_name" class="form-control" id=""
+        <input type="text" required value="{{ $ngo_list_all->organization_name_ban }}" name="ngo_name" class="form-control" id=""
                                                    placeholder="সংস্থার নাম">
-                                                   <input type="text" required class="form-control mt-3" value="{{ $fc2FormList->ngo_address }}" name="ngo_address" id=""
+                                                   <input type="text" required class="form-control mt-3" value="{{ $ngo_list_all->organization_address }}" name="ngo_address" id=""
                                                    placeholder="সংস্থার ঠিকানা">
     </th>
 
@@ -275,7 +275,7 @@
 
 <tr>
     <th style="text-align: center;" colspan="2">৫.</th>
-    <td style="font-weight:bold;text-align: center;" >১ম/২য়/৩য়/৪র্থ বছরে ব্যাংক হতে উত্তোলিত অর্থের পরিমাণ<span style="color:red;">*</span></td>
+    <td style="font-weight:bold;text-align: center;" >১ম/২য়/৩য়/৪র্থ/৫ম বছরে ব্যাংক হতে উত্তোলিত অর্থের পরিমাণ<span style="color:red;">*</span></td>
     <th style="text-align: center;">
         <select required class="form-control" name="amount_withdrawn_year"
                                                    placeholder="">
@@ -284,6 +284,7 @@
                                             <option value="2">২য়</option>
                                             <option value="3">৩য়</option>
                                             <option value="4">৪র্থ</option>
+                                               <option value="5">৫ম</option>
                                             </select>
 
                                             <input type="text" required class="form-control mt-2" id="" name="amount_withdrawn"
@@ -439,7 +440,7 @@
                                                 onclick="location.href = '{{ route('fc2FormStepThree',base64_encode($fc2Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit"  class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন
                                         </button>
                                     </div>
 

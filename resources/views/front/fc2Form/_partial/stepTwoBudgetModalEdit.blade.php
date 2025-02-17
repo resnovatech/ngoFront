@@ -61,7 +61,7 @@ $divisionListName = DB::table('civilinfos')->where('district_bn',$sectorWiseExpe
                                         {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                         placeholder=""> --}}
 
-                                        <select  name="upozila_name" class="form-control" id="upazila_id{{ $sectorWiseExpenditureLists->id }}">
+                                        <select  name="upozila_name" class="form-control" id="upozila_name{{ $sectorWiseExpenditureLists->id }}">
                                             <option value="">--- নির্বাচন করুন ---</option>
                                             @foreach($subdDistrictList as $districtListAll)
                                             <option value="{{ $districtListAll->thana_bn }}" {{ $sectorWiseExpenditureLists->work_area_sub_district == $districtListAll->thana_bn ? 'selected':'' }}>{{ $districtListAll->thana_bn }}</option>
@@ -93,7 +93,7 @@ $divisionListName = DB::table('civilinfos')->where('district_bn',$sectorWiseExpe
                                     </div>
 
                             </div>
-                            <a id="{{ $sectorWiseExpenditureLists->id }}"  class="btn btn-registration fc1StepTwoBudgetEdit">জমা দিন</a>
+                            <a id="{{ $sectorWiseExpenditureLists->id }}"  class="btn btn-registration fc1StepTwoBudgetEdit">দাখিল করুন</a>
 
                     </div>
                 </div>

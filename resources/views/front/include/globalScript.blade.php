@@ -8,3 +8,53 @@
     });
 
 </script>
+
+<script>
+
+
+
+
+$(document).on('change', '.new_area_type', function () {
+
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(13);
+    var thisAreaType = $(this).val();
+
+
+    //alert(thisAreaType);
+
+    if(thisAreaType == 'জেলা'){
+
+
+        $('#districtDiv'+get_id_from_main).show();
+        $('#upoDiv'+get_id_from_main).show();
+        $('#thanaDiv'+get_id_from_main).show();
+        $('#munDiv'+get_id_from_main).show();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).hide();
+
+
+    }else if(thisAreaType == 'সিটি কর্পোরেশন'){
+
+        $('#districtDiv'+get_id_from_main).hide();
+        $('#upoDiv'+get_id_from_main).hide();
+        $('#thanaDiv'+get_id_from_main).hide();
+        $('#munDiv'+get_id_from_main).hide();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).show();
+
+
+    }else{
+
+
+        $('#districtDiv'+get_id_from_main).show();
+        $('#upoDiv'+get_id_from_main).show();
+        $('#thanaDiv'+get_id_from_main).show();
+        $('#munDiv'+get_id_from_main).show();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).show();
+
+    }
+
+  });
+</script>

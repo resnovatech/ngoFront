@@ -19,6 +19,7 @@ use DB;
 use PDF;
 use DateTime;
 use DateTimezone;
+use App\Models\DakListDetail;
 use Response;
 use App\Http\Controllers\NGO\CommonController;
 use Illuminate\Support\Facades\Auth;
@@ -432,6 +433,35 @@ class Fc2FormController extends Controller
         $new_data_add->status = 'Ongoing';
         $new_data_add->save();
 
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+        $created_at = $dt->format('Y-m-d h:i:s ');
+
+        $amPmValue = $dt->format('a');
+       // $amPmValueFinal = 0;
+        if($amPmValue == 'pm'){
+
+            $amPmValueFinal = 'অপরাহ্ন';
+        }else{
+            $amPmValueFinal = 'পূর্বাহ্ন';
+
+        }
+
+         $regDakData = new DakListDetail();
+         $regDakData->sender_admin_id =null;
+         $regDakData->receiver_admin_id = 2;
+         $regDakData->main_dak_id =base64_decode($id);
+         $regDakData->dak_type = 'fcTwo';
+         $regDakData->receive_from_ngo = 1;
+         $regDakData->receive_status = 1;
+         $regDakData->status = 1;
+         $regDakData->nothi_jat_id = 0;
+         $regDakData->nothi_jat_status = 0;
+         $regDakData->sent_status =null;
+         $regDakData->amPmValue = $amPmValueFinal;
+         $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+         $regDakData->save();
+
         return redirect('/fc2Form')->with('success','Submit To Ngo Sucessfully');
 
 
@@ -469,6 +499,10 @@ class Fc2FormController extends Controller
         $districtList = DB::table('civilinfos')->groupBy('district_bn')->select('district_bn')->get();
         $cityCorporationList = DB::table('civilinfos')->whereNotNull('city_orporation')->groupBy('city_orporation')->select('city_orporation')->get();
         $fc2FormList = Fc2Form::where('fd_one_form_id',$ngo_list_all->id)->where('id',$fc2Id)->latest()->first();
+
+        $fc1FormList = Fc1Form::where('fd_one_form_id',$ngo_list_all->id)->latest()->first();
+
+
 
         $sectorWiseExpenditureList = SectorWiseExpenditure::where('fc1_form_id',$fc2Id)
         ->where('type','fcTwo')
@@ -974,13 +1008,7 @@ public function fc2FormStepTwoDonorDelete(Request $request){
 
 public function lastExtraUpdateFcTwo(Request $request){
 
-    if($request->donationList == 0){
 
-
-        return redirect()->back();
-
-
-    }else{
 
     $fc1FormInfo =Fc2Form::find($request->fcOneId);
     $fc1FormInfo->chief_name = $request->chief_name;
@@ -1077,7 +1105,7 @@ public function lastExtraUpdateFcTwo(Request $request){
 
         return redirect()->route('editFd2DetailForFc2',base64_encode($request->fcOneId))->with('success','Added Successfully');
     }
-}
+
 }
 
 public function fc2formextrapdf($title, $id){

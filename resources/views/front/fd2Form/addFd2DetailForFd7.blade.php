@@ -284,7 +284,7 @@
                                                 onclick="location.href = '{{ route('fd7Form.edit',base64_encode($fd7Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit" class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন
                                         </button>
                                     </div>
 

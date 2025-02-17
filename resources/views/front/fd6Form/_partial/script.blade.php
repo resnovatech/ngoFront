@@ -419,14 +419,6 @@ if(!$('#division_name0').val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#district_name0').val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name0').val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
-
 }else if(!$('#prokolpoType0').val()){
 
     alertify.alert('Error', 'প্রকল্পের ধরণ সম্পর্কিত তথ্য দিন');
@@ -515,14 +507,6 @@ $(document).on('click', '.prokolpoAreaDataUpdate', function () {
 if(!$('#division_name'+mainId).val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name'+mainId).val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name'+mainId).val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#prokolpoType'+mainId).val()){
 
@@ -1499,7 +1483,7 @@ $('#pageloader').hide();
 
         var districtName = $(this).val();
 
-        //alert(districtName);
+       // alert(districtName);
 
         var main_id = $(this).attr('id');
         var get_id_from_main = main_id.slice(13);
@@ -1510,8 +1494,11 @@ $('#pageloader').hide();
             method: 'GET',
             data: {districtName:districtName},
             success: function(data) {
-              $("#upazila_id"+get_id_from_main).html('');
-              $("#upazila_id"+get_id_from_main).html(data);
+              $("#upozila_name"+get_id_from_main).html('');
+              $("#upozila_name"+get_id_from_main).html(data);
+
+              $("#thana_name"+get_id_from_main).html('');
+              $("#thana_name"+get_id_from_main).html(data);
             },
 
             beforeSend: function(){

@@ -187,7 +187,7 @@ class Fd2FormController extends Controller
 
        $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('user_id',Auth::user()->id)
        ->where('upload_type',0)
-       ->where('type','fd6')
+       ->where('type','fd6fd2')
        ->get();
 
        return view('front.fd2Form.create',compact('fd2AllFormLastYearDetail','fd6Id','ngo_list_all','divisionList','fd6FormList'));
@@ -291,17 +291,24 @@ class Fd2FormController extends Controller
         if(!$fd2FormList){
             $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',0)->latest()->get();
             $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',0)
-            ->where('type','fd6')
+            ->where('type','fd6fd2')
             ->get();
         }else{
 
         $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',$fd2FormList->id)->latest()->get();
         $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
-           ->where('type','fd6')
+           ->where('type','fd6fd2')
            ->get();
 }
-        return view('front.fd2Form.fd6Edit',compact('fd2AllFormLastYearDetail','fd2FormList','fd2OtherInfo','fd6Id','ngo_list_all','divisionList','fd6FormList'));
 
+if(!$fd2FormList){
+
+return redirect()->route('addFd2Detail',base64_encode($fd6Id))->with('success','Added Successfuly');
+
+}else{
+
+        return view('front.fd2Form.fd6Edit',compact('fd2AllFormLastYearDetail','fd2FormList','fd2OtherInfo','fd6Id','ngo_list_all','divisionList','fd6FormList'));
+}
     }
 
 

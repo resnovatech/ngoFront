@@ -233,7 +233,11 @@
                                             <div class="col-lg-12">
                                                 <table class="table table-bordered">
 
+<?php
 
+$prokolpoAreaListNew = \App\Models\Fd6FormProkolpoArea::where('fd6_form_id',$fd6Id)->sum('allocated_budget');
+
+    ?>
 
                                                     <!--FD06 Section 05-->
 
@@ -245,7 +249,7 @@
                                                         <td style="width:40px;">ক)</td>
                                                         <td colspan="2">
                                                             প্রাক্কলিক ব্যয় (টাকায়):
-                                                            <input type="text" required name="estimated_expenses" class="form-control mb-3" id=""
+                                                            <input type="number" readonly value="{{ $prokolpoAreaListNew }}" required name="estimated_expenses" class="form-control mb-3" id=""
                                                                    placeholder="প্রাক্কলিক ব্যয় (টাকায়)">
 
                                                         </td>
@@ -487,7 +491,7 @@
                                      </a>
 
                                         <button type="submit" style="margin-left:10px;"  class="btn btn-registration"
-                                                >পরবর্তী পৃষ্ঠা
+                                                >দাখিল করুন
                                         </button>
                                     </div>
                                 </form>

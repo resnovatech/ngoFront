@@ -50,7 +50,7 @@
                                     {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                     placeholder=""> --}}
 
-                                    <select  name="upozila_name" class="form-control" id="upazila_id0">
+                                    <select  name="upozila_name" class="form-control" id="upozila_name0">
                                         <option value="">--- অনুগ্রহ করে উপজেলা নির্বাচন করুন ---</option>
                                     </select>
                                 </div>
@@ -78,7 +78,7 @@
                                     </div>
 
                             </div>
-                            <a id="fc1StepTwoBudget"  class="btn btn-registration">জমা দিন</a>
+                            <a id="fc1StepTwoBudget"  class="btn btn-registration">দাখিল করুন</a>
 
                     </div>
                 </div>

@@ -12,7 +12,13 @@
             <div class="modal-body">
                 <div class="card">
                     <div class="card-body">
+                        <?php
 
+                        $prokolpoPriod = \App\Models\Fd6Form::where('id',$fd6Id)->get();
+
+
+
+                            ?>
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">পার্টনার এনজিও'র নাম <span class="text-danger">*</span></label>
@@ -68,7 +74,18 @@
                         <hr>
 
                         <div class="row">
-                            <div class="col-lg-4 mb-3">
+
+                        <div class="col-lg-12 mb-3">
+
+   <label for="" class="form-label">এলাকার ধরণ  <span class="text-danger">*</span></label>
+        <select  name="new_area_type" class="form-control new_area_type" id="new_area_type0">
+      <option value="">--- অনুগ্রহ করে নির্বাচন করুন ---</option>
+         <option value="জেলা">জেলা</option>
+            <option value="সিটি কর্পোরেশন">সিটি কর্পোরেশন</option>
+            </select>
+
+</div>
+                            <div class="col-lg-4 mb-3" >
                                 <label for="" class="form-label">বিভাগ <span class="text-danger">*</span></label>
                         {{-- <input type="text"  name="division_name[]" class="form-control" id=""
                         placeholder=""> --}}
@@ -84,7 +101,7 @@
 
                         </select>
                             </div>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-4 mb-3" id="districtDiv0">
                                 <label for="" class="form-label">জেলা <span class="text-danger">*</span></label>
                                 {{-- <input type="text"  name="district_name[]" class="form-control" id=""
                                 placeholder=""> --}}
@@ -95,7 +112,7 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-4 mb-3" id="cityDiv0">
                                 <label for="" class="form-label">সিটি কর্পোরেশন</label>
                                 {{-- <input type="text" name="city_corparation_name[]" class="form-control" id=""
                                 placeholder=""> --}}
@@ -107,7 +124,7 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="upoDiv0">
                                 <label for="" class="form-label">উপজেলা</label>
                                 {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                 placeholder=""> --}}
@@ -118,7 +135,7 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="thanaDiv0">
                                 <label for="" class="form-label">থানা <span class="text-danger">*</span></label>
                                 {{-- <input type="text"  name="thana_name[]" class="form-control" id=""
                                 placeholder="" > --}}
@@ -129,12 +146,12 @@
 
                                 </select>
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="munDiv0">
                                 <label for="" class="form-label">পৌরসভা/ইউনিয়ন</label>
                                 <input type="text" name="municipality_name" class="form-control" id="municipality_name0"
                                 placeholder="পৌরসভা/ইউনিয়ন">
                             </div>
-                            <div class="col-lg-3 mb-3">
+                            <div class="col-lg-3 mb-3" id="wardDiv0">
                                 <label for="" class="form-label">ওয়ার্ড</label>
                                 <input type="text" name="ward_name" class="form-control" id="ward_name0"
                                 placeholder="ওয়ার্ড">
@@ -153,8 +170,38 @@
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">সম্পাদনের সময়সীমা <span class="text-danger">*</span></label>
-                                <input type="text"  name="execution_deadline" class="form-control" id="execution_deadline0"
-                                placeholder="সম্পাদনের সময়সীমা">
+                                {{-- <input type="text"  name="execution_deadline" class="form-control" id="execution_deadline0"
+                                placeholder="সম্পাদনের সময়সীমা"> --}}
+
+                                <select  name="execution_deadline" class="form-control" id="execution_deadline0"
+                                placeholder="" >
+
+                                <option value="" >অনুগ্রহ করে নির্বাচন করুন</option>
+
+                                @foreach($prokolpoPriod as $sprokolpoPriod)
+
+
+
+                        @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_first))
+
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_first))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_first))) }}</option>
+@endif
+@if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_second))
+
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_second))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_second))) }}</option>
+                        @endif
+                        @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_third))
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_third))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_third))) }}</option>
+                        @endif
+                        @if(!empty($sprokolpoPriod->prokolpo_year_grant_start_date_fourth))
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fourth))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fourth))) }}</option>
+                        @endif
+                        @if(!empty($sprokolpoPriod->fifth))
+                        <option value="{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fifth))) }}">{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($sprokolpoPriod->prokolpo_year_grant_end_date_fifth))) }}</option>
+@endif
+                                @endforeach
+
+                                </select>
                             </div>
 
 
@@ -165,7 +212,7 @@
                             </div>
 
                         </div>
-                        <a id="partnerNgoPost"  class="btn btn-registration">জমা দিন</a>
+                        <a id="partnerNgoPost"  class="btn btn-registration">দাখিল করুন</a>
                     </div>
                 </div>
 

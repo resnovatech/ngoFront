@@ -11,6 +11,12 @@
         <td>মোট উপকারভোগীর সংখ্যা</td>
         <td></td>
     </tr>
+    <?php
+
+    $totalProkolpoBud =0;
+
+
+    ?>
     @foreach($prokolpoAreaList as $key=>$prokolpoAreaListAll)
     <tr>
         <td>{{ $key+1 }}</td>
@@ -50,7 +56,18 @@
                 class="bi bi-trash"></i></button>
         </td>
     </tr>
+    <?php
+
+    $totalProkolpoBud =$totalProkolpoBud + $prokolpoAreaListAll->allocated_budget;
+
+
+    ?>
     @endforeach
+    <tr>
+        <td colspan="6" style="text-align:right; ">সর্বমোট বাজেট : {{ $totalProkolpoBud }}</td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 
 

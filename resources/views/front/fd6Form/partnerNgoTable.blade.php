@@ -13,6 +13,11 @@
     <th>উপকারভোগী</th>
     <th></th>
 </tr>
+<?php
+
+$totalNewBudget = 0;
+
+?>
 @foreach ($partnerDataPostList as $partnerDataPostLists)
 
 
@@ -56,5 +61,10 @@
             class="bi bi-trash"></i></button>
     </td>
 </tr>
+
+<?php $totalNewBudget = $totalNewBudget + $partnerDataPostLists->budget_detail ?>
 @endforeach
+<tr>
+    <td colspan="8" style="text-align: right;" >সর্বমোট বাজেট : {{ $totalNewBudget }} </td>
+</tr>
 </table>

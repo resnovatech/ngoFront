@@ -12,6 +12,16 @@
             <div class="modal-body">
                 <div class="card">
                     <div class="card-body">
+                        <?php
+
+
+                        $newNationality =  DB::table('countries')->whereNotNull('country_people_bangla')
+                                                                   ->groupBy('country_people_bangla')
+                                                                   ->select('country_people_bangla')->get();
+
+
+
+                                    ?>
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর নাম<span class="text-danger">*</span></label>
@@ -26,8 +36,19 @@
 
                             <div class="col-lg-4 mb-3">
                                 <label for="" class="form-label">কর্মকর্তা-কর্মচারীর জাতীয়তা<span class="text-danger">*</span></label>
-                                <input type="text"  name="nationality" value="{{ $employeeDataPostLists->nationality }}" class="form-control" id="nationality{{ $employeeDataPostLists->id }}"
+                                {{-- <input type="text"  name="nationality" value="{{ $employeeDataPostLists->nationality }}" class="form-control" id="nationality{{ $employeeDataPostLists->id }}"
+                                placeholder="কর্মকর্তা-কর্মচারীর জাতীয়তা"> --}}
+
+                                <select  name="nationality" class="form-control" id="nationality{{ $employeeDataPostLists->id }}"
                                 placeholder="কর্মকর্তা-কর্মচারীর জাতীয়তা">
+
+                                <option value="">অনুগ্রহ করে নির্বাচন করুন</option>
+
+                                @foreach ($newNationality as $newNationalitys)
+                                <option value="{{ $newNationalitys->country_people_bangla }}" {{ $employeeDataPostLists->nationality == $newNationalitys->country_people_bangla ? 'selected':''   }}>{{ $newNationalitys->country_people_bangla }}</option>
+                                @endforeach
+
+                                </select>
                             </div>
 
                             <div class="col-lg-6 mb-3">
@@ -70,7 +91,7 @@
 
 
                         </div>
-                        <a id="{{ $employeeDataPostLists->id }}"  class="btn btn-registration employeeInfoPostUpdate">আপডেট করুন</a>
+                        <a id="{{ $employeeDataPostLists->id }}"  class="btn btn-registration employeeInfoPostUpdate">দাখিল করুন</a>
 
                     </div>
                 </div>

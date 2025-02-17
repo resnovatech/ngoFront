@@ -15,7 +15,16 @@
 
 
                             <div class="row">
+<div class="col-lg-12 mb-3">
 
+   <label for="" class="form-label">এলাকার ধরণ  <span class="text-danger">*</span></label>
+        <select  name="new_area_type" class="form-control new_area_type" id="new_area_type0">
+      <option value="">--- অনুগ্রহ করে নির্বাচন করুন ---</option>
+         <option value="জেলা">জেলা</option>
+            <option value="সিটি কর্পোরেশন">সিটি কর্পোরেশন</option>
+            </select>
+
+</div>
 
                                     <div class="col-lg-4 mb-3">
                                         <label for="" class="form-label">বিভাগ <span class="text-danger">*</span></label>
@@ -33,7 +42,7 @@
 
                                 </select>
                                     </div>
-                                    <div class="col-lg-4 mb-3">
+                                    <div class="col-lg-4 mb-3" id="districtDiv0">
                                         <label for="" class="form-label">জেলা <span class="text-danger">*</span></label>
                                         {{-- <input type="text"  name="district_name[]" class="form-control" id=""
                                         placeholder=""> --}}
@@ -44,7 +53,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="col-lg-4 mb-3">
+                                    <div class="col-lg-4 mb-3" id="cityDiv0">
                                         <label for="" class="form-label">সিটি কর্পোরেশন</label>
                                         {{-- <input type="text" name="city_corparation_name[]" class="form-control" id=""
                                         placeholder=""> --}}
@@ -56,7 +65,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="col-lg-3 mb-3">
+                                    <div class="col-lg-3 mb-3" id="upoDiv0">
                                         <label for="" class="form-label">উপজেলা</label>
                                         {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                         placeholder=""> --}}
@@ -67,7 +76,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="col-lg-3 mb-3">
+                                    <div class="col-lg-3 mb-3" id="thanaDiv0">
                                         <label for="" class="form-label">থানা <span class="text-danger">*</span></label>
                                         {{-- <input type="text"  name="thana_name[]" class="form-control" id=""
                                         placeholder="" > --}}
@@ -78,12 +87,12 @@
 
                                         </select>
                                     </div>
-                                    <div class="col-lg-3 mb-3">
+                                    <div class="col-lg-3 mb-3" id="munDiv0">
                                         <label for="" class="form-label">পৌরসভা</label>
                                         <input type="text" name="municipality_name" class="form-control" id="municipality_name0"
                                         placeholder="">
                                     </div>
-                                    <div class="col-lg-3 mb-3">
+                                    <div class="col-lg-3 mb-3" id="wardDiv0">
                                         <label for="" class="form-label">ওয়ার্ড</label>
                                         <input type="text" name="ward_name" class="form-control" id="ward_name0"
                                         placeholder="">
@@ -108,7 +117,7 @@
                                     </div>
 
                             </div>
-                            <a id="prokolpoAreaDataPost"  class="btn btn-registration">জমা দিন</a>
+                            <a id="prokolpoAreaDataPost"  class="btn btn-registration">দাখিল করুন</a>
 
                     </div>
                 </div>

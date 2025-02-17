@@ -274,7 +274,7 @@
 
 <tr>
     <th style="text-align: center;" colspan="2">৫.</th>
-    <td style="font-weight:bold;text-align: center;" >১ম/২য়/৩য়/৪র্থ বছরে ব্যাংক হতে উত্তোলিত অর্থের পরিমাণ<span style="color:red;">*</span></td>
+    <td style="font-weight:bold;text-align: center;" >১ম/২য়/৩য়/৪র্থ/৫ম বছরে ব্যাংক হতে উত্তোলিত অর্থের পরিমাণ<span style="color:red;">*</span></td>
     <th style="text-align: center;">
         <select required class="form-control" name="amount_withdrawn_year"
                                                    placeholder="">
@@ -283,6 +283,7 @@
                                             <option value="2">২য়</option>
                                             <option value="3">৩য়</option>
                                             <option value="4">৪র্থ</option>
+                                               <option value="5">৫ম</option>
                                             </select>
 
                     <input type="text" required class="form-control mt-2" id="" name="amount_withdrawn"
@@ -445,7 +446,7 @@
                                                 onclick="location.href = '{{ route('fd7Form.edit',base64_encode($fd7Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit" class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন
                                         </button>
                                     </div>
 
@@ -530,7 +531,7 @@
                                     </div>
 
                             </div>
-                            <a id="fd2alldataPost"  class="btn btn-registration">জমা দিন</a>
+                            <a id="fd2alldataPost"  class="btn btn-registration">দাখিল করুন </a>
 
                     </div>
                 </div>

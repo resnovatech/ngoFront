@@ -68,7 +68,7 @@
                                     </div>
 
                             </div>
-                            <a id="adjoininggModalPost"  class="btn btn-registration">জমা দিন</a>
+                            <a id="adjoininggModalPost"  class="btn btn-registration">দাখিল করুন</a>
 
                     </div>
                 </div>

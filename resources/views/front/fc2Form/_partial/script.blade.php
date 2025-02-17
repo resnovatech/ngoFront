@@ -1,5 +1,55 @@
 <script>
 
+
+
+
+$(document).on('change', '.new_area_type', function () {
+
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(13);
+    var thisAreaType = $(this).val();
+
+
+    //alert(thisAreaType);
+
+    if(thisAreaType == 'জেলা'){
+
+
+        $('#districtDiv'+get_id_from_main).show();
+        $('#upoDiv'+get_id_from_main).show();
+        $('#thanaDiv'+get_id_from_main).show();
+        $('#munDiv'+get_id_from_main).show();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).hide();
+
+
+    }else if(thisAreaType == 'সিটি কর্পোরেশন'){
+
+        $('#districtDiv'+get_id_from_main).hide();
+        $('#upoDiv'+get_id_from_main).hide();
+        $('#thanaDiv'+get_id_from_main).hide();
+        $('#munDiv'+get_id_from_main).hide();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).show();
+
+
+    }else{
+
+
+        $('#districtDiv'+get_id_from_main).show();
+        $('#upoDiv'+get_id_from_main).show();
+        $('#thanaDiv'+get_id_from_main).show();
+        $('#munDiv'+get_id_from_main).show();
+        $('#wardDiv'+get_id_from_main).show();
+        $('#cityDiv'+get_id_from_main).show();
+
+    }
+
+  });
+</script>
+
+<script>
+
     //division,district,city corporation ,thana start
 
     $(document).on('change', 'select.division_name', function () {
@@ -70,14 +120,6 @@ $(document).on('click', '#prokolpoAreaDataPost', function () {
 if(!$('#division_name0').val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name0').val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name0').val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#prokolpoType0').val()){
 
@@ -163,14 +205,6 @@ $(document).on('click', '.prokolpoAreaDataUpdate', function () {
 if(!$('#division_name'+mainId).val()){
 
     alertify.alert('Error', 'বিভাগ  সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#district_name'+mainId).val()){
-
-    alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
-
-}else if(!$('#thana_name'+mainId).val()){
-
-    alertify.alert('Error', 'থানা সম্পর্কিত তথ্য দিন');
 
 }else if(!$('#prokolpoType'+mainId).val()){
 
@@ -259,7 +293,7 @@ $(document).on('click', '.fc1StepTwoBudgetEdit', function () {
 
 alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#upazila_id'+mainId).val()){
+}else if(!$('#upozila_name'+mainId).val()){
 
 alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
@@ -291,7 +325,7 @@ headers: {
 
 
 var district_name = $('#district_name'+mainId).val();
-var upozila_name = $('#upazila_id'+mainId).val();
+var upozila_name = $('#upozila_name'+mainId).val();
 var activities = $('#activities'+mainId).val();
 var estimated_expenses = $('#estimated_expenses'+mainId).val();
 var time_limit =$('#time_limit'+mainId).val();
@@ -315,7 +349,7 @@ $("#tableAjaxDatapro").html('');
 $("#tableAjaxDatapro").html(data);
 
 var district_name = $('#district_name'+mainId).val('');
-var upozila_name = $('#upazila_name'+mainId).val('');
+var upozila_name = $('#upozila_name'+mainId).val('');
 var activities = $('#activities'+mainId).val('');
 var estimated_expenses = $('#estimated_expenses'+mainId).val('');
 var time_limit =$('#time_limit'+mainId).val('');
@@ -341,7 +375,7 @@ if(!$('#district_name0').val()){
 
     alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#upazila_id0').val()){
+}else if(!$('#upozila_name0').val()){
 
     alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
@@ -373,7 +407,7 @@ alertify.alert('Error', 'উপকারভোগীর সংখ্যা স�
 
 
 var district_name = $('#district_name0').val();
-var upozila_name = $('#upazila_id0').val();
+var upozila_name = $('#upozila_name0').val();
 var activities = $('#activities0').val();
 var estimated_expenses = $('#estimated_expenses0').val();
 var time_limit =$('#time_limit0').val();
@@ -399,7 +433,7 @@ success: function(data) {
   $("#tableAjaxDatapro").html(data);
 
   var district_name = $('#district_name0').val('');
-var upozila_name = $('#upazila_name0').val('');
+var upozila_name = $('#upozila_name0').val('');
 var activities = $('#activities0').val('');
 var estimated_expenses = $('#estimated_expenses0').val('');
 var time_limit =$('#time_limit0').val('');
@@ -1102,8 +1136,11 @@ $('#pageloader').hide();
             method: 'GET',
             data: {districtName:districtName},
             success: function(data) {
-              $("#upazila_id"+get_id_from_main).html('');
-              $("#upazila_id"+get_id_from_main).html(data);
+                  $("#upozila_name"+get_id_from_main).html('');
+              $("#upozila_name"+get_id_from_main).html(data);
+
+              $("#thana_name"+get_id_from_main).html('');
+              $("#thana_name"+get_id_from_main).html(data);
             },
 
             beforeSend: function(){

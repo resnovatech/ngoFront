@@ -292,7 +292,7 @@
                                                 onclick="location.href = '{{ route('fd6Form.edit',base64_encode($fd6Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit" class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন
                                         </button>
                                     </div>
 
@@ -443,7 +443,7 @@
                                                 onclick="location.href = '{{ route('fd6Form.edit',base64_encode($fd6Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit" class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন 
                                         </button>
                                     </div>
 

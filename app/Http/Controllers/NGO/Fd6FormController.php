@@ -26,6 +26,7 @@ use DB;
 use PDF;
 use DateTime;
 use DateTimezone;
+use App\Models\DakListDetail;
 use Response;
 use App\Http\Controllers\NGO\CommonController;
 use Illuminate\Support\Facades\Auth;
@@ -261,6 +262,8 @@ class Fd6FormController extends Controller
 
         //dd($request->all());
 
+        if($request->areaId > 0){
+
         try{
             DB::beginTransaction();
 
@@ -313,6 +316,11 @@ class Fd6FormController extends Controller
             DB::rollBack();
             return redirect()->route('error_404');
         }
+
+    }else{
+
+        return redirect()->back()->with('error','Please Add Prokolpo Area');
+    }
     }
 
 
@@ -345,6 +353,35 @@ class Fd6FormController extends Controller
         $new_data_add->status = 'Ongoing';
         $new_data_add->save();
 
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+        $created_at = $dt->format('Y-m-d h:i:s ');
+
+        $amPmValue = $dt->format('a');
+       // $amPmValueFinal = 0;
+        if($amPmValue == 'pm'){
+
+            $amPmValueFinal = 'অপরাহ্ন';
+        }else{
+            $amPmValueFinal = 'পূর্বাহ্ন';
+
+        }
+
+         $regDakData = new DakListDetail();
+         $regDakData->sender_admin_id =null;
+         $regDakData->receiver_admin_id = 2;
+         $regDakData->main_dak_id =base64_decode($id);
+         $regDakData->dak_type = 'fdSix';
+         $regDakData->receive_from_ngo = 1;
+         $regDakData->receive_status = 1;
+         $regDakData->status = 1;
+         $regDakData->nothi_jat_id = 0;
+         $regDakData->nothi_jat_status = 0;
+         $regDakData->sent_status =null;
+         $regDakData->amPmValue = $amPmValueFinal;
+         $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+         $regDakData->save();
+
         return redirect('/fd6Form')->with('success','Submit To Ngo Sucessfully');
 
 
@@ -352,7 +389,13 @@ class Fd6FormController extends Controller
 
 
     public function update(Request $request,$id){
+
+        if($request->areaId > 0){
+
+
         try{
+
+           // dd($request->all());
 
             $subject_all = implode(",",$request->subject_id);
 
@@ -394,6 +437,11 @@ class Fd6FormController extends Controller
             DB::rollBack();
             return redirect()->route('error_404');
         }
+
+    }else{
+
+        return redirect()->back()->with('error','Please Add Prokolpo Area');
+    }
     }
 
 
@@ -411,8 +459,14 @@ try{
 
         if(!$fd2FormList){
             $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',0)->latest()->get();
+            $fd2AllFormLastYearDetailForFd2 = Fd2AllFormLastYearDetail::where('main_id',0)
+        ->where('type','fd6fd2')
+        ->get();
         }else{
             $fd2OtherInfo = Fd2FormOtherInfo::where('fd2_form_id',$fd2FormList->id)->latest()->get();
+            $fd2AllFormLastYearDetailForFd2 = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
+        ->where('type','fd6fd2')
+        ->get();
         }
 
 
@@ -465,7 +519,7 @@ try{
 
     $fd6AdjoiningGList = Fd6AdjoiningG::where('fd6_form_id',$fd6Id)->latest()->get();
 
-        return view('front.fd6Form.newview',compact('fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+        return view('front.fd6Form.newview',compact('fd2AllFormLastYearDetailForFd2','fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
     } catch (\Exception $e) {
        // DB::rollBack();
         return redirect()->route('error_404');
@@ -1670,6 +1724,7 @@ try{
 
         try{
 
+          
 
         $form=new Fd6AdjoiningA();
         $form->fd6_form_id=$request->fd6Id;

@@ -285,7 +285,7 @@
                                                 onclick="location.href = '{{ route('fc2Form.edit',base64_encode($fc2Id)) }}';">আগের পৃষ্ঠায় যান
                                         </button>
                                         <button type="submit" class="btn btn-registration"
-                                                >তথ্য জমা দিন
+                                                >দাখিল করুন 
                                         </button>
                                     </div>
 

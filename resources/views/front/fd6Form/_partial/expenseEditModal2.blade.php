@@ -16,9 +16,9 @@
 
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <label for="" class="form-label">বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি তাকে পরিবর্তিত)</label>
+                                <label for="" class="form-label">বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি টাকায় পরিবর্তিত)</label>
                                 <input type="number" value="{{ $fd6FormList->grants_received_from_abroad_second_year }}" name="grants_received_from_abroad" class="form-control" id="grants_received_from_abroadfd62"
-                                placeholder="বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি তাকে পরিবর্তিত)">
+                                placeholder="বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি টাকায় পরিবর্তিত)">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত অনুদান</label>
@@ -59,9 +59,9 @@
                                 <textarea  name="comment_grant" class="form-control" id="comment_grantfd62" placeholder="">{{ $fd6FormList->total_donors_comment }}</textarea>
                             </div>
                         </div>
-                        
 
-                        <a id="fd62"  class="btn btn-registration GrantAjaxEdit">আপডেট করুন</a>
+
+                        <a id="fd62"  class="btn btn-registration GrantAjaxEdit">দাখিল করুন</a>
                     </div>
                 </div>
 

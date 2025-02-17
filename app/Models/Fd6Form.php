@@ -11,6 +11,7 @@ class Fd6Form extends Model
     protected $table = "fd6_forms";
 
     protected $fillable = [
+        'partner_ngo_status',
         'fd_one_form_id',
         'ngo_name',
         'subject_id',
