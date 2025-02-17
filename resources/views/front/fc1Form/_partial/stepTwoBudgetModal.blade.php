@@ -50,7 +50,7 @@
                                     {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                     placeholder=""> --}}
 
-                                    <select  name="upozila_name" class="form-control" id="upazila_id0">
+                                    <select  name="upozila_name" class="form-control" id="upozila_name0">
                                         <option value="">--- অনুগ্রহ করে উপজেলা নির্বাচন করুন ---</option>
                                     </select>
                                 </div>

@@ -211,13 +211,7 @@ class Fc1FormController extends Controller
 
     public function lastExtraUpdate(Request $request){
 
-        if($request->donationList == 0){
 
-
-            return redirect()->back();
-
-
-        }else{
 
         $fc1FormInfo =Fc1Form::find($request->fcOneId);
         $fc1FormInfo->chief_name = $request->chief_name;
@@ -314,7 +308,7 @@ class Fc1FormController extends Controller
 
             return redirect()->route('editFd2DetailForFc1',base64_encode($request->fcOneId))->with('success','Added Successfully');
         }
-    }
+    
     }
 
 

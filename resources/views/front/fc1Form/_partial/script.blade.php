@@ -292,7 +292,7 @@ $(document).on('click', '.fc1StepTwoBudgetEdit', function () {
 
 alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#upazila_id'+mainId).val()){
+}else if(!$('#upozila_name'+mainId).val()){
 
 alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
@@ -324,7 +324,7 @@ headers: {
 
 
 var district_name = $('#district_name'+mainId).val();
-var upozila_name = $('#upazila_id'+mainId).val();
+var upozila_name = $('#upozila_name'+mainId).val();
 var activities = $('#activities'+mainId).val();
 var estimated_expenses = $('#estimated_expenses'+mainId).val();
 var time_limit =$('#time_limit'+mainId).val();
@@ -346,7 +346,7 @@ $("#tableAjaxDatapro").html('');
 $("#tableAjaxDatapro").html(data);
 
 var district_name = $('#district_name'+mainId).val('');
-var upozila_name = $('#upazila_name'+mainId).val('');
+var upozila_name = $('#upozila_name'+mainId).val('');
 var activities = $('#activities'+mainId).val('');
 var estimated_expenses = $('#estimated_expenses'+mainId).val('');
 var time_limit =$('#time_limit'+mainId).val('');
@@ -372,7 +372,7 @@ if(!$('#district_name0').val()){
 
     alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#upazila_id0').val()){
+}else if(!$('#upozila_name0').val()){
 
     alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
@@ -404,7 +404,7 @@ alertify.alert('Error', 'উপকারভোগীর সংখ্যা স�
 
 
 var district_name = $('#district_name0').val();
-var upozila_name = $('#upazila_id0').val();
+var upozila_name = $('#upozila_name0').val();
 var activities = $('#activities0').val();
 var estimated_expenses = $('#estimated_expenses0').val();
 var time_limit =$('#time_limit0').val();
@@ -426,7 +426,7 @@ success: function(data) {
   $("#tableAjaxDatapro").html(data);
 
   var district_name = $('#district_name0').val('');
-var upozila_name = $('#upazila_name0').val('');
+var upozila_name = $('#upozila_name0').val('');
 var activities = $('#activities0').val('');
 var estimated_expenses = $('#estimated_expenses0').val('');
 var time_limit =$('#time_limit0').val('');

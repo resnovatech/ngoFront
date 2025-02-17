@@ -515,14 +515,34 @@
                                                         </td>
 
                                                     </tr>
+ <?php
 
+
+$newNationality =  DB::table('countries')->whereNotNull('country_people_bangla')
+                                           ->groupBy('country_people_bangla')
+                                           ->select('country_people_bangla')->get();
+
+
+
+            ?>
                                                     <tr>
 
                                                         <td style="text-align: center;">ঙ.</td>
                                                         <td>জাতীয়তা/নাগরিকত্ব <span style="color:red;">* </span></td>
                                                         <td>
-                                                            <input type="text" value="{{ $fc1FormList->foreigner_donor_nationality }}" name="foreigner_donor_nationality" class="form-control" id=""
-                                                            placeholder="জাতীয়তা/নাগরিকত্ব">
+
+
+
+                                                          <select  name="foreigner_donor_nationality" class="form-control" id=""
+                                placeholder="জাতীয়তা/নাগরিকত্ব">
+
+                                <option value="">অনুগ্রহ করে নির্বাচন করুন</option>
+
+                                @foreach ($newNationality as $newNationalitys)
+                                <option value="{{ $newNationalitys->country_people_bangla }}" {{$newNationalitys->country_people_bangla == $fc1FormList->foreigner_donor_nationality ? 'selected':'' }}>{{ $newNationalitys->country_people_bangla }}</option>
+                                @endforeach
+
+                                </select>
 
                                                         </td>
 
@@ -856,7 +876,7 @@
 
 
                                         <div class="d-grid d-md-flex justify-content-md-end">
-                                        <button type="submit" class="btn btn-registration">দাখিল করুন 
+                                        <button type="submit" class="btn btn-registration">দাখিল করুন
                                         </button>
                                         </div>
                                 </form>

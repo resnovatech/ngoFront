@@ -53,13 +53,16 @@ $(document).on('change', 'select.district_name', function () {
 
     var getMainValue = $(this).val();
 
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(13);
+
     $.ajax({
     url: "{{ route('getUpozilaList') }}",
     method: 'GET',
     data: {getMainValue:getMainValue},
     success: function(data) {
-      $("#upozila_name").html('');
-      $("#upozila_name").html(data);
+      $("#upozila_name"+get_id_from_main).html('');
+      $("#upozila_name"+get_id_from_main).html(data);
     },
 
     beforeSend: function(){
@@ -76,13 +79,17 @@ $(document).on('change', 'select.district_name', function () {
 
 var getMainValue = $(this).val();
 
+var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(13);
+
+
 $.ajax({
 url: "{{ route('getUpozilaList') }}",
 method: 'GET',
 data: {getMainValue:getMainValue},
 success: function(data) {
-  $(".thana_name").html('');
-  $(".thana_name").html(data);
+  $("#thana_name"+get_id_from_main).html('');
+  $("#thana_name"+get_id_from_main).html(data);
 },
 
 beforeSend: function(){

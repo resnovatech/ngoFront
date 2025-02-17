@@ -222,9 +222,9 @@
     <th style="text-align: center;" colspan="2">১.</th>
     <td style="font-weight:bold;text-align: center;" >সংস্থার নাম ও ঠিকানা <span style="color:red;">*</span></td>
     <th style="text-align: center;">
-        <input type="text" required value="{{ $fc2FormList->ngo_name }}" name="ngo_name" class="form-control" id=""
+        <input type="text" required value="{{ $ngo_list_all->organization_name_ban }}" name="ngo_name" class="form-control" id=""
                                                    placeholder="সংস্থার নাম">
-                                                   <input type="text" required class="form-control mt-3" value="{{ $fc2FormList->ngo_address }}" name="ngo_address" id=""
+                                                   <input type="text" required class="form-control mt-3" value="{{ $ngo_list_all->organization_address }}" name="ngo_address" id=""
                                                    placeholder="সংস্থার ঠিকানা">
     </th>
 

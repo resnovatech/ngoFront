@@ -500,6 +500,10 @@ class Fc2FormController extends Controller
         $cityCorporationList = DB::table('civilinfos')->whereNotNull('city_orporation')->groupBy('city_orporation')->select('city_orporation')->get();
         $fc2FormList = Fc2Form::where('fd_one_form_id',$ngo_list_all->id)->where('id',$fc2Id)->latest()->first();
 
+        $fc1FormList = Fc1Form::where('fd_one_form_id',$ngo_list_all->id)->latest()->first();
+
+
+
         $sectorWiseExpenditureList = SectorWiseExpenditure::where('fc1_form_id',$fc2Id)
         ->where('type','fcTwo')
         ->latest()->get();
@@ -1004,13 +1008,7 @@ public function fc2FormStepTwoDonorDelete(Request $request){
 
 public function lastExtraUpdateFcTwo(Request $request){
 
-    if($request->donationList == 0){
 
-
-        return redirect()->back();
-
-
-    }else{
 
     $fc1FormInfo =Fc2Form::find($request->fcOneId);
     $fc1FormInfo->chief_name = $request->chief_name;
@@ -1107,7 +1105,7 @@ public function lastExtraUpdateFcTwo(Request $request){
 
         return redirect()->route('editFd2DetailForFc2',base64_encode($request->fcOneId))->with('success','Added Successfully');
     }
-}
+
 }
 
 public function fc2formextrapdf($title, $id){
