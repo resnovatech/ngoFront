@@ -289,20 +289,20 @@ class FdFourFormController extends Controller
 
         }
 
-         $regDakData = new DakListDetail();
-         $regDakData->sender_admin_id =null;
-         $regDakData->receiver_admin_id = 2;
-         $regDakData->main_dak_id =base64_decode($id);
-         $regDakData->dak_type = 'fdFour';
-         $regDakData->receive_from_ngo = 1;
-         $regDakData->receive_status = 1;
-         $regDakData->status = 1;
-         $regDakData->nothi_jat_id = 0;
-         $regDakData->nothi_jat_status = 0;
-         $regDakData->sent_status =null;
-         $regDakData->amPmValue = $amPmValueFinal;
-         $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
-         $regDakData->save();
+        //  $regDakData = new DakListDetail();
+        //  $regDakData->sender_admin_id =null;
+        //  $regDakData->receiver_admin_id = 2;
+        //  $regDakData->main_dak_id =base64_decode($id);
+        //  $regDakData->dak_type = 'fdFour';
+        //  $regDakData->receive_from_ngo = 1;
+        //  $regDakData->receive_status = 1;
+        //  $regDakData->status = 1;
+        //  $regDakData->nothi_jat_id = 0;
+        //  $regDakData->nothi_jat_status = 0;
+        //  $regDakData->sent_status =null;
+        //  $regDakData->amPmValue = $amPmValueFinal;
+        //  $regDakData->file_last_check_date = Date('Y-m-d', strtotime('+3 days'));
+        //  $regDakData->save();
 
         return redirect()->back()->with('success','Send Successfuly');
 

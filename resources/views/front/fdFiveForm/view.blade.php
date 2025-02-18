@@ -388,8 +388,8 @@ $name_change_list = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOne
         @else
 
 
-        <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $fdFiveForm->id}})" class="btn btn-info">
-            এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন দাখিল করুন " onclick="editTag({{ $fdFiveForm->id}})" class="btn btn-info">
+            দাখিল করুন  <i class="fa fa-send-o"></i>
         </button>
 
             <form id="delete-form-{{ $fdFiveForm->id }}" action="{{ route('fdFiveFormSend',base64_encode($fdFiveForm->id)) }}" method="get" style="display: none;">

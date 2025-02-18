@@ -32,7 +32,7 @@
                                         {{-- <input type="text"  name="district_name[]" class="form-control" id=""
                                         placeholder=""> --}}
 
-                                        <select  name="district_name" class="form-control district_name" id="districtNameDis">
+                                        <select  name="district_name" class="form-control newdistrict_name" id="newdistrict_name0">
                                             <option value="">--- অনুগ্রহ করে জেলা নির্বাচন করুন ---</option>
                                             @foreach($districtList as $districtListAll)
                                             <option value="{{ $districtListAll->district_bn }}" >{{ $districtListAll->district_bn }}</option>
@@ -47,7 +47,7 @@
                                         {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                         placeholder=""> --}}
 
-                                        <select  name="upozila_name" class="form-control upozila_name" id="upozila_name">
+                                        <select  name="upozila_name" class="form-control newupozila_name" id="newupozila_name0">
                                             <option value="">--- অনুগ্রহ করে উপজেলা নির্বাচন করুন ---</option>
 
 

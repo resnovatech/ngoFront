@@ -49,20 +49,26 @@ $(document).on('change', '.new_area_type', function () {
 </script>
 
 <script>
-$(document).on('change', 'select.district_name', function () {
+
+$(document).on('change', 'select.newdistrict_name', function () {
 
     var getMainValue = $(this).val();
 
     var main_id = $(this).attr('id');
-    var get_id_from_main = main_id.slice(13);
+    var get_id_from_main = main_id.slice(16);
+
+
 
     $.ajax({
     url: "{{ route('getUpozilaList') }}",
     method: 'GET',
     data: {getMainValue:getMainValue},
     success: function(data) {
-      $("#upozila_name"+get_id_from_main).html('');
-      $("#upozila_name"+get_id_from_main).html(data);
+      $("#newupozila_name"+get_id_from_main).html('');
+      $("#newupozila_name"+get_id_from_main).html(data);
+
+
+
     },
 
     beforeSend: function(){
@@ -75,32 +81,41 @@ $(document).on('change', 'select.district_name', function () {
 
 });
 
+
+////
 $(document).on('change', 'select.district_name', function () {
 
-var getMainValue = $(this).val();
+    var getMainValue = $(this).val();
 
-var main_id = $(this).attr('id');
+    var main_id = $(this).attr('id');
     var get_id_from_main = main_id.slice(13);
 
 
-$.ajax({
-url: "{{ route('getUpozilaList') }}",
-method: 'GET',
-data: {getMainValue:getMainValue},
-success: function(data) {
-  $("#thana_name"+get_id_from_main).html('');
+
+    $.ajax({
+    url: "{{ route('getUpozilaList') }}",
+    method: 'GET',
+    data: {getMainValue:getMainValue},
+    success: function(data) {
+      $("#upozila_name"+get_id_from_main).html('');
+      $("#upozila_name"+get_id_from_main).html(data);
+
+      $("#thana_name"+get_id_from_main).html('');
   $("#thana_name"+get_id_from_main).html(data);
-},
 
-beforeSend: function(){
-   $('#pageloader').show()
-},
-complete: function(){
-   $('#pageloader').hide();
-}
+    },
+
+    beforeSend: function(){
+       $('#pageloader').show()
+   },
+  complete: function(){
+       $('#pageloader').hide();
+  }
+    });
+
 });
 
-});
+
 
 //distribution add list start
 
@@ -110,11 +125,11 @@ if(!$('#distribution_type').val()){
 
     alertify.alert('Error', 'ধরণ সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#districtNameDis').val()){
+}else if(!$('#newdistrict_name0').val()){
 
     alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#upozila_name').val()){
+}else if(!$('#newupozila_name0').val()){
 
     alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
@@ -150,8 +165,8 @@ if(!$('#distribution_type').val()){
 
 var mainEditId = $('#mainEditId').val();
 var distribution_type = $('#distribution_type').val();
-var districtNameDis = $('#districtNameDis').val();
-var upozila_name = $('#upozila_name').val();
+var districtNameDis = $('#newdistrict_name0').val();
+var upozila_name = $('#newupozila_name0').val();
 var product_des = $('#product_des').val();
 var product_quantity = $('#product_quantity').val();
 var unit_price = $('#unit_price').val();
@@ -176,8 +191,8 @@ success: function(data) {
   $("#tableAjaxDatadis").html(data);
 
   var distribution_type = $('#distribution_type').val('');
-var districtNameDis = $('#districtNameDis').val('');
-var upozila_name = $('#upozila_name').val('');
+var districtNameDis = $('#newdistrict_name0').val('');
+var upozila_name = $('#newupozila_name0').val('');
 var product_des = $('#product_des').val('');
 var product_quantity = $('#product_quantity').val('');
 var unit_price = $('#unit_price').val('');
@@ -208,11 +223,11 @@ if(!$('#distribution_type'+mainId).val()){
 
 alertify.alert('Error', 'ধরণ সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#districtNameDis'+mainId).val()){
+}else if(!$('#newdistrict_name'+mainId).val()){
 
 alertify.alert('Error', 'জেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#upozila_name'+mainId).val()){
+}else if(!$('#newupozila_name'+mainId).val()){
 
 alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
@@ -247,8 +262,8 @@ headers: {
 
 
 var distribution_type = $('#distribution_type'+mainId).val();
-var districtNameDis = $('#districtNameDis'+mainId).val();
-var upozila_name = $('#upozila_name'+mainId).val();
+var districtNameDis = $('#newdistrict_name'+mainId).val();
+var upozila_name = $('#newupozila_name'+mainId).val();
 var product_des = $('#product_des'+mainId).val();
 var product_quantity = $('#product_quantity'+mainId).val();
 var unit_price = $('#unit_price'+mainId).val();
@@ -273,8 +288,8 @@ $("#tableAjaxDatadis").html('');
 $("#tableAjaxDatadis").html(data);
 
 var distribution_type = $('#distribution_type'+mainId).val('');
-var districtNameDis = $('#districtNameDis'+mainId).val('');
-var upozila_name = $('#upozila_name'+mainId).val('');
+var districtNameDis = $('#newdistrict_name'+mainId).val('');
+var upozila_name = $('#newupozila_name'+mainId).val('');
 var product_des = $('#product_des'+mainId).val('');
 var product_quantity = $('#product_quantity'+mainId).val('');
 var unit_price = $('#unit_price'+mainId).val('');

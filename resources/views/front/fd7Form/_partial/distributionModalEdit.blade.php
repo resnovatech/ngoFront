@@ -35,7 +35,7 @@
                                         $districtList = DB::table('civilinfos')->groupBy('district_bn')->select('district_bn')->get();
 
                                         ?>
-                                        <select  name="district_name" class="form-control district_name" id="districtNameDis{{ $distributionListOnes->id }}">
+                                        <select  name="district_name" class="form-control newdistrict_name" id="newdistrict_name{{ $distributionListOnes->id }}">
                                             <option value="">--- অনুগ্রহ করে জেলা নির্বাচন করুন ---</option>
                                             @foreach($districtList as $districtListAll)
                                             <option value="{{ $districtListAll->district_bn }}" {{ $distributionListOnes->district_name == $districtListAll->district_bn ? 'selected':'' }}>{{ $districtListAll->district_bn }}</option>
@@ -53,7 +53,7 @@ $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->g
                                         {{-- <input type="text" name="upozila_name[]" class="form-control" id=""
                                         placeholder=""> --}}
 
-                                        <select  name="upozila_name" class="form-control upozila_name" id="upozila_name{{ $distributionListOnes->id }}">
+                                        <select  name="upozila_name" class="form-control newupozila_name" id="newupozila_name{{ $distributionListOnes->id }}">
                                             <option value="">--- অনুগ্রহ করে উপজেলা নির্বাচন করুন ---</option>
 
                                             @foreach($thanaList as $districtListAll)

@@ -893,7 +893,7 @@
                                     </div> --}}
                                     <div class="d-grid d-md-flex justify-content-md-end">
                                         <button type="submit"  class="btn btn-registration"
-                                                >দাখিল করুন 
+                                                >দাখিল করুন
                                         </button>
                                     </div>
                                 </form>
@@ -937,7 +937,7 @@ var getMainValue = $('#division_name'+get_id_from_main).val();
 
  // var getMainValue = $(this).val();
 
-  //alert(getMainValue);
+  //alert(get_id_from_main);
 
 
   $.ajax({

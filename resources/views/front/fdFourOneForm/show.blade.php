@@ -330,8 +330,8 @@
 
                                             @else
 
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $fdFourOneFormList->id}})" class="btn btn-info">
-                                                এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন দাখিল করুন " onclick="editTag({{ $fdFourOneFormList->id}})" class="btn btn-info">
+                                                দাখিল করুন  <i class="fa fa-send-o"></i>
                                             </button>
 
                                                 <form id="delete-form-{{ $fdFourOneFormList->id }}" action="{{ route('fdFourOneSend',base64_encode($fdFourOneFormList->id)) }}" method="get" style="display: none;">
