@@ -178,7 +178,7 @@ class FdFourOneController extends Controller
 
     public function fdFourOneExpendaturePost(Request $request){
 
-
+//dd($request->mainEditId);
                 $form= new FdFourOneExpenditureSector();
                 $form->expenditure_sectors=$request->expenditure_sectors;
                 $form->approved_budget_money=$request->approved_budget_money;
@@ -280,6 +280,10 @@ class FdFourOneController extends Controller
             $fdFourOneForm->prokolpo_amount_grihito = $request->prokolpo_amount_grihito;
             $fdFourOneForm->prokolpo_amount_grihito_date =$request->prokolpo_amount_grihito_date;
             $fdFourOneForm->fd_one_form_id = $ngo_list_all->id;
+
+            $fdFourOneForm->fd_four_form_id = $request->fdFourId;
+
+            
             $fdFourOneForm->save();
 
 
@@ -293,7 +297,7 @@ class FdFourOneController extends Controller
         ]);
 
 
-            return redirect()->route('fdFourOneForm.show',base64_encode($fdFourOneFormId))->with('success','Added Successfully');
+            return redirect()->route('fdFourForm.show',base64_encode($request->fdFourId))->with('success','Added Successfully');
 
         } catch (\Exception $e) {
 
@@ -319,6 +323,7 @@ class FdFourOneController extends Controller
             $fdFourOneForm->prokolpo_amount_grihito = $request->prokolpo_amount_grihito;
             $fdFourOneForm->prokolpo_amount_grihito_date =$request->prokolpo_amount_grihito_date;
             $fdFourOneForm->fd_one_form_id = $ngo_list_all->id;
+            $fdFourOneForm->fd_four_form_id = $request->fdFourId;
             $fdFourOneForm->save();
 
 
@@ -331,7 +336,7 @@ class FdFourOneController extends Controller
         ]);
 
 
-        return redirect()->route('fdFourOneForm.show',base64_encode($fdFourOneFormId))->with('success','Updated Successfully');
+        return redirect()->route('fdFourForm.show',base64_encode($request->fdFourId))->with('success','Updated Successfully');
 
 
         } catch (\Exception $e) {

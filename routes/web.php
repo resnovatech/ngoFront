@@ -264,6 +264,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('addFdFourFormData/{id}', 'addFdFourFormData')->name('addFdFourFormData');
         Route::get('editFdFourFormData/{id}', 'editFdFourFormData')->name('editFdFourFormData');
         Route::get('fdFourSend/{id}', 'fdFourSend')->name('fdFourSend');
+
+        Route::get('fdFourOneDataPost/{id}', 'fdFourOneDataPost')->name('fdFourOneDataPost');
+        Route::get('fdFourOneDataUpdate/{id}', 'fdFourOneDataUpdate')->name('fdFourOneDataUpdate');
+
     });
 
     Route::controller(FormNoFourController::class)->group(function () {

@@ -109,7 +109,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -185,6 +185,7 @@
                                     <form action="{{ route('fdFourOneForm.update',$fdFourOneFormList->id) }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
 @method('PUT')
                                         @csrf
+                                        <input type="hidden" name="fdFourId" value="{{ $fdFourFormId }}" class="form-control mt-2" id="fdFourId">
                                         <input type="hidden" name="mainEditId" value="{{ $fdFourOneFormList->id }}" class="form-control mt-2" id="mainEditId">
                                     <div class="form9_upper_box">
                                         <h3>এফডি - ৪(১) ফরম</h3>
@@ -349,8 +350,11 @@
                                     <!-- step one end --->
 
                                     <div class="d-grid d-md-flex justify-content-md-end mt-4">
+                                        <a href="{{ route('fdFourForm.edit',base64_encode($fdFourFormId)) }}" class="btn btn-danger"
+                                        >পূর্ববর্তী পৃষ্ঠায় যান
+                            </a>
                                         <button type="submit" class="btn btn-registration"
-                                                >আপডেট করুন
+                                                >দাখিল করুন
                                     </button>
                                     </div>
                                 </form>
