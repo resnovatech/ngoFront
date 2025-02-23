@@ -85,7 +85,19 @@ class AppServiceProvider extends ServiceProvider
         }
 
         //dd($foreignNgoType);
+        $allDistrictList = DB::table('districts')->get();
+        $countryList = DB::table('countries')->where('id','!=',209)->orderBy('id','asc')->get();
+        $getCityzenshipData = DB::table('countries')->whereNotNull('country_people_english')
+                                                   ->whereNotNull('country_people_bangla')
+                                                   ->orderBy('id','asc')->get();
+                                                   
+                                                   view()->share('allDistrictList', $allDistrictList);
+                                                   view()->share('countryList', $countryList);
+                                                   view()->share('getCityzenshipData',  $getCityzenshipData);
+
 
 
     }
+
+   
 }

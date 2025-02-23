@@ -35,14 +35,7 @@
                 </div>
                 <div class="right-side">
 
-                    <?php
-
-                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-           ->first();
-
-
-                                    ?>
-
+            
                     @if(count($particularsOfOrganisationData) == 0)
 
 
@@ -171,13 +164,6 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
                             </div>
 
 
-
-<?php
-
-$getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
-
-
-                ?>
 
                 <div class="row">
                     @foreach($getAllSourceOfFundData as $key=>$allGetAllSourceOfFundData)

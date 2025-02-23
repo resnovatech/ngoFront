@@ -1,14 +1,6 @@
 
-    <li class="{{ Route::is('dashboard')  ? 'active_link' : '' }}" > <a href="{{ route('dashboard') }}"> <i class="fa fa-home pe-1 dashboard_icon" aria-hidden="true"></i>{{ trans('first_info.dash')}}</a></li>
+    <li class="{{ Route::is('dashboard') || Route::is('ngoCeoInfo.create')  || Route::is('ngoCeoInfo.edit') ? 'active_link' : '' }}" > <a href="{{ route('dashboard') }}"> <i class="fa fa-home pe-1 dashboard_icon" aria-hidden="true"></i>{{ trans('first_info.dash')}}</a></li>
 
-<?php
-
-
-$ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-
-
-?>
     @if(empty($ngo_type))
 
     @if(Route::is('ngo_registration_first_info'))
@@ -20,7 +12,7 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
     @elseif(Route::is('ngoTypeAndLanguage'))
     <li class="{{ Route::is('ngoTypeAndLanguage')  ? 'active_link' : '' }}"> <a href="{{ route('ngoTypeAndLanguage') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
 
-        @elseif(Route::is('dashboard'))
+        @elseif(Route::is('dashboard') || Route::is('ngoCeoInfo.create') || Route::is('ngoCeoInfo.edit'))
 
 
         <li class="{{ Route::is('ngoTypeAndLanguage')  ? 'active_link' : '' }}"> <a href="{{ route('ngoTypeAndLanguage') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
@@ -45,7 +37,7 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
     <li class="{{ Route::is('ngoAllRegistrationForm')  ? 'active_link' : '' }}"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @else
 
-   @if(Route::is('dashboard'))
+   @if(Route::is('dashboard') || Route::is('ngoCeoInfo.create') || Route::is('ngoCeoInfo.edit'))
    <li class=""> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @elseif(Route::is('regSubmitList'))
 
@@ -91,10 +83,6 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
 @endif
 
-<?php
-
-$ngoTypeForreset = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-?>
 
 @if(empty($ngoTypeForreset))
 
@@ -103,14 +91,7 @@ $ngoTypeForreset = DB::table('ngo_type_and_languages')->where('user_id',Auth::us
 
 @if($ngoTypeForreset == 'Old')
 
-<?php
 
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-
-$fdOneFormRenew = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)->value('id');
-
-
-?>
 
 @if(empty($fdOneFormRenew))
 <li class="{{ Route::is('informationResetPage')  ? 'active_link' : '' }}"> <a href="{{ route('informationResetPage') }}"> <i class="fa fa-cog pe-1 dashboard_icon" aria-hidden="true"></i>{{ trans('first_info.reset')}}</a></li>
@@ -118,15 +99,8 @@ $fdOneFormRenew = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)-
 
 @else
 
-<?php
 
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-
-$fdOneFormRenew = DB::table('ngo_statuses')->where('fd_one_form_id',$fdOneFormId)->value('id');
-
-
-?>
-@if(empty($fdOneFormRenew))
+@if(empty($fdOneFormRenewOLd))
 <li class="{{ Route::is('informationResetPage')  ? 'active_link' : '' }}"> <a href="{{ route('informationResetPage') }}"> <i class="fa fa-cog pe-1 dashboard_icon" aria-hidden="true"></i>{{ trans('first_info.reset')}}</a></li>
 @endif
 

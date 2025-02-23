@@ -71,12 +71,17 @@ class FdoneformController extends Controller
             $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
+           
 
+            $allParticularsOfOrganisation = DB::table('fd_one_forms')->
+            where('user_id',Auth::user()->id)->first();
+        
+       
             if($mainNgoType== 'দেশিও'){
 
-            return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
+            return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData','allParticularsOfOrganisation','mainNgoType'));
             }else{
-            return view('front.form.foreign.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
+            return view('front.form.foreign.formone.particularsOfOrganisation',compact('particularsOfOrganisationData','allParticularsOfOrganisation','mainNgoType'));
 
             }
 
@@ -268,12 +273,16 @@ class FdoneformController extends Controller
             $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
             $mainNgoType = CommonController::changeView();
 
+            $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
+           ->first();
+           $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
+
             if($mainNgoType== 'দেশিও'){
 
-            return view('front.form.formone.fieldOfProposedActivities',compact('particularsOfOrganisationData'));
+            return view('front.form.formone.fieldOfProposedActivities',compact('getAllSourceOfFundData','allFormOneData','particularsOfOrganisationData'));
             }else{
 
-                return view('front.form.foreign.formone.fieldOfProposedActivities',compact('particularsOfOrganisationData'));
+                return view('front.form.foreign.formone.fieldOfProposedActivities',compact('getAllSourceOfFundData','allFormOneData','particularsOfOrganisationData'));
             }
 
         } catch (\Exception $e) {
@@ -289,13 +298,17 @@ class FdoneformController extends Controller
 
             CommonController::checkNgotype(1);
             $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
-            $formOneMemberList = FdOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->get();
+            //$formOneMemberList = FdOneMemberList::where('fd_one_form_id',Session::get('mm_id'))->get();
             $mainNgoType = CommonController::changeView();
-
+  $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+  $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+  $checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
+                           ->value('ngo_type_new_old');
+                           $countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->count();
             if($mainNgoType== 'দেশিও'){
-            return view('front.form.formone.allStaffDetailsInformation',compact('particularsOfOrganisationData','formOneMemberList'));
+            return view('front.form.formone.allStaffDetailsInformation',compact('countUser','checkNgoTypeForForeginNgoNewOld','allFormOneData','particularsOfOrganisationData','formOneMemberList'));
             }else{
-                return view('front.form.foreign.formone.allStaffDetailsInformation',compact('particularsOfOrganisationData','formOneMemberList'));
+                return view('front.form.foreign.formone.allStaffDetailsInformation',compact('countUser','checkNgoTypeForForeginNgoNewOld','allFormOneData','particularsOfOrganisationData','formOneMemberList'));
             }
 
         } catch (\Exception $e) {
@@ -312,10 +325,32 @@ class FdoneformController extends Controller
             $mainNgoType = CommonController::changeView();
             $particularsOfOrganisationData = FdOneForm::where('user_id',Auth::user()->id)->get();
 
+            $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
+            ->first();
+
+
+            $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',Session::get('mm_id'))
+            ->get();
+
+            $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
+            ->first();
+
+
+     $get_all_data_adviser_bank_all = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
+      ->get();
+
+     
+
+
+      $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',Session::get('mm_id'))
+             ->get();
+
+
+
             if($mainNgoType== 'দেশিও'){
-            return view('front.form.formone.othersInformation',compact('particularsOfOrganisationData'));
+            return view('front.form.formone.othersInformation',compact('get_all_data_adviser','get_all_data_adviser_bank','get_all_data_adviser_bank_all','get_all_data_other','getFormOneData','particularsOfOrganisationData'));
             }else{
-                return view('front.form.foreign.formone.othersInformation',compact('particularsOfOrganisationData'));
+                return view('front.form.foreign.formone.othersInformation',compact('get_all_data_adviser','get_all_data_adviser_bank','get_all_data_adviser_bank_all','get_all_data_other','getFormOneData','particularsOfOrganisationData'));
 
             }
 

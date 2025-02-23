@@ -1,22 +1,4 @@
-<?php
-$ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
 
-?>
-
-<?php
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-
-
-if($localNgoTypem == 'Old'){
-$ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-$ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->first();
-}else{
-$ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-}
-
-
-
-                        ?>
 @if($localNgoTypem == 'Old')
 
 <div class="file-content">
@@ -1429,18 +1411,10 @@ $filename  = pathinfo($file_path, PATHINFO_FILENAME);
 
 
 ?>
-<?php
 
-$checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-            ->value('ngo_type');
-
-$checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-            ->value('ngo_type_new_old');
-
-?>
 <tr>
 <td>
-@if($checkNgoTypeForForeginNgo == 'দেশিও')
+@if($mainNgoType == 'দেশিও')
 সংস্থার গঠনতন্ত্র পরিবর্তন হয়নি মর্মে সভাপতি এবং সাধারণ সম্পাদকের যৌথ স্বাক্ষরে প্রত্যয়নপত্র
 @else
 'অপরিবর্তিত' প্রশংসাপত্রের অনুলিপি (সংশ্লিষ্ট দেশের পিস অফ জাস্টিস ডিপার্টমেন্ট দ্বারা নোটারাইজড/প্রত্যয়িত) যদি সংস্থার গঠনতন্ত্র পরিবর্তিত না হয় : <span class="text-danger">*</span>
@@ -1468,7 +1442,7 @@ data-bs-target="#exampleModal434"><i class="fa fa-pencil"></i></button>
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-             @if($checkNgoTypeForForeginNgo == 'দেশিও')
+             @if($mainNgoType == 'দেশিও')
              সংস্থার গঠনতন্ত্র পরিবর্তন হয়নি মর্মে সভাপতি এবং সাধারণ সম্পাদকের যৌথ স্বাক্ষরে প্রত্যয়নপত্র
              @else
              'অপরিবর্তিত' প্রশংসাপত্রের অনুলিপি (সংশ্লিষ্ট দেশের পিস অফ জাস্টিস ডিপার্টমেন্ট দ্বারা নোটারাইজড/প্রত্যয়িত) যদি সংস্থার গঠনতন্ত্র পরিবর্তিত না হয় : <span class="text-danger">*</span>

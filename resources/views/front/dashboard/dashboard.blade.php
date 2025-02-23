@@ -21,28 +21,13 @@
                     </ul>
                 </div>
                 <div class="dashboard_right">
-                    <div class="user_dashboard_right">
-
-                        <h4>{{ trans('first_info.profile')}}</h4>
-<?php
-            $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-?>
-@if(empty($get_reg_id))
-                        {{-- <button class="btn btn-sm btn-danger"  onclick="deleteTag(2)" >{{ trans('first_info.reset')}}</button>
-                        <form id="delete-form-2" action="{{ route('resetAllData') }}" method="POST" style="display: none;">
-
-                            @csrf
-
-                        </form> --}}
-
-                        <button class="btn btn-sm btn-registration" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ trans('first_info.edit')}}</button>
-                        @else
-
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 flex-grow-1 bd-highlight"> <h4>{{ trans('first_info.profile')}}</h4></div>
+                        @if(empty($get_reg_id))
+                        <div class="p-2 bd-highlight"> <button class="btn  btn-registration" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ trans('first_info.edit')}}</button></div>
+                        <div class="p-2 bd-highlight"> <a class="btn btn-registration" href="{{route('ngoCeoInfo.create')}}">{{ trans('ngo_member_doc.ceoInfo')}}</a></div>
                         @endif
-
-
-                    </div>
+                      </div>
 
                     @include('flash_message')
                     <div class="row mt-4">
@@ -94,105 +79,7 @@
                                 <div class="card-header">{{ trans('first_info.ngo_status')}}</div>
                                 <div class="card-body">
 
-                                    <?php
-
-
-$data_m_one = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->get();
-
-                                        if(count($data_m_one) == 0){
-$count = 11;
-
-                                        }else{
-
-                                    $data = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->first();
-
-                                           $count = 0;
-
-
-            }
-
-            $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-            $data1_m_one = DB::table('form_eights')->where('fd_one_form_id',$fdoneFormId)
-                                           ->get();
-
-
-                                           if(count($data1_m_one) == 0){
-$count1 = 11;
-
-                                        }else{
-
-
-
-
-                                            $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-                                           $data1 = DB::table('form_eights')->where('fd_one_form_id',$fdoneFormId)
-                                           ->first();
-
-                                           $count1 = 0;
-                foreach ($data1   as $a1) {
-                    if (is_null($a1)) {
-                        $count1++;
-                  }
-                }
-
-                                        }
-
-                                        $data2_m_one = DB::table('ngo_member_nid_photos')->where('fd_one_form_id',$fdoneFormId)
-                                           ->get();
-
-                                           if(count($data2_m_one) == 0){
-$count2 = 11;
-
-                                        }else{
-
-
-                                           $data2 = DB::table('ngo_member_nid_photos')->where('fd_one_form_id',$fdoneFormId)
-                                           ->first();
-
-                                           $count2 = 0;
-                foreach ($data2   as $a2) {
-                    if (is_null($a2)) {
-                        $count2++;
-                  }
-                }
-            }
-
-            $data3_m_one = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)
-                                           ->get();
-
-                                           if(count($data3_m_one) == 0){
-$count3 = 11;
-
-                                        }else{
-
-
-
-                    $data3 = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)
-                                           ->first();
-
-
-                $count3 = 0;
-                foreach ($data3   as $a3) {
-                    if (is_null($a3)) {
-                        $count3++;
-                  }
-                }
-            }
-
-
-
-
-            $renewal_files_doc = DB::table('renewal_files')->where('fd_one_form_id',$fdoneFormId)
-                                           ->get();
-
-
-                                        //    dd(count($renewal_files_doc));
-                                    ?>
-
+                              
 
                                    <table class="table table-borderless">
 
@@ -316,7 +203,7 @@ $count3 = 11;
                     {{-- <div id="" class="form-text">Must be use valid phone number for varification</div> --}}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">{{ trans('ngo_member_doc.image')}}</label>
+                    <label for="exampleInputPassword1" class="form-label">{{ trans('ngo_member_doc.imageOne')}}</label>
                     <input type="file" value="" class="form-control" name="user_image" id="">
                     {{-- <div id="" class="form-text">Must be use valid phone number for varification</div> --}}
                     @if(empty(Auth::user()->user_image))

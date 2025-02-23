@@ -22,15 +22,6 @@
                 </div>
                 <div class="right-side">
 
-                    <?php
-
-                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                     ->first();
-
-
-                                    ?>
-
-
                     <div class="committee_container active">
                         <div class="text">
                             <h2>{{ trans('fd_one_step_two.Field_of_proposed_activities')}}</h2>
@@ -159,16 +150,7 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
                             {{ trans('fd_one_step_two.Source_of_Fund')}}
                         </h5>
                     </div>
-
-
-
-<?php
-
-$getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
-
-
-        ?>
-
+                    
         <div class="row">
             @foreach($getAllSourceOfFundData as $key=>$allGetAllSourceOfFundData)
             <div class="col-md-6 mt-2">

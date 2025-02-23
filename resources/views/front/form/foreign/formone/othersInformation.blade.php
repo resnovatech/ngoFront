@@ -32,18 +32,7 @@
 
                 </div>
                 <div class="right-side">
-                    <?php
-
-                    $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                           ->first();
-
-
-                $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-                           ->value('ngo_type');
-
-                           $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
-                                   ->first();
-                    ?>
+                  
                     @if(count($particularsOfOrganisationData) == 0)
 
 
@@ -313,14 +302,7 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
                             </div>
 
-                        <?php
-
-
-$get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',Session::get('mm_id'))
-       ->get();
-
-
-                            ?>
+                      
 
 
 <div class="row">
@@ -447,23 +429,12 @@ $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id
                             </div>
 
 
-                            <?php
-
-
-                            $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
-                                   ->first();
-
-
-                            $get_all_data_adviser_bank_all = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',Session::get('mm_id'))
-                             ->get();
-
-
-                                                        ?>
+                         
 
                                                       @if(count($get_all_data_adviser_bank_all) == 0)
 
 
-                                                      @if($checkNgoTypeForForeginNgo == 'Foreign')
+                                                      @if($mainNgoType == 'Foreign')
 
 
                                                       <div class="mb-3">
@@ -546,7 +517,7 @@ $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id
                                                       @else
 
 
-                                                      @if($checkNgoTypeForForeginNgo == 'Foreign')
+                                                      @if($mainNgoType == 'Foreign')
 
 
 
@@ -638,14 +609,7 @@ $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id
                             @endif
 
 
-             <?php
-
-
-                            $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',Session::get('mm_id'))
-                                   ->get();
-
-
-                 ?>
+          
 
 <div class="row">
 

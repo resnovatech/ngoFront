@@ -169,8 +169,8 @@
         </tr>
 
        <?php
-                                  $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                  if($getngoForLanguage =='দেশিও'){
+                             
+                                  if($mainNgoType =='দেশিও'){
 
 
 
@@ -200,7 +200,7 @@
         </tr>
 
        <?php
-                                    if($getngoForLanguage =='দেশিও'){
+                                    if($mainNgoType =='দেশিও'){
                                     $getCityzendata = $allformOneData->citizenship;
                                     }else{
 
@@ -348,7 +348,7 @@
                                   $convetArray = explode(",",$allFormOneMemberList->citizenship);
 
 
-                                    if($getngoForLanguage =='দেশিও'){
+                                    if($mainNgoType =='দেশিও'){
                                     $getCityzendata = DB::table('countries')->whereIn('country_people_bangla',$convetArray)->get();
                                     }else{
 
@@ -361,7 +361,7 @@
 
             <td colspan="2" class="padding-left">({{ trans('form 8_bn.d')}}) {{ trans('fd_one_step_three.citizenship')}}</td>
             <td style="width:4px">:</td>
-            <td> @if($getngoForLanguage =='দেশিও')
+            <td> @if($mainNgoType =='দেশিও')
                                       @foreach($getCityzendata as $all_getCityzendata)
 
                                       @if(count($getCityzendata) == 1)

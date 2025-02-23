@@ -16,12 +16,6 @@
                 </div>
                 <div class="right-side">
 
-                    <?php
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-                        $ngoMemberLists = DB::table('ngo_member_lists')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-
-
-                        ?>
                         @include('translate')
                     <div class="committee_container active">
                         <div class="d-flex justify-content-between mb-4">

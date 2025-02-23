@@ -317,6 +317,15 @@ class AuthController extends Controller
                     $ngo_status_list = DB::table('ngo_renews')->where('fd_one_form_id',$ngo_list_all)->value('status');
                 }
 
+                $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
+                                           ->value('id');
+                $data3_m_one = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)
+                                           ->get();
+                $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+                $ngoTypeForreset = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+                $fdOneFormRenew = DB::table('ngo_renews')->where('fd_one_form_id',$fdoneFormId)->value('id');
+                $fdOneFormRenewOLd = DB::table('ngo_statuses')->where('fd_one_form_id',$fdoneFormId)->value('id');
+
 
                 if(empty($ngo_status_list) || $ngo_status_list == 'Ongoing' || $ngo_status_list == 'Old Ngo Renew'){
 
@@ -325,11 +334,49 @@ class AuthController extends Controller
 
                     if($mainNgoType== 'দেশিও'){
 
-                    return view('front.dashboard.dashboard',compact('get_reg_id'));
+                        if(empty($fdoneFormId)){
+                         
+                        $count = 11;
+
+                        }else{
+
+                       $data = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+
+                        $count = 0;
+
+
+                       }
+
+                        if(count($data3_m_one) == 0){
+
+                       $count3 = 11;
+
+                       }else{
+
+                        $data3 = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)
+                                                ->first();
+                        $count3 = 0;
+                        foreach ($data3   as $a3) {
+                        if (is_null($a3)) {
+                            $count3++;
+                        }
+                        }
+                    }
+
+                    $renewal_files_doc = DB::table('renewal_files')->where('fd_one_form_id',$fdoneFormId)
+                                            ->get();
+
+
+                    return view('front.dashboard.dashboard',compact('fdOneFormRenewOLd','fdOneFormRenew','ngoTypeForreset','ngo_type','data','count','data3','count3','renewal_files_doc','get_reg_id','fdoneFormId','data3_m_one'));
 
                     }else{
 
-                        return view('front.dashboard.foreign.dashboard',compact('get_reg_id'));
+            
+                        $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)->latest()->get();
+                        
+                                                             
+
+                        return view('front.dashboard.foreign.dashboard',compact('fdOneFormRenewOLd','fdOneFormRenew','ngoTypeForreset','ngo_type','ngoOtherDocLists','get_reg_id','fdoneFormId','data3_m_one'));
 
                     }
 

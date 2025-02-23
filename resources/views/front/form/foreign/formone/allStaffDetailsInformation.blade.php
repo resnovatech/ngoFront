@@ -31,22 +31,7 @@
                     </ul>
                 </div>
                 <div class="right-side">
-                    <?php
-
-                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-
-                    $getCityzenshipData = DB::table('countries')->whereNotNull('country_people_english')
-            ->whereNotNull('country_people_bangla')->orderBy('id','asc')->get();
-
-            $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
-
-            $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-                           ->value('ngo_type');
-
-                           $checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-                           ->value('ngo_type_new_old');
-                                    ?>
-
+               
                     <div class="committee_container active">
                         <div class="text">
                             <h2>{{ trans('fd_one_step_three.All_staff_details_information')}}</h2>
@@ -130,7 +115,7 @@
                                     <select name="citizenship[]"  class="js-example-basic-multipleo form-control" multiple="multiple">
                                             <option value="">{{ trans('civil.select')}}</option>
                                             @foreach($getCityzenshipData as $allGetCityzenshipData)
-                                              @if($checkNgoTypeForForeginNgo == 'Foreign')
+                                              @if($mainNgoType == 'Foreign')
                                             <option value="{{ $allGetCityzenshipData->country_people_english }}" >{{ $allGetCityzenshipData->country_people_english }}</option>
                                             @else
                                         <option value="{{ $allGetCityzenshipData->country_people_bangla }}" >{{ $allGetCityzenshipData->country_people_bangla }}</option>
@@ -170,7 +155,7 @@
 
 
 
-                                @if($checkNgoTypeForForeginNgo == 'Foreign' && $checkNgoTypeForForeginNgoNewOld == 'New')
+                                @if($mainNgoType == 'Foreign' && $checkNgoTypeForForeginNgoNewOld == 'New')
                                 <div class="col-lg-12 mb-3">
                                     <label for="" class="form-label">{{ trans('news.nn')}} <span class="text-danger">*</span> </label>
                                     <input type="text" required name="now_working_at" class="form-control" id="">
@@ -239,7 +224,7 @@
                                             @endif
 
 
-                                            @if($checkNgoTypeForForeginNgo == 'Foreign' && $checkNgoTypeForForeginNgoNewOld == 'New')
+                                            @if($mainNgoType == 'Foreign' && $checkNgoTypeForForeginNgoNewOld == 'New')
                                             <th>{{ trans('news.nn')}}  </th>
                                             @endif
 
@@ -273,7 +258,7 @@
                                             @endif
 
 
-                                            @if($checkNgoTypeForForeginNgo == 'Foreign' && $checkNgoTypeForForeginNgoNewOld == 'New')
+                                            @if($mainNgoType == 'Foreign' && $checkNgoTypeForForeginNgoNewOld == 'New')
                                             <td>{{ $allFormOneMemberList->now_working_at }}</td>
                                             @endif
 
@@ -314,9 +299,6 @@
                     <div class="buttons d-flex justify-content-end mt-4">
                     <a href="{{ route('fieldOfProposedActivities') }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
 
-<?php
-$countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->count();
-?>
 
 @if($countUser >= 2 )
 

@@ -1,23 +1,5 @@
 
-<?php
 
-
-$oldNgoRegNumber = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-
-
-$allformOneData = DB::table('fd_one_forms')
-->where('user_id',Auth::user()->id)->first();
- $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allformOneData->id)->first();
- $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allformOneData->id)->get();
- $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allformOneData->id)->get();
- $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allformOneData->id)->get();
- $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allformOneData->id)->get();
-
-
-
-
-
-       ?>
 
              @include('flash_message')
 
@@ -33,11 +15,9 @@ $allformOneData = DB::table('fd_one_forms')
                                             </h4>
                                             <div>
 
-                                                <?php
-                                                $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                                ?>
+                                               
 
-                                                @if($ngoTypeInfo == 'দেশিও')
+                                                @if($mainNgoType == 'দেশিও')
                                                 <button class="btn btn-success" id="downloadButton" data-toggle="tooltip" data-placement="top" title="{{ trans('form 8_bn.download_pdf')}}"><i class="fa fa-print"></i></button>
                                                 {{-- <button class="btn btn-sm btn-success" id="downloadButton">
                                                     {{ trans('form 8_bn.download_pdf')}}
@@ -108,10 +88,7 @@ $allformOneData = DB::table('fd_one_forms')
                          </tr>
 
 
-                         <?php
-                         $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                          ?>
-                          @if($getngoForLanguage =='দেশিও')
+                          @if($mainNgoType =='দেশিও')
                          <tr>
                              <td></td>
                              <td>(iii)</td>
@@ -152,8 +129,8 @@ $allformOneData = DB::table('fd_one_forms')
                          </tr>
 
                             <?php
-                           $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                           if($getngoForLanguage =='দেশিও'){
+                        
+                           if($mainNgoType =='দেশিও'){
 
                              if($allformOneData->job_type == 'Full-Time'){
 
@@ -193,7 +170,7 @@ $allformOneData = DB::table('fd_one_forms')
                                  {{ $allformOneData->email }}</td>
                          </tr>
                           <?php
-                             if($getngoForLanguage =='দেশিও'){
+                             if($mainNgoType =='দেশিও'){
                              $getCityzendata = $allformOneData->citizenship;
                              }else{
 
@@ -291,7 +268,7 @@ $allformOneData = DB::table('fd_one_forms')
                            $convetArray = explode(",",$allFormOneMemberList->citizenship);
 
 
-                             if($getngoForLanguage =='দেশিও'){
+                             if($mainNgoType =='দেশিও'){
                              $getCityzendata = DB::table('countries')->whereIn('country_people_bangla',$convetArray)->get();
                              }else{
 
@@ -304,7 +281,7 @@ $allformOneData = DB::table('fd_one_forms')
                              <td>({{ trans('form 8_bn.d')}})</td>
                              <td>{{ trans('fd_one_step_three.citizenship')}}</td>
                              <td>:
-                                 @if($getngoForLanguage =='দেশিও')
+                                 @if($mainNgoType =='দেশিও')
                                @foreach($getCityzendata as $all_getCityzendata)
                                {{$all_getCityzendata->country_people_bangla}},
                                @endforeach

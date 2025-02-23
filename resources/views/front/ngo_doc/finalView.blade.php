@@ -1,10 +1,7 @@
-<?php
-$ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-?>
 
 
-@if($ngoTypeInfo == 'দেশিও')
+
+@if($mainNgoType == 'দেশিও')
 
 
 
@@ -19,13 +16,6 @@ $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()
     </div>
 </div>
 
-
-  <?php
-                        $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-                        $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-
-
-                                                ?>
 
 
 <div class="file-content">
@@ -267,12 +257,6 @@ $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()
 </div>
 
 
-  <?php
-                        $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-                        $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-
-
-                                                ?>
 
 
 <div class="file-content">

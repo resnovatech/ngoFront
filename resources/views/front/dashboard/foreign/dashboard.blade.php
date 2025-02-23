@@ -21,28 +21,16 @@
                     </ul>
                 </div>
                 <div class="dashboard_right">
-                    <div class="user_dashboard_right">
-
-                        <h4>{{ trans('first_info.profile')}}</h4>
-<?php
-            $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-?>
-@if(empty($get_reg_id))
-                        {{-- <button class="btn btn-sm btn-danger"  onclick="deleteTag(2)" >{{ trans('first_info.reset')}}</button>
-                        <form id="delete-form-2" action="{{ route('resetAllData') }}" method="POST" style="display: none;">
-
-                            @csrf
-
-                        </form> --}}
-
-                        <button class="btn btn-sm btn-registration" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ trans('first_info.edit')}}</button>
-                        @else
-
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 flex-grow-1 bd-highlight"> <h4>{{ trans('first_info.profile')}}</h4></div>
+                        @if(empty($get_reg_id))
+                        <div class="p-2 bd-highlight"> <button class="btn  btn-registration" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ trans('first_info.edit')}}</button></div>
+                        <div class="p-2 bd-highlight"> <a class="btn btn-registration" href="{{route('ngoCeoInfo.create')}}">{{ trans('ngo_member_doc.ceoInfo')}}</a></div>
                         @endif
-
-
-                    </div>
+                      </div>
+                    {{-- <div class="user_dashboard_right">
+                  
+                    </div> --}}
 
                     @include('flash_message')
                     <div class="row mt-4">
@@ -98,34 +86,9 @@
                                 @endif
                                 <div class="card-body">
 
-                                    <?php
-
-
-$data_m_one = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-
-
-
-            $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-
-
-
-
-
-
-
-            $data3_m_one = DB::table('renewal_files')->where('fd_one_form_id',$fdoneFormId)
-                                           ->get();
-
-
-
-                                    ?>
-
-
                                    <table class="table table-borderless">
 
-                                    @if(empty($data_m_one))
+                                    @if(empty($fdoneFormId))
 
                                     <tr>
                                         @if($foreignNgoType == 'Old')
@@ -165,11 +128,7 @@ $data_m_one = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
 
                                        @else
 
-                                       <?php
-$ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)->latest()->get();
-
-                                       ?>
-
+                                    
 @if(count($ngoOtherDocLists) > 0)
 <tr>
  <td>{{ trans('first_info.other_info')}}</td>
@@ -230,7 +189,7 @@ $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFo
                     {{-- <div id="" class="form-text">Must be use valid phone number for varification</div> --}}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">{{ trans('ngo_member_doc.image')}}</label>
+                    <label for="exampleInputPassword1" class="form-label">{{ trans('ngo_member_doc.imageOne')}}</label>
                     <input type="file" value="" class="form-control" name="user_image" id="">
                     {{-- <div id="" class="form-text">Must be use valid phone number for varification</div> --}}
                     @if(empty(Auth::user()->user_image))

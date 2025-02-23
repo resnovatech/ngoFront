@@ -18,7 +18,7 @@ return [
     'e_verified'=>'Email Verified',
     'email'=>'Email',
     'name'=>'Name',
-    'edit'=>'Edit User',
+    'edit'=>'Edit Profile',
     'reset'=>'Reset',
     'profile'=>'Profile',
     'logout'=>'Logout',

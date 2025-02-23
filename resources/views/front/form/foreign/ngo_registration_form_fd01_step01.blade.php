@@ -33,11 +33,7 @@
                         </div>
 
                         <div class="mt-3">
-<?php
 
-    $allParticularsOfOrganisation = DB::table('fd_one_forms')-> where('user_id',Auth::user()->id)->first();
-
-?>
 
 @if(!$allParticularsOfOrganisation)
 <!--error message start-->
@@ -97,17 +93,9 @@
                                             </label>
                                         <input type="text" class="form-control" value="" name="address_of_head_office_eng" data-parsley-required  id="">
                                     </div>
-                                    <?php
+                
 
-                                    $countryList = DB::table('countries')->where('id','!=',209)->orderBy('id','asc')->get();
-
-                                    $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-                                    $getCityzenshipData = DB::table('countries')->whereNotNull('country_people_english')->whereNotNull('country_people_bangla')->orderBy('id','asc')->get();
-
-                                    ?>
-
-                                                                    @if($ngoTypeInfo == 'দেশিও')
+                                                                    @if($mainNgoType == 'দেশিও')
                                                                     <div class="mb-3">
                                                                         <label for="" class="form-label">{{ trans('fd_one_step_one.Country_of_Origin')}} <span class="text-danger">*</span> </label>
                                                                     <select name="country_of_origin" class="js-example-basic-single form-control custom-form-control" data-parsley-required  name="">
@@ -162,13 +150,8 @@
 
                                                                                 <!-- district list -->
 
-                                                                                <?php
-
-                                                                                $allDistrictList = DB::table('districts')->get();
-
-
-                                                                                ?>
-@if($ngoTypeInfo == 'দেশিও')
+                             
+@if($mainNgoType == 'দেশিও')
 
 
 
@@ -236,7 +219,20 @@
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
-                                    <input type="text"  data-parsley-required name="nationality" class="form-control" id="">
+                                    {{-- <input type="text"  data-parsley-required name="nationality" class="form-control" id=""> --}}
+
+                                    <select class="js-example-basic-single form-control" data-parsley-required name="nationality"
+                                   >
+                                    <option value="">{{ trans('civil.select')}}</option>
+                                    @foreach($getCityzenshipData as $allGetCityzenshipData)
+                                    @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
+                                    <option value="{{ $allGetCityzenshipData->country_people_bangla }}" >{{ $allGetCityzenshipData->country_people_bangla }}</option>
+                                    @else
+                                <option value="{{ $allGetCityzenshipData->country_people_english }}" >{{ $allGetCityzenshipData->country_people_english }}</option>
+                                @endif
+                                @endforeach
+
+                            </select>
                                 </div>
                                 @else
 

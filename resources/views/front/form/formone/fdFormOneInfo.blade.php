@@ -1,29 +1,12 @@
 
-              <?php
-
-       $allformOneData = DB::table('fd_one_forms')
-       ->where('user_id',Auth::user()->id)->first();
-        $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allformOneData->id)->first();
-        $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-        $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-        $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-        $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allformOneData->id)->get();
-
-
-
-
-
-              ?>
 
                     @include('flash_message')
                     <div class="">
                         <div class="d-flex justify-content-between">
                         <h4>{{ trans('fd_one_step_one.f_form')}} </h4>
-                        <?php
-                    $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-?>
+     
 <div>
-                        @if($ngoTypeInfo == 'দেশিও')
+                        @if($mainNgoType == 'দেশিও')
 
                         <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="{{ trans('form 8_bn.download_pdf')}}" id="downloadButton">
                             <i class="fa fa-print"></i>
@@ -93,10 +76,8 @@
                                     <td>: {{ $allformOneData->country_of_origin }}</td>
                                 </tr>
 
-                                <?php
-                                $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                 ?>
-                                 @if($getngoForLanguage =='দেশিও')
+                                
+                                 @if($mainNgoType =='দেশিও')
                                 <tr>
                                     <td></td>
                                     <td>(v)</td>
@@ -127,8 +108,8 @@
                                 </tr>
 
                                    <?php
-                                  $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                  if($getngoForLanguage =='দেশিও'){
+                                 
+                                  if($mainNgoType =='দেশিও'){
 
                                     if($allformOneData->job_type == 'Full-Time'){
 
@@ -163,7 +144,7 @@
                                         {{ $allformOneData->email }}</td>
                                 </tr>
                                  <?php
-                                    if($getngoForLanguage =='দেশিও'){
+                                    if($mainNgoType =='দেশিও'){
                                     $getCityzendata = $allformOneData->citizenship;
                                     }else{
 
@@ -312,7 +293,7 @@
                                   $convetArray = explode(",",$allFormOneMemberList->citizenship);
 
 
-                                    if($getngoForLanguage =='দেশিও'){
+                                    if($mainNgoType =='দেশিও'){
                                     $getCityzendata = DB::table('countries')->whereIn('country_people_bangla',$convetArray)->get();
                                     }else{
 
@@ -325,7 +306,7 @@
                                     <td>({{ trans('form 8_bn.d')}})</td>
                                     <td>{{ trans('fd_one_step_three.citizenship')}}</td>
                                     <td>:
-                                        @if($getngoForLanguage =='দেশিও')
+                                        @if($mainNgoType =='দেশিও')
                                       @foreach($getCityzendata as $all_getCityzendata)
                                       @if(count($getCityzendata) == 1)
                                       {{$all_getCityzendata->country_people_bangla}}

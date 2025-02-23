@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NGO\OtherformController;
+use App\Http\Controllers\NGO\CeoInfoController;
 use App\Http\Controllers\NGO\FormeightController;
 use App\Http\Controllers\NGO\NgomemberController;
 use App\Http\Controllers\NGO\NgomemberdocController;
@@ -152,6 +153,8 @@ Route::controller(RegsubmitController::class)->group(function () {
 
 Route::controller(AuthController::class)->group(function () {
 
+    //Route::get('ngoCeoInformation','ngoCeoInformation')->name('ngoCeoInformation');
+
     Route::get('/checkMailAlreadyRegisteredOrNot','checkMailAlreadyRegisteredOrNot')->name('checkMailAlreadyRegisteredOrNot');
     Route::get('/checkMailFromList','checkMailFromList')->name('checkMailFromList');
     Route::post('/sendMailGetFromList','sendMailGetFromList')->name('sendMailGetFromList');
@@ -225,7 +228,9 @@ Route::controller(OtherformController::class)->group(function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+    
 
+    Route::resource('ngoCeoInfo',CeoInfoController::class);
 
     Route::resource('complain',ComplainMonitorController::class);
 

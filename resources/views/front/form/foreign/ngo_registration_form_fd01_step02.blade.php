@@ -22,13 +22,7 @@
                 </div>
                 <div class="right-side">
 
-                    <?php
-
-                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                     ->first();
-
-
-                                    ?>
+                   
 
 
                     <div class="committee_container active">
@@ -160,12 +154,7 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
 
 
-<?php
 
-$getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
-
-
-        ?>
 
         <div class="row">
             @foreach($getAllSourceOfFundData as $key=>$allGetAllSourceOfFundData)

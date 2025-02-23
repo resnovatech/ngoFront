@@ -1,15 +1,5 @@
 
-<?php
-$ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
 
-if($foreignNgoType == 'Old'){
-    $ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-    $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->first();
-}else{
-    $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-}
-?>
 
 <section>
     <div class="container">

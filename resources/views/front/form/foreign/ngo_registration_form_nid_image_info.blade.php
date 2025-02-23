@@ -28,15 +28,6 @@
                             </div>
                         </div>
 
-                        <?php
-                        $fdOneFormId = DB::table('fd_one_forms')
-                        ->where('user_id',Auth::user()->id)->value('id');
-                        $ngoMemberDocLists = DB::table('ngo_member_nid_photos')
-                        ->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-
-
-                                                ?>
-
 @include('translate')
                         <div class="file-content">
                             <div class="card">

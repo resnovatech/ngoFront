@@ -10,42 +10,8 @@
 
 @section('body')
 
-<?php
-use App\Http\Controllers\NGO\CommonController;
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-
-$newOldNgo = CommonController::newOldNgo();
-
-if($newOldNgo != 'Old'){
-$get_reg_id = DB::table('ngo_statuses')->where('fd_one_form_id',$fdOneFormId)->value('status');
-}else{
-$get_reg_id = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)->value('status');
-}
-$mainNgoType = CommonController::changeView();
-
-?>
-
 @if(empty($get_reg_id))
-<?php
-$checkCompleteStatusData = DB::table('form_complete_statuses')
-->where('user_id',Auth::user()->id)
-->first();
 
-//dd($checkCompleteStatusData );
-
-$checkCompleteStatus = DB::table('form_complete_statuses')
-->where('user_id',Auth::user()->id)
-->where('fd_one_form_step_one_status',1)
-->where('fd_one_form_step_two_status',1)
-->where('fd_one_form_step_three_status',1)
-->where('fd_one_form_step_four_status',1)
-->where('form_eight_status',1)
-->where('ngo_member_status',1)
-->where('ngo_member_nid_photo_status',1)
-->where('ngo_other_document_status',1)
-->value('id');
-
-?>
 
 @if(empty($checkCompleteStatus))
 
