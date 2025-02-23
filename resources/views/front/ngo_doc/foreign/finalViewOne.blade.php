@@ -25,6 +25,7 @@
               @endif
 
               @else
+              
               <table class="table table-border">
 
                 <!--new start -->

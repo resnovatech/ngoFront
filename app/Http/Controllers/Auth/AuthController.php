@@ -309,18 +309,21 @@ class AuthController extends Controller
             if(Auth::check()){
 
                 $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->value('id');
+                $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
+                ->value('id');
+
                 $newOldNgo = CommonController::newOldNgo();
 
                 if($newOldNgo != 'Old'){
+                    $data3_m_one = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)
+                    ->get();
                     $ngo_status_list = DB::table('ngo_statuses')->where('fd_one_form_id',$ngo_list_all)->value('status');
                 }else{
                     $ngo_status_list = DB::table('ngo_renews')->where('fd_one_form_id',$ngo_list_all)->value('status');
+                    $data3_m_one = DB::table('renewal_files')->where('fd_one_form_id',$ngo_list_all)->latest()->get();
                 }
-
-                $fdoneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)
-                                           ->value('id');
-                $data3_m_one = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdoneFormId)
-                                           ->get();
+              
+              
                 $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
                 $ngoTypeForreset = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
                 $fdOneFormRenew = DB::table('ngo_renews')->where('fd_one_form_id',$fdoneFormId)->value('id');

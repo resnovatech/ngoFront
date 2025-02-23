@@ -115,6 +115,7 @@
                                        @if($foreignNgoType == 'Old')
 
                                        @if(count($data3_m_one) > 0)
+                                   
                                        <tr>
                                         <td>{{ trans('first_info.other_info')}}</td>
                                         <td><span class="badge bg-success">{{ trans('first_info.complete')}}</span></td>
@@ -130,6 +131,9 @@
 
                                     
 @if(count($ngoOtherDocLists) > 0)
+
+
+
 <tr>
  <td>{{ trans('first_info.other_info')}}</td>
  <td><span class="badge bg-success">{{ trans('first_info.complete')}}</span></td>

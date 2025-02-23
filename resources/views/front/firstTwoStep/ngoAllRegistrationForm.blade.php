@@ -35,6 +35,8 @@
 @include('front.form.ngo_registration_form_nid_image_info')
 
 @elseif($checkCompleteStatusData->ngo_other_document_status == 0)
+
+
 @include('front.form.ngo_registration_form_document_info')
 @endif
 

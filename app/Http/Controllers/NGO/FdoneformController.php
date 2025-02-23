@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use App\Models\FdOneForm;
+use App\Models\NgoCeoInfo;
 use App\Models\FdOneOtherPdfList;
 use App\Models\FdOneBankAccount;
 use App\Models\FdOneAdviserList;
@@ -195,10 +196,13 @@ class FdoneformController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
+            $allParticularsOfOrganisation = DB::table('fd_one_forms')->
+            where('user_id',Auth::user()->id)->first();
+
             if($mainNgoType== 'দেশিও'){
-                return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
+                return view('front.form.formone.particularsOfOrganisation',compact('particularsOfOrganisationData','mainNgoType','allParticularsOfOrganisation'));
             }else{
-                return view('front.form.foreign.formone.particularsOfOrganisation',compact('particularsOfOrganisationData'));
+                return view('front.form.foreign.formone.particularsOfOrganisation',compact('particularsOfOrganisationData','mainNgoType','allParticularsOfOrganisation'));
             }
 
         } catch (\Exception $e) {
@@ -306,9 +310,9 @@ class FdoneformController extends Controller
                            ->value('ngo_type_new_old');
                            $countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->count();
             if($mainNgoType== 'দেশিও'){
-            return view('front.form.formone.allStaffDetailsInformation',compact('countUser','checkNgoTypeForForeginNgoNewOld','allFormOneData','particularsOfOrganisationData','formOneMemberList'));
+            return view('front.form.formone.allStaffDetailsInformation',compact('countUser','checkNgoTypeForForeginNgoNewOld','allFormOneData','particularsOfOrganisationData','formOneMemberList','mainNgoType'));
             }else{
-                return view('front.form.foreign.formone.allStaffDetailsInformation',compact('countUser','checkNgoTypeForForeginNgoNewOld','allFormOneData','particularsOfOrganisationData','formOneMemberList'));
+                return view('front.form.foreign.formone.allStaffDetailsInformation',compact('countUser','checkNgoTypeForForeginNgoNewOld','allFormOneData','particularsOfOrganisationData','formOneMemberList','mainNgoType'));
             }
 
         } catch (\Exception $e) {
@@ -348,9 +352,9 @@ class FdoneformController extends Controller
 
 
             if($mainNgoType== 'দেশিও'){
-            return view('front.form.formone.othersInformation',compact('get_all_data_adviser','get_all_data_adviser_bank','get_all_data_adviser_bank_all','get_all_data_other','getFormOneData','particularsOfOrganisationData'));
+            return view('front.form.formone.othersInformation',compact('mainNgoType','get_all_data_adviser','get_all_data_adviser_bank','get_all_data_adviser_bank_all','get_all_data_other','getFormOneData','particularsOfOrganisationData'));
             }else{
-                return view('front.form.foreign.formone.othersInformation',compact('get_all_data_adviser','get_all_data_adviser_bank','get_all_data_adviser_bank_all','get_all_data_other','getFormOneData','particularsOfOrganisationData'));
+                return view('front.form.foreign.formone.othersInformation',compact('mainNgoType','get_all_data_adviser','get_all_data_adviser_bank','get_all_data_adviser_bank_all','get_all_data_other','getFormOneData','particularsOfOrganisationData'));
 
             }
 
@@ -413,10 +417,14 @@ class FdoneformController extends Controller
 
                 DB::beginTransaction();
 
+                $getCeoInfoListId =  NgoCeoInfo::where('user_id', Auth::user()->id)
+                ->where('status',1)->orderBy('id','desc')->value('id');
+
             $uploadFormOneData = new FdOneForm();
             $uploadFormOneData->chief_name = $request->chief_name;
             $uploadFormOneData->chief_desi = $request->chief_desi;
             $uploadFormOneData->place = $request->place;
+            $uploadFormOneData->ceoTableId = $getCeoInfoListId;
             $uploadFormOneData->district_id = $request->district_id;
             $uploadFormOneData->user_id = Auth::user()->id;
             $uploadFormOneData->registration_number = 0;
@@ -524,13 +532,15 @@ class FdoneformController extends Controller
         try{
 
             DB::beginTransaction();
-
+            $getCeoInfoListId =  NgoCeoInfo::where('user_id', Auth::user()->id)
+            ->where('status',1)->orderBy('id','desc')->value('id');
             $arr_all = implode(",",$request->citizenship);
 
             $uploadFormOneData = FdOneForm::find($request->id);
             $uploadFormOneData->user_id = Auth::user()->id;
             $uploadFormOneData->district_id = $request->district_id;
             $uploadFormOneData->place = $request->place;
+            $uploadFormOneData->ceoTableId = $getCeoInfoListId;
             $uploadFormOneData->chief_name = $request->chief_name;
             $uploadFormOneData->chief_desi = $request->chief_desi;
             $uploadFormOneData->organization_name_ban = $request->organization_name_ban;
@@ -1696,27 +1706,30 @@ public function fdFormEightInfoPdfOld(){
 
     try{
 
-        $allformOneData = FdOneForm::where('user_id',Auth::user()->id)->first();
+        $allFormOneData = FdOneForm::where('user_id',Auth::user()->id)->first();
         $getNgoTypeForPdf = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-        $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allformOneData->id)->first();
-        $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-        $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-        $formOneMemberList = FdOneMemberList::where('fd_one_form_id',$allformOneData->id)->get();
-        $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allformOneData->id)->get();
+        $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allFormOneData->id)->first();
+        $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+        $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+        $formOneMemberList = FdOneMemberList::where('fd_one_form_id',$allFormOneData->id)->get();
+        $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allFormOneData->id)->get();
 
+
+        $getNgoCeoPdf = NgoCeoInfo::where('id',$allFormOneData->ceoTableId)->first();
 
         $file_Name_Custome = '(এফডি-৮ ফরম)'.Auth::user()->user_name;
 
         $payment_detail = 11;
 
         $data =view('front.form.foreign.formone.fdFormEightInfoPdfOld',[
+            'getNgoCeoPdf'=>$getNgoCeoPdf,
                     'getNgoTypeForPdf'=>$getNgoTypeForPdf,
                     'get_all_source_of_fund_data'=>$get_all_source_of_fund_data,
                     'formOneMemberList'=>$formOneMemberList,
                     'get_all_data_adviser'=>$get_all_data_adviser,
                     'get_all_data_other'=>$get_all_data_other,
                     'get_all_data_adviser_bank'=>$get_all_data_adviser_bank,
-                    'allformOneData'=>$allformOneData
+                    'allFormOneData'=>$allFormOneData
 
                 ])->render();
 
@@ -1739,29 +1752,33 @@ public function fdFormEightInfoPdfOld(){
 
         try{
 
-            $allformOneData = FdOneForm::where('user_id',Auth::user()->id)->first();
+            $allFormOneData = FdOneForm::where('user_id',Auth::user()->id)->first();
             $getNgoTypeForPdf = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-            $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allformOneData->id)->first();
-            $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-            $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-            $formOneMemberList = FdOneMemberList::where('fd_one_form_id',$allformOneData->id)->get();
-            $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allformOneData->id)->get();
+            $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allFormOneData->id)->first();
+            $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+            $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+            $formOneMemberList = FdOneMemberList::where('fd_one_form_id',$allFormOneData->id)->get();
+            $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allFormOneData->id)->get();
 
             $file_Name_Custome = '(এফডি-১ ফরম)'.Auth::user()->user_name;
             $payment_detail = 11;
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
+            $getNgoCeoPdf = NgoCeoInfo::where('id',$allFormOneData->ceoTableId)->first();
+
             if($mainNgoType== 'দেশিও'){
 
                 $data =view('front.form.formone.fdFormOneInfoPdf',[
                     'getNgoTypeForPdf'=>$getNgoTypeForPdf,
+                    'getNgoCeoPdf'=>$getNgoCeoPdf,
+                    'mainNgoType'=>$mainNgoType,
                     'get_all_source_of_fund_data'=>$get_all_source_of_fund_data,
                     'formOneMemberList'=>$formOneMemberList,
                     'get_all_data_adviser'=>$get_all_data_adviser,
                     'get_all_data_other'=>$get_all_data_other,
                     'get_all_data_adviser_bank'=>$get_all_data_adviser_bank,
-                    'allformOneData'=>$allformOneData
+                    'allFormOneData'=>$allFormOneData
 
                 ])->render();
 
@@ -1781,8 +1798,10 @@ public function fdFormEightInfoPdfOld(){
                     'formOneMemberList'=>$formOneMemberList,
                     'get_all_data_adviser'=>$get_all_data_adviser,
                     'get_all_data_other'=>$get_all_data_other,
+                    'mainNgoType'=>$mainNgoType,
+                    'getNgoCeoPdf'=>$getNgoCeoPdf,
                     'get_all_data_adviser_bank'=>$get_all_data_adviser_bank,
-                    'allformOneData'=>$allformOneData
+                    'allFormOneData'=>$allFormOneData
 
                 ])->render();
 
@@ -1799,7 +1818,7 @@ public function fdFormEightInfoPdfOld(){
 
         } catch (\Exception $e) {
 
-            return redirect()->route('error_404');
+            return $e;
         }
 
     }

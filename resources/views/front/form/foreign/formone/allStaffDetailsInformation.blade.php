@@ -19,7 +19,8 @@
                         <h3>{{ trans('fd_one_step_one.Step_1')}}</h3>
                     </div>
                     <ul class="progress-bar">
-                        @if($localNgoTypem == 'Old')
+                  
+                        @if($foreignNgoType == 'Old')
                         <li class="active">{{ trans('fd_one_step_one.fd8')}}</li>
                         @else
                         <li class="active">{{ trans('fd_one_step_one.fd_one_form_title')}}</li>

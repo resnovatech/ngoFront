@@ -92,9 +92,9 @@
             <td>{{ trans('fd_one_step_one.Organization_Name_Organization_address')}}</td>
             <td style="width:4px">:</td>
             @if($getNgoTypeForPdf == 'দেশিও')
-            <td>{{ $allformOneData->organization_name_ban }} <br> {{ trans('fd_one_step_one.Organization_address')}}: {{ $allformOneData->organization_address }}</td>
+            <td>{{ $allFormOneData->organization_name_ban }} <br> {{ trans('fd_one_step_one.Organization_address')}}: {{ $allFormOneData->organization_address }}</td>
             @else
-            <td>{{ $allformOneData->organization_name }} <br> {{ trans('fd_one_step_one.Organization_address')}}: {{ $allformOneData->organization_address}}</td>
+            <td>{{ $allFormOneData->organization_name }} <br> {{ trans('fd_one_step_one.Organization_address')}}: {{ $allFormOneData->organization_address}}</td>
             @endif
         </tr>
         <!-- <tr>
@@ -102,7 +102,7 @@
             <td class="number_section">(ii)</td>
             <td>{{ trans('fd_one_step_one.Organization_address')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->organization_address }}</td>
+            <td>{{ $allFormOneData->organization_address }}</td>
         </tr>-->
         <tr>
             <td></td>
@@ -111,16 +111,16 @@
             <td style="width:4px">:</td>
             <td>
 
-                @if($allformOneData->registration_number == 0)
+                @if($allFormOneData->registration_number == 0)
 
                 @else
 
                 @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 
-                {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->registration_number) }}
+                {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->registration_number) }}
                 @else
 
-                {{ $allformOneData->registration_number }}
+                {{ $allFormOneData->registration_number }}
                 @endif
                 @endif
 
@@ -132,7 +132,7 @@
             <td class="number_section">(iv)</td>
             <td>{{ trans('fd_one_step_one.Country_of_Origin')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->country_of_origin }}</td>
+            <td>{{ $allFormOneData->country_of_origin }}</td>
         </tr>
         <tr>
             <td></td>
@@ -142,10 +142,10 @@
             <td>
                 @if($getNgoTypeForPdf == 'দেশিও')
 
-                {{ $allformOneData->address_of_head_office }}
+                {{ $allFormOneData->address_of_head_office }}
 
                 @else
-                {{ $allformOneData->address_of_head_office_eng  }}
+                {{ $allFormOneData->address_of_head_office_eng  }}
 
                 @endif
 
@@ -163,7 +163,7 @@
             <td></td>
             <td>{{ trans('form 8_bn.a')}}) {{ trans('fd_one_step_one.name')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->name_of_head_in_bd }}</td>
+            <td>{{ $allFormOneData->name_of_head_in_bd }}</td>
         </tr>
 
        <?php
@@ -173,7 +173,7 @@
 
 
                                   }else{
-                                   $getJobType =$allformOneData->job_type;
+                                   $getJobType =$allFormOneData->job_type;
                                   }
 
                                   ?>
@@ -183,22 +183,22 @@
             <td></td>
             <td>{{ trans('form 8_bn.b')}}) {{ trans('fd_one_step_one.Whether_part_time_or_full_time')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->job_type }}</td>
+            <td>{{ $allFormOneData->job_type }}</td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td>{{ trans('form 8_bn.c')}}) {{ trans('fd_one_step_one.Address_Mobile_Number_Email')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->address }}, {{ $allformOneData->tele_phone_number }}, {{ $allformOneData->phone }}, {{ $allformOneData->email }}</td>
+            <td>{{ $allFormOneData->address }}, {{ $allFormOneData->tele_phone_number }}, {{ $allFormOneData->phone }}, {{ $allFormOneData->email }}</td>
         </tr>
 
        <?php
                                     if($mainNgoType =='দেশিও'){
-                                    $getCityzendata = $allformOneData->citizenship;
+                                    $getCityzendata = $allFormOneData->citizenship;
                                     }else{
 
-                                    $getCityzendata = $allformOneData->citizenship;
+                                    $getCityzendata = $allFormOneData->citizenship;
                                     }
 
                                   ?>
@@ -214,7 +214,7 @@
             <td></td>
             <td>{{ trans('form 8_bn.e')}}) {{ trans('fd_one_step_one.Profession')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->profession }}</td>
+            <td>{{ $allFormOneData->profession }}</td>
         </tr>
         <tr>
             <td>{{ trans('fd_one_step_one.two')}}.</td>
@@ -226,7 +226,7 @@
             <td>{{ trans('form 8_bn.a')}}</td>
             <td>(i) {{ trans('fd_one_step_two.Plan_of_Operation')}} </td>
             <td style="width:4px">:</td>
-            <td>@if(empty($allformOneData->plan_of_operation))
+            <td>@if(empty($allFormOneData->plan_of_operation))
 
                 @else
 
@@ -245,7 +245,7 @@
             <td></td>
             <td>(ii) {{ trans('fd_one_step_two.pp')}}</td>
             <td style="width:4px">:</td>
-            <td>{{ $allformOneData->district }}</td>
+            <td>{{ $allFormOneData->district }}</td>
         </tr>
         <tr>
             <td></td>
@@ -287,12 +287,12 @@
             <td> @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 
 
-                {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->annual_budget) }}
+                {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->annual_budget) }}
 
 
                 @else
 
-                {{ $allformOneData->annual_budget }}
+                {{ $allFormOneData->annual_budget }}
 
                 @endif</td>
         </tr>
@@ -400,7 +400,7 @@
             </td>
             <td style="width:4px">:</td>
             <td>
-                @if(empty($allformOneData->attach_the__supporting_paper))
+                @if(empty($allFormOneData->attach_the__supporting_paper))
 
                 @else
 
@@ -530,10 +530,10 @@ attached
 <table style=" margin-top: 15px;width:100%">
 
     <tr>
-        <td style="text-align: right;padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/') }}{{ $allformOneData->digital_signature}}"/></td>
+        <td style="text-align: right;padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/') }}{{ $getNgoCeoPdf->ceo_signature}}"/></td>
     </tr>
     <tr>
-        <td style="text-align: right;padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/')}}{{ $allformOneData->digital_seal}}"/></td>
+        <td style="text-align: right;padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/')}}{{ $getNgoCeoPdf->ceo_seal}}"/></td>
     </tr>
 </table>
 <table style=" margin-top: 15px">
@@ -543,12 +543,12 @@ attached
     <tr>
         <td style="width: 65%"></td>
         <td style="text-align: left; width:5%;">{{ trans('fd_one_step_one.tt_5')}}</td>
-        <td style="width:30%; text-align: left;">: {{ $allformOneData->chief_name }}</td>
+        <td style="width:30%; text-align: left;">: {{ $getNgoCeoPdf->ceo_name }}</td>
     </tr>
     <tr>
         <td style="width: 65%"></td>
         <td style="text-align: left; width: 5%;">{{ trans('fd_one_step_one.tt_6')}}</td>
-        <td style="width:30%; text-align: left;">: {{ $allformOneData->chief_desi }}</td>
+        <td style="width:30%; text-align: left;">: {{ $getNgoCeoPdf->ceo_designation }}</td>
     </tr>
     @if(session()->get('locale') == 'en' || empty(session()->get('locale')) )
 
@@ -557,16 +557,16 @@ attached
     <tr>
         <td style="width: 65%"></td>
         <td style="text-align: left; width: 5%;">Place</td>
-        <td style="width:30%; text-align: left;">: {{ $allformOneData->place }}</td>
+        <td style="width:30%; text-align: left;">: {{ $allFormOneData->place }}</td>
     </tr>
     @endif
     <tr>
         <td style="width: 65%"></td>
         <td style="text-align: left; width: 5%;">{{ trans('fd_one_step_one.tt_7')}}</td>
         @if($getNgoTypeForPdf == 'দেশিও')
-        <td style="width:30%; text-align: left;">: {{  App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->created_at->format('d/m/Y')) }}</td>
+        <td style="width:30%; text-align: left;">: {{  App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->created_at->format('d/m/Y')) }}</td>
         @else
-        <td style="width:30%; text-align: left;">: {{  $allformOneData->created_at->format('d/m/Y') }}</td>
+        <td style="width:30%; text-align: left;">: {{  $allFormOneData->created_at->format('d/m/Y') }}</td>
         @endif
     </tr>
 </table>

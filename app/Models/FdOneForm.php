@@ -11,6 +11,7 @@ class FdOneForm extends Model
     protected $table = "fd_one_forms";
 
     protected $fillable = [
+        'ceoTableId',
         'place',
       'digital_signature',
          'digital_seal',

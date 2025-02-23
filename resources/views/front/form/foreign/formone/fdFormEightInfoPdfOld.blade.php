@@ -79,11 +79,11 @@
         <td colspan="3">সংস্থার বিবরণ:</td>
     </tr>
       <?php
-$getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',$allformOneData->user_id)->value('ngo_type');
+$getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',$allFormOneData->user_id)->value('ngo_type');
 // dd($getngoForLanguage);
 $oldNgoRegNumber = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-$formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allformOneData->id)->get();
-$reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)->value('organization_name');
+$formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+$reg_name = DB::table('fd_one_forms')->where('user_id',$allFormOneData->user_id)->value('organization_name');
 
 
       ?>
@@ -91,7 +91,7 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td></td>
         <td>(i)</td>
         <td>সংস্থার নাম ও ঠিকানা </td>
-        <td>: {{ $reg_name }}, {{ $allformOneData->organization_address}}</td>
+        <td>: {{ $reg_name }}, {{ $allFormOneData->organization_address}}</td>
     </tr>
 
     <tr>
@@ -114,7 +114,7 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td></td>
         <td>(iii)</td>
         <td>প্রধান কার্যালয়ের ঠিকানা</td>
-        <td>: {{ $allformOneData->address_of_head_office }}</td>
+        <td>: {{ $allFormOneData->address_of_head_office }}</td>
     </tr>
     <tr>
         <td></td>
@@ -122,7 +122,7 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td>টেলিফোন নম্বর ,মোবাইল নম্বর ,ইমেইল  ও ওয়েব এড্রেস</td>
         <td>:
 
-             {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData ->org_phone) }},{{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData ->org_mobile) }},{{ $allformOneData ->org_email }}, {{ $allformOneData ->web_site_name }}
+             {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData ->org_phone) }},{{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData ->org_mobile) }},{{ $allFormOneData ->org_email }}, {{ $allFormOneData ->web_site_name }}
 
         </td>
     </tr>
@@ -136,16 +136,16 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td></td>
         <td></td>
         <td>ক) নাম</td>
-        <td>: {{ $allformOneData->name_of_head_in_bd }}</td>
+        <td>: {{ $allFormOneData->name_of_head_in_bd }}</td>
     </tr>
     <tr>
         <td></td>
         <td></td>
         <td>খ) জাতীয়তা</td>
-        <td>:          @if(!$allformOneData )
+        <td>:          @if(!$allFormOneData )
 
             @else
-            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData ->nationality) }}
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData ->nationality) }}
             @endif
         </td>
     </tr>
@@ -153,13 +153,13 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td></td>
         <td></td>
         <td>গ) পূর্ণকালীন/ খণ্ডকালীন</td>
-        <td>: {{ $allformOneData->job_type }}</td>
+        <td>: {{ $allFormOneData->job_type }}</td>
     </tr>
     <tr>
         <td></td>
         <td></td>
         <td>ঘ) ঠিকানা,টেলিফোন নম্বর ,মোবাইল নম্বর, ইমেইল</td>
-        <td>:{{ $allformOneData->address }}, {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->tele_phone_number) }}, {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData ->phone) }}, {{ $allformOneData->email }}</td>
+        <td>:{{ $allFormOneData->address }}, {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->tele_phone_number) }}, {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData ->phone) }}, {{ $allFormOneData->email }}</td>
     </tr>
     <tr>
         <td></td>
@@ -167,13 +167,13 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td>ঙ) নাগরিকত্ব (পূর্বতন নাগরিকত্ব যদি থাকে তাও উল্লেখ
             করতে হবে)
         </td>
-        <td>: {{ $allformOneData->citizenship }}</td>
+        <td>: {{ $allFormOneData->citizenship }}</td>
     </tr>
     <tr>
         <td></td>
         <td></td>
         <td>চ) পেশা (বর্তমান পেশা উল্লেখ করতে হবে)</td>
-        <td>: {{ $allformOneData->profession }}</td>
+        <td>: {{ $allFormOneData->profession }}</td>
     </tr>
 
     <tr>
@@ -182,11 +182,11 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         </td>
         <td>:
 
-            @if(!$allformOneData )
+            @if(!$allFormOneData )
 
 
             @else
-            @if(empty($allformOneData ->foregin_pdf))
+            @if(empty($allFormOneData ->foregin_pdf))
 
             @else
             সংযুক্ত
@@ -203,12 +203,12 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td>:             @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 
 
-            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->annual_budget) }}
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->annual_budget) }}
 
 
             @else
 
-            {{ $allformOneData->annual_budget }}
+            {{ $allFormOneData->annual_budget }}
 
             @endif</td>
     </tr>
@@ -294,11 +294,11 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
             কিনা (চালানের কপি সংযুক্ত করতে
             হবে)
         </td>
-        <td>: @if(!$allformOneData )
+        <td>: @if(!$allFormOneData )
 
 
             @else
-            @if(empty($allformOneData ->copy_of_chalan))
+            @if(empty($allFormOneData ->copy_of_chalan))
 
             @else
             সংযুক্ত
@@ -310,11 +310,11 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td>৬.</td>
         <td colspan="2">তফসিল -১ এ বর্ণিত যেকোন ফি এর ভ্যাট বকেয়া থাকলে পরিশোধ হয়েছে কিনা (চালানের কপি সংযুক্ত করতে হবে)
         </td>
-        <td>: @if(!$allformOneData )
+        <td>: @if(!$allFormOneData )
 
 
             @else
-            @if(empty($allformOneData ->due_vat_pdf))
+            @if(empty($allFormOneData ->due_vat_pdf))
 
             @else
             সংযুক্ত
@@ -367,11 +367,11 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
         <td>৮.</td>
         <td colspan="2">ব্যাংক হিসাব নম্বর পরিবর্তন হয়ে থাকলে ব্যুরোর অনুমোদনপত্রের কপি সংযুক্ত করতে হবে
         </td>
-        <td>: @if(!$allformOneData )
+        <td>: @if(!$allFormOneData )
 
 
             @else
-            @if(empty($allformOneData->change_ac_number))
+            @if(empty($allFormOneData->change_ac_number))
 
             @else
             সংযুক্ত
@@ -388,10 +388,10 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
 <table style=" margin-top: 15px;width:100%">
 
     <tr>
-        <td style="text-align: right; padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/') }}{{ $allformOneData->digital_signature}}"/></td>
+        <td style="text-align: right; padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/') }}{{ $getNgoCeoPdf->ceo_signature}}"/></td>
     </tr>
     <tr>
-        <td style="text-align: right; padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/') }}{{ $allformOneData->digital_seal}}"/></td>
+        <td style="text-align: right; padding-right: 14%" colspan="3"><img width="150" height="60" src="{{ asset('/') }}{{ $getNgoCeoPdf->ceo_seal}}"/></td>
     </tr>
 </table>
 
@@ -402,19 +402,19 @@ $reg_name = DB::table('fd_one_forms')->where('user_id',$allformOneData->user_id)
             <tr>
                 <td style="width: 65%"></td>
                 <td style="text-align: left; width:5%;">নাম</td>
-                <td style="width:30%; text-align: left;">: {{ $allformOneData->chief_name }}</td>
+                <td style="width:30%; text-align: left;">: {{ $getNgoCeoPdf->ceo_name }}</td>
             </tr>
             <tr>
                 <td style="width: 65%"></td>
                 <td style="text-align: left; width: 5%;">পদবি</td>
-                <td style="width:30%; text-align: left;">: {{ $allformOneData->chief_desi }}</td>
+                <td style="width:30%; text-align: left;">: {{ $getNgoCeoPdf->ceo_designation }}</td>
             </tr>
 
             <tr>
                 <td style="width: 65%"></td>
                 <td style="text-align: left; width: 5%;">তারিখ</td>
 
-                <td style="width:30%; text-align: left;">: {{  App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->created_at->format('d/m/Y')) }}</td>
+                <td style="width:30%; text-align: left;">: {{  App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->created_at->format('d/m/Y')) }}</td>
 
             </tr>
         </table>

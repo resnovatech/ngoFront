@@ -26,6 +26,7 @@ use App\Models\FdOneBankAccount;
 use App\Models\FdOneAdviserList;
 use App\Models\FdOneSourceOfFund;
 use App\Models\FdOneMemberList;
+use App\Models\NgoCeoInfo;
 use Response;
 use Session;
 use App\Models\NgoRenew;
@@ -236,7 +237,19 @@ class OtherformController extends Controller
     }
     public function ngoTypeAndLanguage(){
 
+        $getCeoInfoList =  NgoCeoInfo::where('user_id', Auth::user()->id)
+        ->where('status',1)->orderBy('id','desc')->first();
+
+        if(!$getCeoInfoList){
+
+
+            return redirect()->route('ngoCeoInfo.create')->with('success','please ceo information first');
+
+
+        }else{
+
         return view('front.firstTwoStep.ngoTypeAndLanguage');
+        }
     }
 
 
@@ -333,6 +346,17 @@ class OtherformController extends Controller
         try{
             DB::beginTransaction();
 
+            $getCeoInfoList =  NgoCeoInfo::where('user_id', Auth::user()->id)
+            ->where('status',1)->orderBy('id','desc')->first();
+
+            if(!$getCeoInfoList){
+
+
+                return redirect()->route('ngoCeoInfo.create')->with('success','please ceo information first');
+
+
+            }else{
+
             CommonController::checkNgotype(1);
 
             $first_form_check = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('first_one_form_check_status');
@@ -348,131 +372,105 @@ class OtherformController extends Controller
                 $newOldNgo = CommonController::newOldNgo();
                 
                 if($newOldNgo != 'Old'){
-                $get_reg_id = DB::table('ngo_statuses')->where('fd_one_form_id',$fdOneFormId)->value('status');
+                    $get_reg_id = DB::table('ngo_statuses')->where('fd_one_form_id',$fdOneFormId)->value('status');
                 }else{
-                $get_reg_id = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)->value('status');
+                    $get_reg_id = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)->value('status');
                 }
                 $mainNgoType = CommonController::changeView();
 
                 if(empty($get_reg_id)){
 
                    
-                $checkCompleteStatusData = DB::table('form_complete_statuses')
-                ->where('user_id',Auth::user()->id)
-                ->first();
+                    $checkCompleteStatusData = DB::table('form_complete_statuses')
+                    ->where('user_id',Auth::user()->id)
+                    ->first();
 
-                $checkCompleteStatus = DB::table('form_complete_statuses')
-                ->where('user_id',Auth::user()->id)
-                ->where('fd_one_form_step_one_status',1)
-                ->where('fd_one_form_step_two_status',1)
-                ->where('fd_one_form_step_three_status',1)
-                ->where('fd_one_form_step_four_status',1)
-                ->where('form_eight_status',1)
-                ->where('ngo_member_status',1)
-                ->where('ngo_member_nid_photo_status',1)
-                ->where('ngo_other_document_status',1)
-                ->value('id');
+                    $checkCompleteStatus = DB::table('form_complete_statuses')
+                    ->where('user_id',Auth::user()->id)
+                    ->where('fd_one_form_step_one_status',1)
+                    ->where('fd_one_form_step_two_status',1)
+                    ->where('fd_one_form_step_three_status',1)
+                    ->where('fd_one_form_step_four_status',1)
+                    ->where('form_eight_status',1)
+                    ->where('ngo_member_status',1)
+                    ->where('ngo_member_nid_photo_status',1)
+                    ->where('ngo_other_document_status',1)
+                    ->value('id');
 
-                    ///first process before submit strat
-        $allParticularsOfOrganisation = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-        $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+                    $allParticularsOfOrganisation = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+                    $allFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
 
-        if(!$allFormOneData){
+                   if(!$allFormOneData){
 
-            $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',0)->get();
-            $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',0)->get();
-            $checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-            $countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',0)->count();
-            $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-            
-          
-            $get_all_data_adviser_bank_all = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',0)
-                            ->get();
-    
-                            $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',0)->first();
-                            $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',0)->get();
-                            $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',0)->get();
-                            $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',0)->get();
-                            $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',0)->get();
+                        $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',0)->get();
+                        $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',0)->get();
+                        $checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+                        $countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',0)->count();
+                        $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+                        $get_all_data_adviser_bank_all = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',0)->get();
+                        $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',0)->first();
+                        $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',0)->get();
+                        $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',0)->get();
+                        $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',0)->get();
+                        $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',0)->get();
 
-        }else{
-        $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
-        $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
-        $checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-        $countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->count();
-        $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-        
-      
-        $get_all_data_adviser_bank_all = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allFormOneData->id)
-                        ->get();
-
+                    }else{
+                        $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_form_id',$allFormOneData->id)->get();
+                        $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
+                        $checkNgoTypeForForeginNgoNewOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+                        $countUser = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->count();
+                        $getFormOneData = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+                        $get_all_data_adviser_bank_all = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allFormOneData->id)->get();
                         $get_all_data_adviser_bank = DB::table('fd_one_bank_accounts')->where('fd_one_form_id',$allFormOneData->id)->first();
                         $get_all_data_other= DB::table('fd_one_other_pdf_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
                         $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
                         $formOneMemberList = DB::table('fd_one_member_lists')->where('fd_one_form_id',$allFormOneData->id)->get();
                         $get_all_source_of_fund_data = DB::table('fd_one_source_of_funds')->where('fd_one_form_id',$allFormOneData->id)->get();
-        }
-        
+                    }
 
-      
-        $formEightData = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-        $formEightDataForSign = DB::table('form_eights')
-        ->where('fd_one_form_id',$fdOneFormId)
-        ->value('employee_add_status');
+                $formEightData = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+                $formEightDataForSign = DB::table('form_eights')
+                ->where('fd_one_form_id',$fdOneFormId)
+                ->value('employee_add_status');
 
-//dd(count($formEightData));
-        $formEightDataForSignMain = DB::table('form_eights')
-        ->where('fd_one_form_id',$fdOneFormId)
-        ->first();
-        $fromDateTo = DB::table('form_eights') ->where('fd_one_form_id',$fdOneFormId)->value('form_date');
+                $formEightDataForSignMain = DB::table('form_eights')
+                ->where('fd_one_form_id',$fdOneFormId)
+                ->first();
+                $fromDateTo = DB::table('form_eights') ->where('fd_one_form_id',$fdOneFormId)->value('form_date');
 
-                        if(empty($fromDateTo)){
+                if(empty($fromDateTo)){
 
-$newDate1 = date("d-m-Y");
-$newDate2 = date("d-m-Y");
-$to_total_year = '';
-}else{
+                    $newDate1 = date("d-m-Y");
+                    $newDate2 = date("d-m-Y");
+                    $to_total_year = '';
+                }else{
 
+                    $from_date_to = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->value('form_date');
+                    $newDate1 = date("d-m-Y", strtotime($from_date_to));
+                    $to_date_to = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->value('to_date');
+                    $newDate2 = date("d-m-Y", strtotime($to_date_to));
+                    $to_total_year = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->value('total_year');
 
-
-$from_date_to = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->value('form_date');
-
-$newDate1 = date("d-m-Y", strtotime($from_date_to));
-
+                }
 
 
-$to_date_to = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->value('to_date');
-
-// $newDate2 = \Carbon\Carbon::createFromFormat('d/m/Y', $to_date_to)
-// ->format('Y-m-d');;
-$newDate2 = date("d-m-Y", strtotime($to_date_to));
-//dd($newDate2);
-$to_total_year = DB::table('form_eights')->where('fd_one_form_id',$fdOneFormId)->value('total_year');
-}
+                $ngoMemberLists = DB::table('ngo_member_lists')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+                $ngoMemberDocLists = DB::table('ngo_member_nid_photos')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
 
 
-$ngoMemberLists = DB::table('ngo_member_lists')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+               if($mainNgoType== 'দেশিও'){
 
-                        $ngoMemberDocLists = DB::table('ngo_member_nid_photos')
-                        ->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+                    $localNgoTypemNew = NgoTypeAndLanguage::where('user_id',Auth::user()->id)->where('ngo_type','দেশিও')->value('ngo_type_new_old');
 
-
-    if($mainNgoType== 'দেশিও'){
-
-        $localNgoTypemNew = NgoTypeAndLanguage::where('user_id',Auth::user()->id)
-        ->where('ngo_type','দেশিও')->value('ngo_type_new_old');
-
-
-      
-
-if($localNgoTypemNew == 'Old'){
-    $ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-    $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->first();
-}else{
-    $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
-}
-
+                    if($localNgoTypemNew == 'Old'){
+                        $ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+                        $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->first();
                     }else{
+                        $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+                        $ngoOtherDocListsFirst=0;
+                    }
+
+                }else{
 
                         $foreignNgoTypeNew = NgoTypeAndLanguage::where('user_id',Auth::user()->id)
                         ->where('ngo_type','Foreign')->value('ngo_type_new_old');
@@ -481,25 +479,18 @@ if($localNgoTypemNew == 'Old'){
                             $ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
                             $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->first();
                         }else{
+                            $ngoOtherDocListsFirst=0;
                             $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
                         }
 
 
-                    }
+                }
 
+                $oldNgoRegNumber = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
 
-                    ///first process before submit end 
+           
 
-                    ///second process before submit strat
-
-                    $oldNgoRegNumber = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-
-
-
-                    ///second process before submit end 
-
-
-                }else{
+            }else{
 
 
                     ///after submit all registration and Renew Data to ngo start
@@ -507,13 +498,14 @@ if($localNgoTypemNew == 'Old'){
 
                    ///after submit all registration and Renew Data to ngo end
 
-                }
+            }
 
                 return view('front.firstTwoStep.ngoAllRegistrationForm',
                 compact(
+                    'getCeoInfoList',
                     'get_all_source_of_fund_data',
                     'oldNgoRegNumber',
-'ngoOtherDocListsFirst',
+                    'ngoOtherDocListsFirst',
                     'ngoOtherDocLists',
                     'ngoMemberDocLists',
                     'ngoMemberLists',
@@ -549,6 +541,7 @@ if($localNgoTypemNew == 'Old'){
                 return view('front.firstTwoStep.ngoTypeAndLanguage',compact('mainNgoType'));
 
             }
+        }
         } catch (\Exception $e) {
             DB::rollBack();
             return $e;

@@ -15,7 +15,7 @@
     @if($mainNgoType == 'দেশিও')
     @if($localNgoTypem == 'Old')
     <input type="hidden" data-parsley-required  name="স্থান" value="0"  class="form-control" id="mainPlace" placeholder="স্থান">
-    <input type="hidden" data-parsley-required  name="id"  value="{{ $allformOneData->id }}" class="form-control" id="mainId">
+    <input type="hidden" data-parsley-required  name="id"  value="{{ $allFormOneData->id }}" class="form-control" id="mainId">
     <button class="btn  btn-success" id="downloadButtonNew" data-toggle="tooltip" data-placement="top" title="{{ trans('form 8_bn.download_pdf')}}">
         <i class="fa fa-print"></i>
    </button>
@@ -52,7 +52,7 @@
                              <td></td>
                              <td>(i)</td>
                              <td>{{ trans('fd_one_step_one.Organization_Name_Organization_address')}}</td>
-                             <td>: {{ $allformOneData->organization_name }},{{ $allformOneData->organization_address }}</td>
+                             <td>: {{ $allFormOneData->organization_name }},{{ $allFormOneData->organization_address }}</td>
                          </tr>
 
                          <tr>
@@ -83,14 +83,14 @@
                              <td></td>
                              <td>(iii)</td>
                              <td>{{ trans('fd_one_step_one.Address_of_the_Head_Office')}}</td>
-                             <td>: {{ $allformOneData->address_of_head_office }}</td>
+                             <td>: {{ $allFormOneData->address_of_head_office }}</td>
                          </tr>
                          @else
                          <tr>
                              <td></td>
                              <td>(iii)</td>
                              <td>{{ trans('fd_one_step_one.Address_of_the_Head_Office')}}</td>
-                             <td>: {{ $allformOneData->address_of_head_office_eng }}</td>
+                             <td>: {{ $allFormOneData->address_of_head_office_eng }}</td>
                          </tr>
 
                          @endif
@@ -100,8 +100,8 @@
                             <td></td>
                             <td>টেলিফোন নম্বর, মোবাইল নম্বর, ইমেইল এবং ওয়েব এড্রেস</td>
                             <td>:
-                       {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->org_phone) }}, {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->org_mobile) }},
-                       {{ $allformOneData->org_email }} এবং {{ $allformOneData->web_site_name }}
+                       {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->org_phone) }}, {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->org_mobile) }},
+                       {{ $allFormOneData->org_email }} এবং {{ $allFormOneData->web_site_name }}
                             </td>
                         </tr>
 
@@ -115,14 +115,14 @@
                              <td></td>
                              <td></td>
                              <td>{{ trans('form 8_bn.a')}}) {{ trans('fd_one_step_one.name')}}</td>
-                             <td>: {{ $allformOneData->name_of_head_in_bd }}</td>
+                             <td>: {{ $allFormOneData->name_of_head_in_bd }}</td>
                          </tr>
 
                             <?php
                         
                            if($mainNgoType =='দেশিও'){
 
-                             if($allformOneData->job_type == 'Full-Time'){
+                             if($allFormOneData->job_type == 'Full-Time'){
 
                                $getJobType = 'পূর্ণকালীন';
                              }else{
@@ -130,7 +130,7 @@
                              }
 
                            }else{
-                            $getJobType =$allformOneData->job_type;
+                            $getJobType =$allFormOneData->job_type;
                            }
 
                            ?>
@@ -139,7 +139,7 @@
     <td></td>
     <td></td>
     <td>{{ trans('form 8_bn.b')}}) জাতীয়তা</td>
-    <td>: {{ $allformOneData->nationality }}</td>
+    <td>: {{ $allFormOneData->nationality }}</td>
 </tr>
                          <tr>
                              <td></td>
@@ -151,20 +151,20 @@
                              <td></td>
                              <td></td>
                              <td>{{ trans('form 8_bn.d')}}) {{ trans('fd_one_step_one.Address')}},টেলিফোন নম্বর, {{ trans('fd_one_step_one.Mobile_Number')}}, {{ trans('fd_one_step_one.Email')}}</td>
-                             <td>: {{ $allformOneData->address }},{{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->tele_phone_number) }},
+                             <td>: {{ $allFormOneData->address }},{{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->tele_phone_number) }},
                                  @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
-                                 {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->phone) }},
+                                 {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->phone) }},
                                  @else
-                                 {{ $allformOneData->phone }},
+                                 {{ $allFormOneData->phone }},
                                  @endif
-                                 {{ $allformOneData->email }}</td>
+                                 {{ $allFormOneData->email }}</td>
                          </tr>
                           <?php
                              if($mainNgoType =='দেশিও'){
-                             $getCityzendata = $allformOneData->citizenship;
+                             $getCityzendata = $allFormOneData->citizenship;
                              }else{
 
-                             $getCityzendata = $allformOneData->citizenship;
+                             $getCityzendata = $allFormOneData->citizenship;
                              }
 
 
@@ -180,17 +180,17 @@
                              <td></td>
                              <td></td>
                              <td>{{ trans('form 8_bn.f')}}) {{ trans('fd_one_step_one.Profession')}}</td>
-                             <td>: {{ $allformOneData->profession }}</td>
+                             <td>: {{ $allFormOneData->profession }}</td>
                          </tr> --}}
                          <tr>
                              <td>{{ trans('fd_one_step_one.two')}}.</td>
                              <td colspan="3">বিগত ১০(দশ ) বছরের বৈদেশিক অনুদানে পরিচালিত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথ্যাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে ):
                              </td>
                              <td>
-                                @if(empty($allformOneData ->foregin_pdf))
+                                @if(empty($allFormOneData ->foregin_pdf))
 
                                 @else
-                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'foregin_pdf', 'id' =>$allformOneData->id] )}}" class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> Open </a>
+                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'foregin_pdf', 'id' =>$allFormOneData->id] )}}" class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> Open </a>
                                 @endif
                             </td>
                          </tr>
@@ -203,12 +203,12 @@
                                  @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
 
 
-                                 {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allformOneData->annual_budget) }}
+                                 {{ App\Http\Controllers\NGO\CommonController::englishToBangla($allFormOneData->annual_budget) }}
 
 
                                  @else
 
-                                 {{ $allformOneData->annual_budget }}
+                                 {{ $allFormOneData->annual_budget }}
 
                                  @endif
 
@@ -339,10 +339,10 @@
                                 হবে)
                              </td>
                              <td>:
-                                @if(empty($allformOneData->copy_of_chalan))
+                                @if(empty($allFormOneData->copy_of_chalan))
 
                                 @else
-                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'copy_of_chalan', 'id' =>$allformOneData->id] )}}"
+                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'copy_of_chalan', 'id' =>$allFormOneData->id] )}}"
                                     class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> Open </a>
                                 @endif
                                 </td>
@@ -352,10 +352,10 @@
                              <td colspan="2">তফসিল-১ এ বর্ণিত যে কোনো ফি এর  ভ্যাট বকেয়া থাকলে পরিশোধ করা হয়েছে কি না (চালানের অনুলিপি সংযুক্ত করতে হবে)
                              </td>
                              <td>:
-                                @if(empty($allformOneData->due_vat_pdf))
+                                @if(empty($allFormOneData->due_vat_pdf))
 
                                 @else
-                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'due_vat_pdf', 'id' =>$allformOneData->id] )}}"
+                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'due_vat_pdf', 'id' =>$allFormOneData->id] )}}"
                                     class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> Open </a>
                                 @endif
 
@@ -416,10 +416,10 @@
                              </td>
                              <td>:
 
-                                @if(empty($allformOneData->change_ac_number))
+                                @if(empty($allFormOneData->change_ac_number))
 
                                 @else
-                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'change_ac_number', 'id' =>$allformOneData->id] )}}"
+                                <a target="_blank"  href="{{ route('renewFileDownloadFromView', ['title' =>'change_ac_number', 'id' =>$allFormOneData->id] )}}"
                                     class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> Open </a>
                                 @endif
 
