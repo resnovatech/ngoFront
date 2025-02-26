@@ -30,16 +30,7 @@
                 </div>
                 <div class="right-side">
 
-                    <?php
-
-                    $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-                                               ->value('ngo_type');
-
-        $lastRenewDataPdf =DB::table('ngo_renew_infos')
-        ->where('user_id',Auth::user()->id)
-        ->orderBy('id','desc')->first();
-
-                                                    ?>
+                  
 
 @if($checkNgoTypeForForeginNgo == 'Foreign')
 

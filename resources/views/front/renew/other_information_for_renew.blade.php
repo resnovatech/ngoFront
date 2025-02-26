@@ -30,12 +30,6 @@
                 </div>
                 <div class="right-side">
 
-                    <?php
-
-                    $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
-                                               ->value('ngo_type');
-
-                                                    ?>
 
 @if($checkNgoTypeForForeginNgo == 'Foreign')
 
@@ -167,14 +161,7 @@
                         </div>
 
                         <div class="buttons d-flex justify-content-end mt-4">
-                            <?php
-
-                            $lastRenewData =DB::table('ngo_renew_infos')
-                            ->where('user_id',Auth::user()->id)
-                            ->orderBy('id','desc')->value('id');
-
-
-                                                ?>
+                           
                                                 <a href="{{ route('ngoRenewStepFour',base64_encode($lastRenewData)) }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
                             <button class="btn btn-custom submit_button" type="submit" >জমা দিন</button>
                         </div>
@@ -329,14 +316,7 @@
     </div>
 
     <div class="buttons d-flex justify-content-end mt-4">
-        <?php
-
-        $lastRenewData =DB::table('ngo_renew_infos')
-        ->where('user_id',Auth::user()->id)
-        ->orderBy('id','desc')->value('id');
-
-
-                            ?>
+       
                             <a href="{{ route('ngoRenewStepFour',base64_encode($lastRenewData)) }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
         <button class="btn btn-custom submit_button" type="submit" >জমা দিন </button>
     </div>

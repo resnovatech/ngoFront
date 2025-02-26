@@ -27,19 +27,7 @@
 
                 </div>
                 <div class="right-side">
-                    <?php
-
-                    $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-
-
-                                    ?>
-
-
-
-<?php
-$get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
-            ->whereNotNull('country_people_bangla')->orderBy('id','asc')->get();
-?>
+                 
 
                 <input type="hidden" class="form-control" value="{{ $get_all_data_1->id }}" name="fd_one_id"  id="">
             <div class="main active">
@@ -77,11 +65,7 @@ $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_eng
                            <span class="text-danger">{{ trans('fd_one_step_three.staff_position1')}}</span>
                         </h5>
                     </div>
-                        <?php
-                        $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-
-                       ?>
+                       
 
                         <!-- new code start --->
 
@@ -348,14 +332,7 @@ $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_eng
 
                 <div class="buttons d-flex justify-content-end mt-4">
 
-                    <?php
-
-$lastRenewData =DB::table('ngo_renew_infos')
-->where('user_id',Auth::user()->id)
-->orderBy('id','desc')->value('id');
-
-
-                    ?>
+                
                     <a href="{{ route('ngoRenewStepTwo',base64_encode($lastRenewData)) }}" class="btn btn-dark back_button me-2">{{ trans('fd_one_step_one.back')}}</a>
 
                     <a href="{{ route('ngoRenewStepFour',base64_encode($lastRenewData)) }}" class="btn btn-custom next_button" >{{ trans('fd_one_step_one.Next_Step')}}</a>

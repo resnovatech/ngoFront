@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('nationality')->nullable();
             $table->string('verified_form')->nullable();
             $table->string('chief_name')->nullable();
+            $table->string('ceoTableId')->nullable();
             $table->string('chief_desi')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();

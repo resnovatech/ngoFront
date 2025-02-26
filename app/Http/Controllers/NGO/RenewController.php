@@ -8,6 +8,7 @@ use DB;
 use Response;
 use App\Models\NgoTypeAndLanguage;
 use App\Models\FormEight;
+use App\Models\NgoCeoInfo;
 use App\Models\FdOneMemberList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -103,11 +104,15 @@ class RenewController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
+            $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
+             $name_change_list = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId )->latest()->value('status');
+   
+
             if($mainNgoType== 'দেশিও'){
 
-            return view('front.renew.renew',compact('ngo_list_all','name_change_list_all'));
+            return view('front.renew.renew',compact('ngo_list_all','name_change_list_all','fdOneFormId','name_change_list'));
             }else{
-                return view('front.renew.foreign.renew',compact('ngo_list_all','name_change_list_all'));
+                return view('front.renew.foreign.renew',compact('ngo_list_all','name_change_list_all','fdOneFormId','name_change_list'));
             }
 
         } catch (\Exception $e) {
@@ -130,11 +135,31 @@ class RenewController extends Controller
         CommonController::checkNgotype(1);
         $mainNgoType = CommonController::changeView();
 
-        if($mainNgoType== 'দেশিও'){
-                return view('front.renew.ngo_renew_list_new',compact('get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
-        }else{
-            return view('front.renew.foreign.ngo_renew_list_new',compact('get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
-        }
+        $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+
+
+
+    $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
+
+
+    $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
+    ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
+
+    $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+
+
+    $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+
+$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
+                                    
+
+$get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
+
+if($mainNgoType== 'দেশিও'){
+    return view('front.renew.ngo_renew_list_new',compact('get_all_data_1','mainNgoType','get_all_data_new_first','registrationNumberForOld','mainNgoTypeRenew','get_country_type','get_cityzenship_data','query_to_get_data','get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
+}else{
+return view('front.renew.foreign.ngo_renew_list_new',compact('get_all_data_1','mainNgoType','get_all_data_new_first','registrationNumberForOld','mainNgoTypeRenew','get_country_type','get_cityzenship_data','query_to_get_data','get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
+}
 
         } catch (\Exception $e) {
 
@@ -154,10 +179,36 @@ class RenewController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
+         
+
+$get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+
+
+
+    $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
+
+
+    $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
+    ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
+
+    $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+
+
+    $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+
+$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
+                                    
+
+$get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
+
+
+
+  
+
             if($mainNgoType== 'দেশিও'){
-                    return view('front.renew.ngo_renew_list_new',compact('get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
+                    return view('front.renew.ngo_renew_list_new',compact('get_all_data_1','mainNgoType','get_all_data_new_first','registrationNumberForOld','mainNgoTypeRenew','get_country_type','get_cityzenship_data','query_to_get_data','get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
             }else{
-                return view('front.renew.foreign.ngo_renew_list_new',compact('get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
+                return view('front.renew.foreign.ngo_renew_list_new',compact('get_all_data_1','mainNgoType','get_all_data_new_first','registrationNumberForOld','mainNgoTypeRenew','get_country_type','get_cityzenship_data','query_to_get_data','get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
             }
 
             } catch (\Exception $e) {
@@ -297,11 +348,11 @@ class RenewController extends Controller
 
     public function storeRenewInformationList(Request $request){
 
-            $request->validate([
+            // $request->validate([
 
-                'digital_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:60|dimensions:width=300,height=80',
-                'digital_seal' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:80|dimensions:width=300,height=100',
-            ]);
+            //     'digital_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:60|dimensions:width=300,height=80',
+            //     'digital_seal' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:80|dimensions:width=300,height=100',
+            // ]);
 
         try{
 
@@ -310,8 +361,12 @@ class RenewController extends Controller
             $time_dy = time().date("Ymd");
             $filePath="NgoRenewInfo";
 
+            $getCeoInfoListId =  NgoCeoInfo::where('user_id', Auth::user()->id)
+            ->where('status',1)->orderBy('id','desc')->value('id');
+
             $ngoRenew = new NgoRenewInfo();
             $ngoRenew->fd_one_form_id = $request->id;
+            $ngoRenew->ceoTableId = $getCeoInfoListId;
             $ngoRenew->user_id = Auth::user()->id;
             $ngoRenew->registration_number = $request->registration_number;
             $ngoRenew->organization_name = $request->organization_name;
@@ -404,13 +459,36 @@ class RenewController extends Controller
            CommonController::checkNgotype(1);
            $mainNgoType = CommonController::changeView();
 
+           $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',$all_partiw1->user_id)->value('ngo_type');
+           $reg_name = DB::table('fd_one_forms')->where('user_id',$all_partiw1->user_id)->value('organization_name_ban');
+           
+           $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+
+           $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
+
+           $ngoTypeInfo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+
+
+           $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
+
+
+if($mainNgoTypeRenew == 'Old' || $mainNgoTypeRenew == 'New'){
+$ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+$ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$fdOneFormId)->first();
+}else{
+    $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',0)->first();
+$ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$fdOneFormId)->latest()->get();
+}
+
+
+
             if($mainNgoType== 'দেশিও'){
 
-            return view('front.renew.renewInfo',compact('get_all_data_adviser_bank','all_partiw1','all_partiw','get_all_data_new','getUserIdFrom'));
+            return view('front.renew.renewInfo',compact('ngoOtherDocListsFirst','ngoOtherDocLists','fdOneFormId','ngoTypeInfo','registrationNumberForOld','mainNgoTypeRenew','reg_name','getngoForLanguage','get_all_data_adviser_bank','all_partiw1','all_partiw','get_all_data_new','getUserIdFrom'));
 
             }else{
 
-                return view('front.renew.foreign.renewInfo',compact('get_all_data_adviser_bank','all_partiw1','all_partiw','get_all_data_new','getUserIdFrom'));
+                return view('front.renew.foreign.renewInfo',compact('ngoOtherDocListsFirst','ngoOtherDocLists','fdOneFormId','ngoTypeInfo','registrationNumberForOld','mainNgoTypeRenew','reg_name','getngoForLanguage','get_all_data_adviser_bank','all_partiw1','all_partiw','get_all_data_new','getUserIdFrom'));
 
             }
         } catch (\Exception $e) {
@@ -499,13 +577,23 @@ class RenewController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
+            $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+            $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')->whereNotNull('country_people_bangla')->orderBy('id','asc')->get();
+            $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+            
+            $lastRenewData =DB::table('ngo_renew_infos')
+            ->where('user_id',Auth::user()->id)
+            ->orderBy('id','desc')->value('id');
+
+
+
             if($mainNgoType== 'দেশিও'){
 
-                return view('front.renew.all_staff_information_for_renew',compact('all_partiw'));
+                return view('front.renew.all_staff_information_for_renew',compact('lastRenewData','get_country_type','get_cityzenship_data','get_all_data_1','all_partiw'));
 
             }else{
 
-                return view('front.renew.foreign.all_staff_information_for_renew',compact('all_partiw'));
+                return view('front.renew.foreign.all_staff_information_for_renew',compact('lastRenewData','get_country_type','get_cityzenship_data','get_all_data_1','all_partiw'));
 
             }
 
@@ -524,9 +612,16 @@ class RenewController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
+ $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
+                                               ->value('ngo_type');
+                         
 
-
-            return view('front.renew.other_information_for_renew',compact('all_partiw'));
+                                               $lastRenewData =DB::table('ngo_renew_infos')
+                                               ->where('user_id',Auth::user()->id)
+                                               ->orderBy('id','desc')->value('id');
+                   
+                                        
+            return view('front.renew.other_information_for_renew',compact('all_partiw','checkNgoTypeForForeginNgo','lastRenewData'));
 
 
         } catch (\Exception $e) {
@@ -546,7 +641,14 @@ class RenewController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
-            return view('front.renew.ngoRenewStepFour',compact('all_partiw','mainId'));
+            $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
+            ->value('ngo_type');
+
+$lastRenewDataPdf =DB::table('ngo_renew_infos')
+->where('user_id',Auth::user()->id)
+->orderBy('id','desc')->first();
+
+            return view('front.renew.ngoRenewStepFour',compact('all_partiw','mainId','checkNgoTypeForForeginNgo','lastRenewDataPdf'));
 
 
         } catch (\Exception $e) {
@@ -1000,9 +1102,26 @@ class RenewController extends Controller
 
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
+       
 
+            $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+         
+            $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
+                        
+            $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
+                            ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
+                        
+            $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+                        
+            $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
+                        
+            $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
+             
+            $get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
 
-                return view('front.renew.ngoRenewStepTwo',compact('mainId','get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
+ 
+
+                return view('front.renew.ngoRenewStepTwo',compact('get_all_data_1','query_to_get_data','get_cityzenship_data','get_country_type','mainNgoTypeRenew','registrationNumberForOld','get_all_data_new_first','registrationNumberForOld','mainNgoTypeRenew','get_country_type','get_cityzenship_data','query_to_get_data','get_all_data_1','mainId','get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
 
 
             } catch (\Exception $e) {

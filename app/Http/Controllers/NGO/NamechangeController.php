@@ -34,10 +34,14 @@ class NamechangeController extends Controller
 
         $mainNgoType = CommonController::changeView();
 
+        $fdOneFormid = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+        $name_change_list = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormid->id)
+                     ->latest()->value('status');
+
         if($mainNgoType== 'দেশিও'){
-        return view('front.name_change.name_change',compact('ngo_list_all','name_change_list_all'));
+        return view('front.name_change.name_change',compact('ngo_list_all','name_change_list_all','fdOneFormid','name_change_list'));
         }else{
-            return view('front.name_change.foreign.name_change',compact('ngo_list_all','name_change_list_all'));
+            return view('front.name_change.foreign.name_change',compact('ngo_list_all','name_change_list_all','fdOneFormid','name_change_list'));
         }
     }
 
@@ -53,10 +57,17 @@ class NamechangeController extends Controller
 
         $mainNgoType = CommonController::changeView();
 
+       
+
+        $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
+        $users = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormId)->value('present_name_eng');
+        $users1 = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormId)->value('present_name_ban');
+       
+
         if($mainNgoType== 'দেশিও'){
-        return view('front.name_change.namechangeApplicationEdit',compact('ngo_list_all','name_change_list_all'));
+        return view('front.name_change.namechangeApplicationEdit',compact('ngo_list_all','name_change_list_all','fdOneFormId','users','users1'));
         }else{
-            return view('front.name_change.foreign.namechangeApplicationEdit',compact('ngo_list_all','name_change_list_all'));
+            return view('front.name_change.foreign.namechangeApplicationEdit',compact('ngo_list_all','name_change_list_all','fdOneFormId','users','users1'));
         }
 
     }
@@ -99,12 +110,15 @@ class NamechangeController extends Controller
         CommonController::checkNgotype(1);
 
         $mainNgoType = CommonController::changeView();
-
+        $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
+        $users = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormId)->value('present_name_eng');
+        $users1 = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormId)->value('present_name_ban');
+                                
         if($mainNgoType== 'দেশিও'){
 
-        return view('front.name_change.send_name_change_page',compact('ngo_list_all'));
+        return view('front.name_change.send_name_change_page',compact('ngo_list_all','fdOneFormId','users','users1'));
         }else{
-            return view('front.name_change.foreign.send_name_change_page',compact('ngo_list_all'));
+            return view('front.name_change.foreign.send_name_change_page',compact('ngo_list_all','fdOneFormId','users','users1'));
         }
     }
 
@@ -178,10 +192,18 @@ class NamechangeController extends Controller
         CommonController::checkNgotype(1);
         $mainNgoType = CommonController::changeView();
 
+        $fdOneFormid = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+                    $name_change_list = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormid->id)->latest()->value('status');
+        
+        
+        
+        
+                
+
         if($mainNgoType== 'দেশিও'){
-            return view('front.name_change.nameChangeView',compact('nameChangeInfoDoc','fdOneFormInfo','nameChangeInfo'));
+            return view('front.name_change.nameChangeView',compact('fdOneFormid','name_change_list','nameChangeInfoDoc','fdOneFormInfo','nameChangeInfo'));
         }else{
-            return view('front.name_change.foreign.nameChangeView',compact('nameChangeInfoDoc','fdOneFormInfo','nameChangeInfo'));
+            return view('front.name_change.foreign.nameChangeView',compact('fdOneFormid','name_change_list','nameChangeInfoDoc','fdOneFormInfo','nameChangeInfo'));
 
         }
 
@@ -564,9 +586,9 @@ class NamechangeController extends Controller
         $mainNgoType = CommonController::changeView();
 
         if($mainNgoType== 'দেশিও'){
-                return view('front.name_change.add_other_doc',compact('ngo_list_all','form_eight_list'));
+                return view('front.name_change.add_other_doc',compact('ngo_list_all','form_eight_list','mainNgoType'));
         }else{
-            return view('front.name_change.foreign.add_other_doc',compact('ngo_list_all','form_eight_list'));
+            return view('front.name_change.foreign.add_other_doc',compact('ngo_list_all','form_eight_list','mainNgoType'));
         }
     }
 
@@ -583,11 +605,13 @@ class NamechangeController extends Controller
 
         $nameChangeInfoDoc = NameChangeDoc::where('ngo_name_change_id',base64_decode($id))->get();
 
+$fdOneFormid = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
+            $name_change_list = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOneFormid->id)->latest()->value('status');
 
         if($mainNgoType== 'দেশিও'){
-                return view('front.name_change.addOtherDocEdit',compact('nameChangeInfo','nameChangeInfoDoc','ngo_list_all','form_eight_list'));
+                return view('front.name_change.addOtherDocEdit',compact('name_change_list','fdOneFormid','mainNgoType','nameChangeInfo','nameChangeInfoDoc','ngo_list_all','form_eight_list'));
         }else{
-            return view('front.name_change.foreign.addOtherDocEdit',compact('nameChangeInfo','nameChangeInfoDoc','ngo_list_all','form_eight_list'));
+            return view('front.name_change.foreign.addOtherDocEdit',compact('name_change_list','fdOneFormid','mainNgoType','nameChangeInfo','nameChangeInfoDoc','ngo_list_all','form_eight_list'));
         }
     }
 

@@ -231,7 +231,11 @@ Route::group(['middleware' => ['auth']], function() {
     
 
     Route::resource('ngoCeoInfo',CeoInfoController::class);
+    Route::controller(CeoInfoController::class)->group(function () {
 
+        Route::get('ceoInfoUpdate/{id}', 'ceoInfoUpdate')->name('ceoInfoUpdate');
+
+    });
     Route::resource('complain',ComplainMonitorController::class);
 
     Route::controller(FD8Controller::class)->group(function () {

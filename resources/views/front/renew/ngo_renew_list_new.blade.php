@@ -65,12 +65,7 @@
 
                 @else
 
-                <?php
-
-$get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-
-
-                ?>
+                
 
                 @if(count($get_all_data_new) == 0)
 
@@ -81,21 +76,7 @@ $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->
     @csrf
 
 
-    <?php
-
-    $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
-
-
-    $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
-    ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
-
-    $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-
-    $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-
-$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-                                    ?>
+    
 <div class="main active">
 
     <div class="fd01_tablist">
@@ -225,7 +206,20 @@ $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id'
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
-                <input type="text" value="{{ $get_all_data_1->nationality }}"  data-parsley-required name="nationality" class="form-control" id="">
+                {{-- <input type="text" value="{{ $get_all_data_1->nationality }}"  data-parsley-required name="nationality" class="form-control" id=""> --}}
+
+                <select class="js-example-basic-single form-control" data-parsley-required name="nationality"
+                >
+                <option value="">{{ trans('civil.select')}}</option>
+                @foreach($getCityzenshipData as $allGetCityzenshipData)
+                @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
+                <option value="{{ $allGetCityzenshipData->country_people_bangla }}" {{$allGetCityzenshipData->country_people_bangla == $get_all_data_1->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_bangla }}</option>
+                @else
+            <option value="{{ $allGetCityzenshipData->country_people_english }}" {{$allGetCityzenshipData->country_people_english == $get_all_data_1->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_english }}</option>
+            @endif
+            @endforeach
+
+        </select>
             </div>
 
             <!--new code for ngo-->
@@ -270,8 +264,7 @@ $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id'
  $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
 //dd($convert_new_ass_cat);
 
-$ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
- ->value('ngo_type');
+
 
                     ?>
 
@@ -284,7 +277,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                 multiple="multiple" required>
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if($ngoType == 'Foreign')
+                @if($mainNgoType == 'Foreign')
                 <option value="{{ $all_get_cityzenship_data->country_people_english }}" {{ (in_array($all_get_cityzenship_data->country_people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_english }}</option>
 
                 @else
@@ -315,112 +308,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                                     <p id="annual_budget_file_text" class="text-danger mt-2" style="font-size:12px;"></p>
                                 </div> --}}
 
-                                <div class="mb-3">
-                                    <h5 class="form_middle_text">
-                                        প্রধান নির্বাহীর তথ্যাদি
-                                    </h5>
-                                </div>
-
-                                @if($mainNgoTypeRenew == 'Old')
-                                <!--new code for ngo-->
-                                <div class="mb-3">
-                                <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-                                     <input type="text" data-parsley-required  name="chief_name" value=""  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-                                    <input type="text" data-parsley-required value=""  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-                                </div>
-
-
-
-
-
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-                                        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-                <br>
-                                        <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-                <br>
-                                    <input type="hidden"  name="image_base64">
-                                    <div class="croppedInput mt-2">
-
-                                    </div>
-                                    <!-- new code for image cropper start --->
-                                    @include('front.signature_modal.sign_main_modal')
-                                    <!-- new code for image cropper end -->
-
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-                                        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-                                     <br>
-                                    <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-                                    <input type="hidden"  name="image_seal_base64">
-                                    <div class="croppedInputss mt-2">
-
-                                    </div>
-                                    <!-- new code for image cropper start --->
-                                    @include('front.signature_modal.seal_main_modal')
-                                    <!-- new code for image cropper end -->
-                                </div>
-                                <!-- end new code -->
-
-                                @else
-
- <!--new code for ngo-->
- <div class="mb-3">
-    <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-         <input type="text" data-parsley-required  name="chief_name"   class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-    </div>
-
-    <div class="mb-3">
-        <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-        <input type="text" data-parsley-required  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-    </div>
-
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-<br>
-            <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-<br>
-        <input type="hidden"  name="image_base64">
-        <div class="croppedInput mt-2">
-
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.sign_main_modal')
-        <!-- new code for image cropper end -->
-
-    </div>
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-         <br>
-        <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-        <input type="hidden"  name="image_seal_base64">
-        <div class="croppedInputss mt-2">
-
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.seal_main_modal')
-        <!-- new code for image cropper end -->
-    </div>
-    <!-- end new code -->
-    <!-- end new code -->
-
-                                @endif
+                            
 
 
     </div>
@@ -433,14 +321,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
 @else
 
-<?php
-   $get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
 
-   $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-
-$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-
-?>
 <form action="{{ route('updateRenewInformationList') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
     @csrf
 <div class="main active">
@@ -499,16 +380,7 @@ $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id'
 
 
 
-            <?php
-
-            $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
-
-
-            $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
-            ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
-
-            $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                            ?>
+           
 
 
 
@@ -582,7 +454,20 @@ $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id'
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
-                <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_new_first->nationality }}" class="form-control" id="">
+                {{-- <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_new_first->nationality }}" class="form-control" id=""> --}}
+
+                <select class="js-example-basic-single form-control" data-parsley-required name="nationality"
+                >
+                <option value="">{{ trans('civil.select')}}</option>
+                @foreach($getCityzenshipData as $allGetCityzenshipData)
+                @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
+                <option value="{{ $allGetCityzenshipData->country_people_bangla }}" {{$allGetCityzenshipData->country_people_bangla == $get_all_data_new_first->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_bangla }}</option>
+                @else
+            <option value="{{ $allGetCityzenshipData->country_people_english }}" {{$allGetCityzenshipData->country_people_english == $get_all_data_new_first->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_english }}</option>
+            @endif
+            @endforeach
+
+        </select>
             </div>
 
             <div class="mb-3">
@@ -605,8 +490,7 @@ $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id'
 
                     <?php
  $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
-$ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
- ->value('ngo_type');
+
                     ?>
 
 
@@ -618,7 +502,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                 multiple="multiple" required>
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if($ngoType == 'Foreign')
+                @if($mainNgoType == 'Foreign')
                 <option value="{{ $all_get_cityzenship_data->country_people_english }}" {{ (in_array($all_get_cityzenship_data->country_people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_english }}</option>
 
                 @else
@@ -696,59 +580,6 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
 
 
-
-    <div class="mb-3">
-        <h5 class="form_middle_text">
-            প্রধান নির্বাহীর তথ্যাদি
-        </h5>
-    </div>
-
-
-    <!--new code for ngo-->
-    <div class="mb-3">
-    <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-         <input type="text" data-parsley-required  name="chief_name" value="{{ $get_all_data_new_first->chief_name }}"  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-    </div>
-
-    <div class="mb-3">
-        <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-        <input type="text" data-parsley-required value="{{ $get_all_data_new_first->chief_desi }}"  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-    </div>
-
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-<br>
-            <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-<br>
-        <input type="hidden"  name="image_base64">
-        <div class="croppedInput mt-2">
-        <img src="{{asset('/')}}{{ $get_all_data_new_first->digital_signature }}" style="width: 200px;" class="show-image">
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.sign_main_modal')
-        <!-- new code for image cropper end -->
-
-    </div>
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-         <br>
-        <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-        <input type="hidden"  name="image_seal_base64">
-        <div class="croppedInputss mt-2">
-        <img src="{{asset('/')}}{{ $get_all_data_new_first->digital_seal }}" style="width: 200px;" class="show_image_seal">
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.seal_main_modal')
-        <!-- new code for image cropper end -->
-    </div>
-    <!-- end new code -->
     <!-- end new code -->
 
 

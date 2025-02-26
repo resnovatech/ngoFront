@@ -62,12 +62,7 @@
 
                 @else
 
-                <?php
-
-$get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-
-
-                ?>
+               
 
                 @if(count($get_all_data_new) == 0)
 
@@ -94,26 +89,6 @@ $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->
 
     <div class="mt-3">
 
-        {{-- <div class="mb-3">
-            <label for="" class="form-label">Registration Number (নিবন্ধন নম্বর)</label>
-            <input required="" name="registration_number" value="{{ Session::get('registration_number') }}" type="text" class="form-control" id="">
-        </div> --}}
-
-
-        <?php
-
-        $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
-
-
-        $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
-        ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
-
-        $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-        $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-
-        $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-                                        ?>
 
 
 
@@ -225,7 +200,19 @@ $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
-                <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_1->nationality }}" class="form-control" id="">
+                {{-- <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_1->nationality }}" class="form-control" id=""> --}}
+                <select class="js-example-basic-single form-control" data-parsley-required name="nationality"
+                >
+                <option value="">{{ trans('civil.select')}}</option>
+                @foreach($getCityzenshipData as $allGetCityzenshipData)
+                @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
+                <option value="{{ $allGetCityzenshipData->country_people_bangla }}" {{$allGetCityzenshipData->country_people_bangla == $get_all_data_1->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_bangla }}</option>
+                @else
+            <option value="{{ $allGetCityzenshipData->country_people_english }}" {{$allGetCityzenshipData->country_people_english == $get_all_data_1->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_english }}</option>
+            @endif
+            @endforeach
+
+        </select>
             </div>
 
 
@@ -255,9 +242,6 @@ $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->
  $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
 //dd($convert_new_ass_cat);
 
-$ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
- ->value('ngo_type');
-
                     ?>
 
 
@@ -269,7 +253,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                 multiple="multiple" required>
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if($ngoType == 'Foreign')
+                @if($mainNgoType == 'Foreign')
                 <option value="{{ $all_get_cityzenship_data->country_people_english }}" {{ (in_array($all_get_cityzenship_data->country_people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_english }}</option>
 
                 @else
@@ -413,12 +397,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
 @else
 
-<?php
-   $get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
-   $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-   $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
 
-?>
 <form action="{{ route('updateRenewInformationList') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
     @csrf
 <div class="main active">
@@ -474,20 +453,6 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                     </label>
                 <input type="text" class="form-control" readonly value="{{ $get_all_data_1->address_of_head_office }}" name="address_of_head_office" data-parsley-required  id="">
             </div>
-
-
-
-            <?php
-
-            $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
-
-
-            $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
-            ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
-
-            $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-                                            ?>
-
 
 
 
@@ -560,7 +525,19 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
             <div class="mb-3">
                 <label for="" class="form-label">{{ trans('fd_one_step_one.nn')}} <span class="text-danger">*</span> </label>
-                <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_new_first->nationality }}" class="form-control" id="">
+                {{-- <input type="text"  data-parsley-required name="nationality" value="{{ $get_all_data_new_first->nationality }}" class="form-control" id=""> --}}
+                <select class="js-example-basic-single form-control" data-parsley-required name="nationality"
+                >
+                <option value="">{{ trans('civil.select')}}</option>
+                @foreach($getCityzenshipData as $allGetCityzenshipData)
+                @if(session()->get('locale') == 'en' || empty(session()->get('locale')))
+                <option value="{{ $allGetCityzenshipData->country_people_bangla }}" {{$allGetCityzenshipData->country_people_bangla == $get_all_data_new_first->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_bangla }}</option>
+                @else
+            <option value="{{ $allGetCityzenshipData->country_people_english }}" {{$allGetCityzenshipData->country_people_english == $get_all_data_new_first->nationality ? 'selected':''}}>{{ $allGetCityzenshipData->country_people_english }}</option>
+            @endif
+            @endforeach
+
+        </select>
             </div>
 
             <div class="mb-3">
@@ -583,8 +560,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
                     <?php
  $convert_new_ass_cat  = explode(",",$get_all_data_1->citizenship);
-$ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)
- ->value('ngo_type');
+
                     ?>
 
 
@@ -596,7 +572,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                 multiple="multiple" required>
 
                 @foreach($get_cityzenship_data as $all_get_cityzenship_data)
-                @if($ngoType == 'Foreign')
+                @if($mainNgoType == 'Foreign')
                 <option value="{{ $all_get_cityzenship_data->country_people_english }}" {{ (in_array($all_get_cityzenship_data->country_people_english,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $all_get_cityzenship_data->country_people_english }}</option>
 
                 @else

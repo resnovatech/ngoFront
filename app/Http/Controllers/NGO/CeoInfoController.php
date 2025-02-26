@@ -47,6 +47,21 @@ class CeoInfoController extends Controller
 
     }
 
+    public function ceoInfoUpdate($id){
+
+
+        $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
+
+        $getCeoInfoList =  NgoCeoInfo::where('user_id', Auth::user()->id)->latest()->get();
+        $getCeoInfoListEdit =  NgoCeoInfo::where('user_id', Auth::user()->id)->where('id',base64_decode($id))->first();
+
+        return view('front.ceoInfo.ceoInfoUpdate',compact('getCeoInfoList','getCeoInfoListEdit','ngo_list_all'));
+
+
+    }
+
+    
+
 
     public function store(Request $request){
 

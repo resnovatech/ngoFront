@@ -10,12 +10,12 @@ $mainNgoType = CommonController::changeView();
 <div class="card-body">
     <div class="profile_link_box">
         <a href="{{ route('dashboard') }}">
-            <p class="{{ Route::is('dashboard')  ? 'active_link' : '' }}"><i class="fa fa-user pe-2"></i>{{ trans('fd9.m1')}}</p>
+            <p class="{{ Route::is('dashboard') || Route::is('ceoInfoUpdate')  ? 'active_link' : '' }}"><i class="fa fa-user pe-2"></i>{{ trans('fd9.m1')}}</p>
         </a>
     </div>
     <div class="profile_link_box">
         <a href="{{ route('nameChange') }}">
-            <p class="{{ Route::is('nameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.m2')}}</p>
+            <p class="{{ Route::is('nameChange') || Route::is('namechangeApplicationEdit') || Route::is('addOtherDocEdit') || Route::is('nameChange.view')    ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.m2')}}</p>
         </a>
     </div>
 
@@ -149,7 +149,7 @@ $mainNgoType = CommonController::changeView();
     </div>
     <div class="profile_link_box">
         <a href="{{ route('nameChange') }}">
-            <p class="{{ Route::is('nameChange')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.m2')}}</p>
+            <p class="{{ Route::is('nameChange') || Route::is('namechangeApplicationEdit') || Route::is('addOtherDocEdit') || Route::is('nameChange.view')    ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.m2')}}</p>
         </a>
     </div>
 

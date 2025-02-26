@@ -12,7 +12,7 @@ class NgoRenewInfo extends Model
     protected $table = "ngo_renew_infos";
 
     protected $fillable = [
-
+'ceoTableId',
          'digital_signature',
          'digital_seal',
          'yearly_budget_file',

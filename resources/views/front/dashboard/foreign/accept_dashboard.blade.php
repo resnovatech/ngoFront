@@ -74,6 +74,12 @@
                                         type="button" role="tab" aria-controls="settings" aria-selected="false">সেটিংস
                                 </button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="settingsOne-tab" data-bs-toggle="tab"
+                                        data-bs-target="#settingsOne"
+                                        type="button" role="tab" aria-controls="settingsOne" aria-selected="false">প্রধান নির্বাহীর তথ্য
+                                </button>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -100,11 +106,6 @@
                                                             </td>
                                                         </tr>
 
-                                                      <?php
-
-                                                      $allEnglishCountry = DB::table('countries')->where('country_name_bangla',$ngo_list_all->country_of_origin)->value('country_name_english');
-
-                                                      ?>
                                                         <tr>
                                                             <td>দেশ</td>
                                                             <td>{{ $ngo_list_all->country_of_origin}}</td>
@@ -134,18 +135,7 @@
                                             </div>
                                         </div>
 
-                                        <?php
-
-
-
-$fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
-
-
-$renew_list_all = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)->get();
-
-//dd($renew_list_all);
-
-                                        ?>
+                                       
 
                                         <div class="row mt-3">
                                             <div class="col-lg-12">

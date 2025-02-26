@@ -65,12 +65,7 @@
 
                 @else
 
-                <?php
-
-$get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->first();
-
-
-                ?>
+             
 
                 @if(count($get_all_data_new) == 0)
 
@@ -81,21 +76,7 @@ $get_all_data_1 = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->
     @csrf
 
 
-    <?php
-
-    $query_to_get_data = DB::table('countries')->where('id','!=',18)->orderBy('id','desc')->get();
-
-
-    $get_cityzenship_data = DB::table('countries')->whereNotNull('country_people_english')
-    ->whereNotNull('country_people_bangla')->orderBy('id','desc')->get();
-
-    $get_country_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
-
-
-    $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-
-$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-                                    ?>
+   
 <div class="main active">
 
     <div class="fd01_tablist">
@@ -142,14 +123,7 @@ $registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id'
 
 @else
 
-<?php
-   $get_all_data_new_first =DB::table('ngo_renew_infos')->where('user_id',Auth::user()->id)->latest()->first();
 
-   $mainNgoTypeRenew = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type_new_old');
-
-$registrationNumberForOld = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('registration');
-
-?>
 <form action="{{ route('ngoRenewStepTwoUpdate') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
     @csrf
 

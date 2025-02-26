@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\User;
+use App\Models\NgoCeoInfo;
 use App\Models\UserVerify;
 use Hash;
 use Illuminate\Support\Str;
@@ -399,12 +400,20 @@ class AuthController extends Controller
                     $mainNgoType = CommonController::changeView();
                     $ngoOtherDocLists = RenewalFile::where('fd_one_form_id',$ngo_list_all->id)->latest()->get();
 
+                    $allEnglishCountry = DB::table('countries')->where('country_name_bangla',$ngo_list_all->country_of_origin)->value('country_name_english');
+                    $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
+                    $renew_list_all = DB::table('ngo_renews')->where('fd_one_form_id',$fdOneFormId)->get();
+
+
+                    $getCeoInfoList =  NgoCeoInfo::where('user_id', Auth::user()->id)->latest()->get();
+
+
                     if($mainNgoType== 'দেশিও'){
 
-                        return view('front.dashboard.accept_dashboard',compact('ngoOtherDocLists','oldOrNewStatus','name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
+                        return view('front.dashboard.accept_dashboard',compact('getCeoInfoList','renew_list_all','fdOneFormId','allEnglishCountry','ngoOtherDocLists','oldOrNewStatus','name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
                     }else{
 
-                        return view('front.dashboard.foreign.accept_dashboard',compact('ngoOtherDocLists','oldOrNewStatus','name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
+                        return view('front.dashboard.foreign.accept_dashboard',compact('getCeoInfoList','renew_list_all','fdOneFormId','allEnglishCountry','ngoOtherDocLists','oldOrNewStatus','name_change_list_r','name_change_list','get_all_data_other','all_source_of_fund','form_ngo_data_doc','ngo_list_all_form_eight','ngo_list_all','form_member_data_doc'));
                     }
 
                 }
