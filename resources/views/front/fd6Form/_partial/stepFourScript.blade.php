@@ -55,7 +55,7 @@ alertify.alert('Error', 'সম্পাদনের সময়সীমা স�
 alertify.alert('Error', 'উপকারভোগী সম্পর্কিত তথ্য দিন');
 
 }else{
-    alert(mainId);
+    //alert(mainId);
     $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -436,7 +436,7 @@ alertify.alert('Error', 'বেতন-ভাতাদি(অন্যান্�
     var designation = $('#designation0').val();
     var nationality = $('#nationality0').val();
     var duration = $('#duration0').val();
-    var educational_qualification = $('#educational_qualification').val();
+    var educational_qualification = $('#educational_qualification0').val();
     var experience = $('#experience0').val();
     var responsibility = $('#responsibility0').val();
     var salary_from_this_project =$('#salary_from_this_project0').val();
@@ -494,6 +494,66 @@ $('#pageloader').hide();
 });
 </script>
 <!--partnerDataDelete start-->
+
+<script type="text/javascript">
+    function deleteTagEmployeeNgo(id) {
+        swal({
+            title: '{{ trans('notification.success_one')}}',
+            text: "{{ trans('notification.success_two')}}",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '{{ trans('notification.success_three')}}',
+            cancelButtonText: '{{ trans('notification.success_four')}}',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var fd6Id = $('#fd6Id').val();
+
+                $.ajax({
+    url: "{{ route('employeeDataDelete') }}",
+    method: 'GET',
+    data: {fd6Id:fd6Id,id:id},
+    success: function(data) {
+
+      alertify.set('notifier','position', 'top-center');
+      alertify.error('Data Delete Successfully');
+      $("#tableAjaxDataEmployee").html('');
+      $("#tableAjaxDataEmployee").html(data);
+      //location.reload(true);
+
+    },
+    beforeSend: function(){
+       $('#pageloader').show()
+   },
+  complete: function(){
+       $('#pageloader').hide();
+  }
+    });
+
+
+                // event.preventDefault();
+                // document.getElementById('delete-form-'+id).submit();
+
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swal(
+                    '{{ trans('notification.success_five')}}',
+                    '{{ trans('notification.success_six')}} :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
+
 <script type="text/javascript">
     function deleteTagPartnerNgo(id) {
         swal({
@@ -514,7 +574,7 @@ $('#pageloader').hide();
                 var fd6Id = $('#fd6Id').val();
 
                 $.ajax({
-    url: "{{ route('employeeDataDelete') }}",
+    url: "{{ route('partnerDataDelete') }}",
     method: 'GET',
     data: {fd6Id:fd6Id,id:id},
     success: function(data) {

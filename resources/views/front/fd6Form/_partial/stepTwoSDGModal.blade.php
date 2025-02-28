@@ -38,7 +38,7 @@
 
                                     <div class="col-lg-12 mb-3">
                                         <label for="" class="form-label">মন্তব্য</label>
-                                        <textarea  name="comment" class="form-control" id="comment0" placeholder=""></textarea>
+                                        <textarea  name="comment" class="form-control" id="Sdgcomment0" placeholder=""></textarea>
                                     </div>
 
                             </div>
