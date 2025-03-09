@@ -47,6 +47,21 @@ use App\Models\Fd6FurnitureEquipment;
 use App\Models\Fd6AdjoiningG;
 class Fd6FormPartTwoController extends Controller
 {
+
+
+    public function fd6NewDataEditup(Request $request){
+
+        //dd(11);
+
+        $fd6FormList = Fd6Form::find($request->main_id);
+        $main_year= $request->main_year;
+        $data = view('front.fd6Form.fd6NewDataEditup',compact('fd6FormList','main_year'))->render();
+        return response()->json($data);
+
+
+
+        return 1;
+    }
     public function fd6SourceOfFundDelete(Request $request){
 
         if($request->id == 1){
@@ -591,6 +606,8 @@ class Fd6FormPartTwoController extends Controller
 
     public function adjoiningSixDataDelete(Request $request){
 
+        //dd($request->all());
+
         $admins = Fd6FurnitureEquipment::find($request->id);
         if (!is_null($admins)) {
             $admins->delete();
@@ -604,7 +621,7 @@ class Fd6FormPartTwoController extends Controller
 
             $data = view('front.fd6Form.partTwo.adjoiningSixDataTable',compact('fd6FurnitureEquipments'))->render();
             //return response()->json($data);
-            return response()->json(["htmlData" => $data, "stepFiveType" => $request->stepFiveType]);
+            return response()->json(["htmlData" => $data, "stepFiveType" => $request->deleteEditType]);
 
         }elseif($request->deleteEditType == 'মেশিনপত্রের বর্ণনা'){
 
@@ -614,7 +631,7 @@ class Fd6FormPartTwoController extends Controller
             $data = view('front.fd6Form.partTwo.descriptionOfMachineryTable',compact('fd6FurnitureEquipmentsOne'))->render();
             //return response()->json($data);
 
-            return response()->json(["htmlData" => $data, "stepFiveType" => $request->stepFiveType]);
+            return response()->json(["htmlData" => $data, "stepFiveType" => $request->deleteEditType]);
 
         }elseif($request->deleteEditType == 'যানবাহনের বর্ণনা'){
 
@@ -625,7 +642,7 @@ class Fd6FormPartTwoController extends Controller
             $data = view('front.fd6Form.partTwo.descriptionOfVehicle',compact('fd6FurnitureEquipmentsTwo'))->render();
             //return response()->json($data);
 
-            return response()->json(["htmlData" => $data, "stepFiveType" => $request->stepFiveType]);
+            return response()->json(["htmlData" => $data, "stepFiveType" => $request->deleteEditType]);
 
         }
 

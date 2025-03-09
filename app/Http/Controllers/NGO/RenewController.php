@@ -395,6 +395,8 @@ class RenewController extends Controller
 
         try{
 
+            //dd(base64_decode($id));
+
            $getUserIdFrom = NgoRenew::where('id',base64_decode($id))->first();
            $all_partiw1 = FdOneForm::where('id',$getUserIdFrom->fd_one_form_id)->first();
            $get_all_data_new = NgoRenewInfo::where('fd_one_form_id',$getUserIdFrom->fd_one_form_id)->first();
@@ -415,7 +417,7 @@ class RenewController extends Controller
             }
         } catch (\Exception $e) {
 
-            return redirect()->route('error_404');
+            return $e;
         }
     }
 
@@ -517,16 +519,45 @@ class RenewController extends Controller
 
     public function otherInformationForRenew(){
 
-        try{
 
-            $getUserIdFrom = FdOneForm::where('user_id',Auth::user()->id)->value('id');
-            $all_partiw = FdOneBankAccount::where('fd_one_form_id',$getUserIdFrom)->latest()->limit(1)->get();
+      
+
+        try{
+            
+
+            $getUserIdFromNew = FdOneForm::where('user_id',Auth::user()->id)->value('id');
+            $getUserIdFrom = NgoRenew::where('fd_one_form_id',$getUserIdFromNew)->orderBy('id','desc')->first();
+            $all_partiw = FdOneBankAccount::where('fd_one_form_id',$getUserIdFromNew)->latest()->limit(1)->get();
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
 
+            $mainNgoTypenewOldNgo = CommonController::newOldNgo();
 
-            return view('front.renew.other_information_for_renew',compact('all_partiw'));
+            if($mainNgoTypenewOldNgo == 'Old' || $mainNgoTypenewOldNgo == 'New'){
+
+                $ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$getUserIdFromNew)->latest()->get();
+                $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$getUserIdFromNew)->first();
+            }else{
+                $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$getUserIdFromNew)->latest()->get();
+
+            }
+
+           // dd(count($ngoOtherDocLists));
+
+            if(count($ngoOtherDocLists)> 0){
+                return view('front.renew.completeList',compact('all_partiw','getUserIdFrom','getUserIdFromNew'));
+
+            }else{
+                return view('front.renew.other_information_for_renew',compact('all_partiw','getUserIdFrom','getUserIdFromNew'));
+                
+            }
+
+
+
+            
+
+           
 
 
         } catch (\Exception $e) {

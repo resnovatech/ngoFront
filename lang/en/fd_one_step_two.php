@@ -11,6 +11,8 @@ return [
     'Step_2'=>'ধাপ ০২',
     'Plan_of_Operation' => 'পরিচালন পরিকল্পনা',
     'Project_District' => 'প্রকল্প জেলা',
+    'allDistrict' => 'সমগ্র বাংলাদেশ',
+    'disWise' => 'বাস্তবায়ন জেলা',
     'Project_Sub_District' => 'উপজেলা',
     'Source_of_Fund' => 'তহবিলের উৎস',
     'Name_of_donor_organization' => 'দাতা সংস্থার নাম',

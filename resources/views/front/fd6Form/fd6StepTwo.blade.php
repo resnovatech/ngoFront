@@ -523,4 +523,40 @@ $prokolpoAreaListNew = \App\Models\Fd6FormProkolpoArea::where('fd6_form_id',$fd6
 @section('script')
 @include('front.fd6Form._partial.script')
 @include('front.fd6Form._partial.stepTwoScript')
+
+<script>
+    
+
+    $(document).on('click', '.expenseEditModalup', function () {
+
+       var main_id = $(this).attr('id');
+       var main_year = $(this).attr('data-year');
+
+     
+
+$.ajax({
+url: "{{ route('fd6NewDataEditup') }}",
+method: 'get',
+data: {
+    main_year:main_year,
+    main_id:main_id,
+},
+success: function(data) {
+    
+    $('#expenseEditModal1').modal('show');
+    $("#viewDataNew").html('');
+$("#viewDataNew").html(data);
+
+},
+beforeSend: function(){
+$('#pageloader').show()
+},
+complete: function(){
+$('#pageloader').hide();
+}
+});
+
+});
+
+</script>
 @endsection

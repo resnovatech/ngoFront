@@ -317,7 +317,7 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
                                 <div class="mb-3">
                                     <h5 class="form_middle_text">
-                                        প্রধান নির্বাহীর তথ্যাদি
+                                        সংস্থা প্রধানের তথ্যাদি
                                     </h5>
                                 </div>
 
@@ -699,7 +699,7 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 
     <div class="mb-3">
         <h5 class="form_middle_text">
-            প্রধান নির্বাহীর তথ্যাদি
+            সংস্থা প্রধানের তথ্যাদি 
         </h5>
     </div>
 

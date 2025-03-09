@@ -217,6 +217,7 @@
                                     <div class="form9_upper_box">
                                         <h3>এফডি - ৬ ফরম </h3>
                                         <h4>প্রকল্প প্রস্তাব ফরম</h4>
+                                        @include('flash_message')
                                     </div>
 
                                     <form action="{{ route('fd6Form.store') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate="">
@@ -318,11 +319,13 @@
 
                                                     <!--FD06 Section 02-->
 
+                                                 
+
                                                     <tr>
                                                         <td style="width:40px;">০২</td>
                                                         <td colspan="2">প্রকল্পের নাম <span style="color:red;">*</span></td>
                                                         <td>
-                                                            <input type="text" name="ngo_prokolpo_name" required class="form-control" id=""
+                                                            <input type="text" value="{{ Session::get('ngo_prokolpo_name')}}" name="ngo_prokolpo_name" required class="form-control" id=""
                                                                    placeholder="প্রকল্পের নাম">
                                                         </td>
                                                     </tr>
@@ -333,7 +336,7 @@
                                                         <td rowspan="4" style="width:40px;">০৩</td>
                                                         <td colspan="2">প্রকল্পের মেয়াদ <span style="color:red;">*</span></td>
                                                         <td>
-                                                            <input type="text" name="ngo_prokolpo_duration" required class="form-control" id=""
+                                                            <input type="text" value="{{ Session::get('ngo_prokolpo_duration')}}" name="ngo_prokolpo_duration" required class="form-control" id=""
                                                                    placeholder="প্রকল্পের মেয়াদ">
                                                         </td>
                                                     </tr>
@@ -341,17 +344,29 @@
                                                         <td style="width:40px;">ক)</td>
                                                         <td>শুরুর তারিখ <span style="color:red;">*</span></td>
                                                         <td>
-                                                            <input type="text" name="ngo_prokolpo_start_date" required class="form-control datepickerOne" id="">
+                                                            <input type="text" value="{{ Session::get('ngo_prokolpo_start_date')}}" name="ngo_prokolpo_start_date" required class="form-control datepickerOne" id="">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td style="width:40px;">খ)</td>
                                                         <td>সমাপ্তির তারিখ <span style="color:red;">*</span></td>
                                                         <td>
-                                                            <input type="text" name="ngo_prokolpo_end_date" required class="form-control datepickerOne" id="">
+                                                            <input type="text" value="{{ Session::get('ngo_prokolpo_end_date')}}" name="ngo_prokolpo_end_date" required class="form-control datepickerOne" id="">
                                                         </td>
                                                     </tr>
                                                     <tr>
+
+                                                        <?php
+                                                        if(Session::has('subject_id')){
+
+                                                            $subjectIdList  = Session::get('subject_id');
+
+                                                        }else{
+                                                          
+                                                        }
+                                                   
+
+                                                     ?>
 
                                                         <td style="width:40px;">গ)</td>
                                                         <td>প্রকল্পের ধরণ <span style="color:red;">*</span> </td>
@@ -359,7 +374,11 @@
                                                             placeholder="">
                                                             <option value="">--অনুগ্রহ করে নির্বাচন করুন--</option>
                                                             @foreach($projectSubjectList as $projectSubjectLists)
+                                                            @if(Session::has('subject_id'))
+                                                            <option value="{{ $projectSubjectLists->id }}" {{ (in_array($projectSubjectLists->id,$subjectIdList)) ? 'selected' : '' }}>{{ $projectSubjectLists->name }}</option>
+                                                            @else
                                                             <option value="{{ $projectSubjectLists->id }}">{{ $projectSubjectLists->name }}</option>
+                                                            @endif
                                                             @endforeach
                                                      </select></td>
 

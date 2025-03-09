@@ -688,8 +688,8 @@ $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',$all_p
 
 
 
-                <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $getUserIdFrom->id}})" class="btn btn-lg btn-success">
-                    এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে দাখিল করুন " onclick="editTag({{ $getUserIdFrom->id}})" class="btn btn-lg btn-success">
+                    এনজিওতে দাখিল করুন  <i class="fa fa-send-o"></i>
                 </button>
 
                     <form id="delete-form-{{ $getUserIdFrom->id }}" action="{{ route('finalRenewApplicationSubmit',base64_encode($getUserIdFrom->id)) }}" method="get" style="display: none;">
@@ -725,7 +725,7 @@ $getngoForLanguage = DB::table('ngo_type_and_languages')->where('user_id',$all_p
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'হ্যাঁ, এটি পাঠান !',
+            confirmButtonText: 'হ্যাঁ, এটি দাখিল করুন  !',
             cancelButtonText: '{{ trans('notification.success_four')}}',
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',

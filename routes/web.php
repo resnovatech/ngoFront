@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NGO\OtherformController;
+use App\Http\Controllers\NGO\CeoInfoController;
 use App\Http\Controllers\NGO\FormeightController;
 use App\Http\Controllers\NGO\NgomemberController;
 use App\Http\Controllers\NGO\NgomemberdocController;
@@ -152,6 +153,8 @@ Route::controller(RegsubmitController::class)->group(function () {
 
 Route::controller(AuthController::class)->group(function () {
 
+    //Route::get('ngoCeoInformation','ngoCeoInformation')->name('ngoCeoInformation');
+
     Route::get('/checkMailAlreadyRegisteredOrNot','checkMailAlreadyRegisteredOrNot')->name('checkMailAlreadyRegisteredOrNot');
     Route::get('/checkMailFromList','checkMailFromList')->name('checkMailFromList');
     Route::post('/sendMailGetFromList','sendMailGetFromList')->name('sendMailGetFromList');
@@ -225,8 +228,14 @@ Route::controller(OtherformController::class)->group(function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+    
 
+    Route::resource('ngoCeoInfo',CeoInfoController::class);
+    Route::controller(CeoInfoController::class)->group(function () {
 
+        Route::get('ceoInfoUpdate/{id}', 'ceoInfoUpdate')->name('ceoInfoUpdate');
+
+    });
     Route::resource('complain',ComplainMonitorController::class);
 
     Route::controller(FD8Controller::class)->group(function () {
@@ -467,6 +476,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('fd7Form',Fd7FormController::class);
 
     Route::controller(Fd6FormPartTwoController::class)->group(function () {
+
+        Route::get('fd6NewDataEditup', 'fd6NewDataEditup')->name('fd6NewDataEditup');
 
         Route::get('fd6SourceOfFundDelete', 'fd6SourceOfFundDelete')->name('fd6SourceOfFundDelete');
 

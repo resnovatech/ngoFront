@@ -407,25 +407,7 @@
 </tr>
 
 <tr>
-    <th style="text-align: center;" colspan="2">৮.</th>
-    <td style="font-weight:bold;text-align: center;" >গুরুত্বপূর্ণ যেকোনো তথ্য</td>
-    <td style="text-align: center;">
-        <table class="table table-bordered" id="dynamicAddRemove">
-            <tr>
-                <th>ফাইলের নাম</th>
-                <th>ফাইল</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><input type="text"  name="file_name[]" class="form-control" id=""
-                           placeholder=""></td>
-                <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
-                           placeholder=""></td>
-                <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
-            </tr>
-        </table>
-
-    </td>
+    
 
 </tr>
 
@@ -433,7 +415,25 @@
 
 
                                         </table>
-
+                                        <th style="text-align: center;" colspan="2">৮.</th>
+                                        <td style="font-weight:bold;text-align: center;" >গুরুত্বপূর্ণ যেকোনো তথ্য</td>
+                                        <td style="text-align: center;">
+                                            <table class="table table-bordered" id="dynamicAddRemove">
+                                                <tr>
+                                                    <th>ফাইলের নাম</th>
+                                                    <th>ফাইল</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text"  name="file_name[]" class="form-control" id=""
+                                                               placeholder=""></td>
+                                                    <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
+                                                               placeholder=""></td>
+                                                    <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
+                                                </tr>
+                                            </table>
+                                    
+                                        </td>
                                         <input type="hidden" id="fd7_form_id" name="fd7_form_id" value="{{ base64_encode($fd7Id) }}" />
 
 
@@ -634,9 +634,9 @@ $("#donor_organization_name").keyup(function(){
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><input type="text"  name="file_name[]" class="form-control" id=""placeholder=""></td><td><input type="file" name="file[]" accept=".pdf" class="form-control" id="" placeholder=""></td><td><button type="button" class="btn btn-outline-danger remove-input-field"><i class="bi bi-file-earmark-x-fill"></i></button></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><input type="text"  name="file_name[]" class="form-control" id=""placeholder=""></td><td><input type="file" name="file[]" accept=".pdf" class="form-control" id="" placeholder=""></td><td><button type="button" class="btn btn-outline-danger remove-input-fieldnn"><i class="bi bi-file-earmark-x-fill"></i></button></td></tr>');
     });
-    $(document).on('click', '.remove-input-field', function () {
+    $(document).on('click', '.remove-input-fieldnn', function () {
         $(this).parents('tr').remove();
     });
 

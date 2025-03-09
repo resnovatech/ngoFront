@@ -805,10 +805,10 @@ $('#sNoDiv').show();
         ++i;
         $("#dynamicAddRemove").append('<tr>' +
             '<td>' +
-            '<input type="text" name="name[]" required  class="form-control" />' +
+            '<input type="text" name="name[]" required  class="form-control" required />' +
             '</td>' +
             '<td>' +
-            '<input type="text" name="address[]" required  class="form-control" />' +
+            '<input type="text" name="address[]" required  class="form-control" required />' +
             '</td>' +
             '<td>' +
             '<input class="form-control" accept=".pdf" required name="letter_file[]" type="file" id="">' +
@@ -869,5 +869,24 @@ $('#sNoDiv').show();
         $(this).parents('tr').remove();
     });
 
+</script>
+<script>
+    $(".newDisType") // select the radio by its id
+    .change(function(){ // bind a function to the change event
+        if( $(this).is(":checked") ){ // check if the radio is checked
+            var val = $(this).val(); // retrieve the value
+
+            if(val == 1){
+
+                $('#showHideInput').hide();
+                $('#showHideInput').val('{{ trans('fd_one_step_two.allDistrict')}}');
+
+            }else{
+                $('#showHideInput').show();
+                $('#showHideInput').val('');
+            }
+
+        }
+    });
 </script>
 @endsection

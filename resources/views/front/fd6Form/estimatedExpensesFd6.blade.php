@@ -4,15 +4,20 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th >১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th >১ম বছর 
+            
+            <div class="d-flex justify-content-center">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
 
 
 
-        </div></th>
+        </div>
+    
+    </th>
 
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
@@ -29,8 +34,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
         <td>
-            <button type="button" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -40,8 +45,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year) }}</td>
         <td>
-            <button type="button" id="2" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="2" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -51,8 +56,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year) }}</td>
         <td>
-            <button type="button" id="3" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="3" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -66,21 +71,22 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর  <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর   <div class="d-flex justify-content-center">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
 
 
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>২য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
@@ -102,8 +108,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
         <td>
-            <button type="button" id="1" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="1" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -114,8 +120,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
         <td>
-            <button type="button" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -126,8 +132,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
         <td>
-            <button type="button" id="3" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="3" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -142,31 +148,32 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর  <div class="d-flex justify-content-center">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
 
 
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>২য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
         </div></th>
-        <th>৩য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>৩য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="3" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
@@ -192,8 +199,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_third_year + $fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
         <td>
-            <button type="button" id="1" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="1" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -206,8 +213,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_third_year + $fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
 
         <td>
-            <button type="button" id="2" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="2" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -219,8 +226,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_third_year + $fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
         <td>
-            <button type="button" id="3" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="3" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -237,41 +244,42 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর  <div class="d-flex justify-content-center">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
 
 
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>২য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
         </div></th>
-        <th>৩য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>৩য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="3" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
         </div></th>
         <th>৪র্থ বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal4">
-                <i class="fa fa-pencil"></i>
-            </button>
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="4" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
@@ -299,8 +307,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_fourth_year + $fd6FormList->grants_received_from_abroad_third_year + $fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
         <td>
-            <button type="button" id="1" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="1" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -313,8 +321,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fourth_year + $fd6FormList->donations_made_by_foreign_donors_third_year + $fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
 <td>
-    <button type="button" id="2" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
-        class="bi bi-trash"></i></button>
+    <a type="a" id="2" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
+        class="bi bi-trash"></i></a>
 </td>
     </tr>
     <tr>
@@ -327,8 +335,8 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fourth_year + $fd6FormList->local_grants_third_year + $fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
         <td>
-            <button type="button" id="3" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
+            <a type="a" id="3" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
         </td>
     </tr>
     <tr>
@@ -346,51 +354,52 @@
 
     <tr>
         <th rowspan="3" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর  <div class="d-flex justify-content-center">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
 
 
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>২য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
         </div></th>
-        <th>৩য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>৩য় বছর  <div class="d-flex justify-content-center">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="3" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
         </div></th>
         <th>৪র্থ বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal4">
-                <i class="fa fa-pencil"></i>
-            </button>
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="4" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 
         </div></th>
         <th>৫ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal5" >
-                <i class="fa fa-pencil"></i>
-            </button>
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="5" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
 
 
 

@@ -279,7 +279,7 @@ method: 'POST',
 data: {mainEditId:mainEditId,mainId:mainId,distribution_type:distribution_type,districtNameDis:districtNameDis,upozila_name:upozila_name,product_des:product_des,product_quantity:product_quantity,unit_price:unit_price,total_amount:total_amount,total_beneficiaries:total_beneficiaries,comment:comment},
 success: function(data) {
 
-$('#exampleModal'+mainId).modal('hide');
+$('#exampleModaleditnew'+mainId).modal('hide');
 
 alertify.set('notifier','position', 'top-center');
 alertify.success('Data Added Successfully');

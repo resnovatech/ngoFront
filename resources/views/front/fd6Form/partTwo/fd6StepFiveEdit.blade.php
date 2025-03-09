@@ -511,7 +511,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    প্রধান নির্বাহীর তথ্যাদি
+                    সংস্থা প্রধানের  তথ্যাদি
 
                 </div>
                 <div class="card-body">

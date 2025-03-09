@@ -1,4 +1,4 @@
-<div class="modal modal-xl fade" id="exampleModaledit{{ $distributionListOnes->id }}"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-xl fade" id="exampleModaleditnew{{ $distributionListOnes->id }}"  aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
