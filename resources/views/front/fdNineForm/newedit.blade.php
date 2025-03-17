@@ -1037,7 +1037,7 @@
     var i = 0;
     $("#dynamic-information").click(function () {
         ++i;
-        $("#dynamicAddRemoveInformation").append('<tr>' +
+        $("#dynamicAddRemoveInformation").append('<tr id="divnew'+i+'">' +
             '<td>' +
             '<input type="text"  name="file_name[]" placeholder="" class="form-control" />' +
             '</td>' +
@@ -1045,13 +1045,16 @@
             '<input type="file" accept=".pdf" name="main_file[]" placeholder="" class="form-control" />' +
             '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-outline-danger remove-input-field-information"><i class="bi bi-file-earmark-x-fill"></i></button>' +
+            '<button type="button"  data-mid="'+i+'" class="btn btn-outline-danger remove-input-field-information"><i class="bi bi-file-earmark-x-fill"></i></button>' +
             '</td>' +
             '</tr>'
         );
     });
     $(document).on('click', '.remove-input-field-information', function () {
-        $(this).parents('tr').remove();
+
+
+        var dataId = $(this).attr('data-mid');
+        $('#divnew'+dataId).remove();
     });
 
 </script>
@@ -1061,7 +1064,7 @@
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr>' +
+        $("#dynamicAddRemove").append('<tr id="divnewf'+i+'">' +
             '<td>' +
             '<input type="text" name="family_member_name[]" class="form-control" required/>' +
             '</td>' +
@@ -1069,13 +1072,17 @@
             '<input type="text" name="family_member_age[]" class="form-control" required/>' +
             '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-outline-danger remove-input-field"><i class="bi bi-file-earmark-x-fill"></i></button>' +
+            '<button type="button" data-midf="'+i+'" class="btn btn-outline-danger remove-input-field"><i class="bi bi-file-earmark-x-fill"></i></button>' +
             '</td>' +
             '</tr>'
         );
     });
     $(document).on('click', '.remove-input-field', function () {
-        $(this).parents('tr').remove();
+        //$(this).parents('tr').remove();
+
+        var dataIdf = $(this).attr('data-midf');
+        $('#divnewf'+dataIdf).remove();
+
     });
 </script>
 <script>

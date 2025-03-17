@@ -64,6 +64,8 @@ class Fd6FormPartTwoController extends Controller
     }
     public function fd6SourceOfFundDelete(Request $request){
 
+        //dd($request->all());
+
         if($request->id == 1){
 
 

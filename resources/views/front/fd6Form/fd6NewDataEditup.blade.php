@@ -30,12 +30,12 @@
 
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ শুরুর তারিখ</label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_first }}"  name="prokolpo_year_grant_start_date" class="form-control datepickerOne" id="prokolpo_year_grant_start_datefd61"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_first }}"  name="prokolpo_year_grant_start_date" class="form-control datepicker2334" id="prokolpo_year_grant_start_datefd61"
         placeholder="প্রকল্পের মেয়াদ শুরুর তারিখ">
     </div>
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ সমাপ্তির তারিখ </label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_first }}"  name="prokolpo_year_grant_end_date" class="form-control datepickerOne" id="prokolpo_year_grant_end_datefd61"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_first }}"  name="prokolpo_year_grant_end_date" class="form-control datepicker2334" id="prokolpo_year_grant_end_datefd61"
         placeholder="প্রকল্পের মেয়াদ সমাপ্তির তারিখ">
     </div>
 
@@ -80,12 +80,12 @@
 
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ শুরুর তারিখ</label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_second }}"  name="prokolpo_year_grant_start_date" class="form-control datepickerOne" id="prokolpo_year_grant_start_datefd62"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_second }}"  name="prokolpo_year_grant_start_date" class="form-control datepicker2334" id="prokolpo_year_grant_start_datefd62"
         placeholder="প্রকল্পের মেয়াদ শুরুর তারিখ">
     </div>
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ সমাপ্তির তারিখ </label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_second }}"  name="prokolpo_year_grant_end_date" class="form-control datepickerOne" id="prokolpo_year_grant_end_datefd62"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_second }}"  name="prokolpo_year_grant_end_date" class="form-control datepicker2334" id="prokolpo_year_grant_end_datefd62"
         placeholder="প্রকল্পের মেয়াদ সমাপ্তির তারিখ">
     </div>
 
@@ -129,12 +129,12 @@
 
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ শুরুর তারিখ</label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_third }}"  name="prokolpo_year_grant_start_date" class="form-control datepickerOne" id="prokolpo_year_grant_start_datefd63"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_third }}"  name="prokolpo_year_grant_start_date" class="form-control datepicker2334" id="prokolpo_year_grant_start_datefd63"
         placeholder="প্রকল্পের মেয়াদ শুরুর তারিখ">
     </div>
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ সমাপ্তির তারিখ </label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_third }}"  name="prokolpo_year_grant_end_date" class="form-control datepickerOne" id="prokolpo_year_grant_end_datefd63"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_third }}"  name="prokolpo_year_grant_end_date" class="form-control datepicker2334" id="prokolpo_year_grant_end_datefd63"
         placeholder="প্রকল্পের মেয়াদ সমাপ্তির তারিখ">
     </div>
 
@@ -179,12 +179,12 @@
 
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ শুরুর তারিখ</label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_fourth }}"  name="prokolpo_year_grant_start_date" class="form-control datepickerOne" id="prokolpo_year_grant_start_datefd64"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_fourth }}"  name="prokolpo_year_grant_start_date" class="form-control datepicker2334" id="prokolpo_year_grant_start_datefd64"
         placeholder="প্রকল্পের মেয়াদ শুরুর তারিখ">
     </div>
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ সমাপ্তির তারিখ </label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_fourth }}"  name="prokolpo_year_grant_end_date" class="form-control datepickerOne" id="prokolpo_year_grant_end_datefd64"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_fourth }}"  name="prokolpo_year_grant_end_date" class="form-control datepicker2334" id="prokolpo_year_grant_end_datefd64"
         placeholder="প্রকল্পের মেয়াদ সমাপ্তির তারিখ">
     </div>
 
@@ -228,12 +228,12 @@
 
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ শুরুর তারিখ</label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_fifth }}"  name="prokolpo_year_grant_start_date" class="form-control datepickerOne" id="prokolpo_year_grant_start_datefd65"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_start_date_fifth }}"  name="prokolpo_year_grant_start_date" class="form-control datepicker2334" id="prokolpo_year_grant_start_datefd65"
         placeholder="প্রকল্পের মেয়াদ শুরুর তারিখ">
     </div>
     <div class="col-lg-6 mb-3">
         <label for="" class="form-label">প্রকল্পের মেয়াদ সমাপ্তির তারিখ </label>
-        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_fifth }}"  name="prokolpo_year_grant_end_date" class="form-control datepickerOne" id="prokolpo_year_grant_end_datefd65"
+        <input type="text" value="{{ $fd6FormList->prokolpo_year_grant_end_date_fifth }}"  name="prokolpo_year_grant_end_date" class="form-control datepicker2334" id="prokolpo_year_grant_end_datefd65"
         placeholder="প্রকল্পের মেয়াদ সমাপ্তির তারিখ">
     </div>
 

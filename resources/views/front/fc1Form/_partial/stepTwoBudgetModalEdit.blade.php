@@ -77,7 +77,7 @@ $divisionListName = DB::table('civilinfos')->where('district_bn',$sectorWiseExpe
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">প্রাক্কলিত ব্যয়</label>
-                                        <input type="text" value="{{ $sectorWiseExpenditureLists->estimated_expenses }}"  name="estimated_expenses" class="form-control" id="estimated_expenses{{ $sectorWiseExpenditureLists->id }}"
+                                        <input type="number" value="{{ $sectorWiseExpenditureLists->estimated_expenses }}"  name="estimated_expenses" class="form-control" id="estimated_expenses{{ $sectorWiseExpenditureLists->id }}"
                                         placeholder="">
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -89,7 +89,7 @@ $divisionListName = DB::table('civilinfos')->where('district_bn',$sectorWiseExpe
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">মোট উপকারভোগীর সংখ্যা<span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ $sectorWiseExpenditureLists->number_of_beneficiaries }}"  name="number_of_beneficiaries" class="form-control" id="number_of_beneficiaries{{ $sectorWiseExpenditureLists->id }}" placeholder="">
+                                        <input type="number" value="{{ $sectorWiseExpenditureLists->number_of_beneficiaries }}"  name="number_of_beneficiaries" class="form-control" id="number_of_beneficiaries{{ $sectorWiseExpenditureLists->id }}" placeholder="">
                                     </div>
 
                             </div>

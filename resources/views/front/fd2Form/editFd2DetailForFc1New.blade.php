@@ -428,128 +428,128 @@
 
 </tr>
 
-<tr>
-    <th style="text-align: center;" colspan="2">৮.</th>
-    <td style="font-weight:bold;text-align: center;" >গুরুত্বপূর্ণ যেকোনো তথ্য</td>
-    <td style="">
 
-            <!-- start new code --->
-
-            @if(count($fd2OtherInfo) == 0)
-
-
-            @else
-            <div class="row">
-
-
-                <table class="table table-bordered">
-                    @foreach($fd2OtherInfo as $key=>$fd2OtherInfoAll)
-                    <tr>
-                        <td>{{ $fd2OtherInfoAll->file_name }}</td>
-                        <td>
-
-                          <a target="_blank" href="{{ route('downloadFd2DetailForFc1Other',$fd2OtherInfoAll->id) }}" class="btn btn-custom next_button btn-sm" >
-                              <i class="fa fa-download" aria-hidden="true"></i>
-                          </a>
-
-                          <button type="button" class="btn btn-custom next_button btn-sm" data-bs-toggle="modal" data-bs-target="#mmexampleModal{{ $key+1 }}">
-                              <i class="fa fa-pencil" aria-hidden="true"></i>
-
-                            </button>
-
-                            <a href="{{ route('deleteFd2DetailForFc1',$fd2OtherInfoAll->id) }}}" class="btn btn-sm btn-outline-danger"><i
-                              class="bi bi-trash"></i></a>
-
-
-
-
-
-
-                            <!-- Modal -->
-          <div class="modal fade" id="mmexampleModal{{ $key+1 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-          <div class="modal-content">
-          <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">ডেটা আপডেট করুন</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-          <form method="post" action="{{ route('fd2ForFc1PdfUpdate') }}" enctype="multipart/form-data" id="form">
-          @csrf
-
-
-          <input type="hidden" name="mid" value="{{ $fd2OtherInfoAll->id }}" class="form-control" id="exampleFormControlInput1" >
-
-
-
-
-          <div class="mb-3">
-              <?php
-
-              $file_path = url($fd2OtherInfoAll->file);
-              $filename  = pathinfo($file_path, PATHINFO_FILENAME);
-
-              $extension = pathinfo($file_path, PATHINFO_EXTENSION);
-
-
-
-
-              ?>
-          <label for="exampleFormControlInput1" class="form-label">{{ $fd2OtherInfoAll->file_name }}:</label>
-          <input type="file" accept=".pdf" name="file" class="form-control" id="exampleFormControlInput1">
-          <b>{{ $filename.'.'.$extension }}</b>
-
-
-      </div>
-
-          <button type="submit" class="btn btn-custom next_button btn-sm">
-              দাখিল করুন
-          </button>
-          </form>
-
-          </div>
-
-          </div>
-          </div>
-          </div>
-
-
-
-                    </td>
-                    </tr>
-                    @endforeach
-
-                </table>
-
-
-
-            @endif
-
-            <!-- end new code --->
-        <table class="table table-bordered" id="dynamicAddRemove">
-            <tr>
-                <th>ফাইলের নাম</th>
-                <th>ফাইল</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><input type="text"  name="file_name[]" class="form-control" id=""
-                           placeholder=""></td>
-                <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
-                           placeholder=""></td>
-                <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
-            </tr>
-        </table>
-
-    </td>
-
-</tr>
 
 
 
 
                                         </table>
-
+                                        <tr>
+                                            <th style="text-align: center;" colspan="2">৮.</th>
+                                            <td style="font-weight:bold;text-align: center;" >গুরুত্বপূর্ণ যেকোনো তথ্য</td>
+                                            <td style="">
+                                        
+                                                    <!-- start new code --->
+                                        
+                                                    @if(count($fd2OtherInfo) == 0)
+                                        
+                                        
+                                                    @else
+                                                    <div class="row">
+                                        
+                                        
+                                                        <table class="table table-bordered">
+                                                            @foreach($fd2OtherInfo as $key=>$fd2OtherInfoAll)
+                                                            <tr>
+                                                                <td>{{ $fd2OtherInfoAll->file_name }}</td>
+                                                                <td>
+                                        
+                                                                  <a target="_blank" href="{{ route('downloadFd2DetailForFc1Other',$fd2OtherInfoAll->id) }}" class="btn btn-custom next_button btn-sm" >
+                                                                      <i class="fa fa-download" aria-hidden="true"></i>
+                                                                  </a>
+                                        
+                                                                  <button type="button" class="btn btn-custom next_button btn-sm" data-bs-toggle="modal" data-bs-target="#mmexampleModal{{ $key+1 }}">
+                                                                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        
+                                                                    </button>
+                                        
+                                                                    <a href="{{ route('deleteFd2DetailForFc1',$fd2OtherInfoAll->id) }}}" class="btn btn-sm btn-outline-danger"><i
+                                                                      class="bi bi-trash"></i></a>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                                    <!-- Modal -->
+                                                  <div class="modal fade" id="mmexampleModal{{ $key+1 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                  <div class="modal-header">
+                                                  <h1 class="modal-title fs-5" id="exampleModalLabel">ডেটা আপডেট করুন</h1>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                  <form method="post" action="{{ route('fd2ForFc1PdfUpdate') }}" enctype="multipart/form-data" id="form">
+                                                  @csrf
+                                        
+                                        
+                                                  <input type="hidden" name="mid" value="{{ $fd2OtherInfoAll->id }}" class="form-control" id="exampleFormControlInput1" >
+                                        
+                                        
+                                        
+                                        
+                                                  <div class="mb-3">
+                                                      <?php
+                                        
+                                                      $file_path = url($fd2OtherInfoAll->file);
+                                                      $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                        
+                                                      $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                        
+                                        
+                                        
+                                        
+                                                      ?>
+                                                  <label for="exampleFormControlInput1" class="form-label">{{ $fd2OtherInfoAll->file_name }}:</label>
+                                                  <input type="file" accept=".pdf" name="file" class="form-control" id="exampleFormControlInput1">
+                                                  <b>{{ $filename.'.'.$extension }}</b>
+                                        
+                                        
+                                              </div>
+                                        
+                                                  <button type="submit" class="btn btn-custom next_button btn-sm">
+                                                      দাখিল করুন
+                                                  </button>
+                                                  </form>
+                                        
+                                                  </div>
+                                        
+                                                  </div>
+                                                  </div>
+                                                  </div>
+                                        
+                                        
+                                        
+                                                            </td>
+                                                            </tr>
+                                                            @endforeach
+                                        
+                                                        </table>
+                                        
+                                        
+                                        
+                                                    @endif
+                                        
+                                                    <!-- end new code --->
+                                                <table class="table table-bordered" id="dynamicAddRemove">
+                                                    <tr>
+                                                        <th>ফাইলের নাম</th>
+                                                        <th>ফাইল</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text"  name="file_name[]" class="form-control" id=""
+                                                                   placeholder=""></td>
+                                                        <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
+                                                                   placeholder=""></td>
+                                                        <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
+                                                    </tr>
+                                                </table>
+                                        
+                                            </td>
+                                        
+                                        </tr>
                                     <div class="d-grid d-md-flex justify-content-md-end">
                                         <button type="button" class="btn btn-dark me-2"
                                                 onclick="location.href = '{{ route('fc1FormStepThree',base64_encode($fc1Id)) }}';">আগের পৃষ্ঠায় যান

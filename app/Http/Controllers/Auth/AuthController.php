@@ -194,6 +194,8 @@ class AuthController extends Controller
 
     public function updateRegistration(Request $request){
 
+ 
+
         $filePath="userImage";
         $get_previous_email_all = User::where('id',$request->id)->value('email');
 
@@ -222,17 +224,11 @@ class AuthController extends Controller
 
                 $get_all_data->save();
 
-                if ($request->password) {
-
-                Auth::logout();
-                DB::commit();
-                return Redirect('login')->with('success','Password Changed Login Again');
-
-                }else{
+              
 
                     return Redirect()->back()->with('success','updated Successfully');
 
-                }
+                
 
             } catch (\Exception $e) {
                 DB::rollBack();

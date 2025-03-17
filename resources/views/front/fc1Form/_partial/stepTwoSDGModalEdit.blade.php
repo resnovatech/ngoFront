@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">বাজেট বরাদ্দ</label>
-                                        <input type="text" value="{{ $SDGDevelopmentGoals->budget_allocation }}" name="budget_allocation" class="form-control" id="budget_allocation{{ $SDGDevelopmentGoals->id }}"
+                                        <input type="number" value="{{ $SDGDevelopmentGoals->budget_allocation }}" name="budget_allocation" class="form-control" id="budget_allocation{{ $SDGDevelopmentGoals->id }}"
                                         placeholder="">
                                     </div>
                                     <div class="col-lg-6 mb-3">

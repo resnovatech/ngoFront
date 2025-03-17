@@ -123,7 +123,7 @@ $totalTotalBeneficiariesTwo = 0;
             </button>
 
             @include('front.fd7Form._partial.distributionModalEdit')
-            <button type="button" onclick="deleteTag({{ $distributionListOnes->id}})" class="btn btn-sm btn-outline-danger"><i
+            <button type="button" onclick="deleteTagStepFive({{ $distributionListOnes->id}})" class="btn btn-sm btn-outline-danger"><i
                 class="bi bi-trash"></i></button>
 
                 {{-- <form id="delete-form-{{ $distributionListOnes->id }}" action="{{ route('formNoFiveStepFourDelete',$distributionListOnes->id) }}" method="POST" style="display: none;">

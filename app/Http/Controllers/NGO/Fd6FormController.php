@@ -1198,12 +1198,12 @@ try{
         $form->total_benificiari=$request->total_benificiari;
         $form->comment=$request->comment;
         $form->save();
-
+        $fd6Id = $request->fd6Id;
         $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$request->fd6Id)
         ->where('type','fd6')
         ->get();
 
-        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail'))->render();
+        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1319,7 +1319,7 @@ try{
     public function fd6FormStepTwoSDG(Request $request){
 
 
-        //dd($request->all());
+       
 
         $form= new SDGDevelopmentGoal();
         $form->fc1_form_id=$request->fd6Id;

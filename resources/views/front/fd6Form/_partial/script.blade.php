@@ -799,7 +799,7 @@ var comment =$('#Sdgcomment0').val();
 
 $.ajax({
 url: "{{ route('fd6FormStepTwoSDG') }}",
-method: 'post',
+method: 'get',
 data: {fd6Id:fd6Id,goal:goal,target:target,budget_allocation:budget_allocation,rationality:rationality,comment:comment},
 success: function(data) {
     $('#tableCountTwo').val(1);
@@ -1139,6 +1139,7 @@ $('#pageloader').hide();
 
                 var mainEditId = $('#mainEditId').val();
                 var fd6Id = $('#fd6Id').val();
+              
 
                 $.ajax({
     url: "{{ route('fd6SourceOfFundDelete') }}",

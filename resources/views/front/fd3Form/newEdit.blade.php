@@ -1018,86 +1018,86 @@
 
 
 
-                                            <!-- step five start -->
-
-                                            <tr>
-                                                <th style="text-align: center;" rowspan="2">১২.</th>
-
-                                                <td style="font-weight:bold;" colspan="3">গুরুত্বপূর্ণ যেকোনো তথ্য</td>
-
-
-                                            </tr>
-
-                                            <tr>
-
-
-                                                <td colspan="3">
-
-
-                                                       <!-- start new code --->
-
-            @if(count($fdThreeOtherFileList) == 0)
-
-
-            @else
-
-                <table class="table table-bordered">
-                    @foreach($fdThreeOtherFileList as $key=>$fd2OtherInfoAll)
-                    <tr>
-                        <td>{{ $fd2OtherInfoAll->file_name }}</td>
-                        <td>
-
-                          <a target="_blank" href="{{ route('fd3OtherFileDownload',$fd2OtherInfoAll->id) }}" class="btn btn-custom next_button btn-sm" >
-                              <i class="fa fa-download" aria-hidden="true"></i>
-                          </a>
-
-                          {{-- <a type="button" class="btn btn-custom next_button btn-sm fdthreeOtherFile" id="{{ $fd2OtherInfoAll->id }}" >
-                              <i class="fa fa-pencil" aria-hidden="true"></i>
-
-                          </a> --}}
-
-                            <a href="{{ route('fd3OtherFileDelete',$fd2OtherInfoAll->id) }}}" class="btn btn-sm btn-outline-danger"><i
-                              class="bi bi-trash"></i></a>
-
-
-
-
-
-                    </td>
-                    </tr>
-                    @endforeach
-
-                </table>
-            @endif
-
-            <!-- end new code --->
-
-
-                                                    <table class="table table-bordered" id="dynamicAddRemove">
-                                                        <tr>
-                                                            <th>ফাইলের নাম</th>
-                                                            <th>ফাইল</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><input type="text"  name="file_name[]" class="form-control" id=""
-                                                                       placeholder=""></td>
-                                                            <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
-                                                                       placeholder=""></td>
-                                                            <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
-                                                        </tr>
-                                                    </table>
-
-                                                </td>
-
-                                            </tr>
-
-                                            <!-- step five end --->
+                                           
 
 
 
                                         </table>
+ <!-- step five start -->
 
+ <tr>
+    <th style="text-align: center;" rowspan="2">১২.</th>
+
+    <td style="font-weight:bold;" colspan="3">গুরুত্বপূর্ণ যেকোনো তথ্য</td>
+
+
+</tr>
+
+<tr>
+
+
+    <td colspan="3">
+
+
+           <!-- start new code --->
+
+@if(count($fdThreeOtherFileList) == 0)
+
+
+@else
+
+<table class="table table-bordered">
+@foreach($fdThreeOtherFileList as $key=>$fd2OtherInfoAll)
+<tr>
+<td>{{ $fd2OtherInfoAll->file_name }}</td>
+<td>
+
+<a target="_blank" href="{{ route('fd3OtherFileDownload',$fd2OtherInfoAll->id) }}" class="btn btn-custom next_button btn-sm" >
+<i class="fa fa-download" aria-hidden="true"></i>
+</a>
+
+{{-- <a type="button" class="btn btn-custom next_button btn-sm fdthreeOtherFile" id="{{ $fd2OtherInfoAll->id }}" >
+<i class="fa fa-pencil" aria-hidden="true"></i>
+
+</a> --}}
+
+<a href="{{ route('fd3OtherFileDelete',$fd2OtherInfoAll->id) }}}" class="btn btn-sm btn-outline-danger"><i
+class="bi bi-trash"></i></a>
+
+
+
+
+
+</td>
+</tr>
+@endforeach
+
+</table>
+@endif
+
+<!-- end new code --->
+
+
+        <table class="table table-bordered" id="dynamicAddRemove">
+            <tr>
+                <th>ফাইলের নাম</th>
+                <th>ফাইল</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><input type="text"  name="file_name[]" class="form-control" id=""
+                           placeholder=""></td>
+                <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
+                           placeholder=""></td>
+                <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
+            </tr>
+        </table>
+
+    </td>
+
+</tr>
+
+<!-- step five end --->
                                         <!-- end new code start --->
 
                                         <div class="mb-3 col-lg-12 mt-3">

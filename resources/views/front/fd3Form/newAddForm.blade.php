@@ -936,46 +936,46 @@
 
 
 
-                                            <!-- step five start -->
-
-                                            <tr>
-                                                <th style="text-align: center;" rowspan="2">১২.</th>
-
-                                                <td style="font-weight:bold;" colspan="3">গুরুত্বপূর্ণ যেকোনো তথ্য</td>
-
-
-                                            </tr>
-
-                                            <tr>
-
-
-                                                <td colspan="3">
-
-                                                    <table class="table table-bordered" id="dynamicAddRemove">
-                                                        <tr>
-                                                            <th>ফাইলের নাম</th>
-                                                            <th>ফাইল</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><input type="text"  name="file_name[]" class="form-control" id=""
-                                                                       placeholder=""></td>
-                                                            <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
-                                                                       placeholder=""></td>
-                                                            <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
-                                                        </tr>
-                                                    </table>
-
-                                                </td>
-
-                                            </tr>
+                                            
 
                                             <!-- step five end --->
 
 
 
                                         </table>
+<!-- step five start -->
 
+<tr>
+    <th style="text-align: center;" rowspan="2">১২.</th>
+
+    <td style="font-weight:bold;" colspan="3">গুরুত্বপূর্ণ যেকোনো তথ্য</td>
+
+
+</tr>
+
+<tr>
+
+
+    <td colspan="3">
+
+        <table class="table table-bordered" id="dynamicAddRemove">
+            <tr>
+                <th>ফাইলের নাম</th>
+                <th>ফাইল</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><input type="text"  name="file_name[]" class="form-control" id=""
+                           placeholder=""></td>
+                <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
+                           placeholder=""></td>
+                <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
+            </tr>
+        </table>
+
+    </td>
+
+</tr>
                                         <!-- end new code start --->
 
                                         <div class="mb-3 col-lg-12 mt-3">

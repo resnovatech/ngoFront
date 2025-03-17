@@ -51,7 +51,7 @@ Route::get('/clear', function() {
     \Illuminate\Support\Facades\Artisan::call('config:cache');
     \Illuminate\Support\Facades\Artisan::call('view:clear');
     \Illuminate\Support\Facades\Artisan::call('route:clear');
-    return redirect()->route('index');
+    return redirect()->back();
 });
 
 Route::controller(FrontController::class)->group(function () {
@@ -661,7 +661,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('fd6TargetUpdate', 'fd6TargetUpdate')->name('fd6TargetUpdate');
 
         Route::get('fd6FormStepTwoSDGDelete', 'fd6FormStepTwoSDGDelete')->name('fd6FormStepTwoSDGDelete');
-        Route::post('fd6FormStepTwoSDG', 'fd6FormStepTwoSDG')->name('fd6FormStepTwoSDG');
+        Route::get('fd6FormStepTwoSDG', 'fd6FormStepTwoSDG')->name('fd6FormStepTwoSDG');
         Route::post('fd6FormStepTwoSDGUpdate', 'fd6FormStepTwoSDGUpdate')->name('fd6FormStepTwoSDGUpdate');
 
 

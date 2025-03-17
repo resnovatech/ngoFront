@@ -546,6 +546,14 @@ success: function(data) {
     $('#expenseEditModal1').modal('show');
     $("#viewDataNew").html('');
 $("#viewDataNew").html(data);
+$(".datepicker2334").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                calendarWeeks: true,
+         todayHighlight: true,
+         autoclose: true
+            });
 
 },
 beforeSend: function(){
