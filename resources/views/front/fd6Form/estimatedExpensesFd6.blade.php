@@ -4,22 +4,35 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th >১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
 
-
+            @else
+            <a type="a" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
         </div></th>
 
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
-        <th rowspan="2"></th>
+       
     </tr>
     <tr style="text-align: center;">
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}</th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}
+        @endif
+        </th>
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
@@ -28,10 +41,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
-        <td>
-            <button type="button" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+       
     </tr>
     <tr>
         <td>২.দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত
@@ -39,10 +49,7 @@
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year) }}</td>
-        <td>
-            <button type="button" id="2" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+       
     </tr>
     <tr>
         <td>৩.স্থানীয় অনুদান (উৎসের বিস্তারিত বিবরণ
@@ -50,48 +57,71 @@
         </td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year) }}</td>
-        <td>
-            <button type="button" id="3" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+        
     </tr>
     <tr>
         <td>মোট</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_first_year) }}</td>
-        <td></td>
+      
     </tr>
 
     @elseif($fd6FormList->new_prokolpo_year == '২য় বছর')
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর  <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
 
-
+            @else
+            <a type="a" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
+        <th>২য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
 
-
-
+            @else
+            <a type="a" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+@endif
 
         </div></th>
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
-        <th rowspan="2"></th>
+      
     </tr>
     <tr style="text-align: center;">
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}</th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}
+        @endif
+        </th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}
+        @endif
+        </th>
+       
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
@@ -101,10 +131,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
-        <td>
-            <button type="button" id="1" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+        
     </tr>
     <tr>
         <td>২.দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত
@@ -113,10 +140,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
-        <td>
-            <button type="button" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+        
     </tr>
     <tr>
         <td>৩.স্থানীয় অনুদান (উৎসের বিস্তারিত বিবরণ
@@ -125,49 +149,60 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
-        <td>
-            <button type="button" id="3" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+        
     </tr>
     <tr>
         <td>মোট</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_first_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_first_year + $fd6FormList->total_second_year) }}</td>
-        <td></td>
+    
     </tr>
 
     @elseif($fd6FormList->new_prokolpo_year == '৩য় বছর')
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
+        <th>১ম বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
 
-
+            @else
+            <a type="a" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
+        <th>২য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
 
-
-
+            @else
+            <a type="a" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+@endif
 
         </div></th>
-        <th>৩য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
+        <th>৩য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="3" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_third))
 
-
+            @else
+            <a type="a" id="3" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
 
         </div></th>
@@ -175,12 +210,35 @@
 
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
-        <th rowspan="2"></th>
+     
     </tr>
     <tr style="text-align: center;">
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}</th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}
+        @endif
+        </th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}
+        @endif
+        </th>
+        <th>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_third))
+
+            @else
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}
+        @endif
+        </th>
+       
     </tr>
     <tr>
         <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
@@ -191,10 +249,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_third_year + $fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
-        <td>
-            <button type="button" id="1" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+       
     </tr>
     <tr>
         <td>২.দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত
@@ -205,10 +260,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_third_year + $fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
 
-        <td>
-            <button type="button" id="2" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+      
     </tr>
     <tr>
         <td>৩.স্থানীয় অনুদান (উৎসের বিস্তারিত বিবরণ
@@ -218,10 +270,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_third_year + $fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
-        <td>
-            <button type="button" id="3" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+       
     </tr>
     <tr>
         <td>মোট</td>
@@ -229,7 +278,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_second_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_third_year + $fd6FormList->total_first_year + $fd6FormList->total_second_year) }}</td>
-        <td></td>
+   
     </tr>
 
 
@@ -237,55 +286,106 @@
 
     <tr>
         <th rowspan="2" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>১ম বছর  <div class="d-flex justify-content-between">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            <a type="a" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
+
+        </div></th>
+        <th>২য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
+
+            @else
+            <a type="a" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+@endif
+
+        </div></th>
+        <th>৩য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="3" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_third))
+
+            @else
+            <a type="a" id="3" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
+        <th>৪র্থ বছর <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="4" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_fourth))
 
-
+            @else
+            <a type="a" id="4" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
 
         </div></th>
-        <th>৩য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
-        <th>৪র্থ বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal4">
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
+       
 
         <th rowspan="2">মোট</th>
         <th rowspan="2">মন্তব্য</th>
-        <th rowspan="2"></th>
+      
     </tr>
     <tr style="text-align: center;">
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fourth))) }}</th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}
+        @endif
+        </th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}
+        @endif
+        </th>
+        <th>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_third))
+
+            @else
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}
+        @endif
+        </th>
+        <th>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_fourth))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fourth))) }}
+        @endif
+        
+        </th>
+   
 
     </tr>
     <tr>
@@ -298,10 +398,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_fourth_year + $fd6FormList->grants_received_from_abroad_third_year + $fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
         <td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
-        <td>
-            <button type="button" id="1" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+       
     </tr>
     <tr>
         <td>২.দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত
@@ -313,8 +410,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fourth_year + $fd6FormList->donations_made_by_foreign_donors_third_year + $fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
 <td>
-    <button type="button" id="2" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
-        class="bi bi-trash"></i></button>
+    
 </td>
     </tr>
     <tr>
@@ -326,10 +422,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fourth_year + $fd6FormList->local_grants_third_year + $fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
-        <td>
-            <button type="button" id="3" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
-                class="bi bi-trash"></i></button>
-        </td>
+      
     </tr>
     <tr>
         <td>মোট</td>
@@ -338,7 +431,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_third_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fourth_year + $fd6FormList->total_third_year + $fd6FormList->total_first_year + $fd6FormList->total_second_year) }}</td>
-        <td></td>
+     
     </tr>
 
 
@@ -346,53 +439,76 @@
 
     <tr>
         <th rowspan="3" >অর্থের উৎসের বিবরণ:</th>
-        <th>১ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary"  type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal1" >
-                <i class="fa fa-pencil"></i>
-            </button>
+        <th>১ম বছর  <div class="d-flex justify-content-between">
 
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="1" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            <a type="a" id="1" onclick="deleteTagExp(1)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
+
+        </div></th>
+        <th>২য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="2" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
+
+            @else
+            <a type="a" id="2" onclick="deleteTagExp(2)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+@endif
+
+        </div></th>
+        <th>৩য় বছর  <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="3" id="{{$fd6FormList->id}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_third))
+
+            @else
+            <a type="a" id="3" onclick="deleteTagExp(3)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
 
         </div></th>
-        <th>২য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal2" >
+        <th>৪র্থ বছর <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="4" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_fourth))
 
-
+            @else
+            <a type="a" id="4" onclick="deleteTagExp(4)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+                @endif
 
 
         </div></th>
-        <th>৩য় বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal3">
+        <th>৫ম বছর <div class="d-flex justify-content-between">
+
+
+            <a class="btn btn-sm btn-outline-primary expenseEditModalup" data-year="5" id="{{$fd6FormList->id}}">
                 <i class="fa fa-pencil"></i>
-            </button>
+            </a>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_fifth))
 
-
-
-
-        </div></th>
-        <th>৪র্থ বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal4">
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
-
-        </div></th>
-        <th>৫ম বছর <div class="d-flex justify-content-center">
-            <button class="btn btn-sm btn-outline-primary" type="button"  data-bs-toggle="modal"
-            data-bs-target="#expenseEditModal5" >
-                <i class="fa fa-pencil"></i>
-            </button>
-
-
-
+            @else
+            <a type="a" id="5" onclick="deleteTagExp(5)" class="btn btn-sm btn-outline-danger"><i
+                class="bi bi-trash"></i></a>
+@endif
 
         </div></th>
         <th rowspan="3">মোট</th>
@@ -400,11 +516,50 @@
 
     </tr>
     <tr style="text-align: center;">
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fourth))) }}</th>
-        <th>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fifth))) }}</th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_first))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}
+        @endif
+        </th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_second))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}
+        @endif
+        </th>
+        <th>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_third))
+
+            @else
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}
+        @endif
+        </th>
+        <th>
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_fourth))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fourth))) }}
+        @endif
+        
+        </th>
+        <th>
+
+            @if(empty($fd6FormList->prokolpo_year_grant_start_date_fifth))
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fifth))) }}
+        @endif
+        
+        </th>
     </tr>
     <tr style="text-align: center;">
 
@@ -454,7 +609,7 @@
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fourth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fifth_year) }}</td>
         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fifth_year + $fd6FormList->total_fourth_year + $fd6FormList->total_third_year + $fd6FormList->total_first_year + $fd6FormList->total_second_year) }}</td>
-        <td></td>
+     
 
     </tr>
 

@@ -136,7 +136,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -283,83 +283,7 @@
                                                   </tr>
 
 
-                                                  <tr>
-                                                    <th style="text-align: center;" rowspan="4">১১.</th>
-
-                                                    <td style="font-weight:bold;" colspan="2">গুরুত্বপূর্ণ অন্য কোনো তথ্য (যদি থাকে):
-                                                    </td>
-                                                    <td> </td>
-
-                                                </tr>
-                                                <tr>
-
-                                                    {{-- <td style="text-align: center;">ক.</td> --}}
-                                                    <td colspan="3" rowspan="3">
-
-                                                        @if(count($fc1OtherFileList) == 0)
-
-
-                                                        @else
-
-
-                                                            <div class="table-respnsive">
-                                                                <table class="table table-bordered">
-                                                                    @foreach($fc1OtherFileList as $key=>$fd2OtherInfoAll)
-                                                                    <tr>
-                                                                        <td>{{ $fd2OtherInfoAll->file_title }}</td>
-                                                                        <td>
-
-                                                                            <a target="_blank" href="{{ route('fcOneOtherPdfListdownload',$fd2OtherInfoAll->id) }}" class="btn btn-custom next_button btn-sm" >
-                                                                            <i class="fa fa-download" aria-hidden="true"></i>
-                                                                        </a>
-
-                                                                        <button type="button" class="btn btn-custom next_button btn-sm mmexampleModal" id="{{ $fd2OtherInfoAll->id }}">
-                                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-
-                                                                          </button>
-
-                                                                          <a href="{{ route('fcOneOtherPdfListdelete',$fd2OtherInfoAll->id) }}}" class="btn btn-sm btn-outline-danger"><i
-                                                                            class="bi bi-trash"></i></a>
-
-
-
-                                                                    </td>
-                                                                    </tr>
-                                                                    @endforeach
-
-                                                                </table>
-                                                            </div>
-
-                                                        @endif
-
-                                                        <div class="table-responsive">
-
-
-                                                            <table class="table table-bordered" id="dynamicAddRemove">
-                                                                <tr>
-                                                                    <th>ফাইলের নাম</th>
-                                                                    <th>ফাইল</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><input type="text"  name="file_name[]" class="form-control" id=""
-                                                                               placeholder=""></td>
-                                                                    <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
-                                                                               placeholder=""></td>
-                                                                    <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-
-
-
-
-
-
-                                            </td>
-
-
-                                                </tr>
+                                                
 
                                                 <tr>
 
@@ -374,7 +298,83 @@
 
 
                                               </table>
+                                              <tr>
+                                                <th style="text-align: center;" rowspan="4">১১.</th>
 
+                                                <td style="font-weight:bold;" colspan="2">গুরুত্বপূর্ণ অন্য কোনো তথ্য (যদি থাকে):
+                                                </td>
+                                                <td> </td>
+
+                                            </tr>
+                                            <tr>
+
+                                                {{-- <td style="text-align: center;">ক.</td> --}}
+                                                <td colspan="3" rowspan="3">
+
+                                                    @if(count($fc1OtherFileList) == 0)
+
+
+                                                    @else
+
+
+                                                        <div class="table-respnsive">
+                                                            <table class="table table-bordered">
+                                                                @foreach($fc1OtherFileList as $key=>$fd2OtherInfoAll)
+                                                                <tr>
+                                                                    <td>{{ $fd2OtherInfoAll->file_title }}</td>
+                                                                    <td>
+
+                                                                        <a target="_blank" href="{{ route('fcOneOtherPdfListdownload',$fd2OtherInfoAll->id) }}" class="btn btn-custom next_button btn-sm" >
+                                                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                                                    </a>
+
+                                                                    <button type="button" class="btn btn-custom next_button btn-sm mmexampleModal" id="{{ $fd2OtherInfoAll->id }}">
+                                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+
+                                                                      </button>
+
+                                                                      <a href="{{ route('fcOneOtherPdfListdelete',$fd2OtherInfoAll->id) }}}" class="btn btn-sm btn-outline-danger"><i
+                                                                        class="bi bi-trash"></i></a>
+
+
+
+                                                                </td>
+                                                                </tr>
+                                                                @endforeach
+
+                                                            </table>
+                                                        </div>
+
+                                                    @endif
+
+                                                    <div class="table-responsive">
+
+
+                                                        <table class="table table-bordered" id="dynamicAddRemove">
+                                                            <tr>
+                                                                <th>ফাইলের নাম</th>
+                                                                <th>ফাইল</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text"  name="file_name[]" class="form-control" id=""
+                                                                           placeholder=""></td>
+                                                                <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
+                                                                           placeholder=""></td>
+                                                                <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+
+
+
+
+
+
+                                        </td>
+
+
+                                            </tr>
 
                                         </div>
 

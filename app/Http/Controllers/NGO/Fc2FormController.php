@@ -870,7 +870,7 @@ public function fc2FormStepTwoSDGUpdate(Request $request){
 
 }
 
-public function fc1FormStepTwoSDGDelete(Request $request){
+public function fc2FormStepTwoSDGDelete(Request $request){
 
 
     $admins = SDGDevelopmentGoal::find($request->id);

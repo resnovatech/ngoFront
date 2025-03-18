@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">বাজেট বরাদ্দ</label>
-                                        <input type="text" name="budget_allocation" class="form-control" id="budget_allocation0"
+                                        <input type="number" name="budget_allocation" class="form-control" id="budget_allocation0"
                                         placeholder="">
                                     </div>
                                     <div class="col-lg-6 mb-3">

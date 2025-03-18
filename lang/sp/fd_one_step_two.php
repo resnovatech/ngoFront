@@ -10,6 +10,8 @@ return [
     'Step_2'=>'Step 2',
     'Plan_of_Operation' => 'Plan of Operation',
     'Project_District' => 'Project area',
+    'allDistrict' => 'All Bangladesh',
+    'disWise' => 'Implementation District',
     'Project_Sub_District' => '(District & Upazila)',
     'Source_of_Fund' => 'Source (s) of Fund',
     'Name_of_donor_organization' => 'Name of donor organization',

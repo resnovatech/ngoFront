@@ -1377,6 +1377,15 @@ $filename  = pathinfo($file_path, PATHINFO_FILENAME);
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label">প্রোফাইল ছবি</label>
                                                 <input type="file" class="form-control" name="user_image"  id="">
+
+
+                                                @if(!empty(Auth::user()->user_image))
+
+                                                <img src="{{asset('/')}}{{ Auth::user()->user_image }}" height="70px;"/>
+
+                                                @endif
+
+                                               
                                             </div>
 
 

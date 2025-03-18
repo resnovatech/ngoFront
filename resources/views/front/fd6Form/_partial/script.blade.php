@@ -67,9 +67,9 @@ if(prokolpo_year_grant == '১ম বছর'){
     $('#expenseEditModal5').modal('hide');
 }
 
-
+$('#expenseEditModal1').modal('hide');
 alertify.set('notifier','position', 'top-center');
-alertify.success('Data Added Successfully');
+alertify.success('Data Updated Successfully');
 
 $("#tableAjaxDataexp").html('');
 $("#tableAjaxDataexp").html(data);
@@ -794,12 +794,12 @@ var goal = $('#goal0').val();
 var target = $('#target0').val();
 var budget_allocation = $('#budget_allocation0').val();
 var rationality = $('#rationality0').val();
-var comment =$('#comment0').val();
+var comment =$('#Sdgcomment0').val();
 
 
 $.ajax({
 url: "{{ route('fd6FormStepTwoSDG') }}",
-method: 'post',
+method: 'get',
 data: {fd6Id:fd6Id,goal:goal,target:target,budget_allocation:budget_allocation,rationality:rationality,comment:comment},
 success: function(data) {
     $('#tableCountTwo').val(1);
@@ -815,7 +815,7 @@ var goal = $('#goal0').val('');
 var target = $('#target0').val('');
 var budget_allocation = $('#budget_allocation0').val('');
 var rationality = $('#rationality0').val('');
-var comment =$('#comment0').val('');
+var comment =$('#Sdgcomment0').val('');
 
 },
 beforeSend: function(){
@@ -872,7 +872,7 @@ var goal = $('#goal'+mainId).val();
 var target = $('#target'+mainId).val();
 var budget_allocation = $('#budget_allocation'+mainId).val();
 var rationality = $('#rationality'+mainId).val();
-var comment =$('#comment'+mainId).val();
+var comment =$('#Sdgcomment'+mainId).val();
 
 
 $.ajax({
@@ -893,7 +893,7 @@ var goal = $('#goal'+mainId).val('');
 var target = $('#target'+mainId).val('');
 var budget_allocation = $('#budget_allocation'+mainId).val('');
 var rationality = $('#rationality'+mainId).val('');
-var comment =$('#comment'+mainId).val('');
+var comment =$('#Sdgcomment'+mainId).val('');
 
 },
 beforeSend: function(){
@@ -1139,6 +1139,7 @@ $('#pageloader').hide();
 
                 var mainEditId = $('#mainEditId').val();
                 var fd6Id = $('#fd6Id').val();
+              
 
                 $.ajax({
     url: "{{ route('fd6SourceOfFundDelete') }}",

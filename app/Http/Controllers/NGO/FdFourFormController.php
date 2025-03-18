@@ -22,6 +22,8 @@ use App\Models\FdOneForm;
 use App\Models\FdFourForm;
 use App\Models\NgoRenewInfo;
 use App\Models\NgoDuration;
+use App\Models\FdFourOneExpenditureSector;
+use App\Models\FdFourOneForm;
 class FdFourFormController extends Controller
 {
 
@@ -143,11 +145,40 @@ class FdFourFormController extends Controller
 
             $fdFourOneFormId = $fdFourOneForm->id;
 
+            
 
-            return redirect()->route('fdFourForm.show',base64_encode($fdFourOneFormId))->with('success','Added Successfully');
+
+            return redirect()->route('fdFourOneDataPost',base64_encode($fdFourOneFormId))->with('success','Added Successfully');
+
+
+           // return redirect()->route('fdFourForm.show',base64_encode($fdFourOneFormId))->with('success','Added Successfully');
 
         } catch (\Exception $e) {
 
+            return redirect()->route('error_404');
+        }
+    }
+
+    public function fdFourOneDataPost($id){
+
+        try{
+
+            $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+            $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
+
+            $districtList = DB::table('civilinfos')->groupBy('district_bn')
+            ->select('district_bn')->get();
+
+            $expenditureDetails = FdFourOneExpenditureSector::where('user_id',Auth::user()->id)
+
+            ->where('status',0)->get();
+
+            $fdFourFormId = base64_decode($id);
+
+            return view('front.fdFourOneForm.newAddForm',compact('fdFourFormId','ngo_list_all','districtList','expenditureDetails'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->route('error_404');
         }
     }
@@ -184,12 +215,50 @@ class FdFourFormController extends Controller
             $fdFourOneFormId = $fdFourOneForm->id;
 
 
-            return redirect()->route('fdFourForm.show',base64_encode($fdFourOneFormId))->with('success','Added Successfully');
+            $getCheckNewId = FdFourOneForm::where('fd_four_form_id',$fdFourOneFormId)->first();
 
+
+            if(!$getCheckNewId){
+                return redirect()->route('fdFourOneDataPost',base64_encode($fdFourOneFormId))->with('success','Updated Successfully');
+            }else{
+            return redirect()->route('fdFourOneDataUpdate',base64_encode($fdFourOneFormId))->with('success','Updated Successfully');
+            }
         } catch (\Exception $e) {
 
             return redirect()->route('error_404');
         }
+    }
+
+    public function fdFourOneDataUpdate($id){
+
+
+        try{
+
+            $fdFourFormId = base64_decode($id);
+
+            //dd($decode_id);
+
+            $getCheckNewId = FdFourOneForm::where('fd_four_form_id',$fdFourFormId)->first();
+
+            $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->id)->value('ngo_type');
+            $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
+
+            $districtList = DB::table('civilinfos')->groupBy('district_bn')
+            ->select('district_bn')->get();
+
+            $fdFourOneFormList = FdFourOneForm::where('id',$getCheckNewId->id)
+            ->first();
+
+            $expenditureDetails = FdFourOneExpenditureSector::where('fd_four_one_id',$getCheckNewId->id)
+            ->latest()->get();
+
+            return view('front.fdFourOneForm.newEdit',compact('fdFourFormId','fdFourOneFormList','expenditureDetails','ngo_list_all','districtList'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('error_404');
+        }
+
     }
 
 
@@ -202,7 +271,16 @@ class FdFourFormController extends Controller
             $fdFourFormList = FdFourForm::where('fd_one_form_id',$ngo_list_all->id)->where('id',base64_decode($id))
             ->first();
 
-            return view('front.fdFourForm.show',compact('ngo_list_all','fdFourFormList'));
+            $fdFourOneFormList = FdFourOneForm::where('fd_four_form_id',$fdFourFormList->id)
+            ->latest()->first();
+
+
+            if(!$fdFourOneFormList){
+                $expenditureDetails =0;
+            }else{
+            $expenditureDetails = FdFourOneExpenditureSector::where('fd_four_one_id',$fdFourOneFormList->id)->latest()->get();
+            }
+            return view('front.fdFourForm.show',compact('expenditureDetails','fdFourOneFormList','ngo_list_all','fdFourFormList'));
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -262,7 +340,7 @@ class FdFourFormController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return $e;
+            return redirect()->route('error_404');
         }
     }
 

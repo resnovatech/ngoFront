@@ -137,7 +137,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -429,7 +429,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    প্রধান নির্বাহীর তথ্যাদি
+                    সংস্থা প্রধানের  তথ্যাদি
 
                 </div>
                 <div class="card-body">

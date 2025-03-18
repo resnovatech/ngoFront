@@ -140,7 +140,7 @@ class FdoneformController extends Controller
 
         try{
 
-            $get_file_data = FdOneOtherPdfList::where('id',$id)->value('information_pdf');
+            $get_file_data = FdOneOtherPdfList::where('id',base64_decode($id))->value('information_pdf');
 
             $file_path = url('public/'.$get_file_data);
             $file= public_path('/').$get_file_data;
@@ -162,7 +162,7 @@ class FdoneformController extends Controller
 
         try{
 
-            $get_file_data = FdOneSourceOfFund::where('id',$id)->value('letter_file');
+            $get_file_data = FdOneSourceOfFund::where('id',base64_decode($id))->value('letter_file');
 
             $file_path = url('public/'.$get_file_data);
             $filename  = pathinfo($file_path, PATHINFO_FILENAME);
@@ -675,9 +675,11 @@ class FdoneformController extends Controller
 
     public function sourceOfFundUpdate(Request $request){
 
+        //dd($request->all());
+
         try{
 
-            DB::beginTransaction();
+          
 
             $cutomeFileName = time().date("Ymd");
 
@@ -693,10 +695,10 @@ class FdoneformController extends Controller
             }
             $uploadOneSourceOfFund->save();
 
-            DB::commit();
+        
             return redirect()->back();
         } catch (\Exception $e) {
-            DB::rollBack();
+        
             return redirect()->route('error_404');
         }
 
@@ -835,6 +837,26 @@ class FdoneformController extends Controller
 
 
     public function fieldOfProposedActivitiesUpdate(Request $request){
+
+
+        //dd($request->all());
+
+        if(!empty($request->name_sour)){
+
+            $cutomeFileName = time().date("Ymd");
+
+            $uploadOneSourceOfFund = FdOneSourceOfFund::find($request->id);
+            $uploadOneSourceOfFund->name = $request->name_sour;
+            $uploadOneSourceOfFund->address = $request->address_sour;
+            if ($request->hasfile('letter_file')) {
+
+                $filePath="FdOneSourceOfFund";
+                $file = $request->file('letter_file');
+                $uploadOneSourceOfFund->letter_file =CommonController::pdfUpload($request,$file,$filePath);
+
+            }
+            $uploadOneSourceOfFund->save();
+        }
 
 
         $cutomeFileName = time().date("Ymd");

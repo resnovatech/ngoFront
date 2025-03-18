@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">প্রাক্কলিত ব্যয়</label>
-                                        <input type="text" name="estimated_expenses" class="form-control" id="estimated_expenses0"
+                                        <input type="number" name="estimated_expenses" class="form-control" id="estimated_expenses0"
                                         placeholder="">
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -74,7 +74,7 @@
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">মোট উপকারভোগীর সংখ্যা<span class="text-danger">*</span></label>
-                                        <input type="text"  name="number_of_beneficiaries" class="form-control" id="number_of_beneficiaries0" placeholder="">
+                                        <input type="number"  name="number_of_beneficiaries" class="form-control" id="number_of_beneficiaries0" placeholder="">
                                     </div>
 
                             </div>

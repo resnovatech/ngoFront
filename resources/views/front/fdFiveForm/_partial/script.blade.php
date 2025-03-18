@@ -172,6 +172,18 @@ var organization_usage_volume = $('#organization_usage_volume0').val('');
 var person_detail = $('#person_detail0').html('');
 var details_of_any_goods_sold = $('#details_of_any_goods_sold0').html('');
 var bureau_approval_file_hidden = $('#bureau_approval_file_hidden0').val('');
+
+$('#person_detail0').summernote('reset');
+$('#details_of_any_goods_sold0').summernote('reset');
+$('#goods_transferred_detail0').summernote('reset');
+$('#detail_of_goods_medium0').summernote('reset');
+$('#details_of_remaining_goods0').summernote('reset');
+
+$('#bureau_approval_file_goods_sold0').val('');
+$('#bureau_approval_file_transferred_detail0').val('');
+$('#bureau_approval_file_goods_medium0').val('');
+
+
 var goods_transferred_detail =$('#goods_transferred_detail0').html('');
 var bureau_approval_file_transferred_hidden =$('#bureau_approval_file_transferred_hidden0').val('');
 var detail_of_goods_medium =$('#detail_of_goods_medium0').html('');
@@ -236,6 +248,12 @@ data: {
     details_of_remaining_goods:details_of_remaining_goods,
 },
 success: function(data) {
+
+    
+
+    $('#bureau_approval_file_goods_sold'+mainId).val('');
+$('#bureau_approval_file_transferred_detail'+mainId).val('');
+$('#bureau_approval_file_goods_medium'+mainId).val('');
 
 $('#exampleModalDataUpdateUsed'+mainId).modal('hide');
 $("#receivedUsedId").val(1);
@@ -574,7 +592,7 @@ $('#pageloader').hide();
     method: 'GET',
     data: {mainEditId:mainEditId,id:id},
     success: function(data) {
-
+        $('.summernote').summernote();
       alertify.set('notifier','position', 'top-center');
       alertify.error('Data Delete Successfully');
       $("#tableAjaxDataReceivedUsedGoods").html('');

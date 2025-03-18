@@ -1,5 +1,5 @@
 <!--modal-->
-<div class="modal modal-xl fade" id="#adjoiningfModalEdit{{ $fd6FurnitureEquipmentsList->id }}"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-xl fade" id="adjoiningfModalEdit{{ $fd6FurnitureEquipmentsList->id }}"  aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

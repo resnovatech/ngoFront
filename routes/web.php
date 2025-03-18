@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NGO\OtherformController;
+use App\Http\Controllers\NGO\CeoInfoController;
 use App\Http\Controllers\NGO\FormeightController;
 use App\Http\Controllers\NGO\NgomemberController;
 use App\Http\Controllers\NGO\NgomemberdocController;
@@ -44,13 +45,15 @@ use App\Http\Controllers\NGO\Fd6FormPartTwoController ;
 |
 */
 
+
+
 Route::get('/clear', function() {
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('config:clear');
     \Illuminate\Support\Facades\Artisan::call('config:cache');
     \Illuminate\Support\Facades\Artisan::call('view:clear');
     \Illuminate\Support\Facades\Artisan::call('route:clear');
-    return redirect()->route('index');
+    return redirect()->back();
 });
 
 Route::controller(FrontController::class)->group(function () {
@@ -152,6 +155,8 @@ Route::controller(RegsubmitController::class)->group(function () {
 
 Route::controller(AuthController::class)->group(function () {
 
+    //Route::get('ngoCeoInformation','ngoCeoInformation')->name('ngoCeoInformation');
+
     Route::get('/checkMailAlreadyRegisteredOrNot','checkMailAlreadyRegisteredOrNot')->name('checkMailAlreadyRegisteredOrNot');
     Route::get('/checkMailFromList','checkMailFromList')->name('checkMailFromList');
     Route::post('/sendMailGetFromList','sendMailGetFromList')->name('sendMailGetFromList');
@@ -225,8 +230,14 @@ Route::controller(OtherformController::class)->group(function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+    
 
+    Route::resource('ngoCeoInfo',CeoInfoController::class);
+    Route::controller(CeoInfoController::class)->group(function () {
 
+        Route::get('ceoInfoUpdate/{id}', 'ceoInfoUpdate')->name('ceoInfoUpdate');
+
+    });
     Route::resource('complain',ComplainMonitorController::class);
 
     Route::controller(FD8Controller::class)->group(function () {
@@ -264,6 +275,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('addFdFourFormData/{id}', 'addFdFourFormData')->name('addFdFourFormData');
         Route::get('editFdFourFormData/{id}', 'editFdFourFormData')->name('editFdFourFormData');
         Route::get('fdFourSend/{id}', 'fdFourSend')->name('fdFourSend');
+
+        Route::get('fdFourOneDataPost/{id}', 'fdFourOneDataPost')->name('fdFourOneDataPost');
+        Route::get('fdFourOneDataUpdate/{id}', 'fdFourOneDataUpdate')->name('fdFourOneDataUpdate');
+
     });
 
     Route::controller(FormNoFourController::class)->group(function () {
@@ -464,6 +479,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::controller(Fd6FormPartTwoController::class)->group(function () {
 
+        Route::get('fd6NewDataEditup', 'fd6NewDataEditup')->name('fd6NewDataEditup');
+
         Route::get('fd6SourceOfFundDelete', 'fd6SourceOfFundDelete')->name('fd6SourceOfFundDelete');
 
         Route::get('fd6pdfview/{id}', 'fd6pdfview')->name('fd6pdfview');
@@ -646,7 +663,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('fd6TargetUpdate', 'fd6TargetUpdate')->name('fd6TargetUpdate');
 
         Route::get('fd6FormStepTwoSDGDelete', 'fd6FormStepTwoSDGDelete')->name('fd6FormStepTwoSDGDelete');
-        Route::post('fd6FormStepTwoSDG', 'fd6FormStepTwoSDG')->name('fd6FormStepTwoSDG');
+        Route::get('fd6FormStepTwoSDG', 'fd6FormStepTwoSDG')->name('fd6FormStepTwoSDG');
         Route::post('fd6FormStepTwoSDGUpdate', 'fd6FormStepTwoSDGUpdate')->name('fd6FormStepTwoSDGUpdate');
 
 

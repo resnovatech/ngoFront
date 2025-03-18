@@ -240,7 +240,7 @@ class Fd6FormController extends Controller
 
     public function store(Request $request){
 
-       // dd($request->all());
+       
         $request->validate([
 
             'ngo_name' => 'required|string',
@@ -310,6 +310,13 @@ class Fd6FormController extends Controller
         ]);
 
             DB::commit();
+
+            session()->forget('ngo_prokolpo_name');
+            session()->forget('ngo_prokolpo_duration');
+            session()->forget('ngo_prokolpo_start_date');
+            session()->forget('ngo_prokolpo_end_date');
+            session()->forget('subject_id');
+
             return redirect()->route('fd6StepTwo',base64_encode($fd6FormInfoId))->with('success','Added Successfuly');
 
         } catch (\Exception $e) {
@@ -318,6 +325,13 @@ class Fd6FormController extends Controller
         }
 
     }else{
+
+
+        Session::put('ngo_prokolpo_name', $request->ngo_prokolpo_name);
+        Session::put('ngo_prokolpo_duration', $request->ngo_prokolpo_duration);
+        Session::put('ngo_prokolpo_start_date', $request->ngo_prokolpo_start_date);
+        Session::put('ngo_prokolpo_end_date', $request->ngo_prokolpo_end_date);
+        Session::put('subject_id', $request->subject_id);
 
         return redirect()->back()->with('error','Please Add Prokolpo Area');
     }
@@ -1103,7 +1117,9 @@ try{
         ->where('type','fd6')
         ->get();
 
-        $data = view('front.fd6Form.fd6ExpectedResultTable',compact('expectedResultDetail'))->render();
+        $fd6Id=$request->fd6Id;
+
+        $data = view('front.fd6Form.fd6ExpectedResultTable',compact('expectedResultDetail','fd6Id'))->render();
         return response()->json($data);
 
 
@@ -1120,8 +1136,8 @@ try{
         $expectedResultDetail = ExpectedResult::where('main_id',$request->fd6Id)
         ->where('type','fd6')
         ->get();
-
-        $data = view('front.fd6Form.fd6ExpectedResultTable',compact('expectedResultDetail'))->render();
+        $fd6Id=$request->fd6Id;
+        $data = view('front.fd6Form.fd6ExpectedResultTable',compact('expectedResultDetail','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1137,8 +1153,8 @@ try{
         $expectedResultDetail = ExpectedResult::where('main_id',$request->fd6Id)
         ->where('type','fd6')
         ->get();
-
-        $data = view('front.fd6Form.fd6ExpectedResultTable',compact('expectedResultDetail'))->render();
+        $fd6Id=$request->fd6Id;
+        $data = view('front.fd6Form.fd6ExpectedResultTable',compact('expectedResultDetail','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1163,7 +1179,9 @@ try{
         ->where('type','fd6')
         ->get();
 
-        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail'))->render();
+        $fd6Id = $request->fd6Id;
+
+        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1180,12 +1198,12 @@ try{
         $form->total_benificiari=$request->total_benificiari;
         $form->comment=$request->comment;
         $form->save();
-
+        $fd6Id = $request->fd6Id;
         $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$request->fd6Id)
         ->where('type','fd6')
         ->get();
 
-        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail'))->render();
+        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1202,7 +1220,9 @@ try{
         ->where('type','fd6')
         ->latest()->get();
 
-        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail'))->render();
+        $fd6Id = $request->fd6Id;
+
+        $data = view('front.fd6Form.fd6TargetTable',compact('fd2AllFormLastYearDetail','fd6Id'))->render();
         return response()->json($data);
     }
 
@@ -1243,8 +1263,8 @@ try{
     ->select('division_bn')->get();
 
     $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->get();
-
-        $data = view('front.fd6Form.districtWise',compact('cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','districtWiseList'))->render();
+    $fd6Id=$request->fd6Id;
+        $data = view('front.fd6Form.districtWise',compact('fd6Id','cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','districtWiseList'))->render();
         return response()->json($data);
 
 
@@ -1290,11 +1310,16 @@ try{
 
     $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->get();
 
-        $data = view('front.fd6Form.districtWise',compact('cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','districtWiseList'))->render();
+    $fd6Id=$request->fd6Id;
+
+        $data = view('front.fd6Form.districtWise',compact('fd6Id','cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','districtWiseList'))->render();
         return response()->json($data);
 
     }
     public function fd6FormStepTwoSDG(Request $request){
+
+
+       
 
         $form= new SDGDevelopmentGoal();
         $form->fc1_form_id=$request->fd6Id;
@@ -1375,7 +1400,9 @@ try{
         $thanaList = DB::table('civilinfos')->groupBy('thana_bn')
         ->select('thana_bn')->get();
 
-        $data = view('front.fd6Form.districtWise',compact('cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','districtWiseList'))->render();
+        $fd6Id=$request->fd6Id;
+
+        $data = view('front.fd6Form.districtWise',compact('fd6Id','cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','districtWiseList'))->render();
         return response()->json($data);
 
     }
@@ -1568,7 +1595,9 @@ try{
 
     $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->get();
 
-        $data = view('front.fd6Form.partnerNgoTable',compact('cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','partnerDataPostList'))->render();
+    $fd6Id=$request->fd6Id;
+
+        $data = view('front.fd6Form.partnerNgoTable',compact('fd6Id','cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','partnerDataPostList'))->render();
         return response()->json($data);
 
     }
@@ -1593,7 +1622,9 @@ try{
 
         ->latest()->get();
 
-        $data = view('front.fd6Form.employeeTable',compact('employeeDataPostList'))->render();
+        $fd6Id = $request->fd6Id;
+
+        $data = view('front.fd6Form.employeeTable',compact('employeeDataPostList','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1617,7 +1648,9 @@ try{
 
         ->latest()->get();
 
-        $data = view('front.fd6Form.employeeTable',compact('employeeDataPostList'))->render();
+        $fd6Id = $request->fd6Id;
+
+        $data = view('front.fd6Form.employeeTable',compact('employeeDataPostList','fd6Id'))->render();
         return response()->json($data);
 
     }
@@ -1625,7 +1658,9 @@ try{
 
     public function employeeDataDelete(Request $request){
 
-        $admins = Fd6AdjoiningB::find($request->fd6Id);
+       // dd(12);
+
+        $admins = Fd6AdjoiningB::find($request->id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -1634,14 +1669,16 @@ try{
 
         ->latest()->get();
 
-        $data = view('front.fd6Form.employeeTable',compact('employeeDataPostList'))->render();
+        $fd6Id = $request->fd6Id;
+
+        $data = view('front.fd6Form.employeeTable',compact('employeeDataPostList','fd6Id'))->render();
         return response()->json($data);
     }
 
     public function partnerDataDelete(Request $request){
 
 
-        $admins = Fd6PartnerNgo::find($request->fd6Id);
+        $admins = Fd6PartnerNgo::find($request->id);
         if (!is_null($admins)) {
             $admins->delete();
         }
@@ -1663,7 +1700,9 @@ try{
 
     $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->get();
 
-        $data = view('front.fd6Form.partnerNgoTable',compact('cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','partnerDataPostList'))->render();
+    $fd6Id=$request->fd6Id;
+
+        $data = view('front.fd6Form.partnerNgoTable',compact('fd6Id','cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','partnerDataPostList'))->render();
         return response()->json($data);
 
 
@@ -1710,8 +1749,8 @@ try{
     ->select('division_bn')->get();
 
     $thanaList = DB::table('civilinfos')->groupBy('thana_bn')->select('thana_bn')->get();
-
-        $data = view('front.fd6Form.partnerNgoTable',compact('cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','partnerDataPostList'))->render();
+ $fd6Id=$request->fd6Id;
+        $data = view('front.fd6Form.partnerNgoTable',compact('fd6Id','cityCorporationList','thanaList','divisionList','subdDistrictList','districtList','partnerDataPostList'))->render();
         return response()->json($data);
 
     }

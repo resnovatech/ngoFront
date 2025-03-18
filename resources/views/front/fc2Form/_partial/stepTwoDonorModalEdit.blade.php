@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">টাকার পরিমাণ</label>
-                                        <input type="text" value="{{ $donationLists->money_amount }}" name="money_amount" class="form-control" id="money_amount{{ $donationLists->id }}"
+                                        <input type="number" value="{{ $donationLists->money_amount }}" name="money_amount" class="form-control" id="money_amount{{ $donationLists->id }}"
                                         placeholder="">
                                     </div>
 

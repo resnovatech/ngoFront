@@ -109,7 +109,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a href="{{ route('fdFourOneForm.index') }}" style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -274,7 +274,7 @@
 
                                                         <div class="mb-3 col-lg-12">
 
-                                                            <input type="text" placeholder="টেলিফোন" required name="ngo_telephone_number" value="{{ $ngo_list_all->tele_phone_number }}" class="form-control" id=""
+                                                            <input type="text" placeholder="টেলিফোন" required name="ngo_telephone" value="{{ $ngo_list_all->tele_phone_number }}" class="form-control" id=""
                                                                    >
                                                         </div>
                                                         <div class="mb-3 col-lg-12">

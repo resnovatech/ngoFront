@@ -115,7 +115,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -503,7 +503,7 @@
                                                             <td>
 
 
-                                                                    <textarea  name="fd9_previous_citizenship_is_grounds_for_non_retention" id="" cols="30" rows="4" class="form-control summernote"></textarea>
+                                                                    <textarea  name="fd9_previous_citizenship_is_grounds_for_non_retention" id="" cols="30" rows="4" class="form-control summernote">{{ $fdNineData->fd9_previous_citizenship_is_grounds_for_non_retention }}</textarea>
 
 
 
@@ -523,7 +523,7 @@
 
 
                                                                     <input type="text" class="form-control" id=""
-                                                                           placeholder="বর্তমান ঠিকানা" name="fd9_current_address" required>
+                                                                           placeholder="বর্তমান ঠিকানা" name="fd9_current_address" value="{{ $fdNineData->fd9_current_address }}" required>
 
 
                                                             </td>
@@ -538,7 +538,7 @@
 
 
                                                                     <input type="text" class="form-control" id=""
-                                                                           placeholder="পরিবারের সদস্য সংখ্যা" name="fd9_number_of_family_members" required>
+                                                                           placeholder="পরিবারের সদস্য সংখ্যা" value="{{ $fdNineData->fd9_number_of_family_members }}" name="fd9_number_of_family_members" required>
 
 
 
@@ -547,7 +547,11 @@
                                                             </td>
 
                                                         </tr>
-
+                                                        <?php
+                                                        $familyData = $fdNineData->fd9ForeignerEmployeeFamilyMemberList;
+                                                     
+                                                        //dd($familyData);
+                                                         ?>
                                                         <tr>
                                                             <th style="text-align: center;" colspan="2" rowspan="2">১৩.</th>
 
@@ -558,6 +562,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3">
+                                                                @if(count($familyData) == 0)
                                                                 <table class="table table-light" id="dynamicAddRemove">
                                                                     <tr>
                                                                         <th>নাম</th>
@@ -576,6 +581,47 @@
                                                                         <td></td>
                                                                     </tr>
                                                                 </table>
+                                                                @else
+
+                                                                <table class="table table-light" id="dynamicAddRemove">
+                                                                    <tr>
+                                                                        <th>নাম</th>
+                                                                        <th>বয়স</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    @foreach($familyData as $key=>$allFamilyData)
+                                                        
+                                                                    @if($key==0)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="text" value="{{ $allFamilyData->family_member_name }}" name="family_member_name[]"
+                                                                                   class="form-control" required/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" value="{{ $allFamilyData->family_member_age }}" name="family_member_age[]"
+                                                                                   class="form-control" required/>
+                                                                        </td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    @else
+                                                        
+                                                                    <tr  id="divnewf{{$key+70000}}">
+                                                                        <td>
+                                                                            <input type="text" value="{{ $allFamilyData->family_member_name }}" name="family_member_name[]"
+                                                                                   class="form-control" required/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" value="{{ $allFamilyData->family_member_age }}" name="family_member_age[]"
+                                                                                   class="form-control" required/>
+                                                                        </td>
+                                                                        <td><button type="button" data-midf="{{$key+70000}}" class="btn btn-outline-danger remove-input-field"><i class="bi bi-file-earmark-x-fill"></i></button></td>
+                                                                    </tr>
+                                                        
+                                                                    @endif
+                                                                    @endforeach
+                                                                </table>
+
+                                                                @endif
                                                                 <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">নতুন সদস্য যোগ করুন
                                                                 </button>
                                                             </td>
@@ -594,11 +640,26 @@
                                                         <tr>
                                                             <td colspan="3">
 
-                                                                        <input type="text" placeholder="একাডেমিক যোগ্যতা" required name="fd9_academic_qualification_des" id="" class="form-control"/>
+                                                                        <input type="text" placeholder="একাডেমিক যোগ্যতা" value="{{ $fdNineData->fd9_academic_qualification_des }}" required name="fd9_academic_qualification_des" id="" class="form-control"/>
 
                                                                         <input type="file" accept=".pdf"  class="form-control mt-2" id="fdNinePdf1"
-                                                                        placeholder="" required name="fd9_academic_qualification">
+                                                                        placeholder=""  name="fd9_academic_qualification">
+                                                                        @if(!$fdNineData->fd9_academic_qualification)
 
+                                                                        @else
+                                                                        <?php
+                                                
+                                                                        $file_path = url($fdNineData->fd9_academic_qualification);
+                                                                        $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                                
+                                                                        $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                                
+                                                
+                                                
+                                                
+                                                                        ?>
+                                                                        {{ $filename.'.'.$extension }}
+                                                                        @endif
                                                                         <p id="fdNinePdf1_text" class="text-danger mt-2" style="font-size:12px;"></p>
 
 
@@ -619,13 +680,28 @@
                                                             <td colspan="3">
 
 
-                                                                                            <input type="text" placeholder="কারিগরি ও অন্যান্য যোগ্যতা যদি থাকে"  name="fd9_technical_and_other_qualifications_if_any_des" id="" class="form-control"/>
+                                                                                            <input type="text" value="{{ $fdNineData->fd9_technical_and_other_qualifications_if_any_des }}" placeholder="কারিগরি ও অন্যান্য যোগ্যতা যদি থাকে"  name="fd9_technical_and_other_qualifications_if_any_des" id="" class="form-control"/>
 
 
 
                                                                                             <input type="file" accept=".pdf"  class="form-control mt-2" id="fdNinePdf2"
                                                                                    placeholder=""  name="fd9_technical_and_other_qualifications_if_any">
+                                                                                   @if(!$fdNineData->fd9_technical_and_other_qualifications_if_any)
 
+                                                                                   @else
+                                                                                   <?php
+                                                                    
+                                                                                   $file_path = url($fdNineData->fd9_technical_and_other_qualifications_if_any);
+                                                                                   $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                                                    
+                                                                                   $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                                   ?>
+                                                                                   {{ $filename.'.'.$extension }}
+                                                                                   @endif
                                                                                    <p id="fdNinePdf2_text" class="text-danger mt-2" style="font-size:12px;"></p>
 
                                                             </td>
@@ -644,11 +720,26 @@
                                                         <tr>
                                                             <td colspan="3">
 
-                                                                        <input type="text" placeholder="অতীত অভিজ্ঞতা এবং নিয়োগপ্রাপ্ত কাজে দক্ষতা" required name="fd9_past_experience_des" id="" class="form-control"/>
+                                                                        <input type="text" value="{{ $fdNineData->fd9_past_experience_des }}" placeholder="অতীত অভিজ্ঞতা এবং নিয়োগপ্রাপ্ত কাজে দক্ষতা" required name="fd9_past_experience_des" id="" class="form-control"/>
 
-                                                                        <input type="file" accept=".pdf"  required class="form-control mt-2" id="fdNinePdf3"
+                                                                        <input type="file" accept=".pdf"   class="form-control mt-2" id="fdNinePdf3"
                                                                         placeholder="" name="fd9_past_experience">
+                                                                        @if(!$fdNineData->fd9_past_experience)
 
+                                                                        @else
+                                                                        <?php
+                                                
+                                                                        $file_path = url($fdNineData->fd9_past_experience);
+                                                                        $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                                
+                                                                        $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                                
+                                                
+                                                
+                                                
+                                                                        ?>
+                                                                        {{ $filename.'.'.$extension }}
+                                                                        @endif
                                                                         <p id="fdNinePdf3_text" class="text-danger mt-2" style="font-size:12px;"></p>
 
                                                             </td>
@@ -664,7 +755,7 @@
 <td>  <?php
 
     $countryList = DB::table('countries')->orderBy('id','asc')->get();
-
+    $convert_new_ass_cat  = explode(",",$fdNineData->fd9_countries_that_have_traveled);
     ?>
 
                     <select class="js-example-basic-multiple form-control"  name="fd9_countries_that_have_traveled[]"
@@ -672,7 +763,7 @@
                     <option value="">{{ trans('civil.select')}}</option>
                     @foreach($countryList as $allGetCityzenshipData)
 
-                    <option value="{{ $allGetCityzenshipData->country_name_bangla }}" >{{ $allGetCityzenshipData->country_name_bangla }}</option>
+                    <option value="{{ $allGetCityzenshipData->country_name_bangla }}" {{ (in_array($allGetCityzenshipData->country_name_bangla,$convert_new_ass_cat)) ? 'selected' : '' }}>{{ $allGetCityzenshipData->country_name_bangla }}</option>
 
                 @endforeach
 
@@ -693,7 +784,7 @@
                                                             <td colspan="2"> পদের নাম <span style="color:red;">* </span></td>
                                                             <td>
 
-                                                                <input type="text" placeholder="পদের নাম"  name="fd9_offered_post_name" id="" class="form-control" required/>
+                                                                <input type="text" placeholder="পদের নাম" value="{{ $fdNineData->fd9_offered_post_name }}"  name="fd9_offered_post_name" id="" class="form-control" required/>
 
 
                                                             </td>
@@ -706,8 +797,24 @@
                                                                 class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 1 MB)</span> </td>
                                                             <td>
 
-                                                                <input type="file" accept=".pdf"  required class="form-control" id="fdNinePdf4"
+                                                                <input type="file" accept=".pdf"   class="form-control" id="fdNinePdf4"
                                                                        placeholder="" name="fd9_offered_post_niyog">
+                                                                       @if(!$fdNineData->fd9_offered_post_niyog)
+
+                                                                       @else
+                                                                       <?php
+                                        
+                                                                       $file_path = url($fdNineData->fd9_offered_post_niyog);
+                                                                       $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                        
+                                                                       $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                        
+                                        
+                                        
+                                        
+                                                                       ?>
+                                                                       {{ $filename.'.'.$extension }}
+                                                                       @endif
                                                                        <p id="fdNinePdf4_text" class="text-danger mt-2" style="font-size:12px;"></p>
 
                                                             </td>
@@ -718,8 +825,24 @@
 
                                                             <td colspan="2">চুক্তিপত্র <span style="color:red;">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 1 MB)</span> </td>
                                                             <td>
-                                                            <input type="file" accept=".pdf"  required class="form-control" id="fdNinePdf55"
+                                                            <input type="file" accept=".pdf"   class="form-control" id="fdNinePdf55"
                                                                    placeholder="" name="fd9_offered_post">
+                                                                   @if(!$fdNineData->fd9_offered_post)
+
+                                                                   @else
+                                                                   <?php
+                                    
+                                                                   $file_path = url($fdNineData->fd9_offered_post);
+                                                                   $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                    
+                                                                   $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                    
+                                    
+                                    
+                                    
+                                                                   ?>
+                                                                   {{ $filename.'.'.$extension }}
+                                                                   @endif
                                                                    <p id="fdNinePdf55_text" class="text-danger mt-2" style="font-size:12px;"></p>
 
                                                         </td>
@@ -739,17 +862,32 @@
                                                         <tr>
                                                             <td colspan="3">
 
-                                                                                            <input placeholder="প্রকল্পের নাম" type="text" required name="fd9_name_of_proposed_project_name" id="" class="form-control"/>
+                                                                                            <input placeholder="প্রকল্পের নাম" value="{{ $fdNineData->fd9_name_of_proposed_project_name }}" type="text" required name="fd9_name_of_proposed_project_name" id="" class="form-control"/>
 
 
 
-                                                                    <input type="text" placeholder="প্রকল্পের মেয়াদ" required name="fd9_name_of_proposed_project_duration" id="" class="form-control mt-2"/>
+                                                                    <input type="text" placeholder="প্রকল্পের মেয়াদ" value="{{ $fdNineData->fd9_name_of_proposed_project_duration }}" required name="fd9_name_of_proposed_project_duration" id="" class="form-control mt-2"/>
 
 
 
-                                                                    <input type="file" accept=".pdf"  required class="form-control mt-2" id="fdNinePdf5"
+                                                                    <input type="file" accept=".pdf"   class="form-control mt-2" id="fdNinePdf5"
                                                                     placeholder="" name="fd9_name_of_proposed_project">
+                                                                    @if(!$fdNineData->fd9_name_of_proposed_project)
 
+                                                                    @else
+                                                                    <?php
+                                            
+                                                                    $file_path = url($fdNineData->fd9_name_of_proposed_project);
+                                                                    $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                            
+                                                                    $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                            
+                                            
+                                            
+                                            
+                                                                    ?>
+                                                                    {{ $filename.'.'.$extension }}
+                                                                    @endif
                                                                     <p id="fdNinePdf5_text" class="text-danger mt-2" style="font-size:12px;"></p>
 
 
@@ -773,15 +911,15 @@
 
 
                                                                     <input type="text" class="form-control datepickerOne" id=""
-                                                                    placeholder="তারিখ" name="fd9_extension_date_new" required>
+                                                                    placeholder="তারিখ" value={{ $fdNineData->fd9_extension_date_new }} name="fd9_extension_date_new" required>
 
 
 
                                                                     <select name="fd9_date_of_appointment" class="form-control mt-2" id="" required>
-                                                                        <option value="নতুন">নতুন</option>
-                                                                        <option value="প্রতিস্থাপিত">প্রতিস্থাপিত</option>
-                                                                        <option value="এক্সটেনশন">এক্সটেনশন</option>
-                                                                        <option value="চলমান">চলমান</option>
+                                                                        <option value="নতুন" {{ $fdNineData->fd9_date_of_appointment == 'নতুন' ? 'selected':'' }}>নতুন</option>
+                                                                        <option value="প্রতিস্থাপিত" {{ $fdNineData->fd9_date_of_appointment == 'প্রতিস্থাপিত' ? 'selected':'' }}>প্রতিস্থাপিত</option>
+                                                                        <option value="এক্সটেনশন" {{ $fdNineData->fd9_date_of_appointment == 'এক্সটেনশন' ? 'selected':'' }}>এক্সটেনশন</option>
+                                                                        <option value="চলমান" {{ $fdNineData->fd9_date_of_appointment == 'চলমান' ? 'selected':'' }}>চলমান</option>
                                                                     </select>
 
 
@@ -797,7 +935,7 @@
                                                                 class="text-danger">*</span></td>
                                                             <td>
                                                                 <input type="text" class="form-control datepickerOne" id=""
-                                                                placeholder="এক্সটেনশন হয়ে থাকলে তার সময়কাল" name="fd9_extension_date" >
+                                                                placeholder="এক্সটেনশন হয়ে থাকলে তার সময়কাল" value="{{ $fdNineData->fd9_extension_date }}" name="fd9_extension_date" >
                                                             </td>
 
                                                         </tr>
@@ -810,12 +948,12 @@
                                                             <td>
 
                                                                         <input type="text" class="form-control" id=""
-                                                               placeholder="কতজন বিদেশির পদের সংস্থান রয়েছে" name="fd9_post_available_for_foreigner" required>
+                                                               placeholder="কতজন বিদেশির পদের সংস্থান রয়েছে" value="{{ $fdNineData->fd9_post_available_for_foreigner }}" name="fd9_post_available_for_foreigner" required>
 
 
 
                                                                         <input type="text" class="form-control" id=""
-                                                               placeholder="কর্মরত কতজন" name="fd9_post_available_for_foreigner_and_working" required>
+                                                               placeholder="কর্মরত কতজন" value="{{ $fdNineData->fd9_post_available_for_foreigner_and_working }}" name="fd9_post_available_for_foreigner_and_working" required>
 
                                                             </td>
 
@@ -834,7 +972,7 @@
                                                             <td colspan="3">
                                                                 <textarea type="text" class="form-control summernote" id=""
                                                                 placeholder="" name="fd9_previous_work_experience_in_bangladesh" >
-
+                                                                {{ $fdNineData->fd9_previous_work_experience_in_bangladesh }}
                                                                 </textarea>
 
 
@@ -848,7 +986,7 @@
                                                             <td style="">সংস্থায় বর্তমানে কতজন বিদেশি নাগরিক কর্মরত আছেন<span
                                                                 class="text-danger">*</span></td>
                                                             <td>
-                                                                <input type="text" class="form-control" id=""
+                                                                <input type="text" class="form-control" id="" value="{{ $fdNineData->fd9_total_foreigner_working }}" 
                                                                 placeholder="সংস্থায় বর্তমানে কতজন বিদেশি নাগরিক কর্মরত আছেন" name="fd9_total_foreigner_working" required>
                                                             </td>
 
@@ -865,7 +1003,90 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3">
-                                                                <div class="mb-3">
+
+                                                                <div class="card">
+
+                                                                    <div class="card-header">
+                                                                        অন্য কোন তথ্য (যদি থাকে)
+                                                        
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                        
+                                                                        <div class="row">
+                                                                        @foreach($fdNineOtherFileList as $key=>$fdNineOtherFileLists)
+                                                        
+                                                                        <div class="col-md-3 mt-2">
+                                                        
+                                                                            <div class="card">
+                                                        
+                                                                                <div class="card-body">
+                                                        
+                                                        
+                                                                                    <p><b>{{ $fdNineOtherFileLists->file_name }}:</b> <a target="_blank" href="{{ route('singlePdfDownload',$fdNineOtherFileLists->id) }}" class="btn btn-custom next_button btn-sm" >
+                                                                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                                                                    </a></p>
+                                                                                </div>
+                                                                                <div class="card-footer">
+                                                                                    <button type="button" class="btn btn-custom next_button btn-sm" data-bs-toggle="modal" data-bs-target="#mmexampleModal{{ $key+1 }}">
+                                                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                        
+                                                                                      </button>
+                                                        
+                                                                                      <button id="deleteRecord{{ $fdNineOtherFileLists->id }}" class="btn btn-danger btn-sm" data-id="{{ $fdNineOtherFileLists->id }}" type="button" name="deleting">
+                                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                                    </button>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                                                      <!-- Modal -->
+                                                                    <div class="modal fade" id="mmexampleModal{{ $key+1 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $fdNineOtherFileLists->file_name }}</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                        
+                                                        
+                                                        
+                                                                    <input type="hidden" name="mid" value="{{ $fdNineOtherFileLists->id }}" class="form-control" id="exampleFormControlInput1" >
+                                                        
+                                                                    <div class="mb-3">
+                                                        
+                                                                        <label for="exampleFormControlInput11" class="form-label">ফাইল নাম </label>
+                                                                        <input type="text" name="file_name_edit" value="{{ $fdNineOtherFileLists->file_name }}" class="form-control" id="exampleFormControlInput11" >
+                                                        
+                                                                    </div>
+                                                        
+                                                        
+                                                                    <div class="mb-3">
+                                                                    <label for="exampleFormControlInput1" class="form-label">ফাইল</label>
+                                                                    <input type="file" accept=".pdf" name="main_file_edit" class="form-control" id="exampleFormControlInput1">
+                                                                    </div>
+                                                        
+                                                                    <button type="submit" name="submit_value" value="single_update" class="btn btn-custom next_button btn-sm">
+                                                                        আপডেট করুন
+                                                                    </button>
+                                                        
+                                                        
+                                                                    </div>
+                                                        
+                                                                    </div>
+                                                                    </div>
+                                                                    </div>
+                                                                                </div>
+                                                        
+                                                                            </div>
+                                                        
+                                                                        </div>
+                                                        
+                                                        
+                                                                        @endforeach
+                                                                        </div>
+                                                                <div class="mb-3 mt-3">
                                                                     <table class="table table-light" id="dynamicAddRemoveInformation">
                                                                         <tr>
                                                                             <th>ফাইল নাম </th>
@@ -890,7 +1111,7 @@
 
                                                               
 
-                                                       <textarea  name="fd9_other_information" id="" cols="30" rows="4" class="form-control summernote"></textarea>
+                                                       <textarea  name="fd9_other_information" id="" cols="30" rows="4" class="form-control summernote">{{ $fdNineData->fd9_other_information }}</textarea>
 
 
                                                             </td>
@@ -918,12 +1139,12 @@
                   <!--new code for ngo-->
      <div class="mb-3">
         <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-             <input type="text" data-parsley-required  name="chief_name"  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
+             <input type="text" data-parsley-required  name="chief_name" value="{{ $fdNineData->chief_name }}"   class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
         </div>
 
         <div class="mb-3">
             <label for="" class="form-label">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-            <input type="text" data-parsley-required  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
+            <input type="text" data-parsley-required  name="chief_desi" value="{{ $fdNineData->chief_desi }}"   class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
         </div>
 
 
@@ -936,7 +1157,7 @@
 <br>
             <input type="hidden" required  name="image_base64">
             <div class="croppedInput mt-2">
-
+                <img src="{{asset('/')}}{{ $fdNineData->digital_signature }}" style="width: 200px;" class="show-image">
             </div>
             <!-- new code for image cropper start --->
             @include('front.signature_modal.sign_main_modal')
@@ -953,7 +1174,7 @@
 
             <input type="hidden" required  name="image_seal_base64">
             <div class="croppedInputss mt-2">
-
+                <img src="{{asset('/')}}{{ $fdNineData->digital_seal }}" style="width: 200px;" class="show_image_seal">
             </div>
             <!-- new code for image cropper start --->
             @include('front.signature_modal.seal_main_modal')
@@ -977,7 +1198,7 @@
  <!--end empty data -->
  <div class="buttons d-flex justify-content-end mt-4">
 
-    <button class="btn btn-danger me-2" name="submit_value" value="next_step_from_three" type="submit">তথ্য জমা দিন</button>
+    <button class="btn btn-primary me-2" name="submit_value" value="next_step_from_three" type="submit">দাখিল করুন</button>
 
 </div>
 </form>
@@ -1037,7 +1258,7 @@
     var i = 0;
     $("#dynamic-information").click(function () {
         ++i;
-        $("#dynamicAddRemoveInformation").append('<tr>' +
+        $("#dynamicAddRemoveInformation").append('<tr id="divnew'+i+'">' +
             '<td>' +
             '<input type="text"  name="file_name[]" placeholder="" class="form-control" />' +
             '</td>' +
@@ -1045,13 +1266,16 @@
             '<input type="file" accept=".pdf" name="main_file[]" placeholder="" class="form-control" />' +
             '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-outline-danger remove-input-field-information"><i class="bi bi-file-earmark-x-fill"></i></button>' +
+            '<button type="button"  data-mid="'+i+'" class="btn btn-outline-danger remove-input-field-information"><i class="bi bi-file-earmark-x-fill"></i></button>' +
             '</td>' +
             '</tr>'
         );
     });
     $(document).on('click', '.remove-input-field-information', function () {
-        $(this).parents('tr').remove();
+
+
+        var dataId = $(this).attr('data-mid');
+        $('#divnew'+dataId).remove();
     });
 
 </script>
@@ -1061,7 +1285,7 @@
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr>' +
+        $("#dynamicAddRemove").append('<tr id="divnewf'+i+'">' +
             '<td>' +
             '<input type="text" name="family_member_name[]" class="form-control" required/>' +
             '</td>' +
@@ -1069,13 +1293,17 @@
             '<input type="text" name="family_member_age[]" class="form-control" required/>' +
             '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-outline-danger remove-input-field"><i class="bi bi-file-earmark-x-fill"></i></button>' +
+            '<button type="button" data-midf="'+i+'" class="btn btn-outline-danger remove-input-field"><i class="bi bi-file-earmark-x-fill"></i></button>' +
             '</td>' +
             '</tr>'
         );
     });
     $(document).on('click', '.remove-input-field', function () {
-        $(this).parents('tr').remove();
+        //$(this).parents('tr').remove();
+
+        var dataIdf = $(this).attr('data-midf');
+        $('#divnewf'+dataIdf).remove();
+
     });
 </script>
 <script>

@@ -194,6 +194,11 @@ class AuthController extends Controller
 
     public function updateRegistration(Request $request){
 
+
+     
+
+ 
+
         $filePath="userImage";
         $get_previous_email_all = User::where('id',$request->id)->value('email');
 
@@ -201,7 +206,7 @@ class AuthController extends Controller
 
             try{
 
-                DB::beginTransaction();
+            
 
                 $get_all_data = User::find($request->id);
                 $get_all_data->user_name = $request->name;
@@ -222,20 +227,14 @@ class AuthController extends Controller
 
                 $get_all_data->save();
 
-                if ($request->password) {
-
-                Auth::logout();
-                DB::commit();
-                return Redirect('login')->with('success','Password Changed Login Again');
-
-                }else{
+              
 
                     return Redirect()->back()->with('success','updated Successfully');
 
-                }
+                
 
             } catch (\Exception $e) {
-                DB::rollBack();
+          
                 return redirect()->route('error_404');
             }
 
@@ -243,7 +242,7 @@ class AuthController extends Controller
 
             try{
 
-                DB::beginTransaction();
+               
 
                 $get_all_data = User::find($request->id);
                 $get_all_data->user_name = $request->name;
@@ -282,7 +281,7 @@ class AuthController extends Controller
 
                 return Redirect('login')->with('success','Please Check Mail For Varification');;
             } catch (\Exception $e) {
-                DB::rollBack();
+               
                 return redirect()->route('error_404');
             }
 

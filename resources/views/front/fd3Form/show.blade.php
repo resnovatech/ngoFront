@@ -111,7 +111,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -821,7 +821,7 @@
 
                             <tr>
                             <th style="text-align: center;" >৫.</th>
-                            <td style="font-weight:bold;width:30%" >১ম/২য়/৩য়/৪র্থ বছরে ব্যাংক হতে উত্তোলিত অর্থের পরিমাণ:</td>
+                            <td style="font-weight:bold;width:30%" >১ম/২য়/৩য়/৪র্থ/৫ম বছরে ব্যাংক হতে উত্তোলিত অর্থের পরিমাণ:</td>
                             <td style="" colspan="2">
 
 
@@ -834,6 +834,8 @@
 
                                 @elseif($fd2FormList->amount_withdrawn_year == 4)
                                 ৪র্থ বছর : {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd2FormList->amount_withdrawn)  }}
+                                  @elseif($fd2FormList->amount_withdrawn_year == 5)
+                                ৫ম বছর : {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd2FormList->amount_withdrawn)  }}
                                 @endif
 
 
@@ -992,8 +994,8 @@
                         @else
 
 
-                        <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $fd3FormList->id}})" class="btn btn-info">
-                            এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+                        <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন দাখিল করুন " onclick="editTag({{ $fd3FormList->id}})" class="btn btn-info">
+                            দাখিল করুন  <i class="fa fa-send-o"></i>
                         </button>
 
                             <form id="delete-form-{{ $fd3FormList->id }}" action="{{ route('fd3FormSend',base64_encode($fd3FormList->id)) }}" method="get" style="display: none;">

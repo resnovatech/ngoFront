@@ -146,7 +146,7 @@ $getNgoTypeForPdf =DB::table('ngo_type_and_languages')->where('user_id',Auth::us
             @if(!$get_all_data_new )
 
             @else
-            {{ App\Http\Controllers\Admin\CommonController::englishToBangla($get_all_data_new ->phone_new) }},{{ App\Http\Controllers\Admin\CommonController::englishToBangla($get_all_data_new ->mobile_new) }},{{ $get_all_data_new ->email_new }},{{ $get_all_data_new ->web_site_name }}
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($get_all_data_new ->phone_new) }},{{ App\Http\Controllers\NGO\CommonController::englishToBangla($get_all_data_new ->mobile_new) }},{{ $get_all_data_new ->email_new }},{{ $get_all_data_new ->web_site_name }}
             @endif
         </td>
     </tr>

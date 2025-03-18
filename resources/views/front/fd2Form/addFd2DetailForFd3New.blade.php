@@ -109,7 +109,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -407,34 +407,34 @@
 
 </tr>
 
-<tr>
-    <th style="text-align: center;" colspan="2">৮.</th>
-    <td style="font-weight:bold;text-align: center;" >গুরুত্বপূর্ণ যেকোনো তথ্য</td>
-    <td style="text-align: center;">
-        <table class="table table-bordered" id="dynamicAddRemove">
-            <tr>
-                <th>ফাইলের নাম</th>
-                <th>ফাইল</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><input type="text"  name="file_name[]" class="form-control" id=""
-                           placeholder=""></td>
-                <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
-                           placeholder=""></td>
-                <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
-            </tr>
-        </table>
 
-    </td>
-
-</tr>
 
 
 
 
                                         </table>
-
+                                        <tr>
+                                            <th style="text-align: center;" colspan="2">৮.</th>
+                                            <td style="font-weight:bold;text-align: center;" >গুরুত্বপূর্ণ যেকোনো তথ্য</td>
+                                            <td style="text-align: center;">
+                                                <table class="table table-bordered" id="dynamicAddRemove">
+                                                    <tr>
+                                                        <th>ফাইলের নাম</th>
+                                                        <th>ফাইল</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text"  name="file_name[]" class="form-control" id=""
+                                                                   placeholder=""></td>
+                                                        <td><input type="file" name="file[]" accept=".pdf" class="form-control" id=""
+                                                                   placeholder=""></td>
+                                                        <td><a class="btn btn-primary" id="dynamic-ar"><i class="fa fa-plus"></i></a></td>
+                                                    </tr>
+                                                </table>
+                                        
+                                            </td>
+                                        
+                                        </tr>
                                     <div class="d-grid d-md-flex justify-content-md-end">
                                         <button type="button" class="btn btn-dark me-2"
                                                 onclick="location.href = '{{ route('fd3Form.edit',base64_encode($fd3Id)) }}';">আগের পৃষ্ঠায় যান

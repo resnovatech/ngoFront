@@ -125,7 +125,7 @@ color:white !important;
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -593,8 +593,8 @@ color:white !important;
 
                     @else
 
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $fdNineData->id}})" class="btn btn-info">
-                        এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে দাখিল করুন " onclick="editTag({{ $fdNineData->id}})" class="btn btn-info">
+                        এনজিওতে দাখিল করুন  <i class="fa fa-send-o"></i>
                     </button>
 
                         <form id="delete-form-{{ $fdNineData->id }}" action="{{ route('finalFdNineApplicationSubmit',base64_encode($fdNineData->id)) }}" method="get" style="display: none;">
@@ -628,7 +628,7 @@ color:white !important;
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'হ্যাঁ, এটি পাঠান !',
+            confirmButtonText: 'হ্যাঁ, এটি দাখিল করুন  !',
             cancelButtonText: '{{ trans('notification.success_four')}}',
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',
@@ -648,7 +648,7 @@ color:white !important;
             ) {
                 swal(
                     '{{ trans('notification.success_five')}}',
-                    'আপনার আবেদন পাঠানো হয়নি :)',
+                    'আপনার আবেদন দাখিল  হয়নি :)',
                     'error'
                 )
             }

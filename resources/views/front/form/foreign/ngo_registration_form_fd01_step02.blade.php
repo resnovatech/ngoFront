@@ -147,7 +147,16 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
                         <label for="" class="form-label">{{ trans('fd_one_step_two.Project_District')}} {{ trans('fd_one_step_two.Project_Sub_District')}}<span class="text-danger">*</span> </label>
 
 
-                        <input type="text"  name="district" value="{{ $allFormOneData->district }}" data-parsley-required class="form-control" id="">
+                        <br>
+                        <label class="radio-inline">
+                            <input class="newDisType" type="radio" value="1" name="optradio" >{{ trans('fd_one_step_two.allDistrict')}}
+                          </label>
+                          <label class="radio-inline">
+                            <input class="newDisType" type="radio" value="0" name="optradio">{{ trans('fd_one_step_two.disWise')}}
+                          </label>
+
+
+                        <input type="text" style="display: none;"  name="district" value="{{ $allFormOneData->district }}" data-parsley-required class="form-control" id="showHideInput">
 
                     </div>
 
@@ -249,8 +258,8 @@ $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_for
 <div class="mb-3 mt-2">
 <table class="table table-light" id="dynamicAddRemove">
 <tr>
-    <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}} </th>
-    <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}  </th>
+    <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}}<span class="text-danger">*</span> </th>
+    <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}<span class="text-danger">*</span>  </th>
     <th>{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}}  </th>
     <th></th>
 </tr>
@@ -258,11 +267,11 @@ $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_for
 <tr>
     <td>
         <input type="text"   name="name[]"
-               class="form-control"/>
+               class="form-control" required/>
     </td>
     <td>
         <input type="text"   name="address[]"
-               class="form-control"/>
+               class="form-control" required/>
     </td>
     <td>
         <input class="form-control"  accept=".pdf"  name="letter_file[]" type="file" id="">
@@ -279,8 +288,8 @@ $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_for
 <div class="mb-3 mt-2">
 <table class="table table-light" id="dynamicAddRemove">
 <tr>
-    <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}}  </th>
-    <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}  </th>
+    <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}}<span class="text-danger">*</span>  </th>
+    <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}<span class="text-danger">*</span>  </th>
     <th>{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}}  </th>
     <th></th>
 </tr>
@@ -288,11 +297,11 @@ $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_for
 <tr>
     <td>
         <input type="text"   name="name[]"
-               class="form-control"/>
+               class="form-control" required/>
     </td>
     <td>
         <input type="text"   name="address[]"
-               class="form-control"/>
+               class="form-control" required/>
     </td>
     <td>
         <input class="form-control" accept=".pdf"  name="letter_file[]" type="file" id="">

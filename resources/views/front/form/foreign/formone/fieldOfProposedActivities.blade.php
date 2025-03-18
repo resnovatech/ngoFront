@@ -172,9 +172,25 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
 {{ trans('fd_one_step_two.Project_Sub_District')}}<span class="text-danger">*</span> </label>
 
 
-                                <input type="text"  name="district" value="{{ $allFormOneData->district }}" data-
-
-parsley-required class="form-control" id="">
+@if($allFormOneData->district == 'সমগ্র বাংলাদেশ' || $allFormOneData->district == 'All Bangladesh')
+<br>
+<label class="radio-inline">
+    <input class="newDisType" type="radio" value="1" name="optradio" checked>{{ trans('fd_one_step_two.allDistrict')}}
+  </label>
+  <label class="radio-inline">
+    <input class="newDisType" type="radio" value="0" name="optradio">{{ trans('fd_one_step_two.disWise')}}
+  </label>
+  <input type="text" style="display: none;"  name="district" value="{{ $allFormOneData->district }}" data-parsley-required class="form-control" id="showHideInput">
+@else
+<br>
+<label class="radio-inline">
+    <input class="newDisType" type="radio" value="1" name="optradio" >{{ trans('fd_one_step_two.allDistrict')}}
+  </label>
+  <label class="radio-inline">
+    <input class="newDisType" type="radio" value="0" name="optradio" checked>{{ trans('fd_one_step_two.disWise')}}
+  </label>
+  <input type="text"   name="district" value="{{ $allFormOneData->district }}" data-parsley-required class="form-control" id="showHideInput">
+@endif
 
                             </div>
 
@@ -264,7 +280,7 @@ id="exampleFormControlInput1" >
                 <label for="exampleFormControlInput1" class="form-label">{{ trans
 
 ('fd_one_step_two.Address_of_donor_organization')}} <span class="text-danger">*</span> </label>
-                <input type="text" name="address" value="{{ $allGetAllSourceOfFundData->address }}" class="form-
+                <input type="text" name="address_sour" value="{{ $allGetAllSourceOfFundData->address }}" class="form-
 
 control" id="exampleFormControlInput1" >
               </div>
@@ -304,8 +320,8 @@ id="exampleFormControlInput1">
 <div class="mb-3 mt-2">
     <table class="table table-light" id="dynamicAddRemove">
         <tr>
-            <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}} </th>
-            <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}
+            <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}}<span class="text-danger">*</span> </th>
+            <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}<span class="text-danger">*</span>
 
 </th>
             <th>{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}}  </th>
@@ -315,11 +331,11 @@ id="exampleFormControlInput1">
         <tr>
             <td>
                 <input type="text"   name="name[]"
-                       class="form-control"/>
+                       class="form-control" />
             </td>
             <td>
                 <input type="text"   name="address[]"
-                       class="form-control"/>
+                       class="form-control" />
             </td>
             <td>
                 <input class="form-control"  accept=".pdf"  name="letter_file[]" type="file" id="">
@@ -338,8 +354,8 @@ id="exampleFormControlInput1">
 <div class="mb-3 mt-2">
     <table class="table table-light" id="dynamicAddRemove">
         <tr>
-            <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}} </th>
-            <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}
+            <th>{{ trans('fd_one_step_two.Name_of_donor_organization')}} <span class="text-danger">*</span></th>
+            <th>{{ trans('fd_one_step_two.Address_of_donor_organization')}}<span class="text-danger">*</span>
 
 </th>
             <th>{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}}  </th>
@@ -349,11 +365,11 @@ id="exampleFormControlInput1">
         <tr>
             <td>
                 <input type="text"   name="name[]"
-                       class="form-control"/>
+                       class="form-control" />
             </td>
             <td>
                 <input type="text"   name="address[]"
-                       class="form-control"/>
+                       class="form-control" />
             </td>
             <td>
                 <input class="form-control" accept=".pdf"  name="letter_file[]" type="file" id="">
@@ -507,9 +523,7 @@ value="next_step_from_three" type="submit">{{ trans('fd_one_step_one.Next_Step')
             address: {
                 required: true
             },
-            letter_file: {
-                required: true
-            },
+           
             annual_budget: {
                 required: true
             }
@@ -536,9 +550,7 @@ value="next_step_from_three" type="submit">{{ trans('fd_one_step_one.Next_Step')
             address: {
                 required: " address Field is required"
             },
-            letter_file: {
-                required: " letter_file Field is required"
-            },
+           
             annual_budget: {
                 required: " annual_budget Field is required"
             }
@@ -598,10 +610,10 @@ value="next_step_from_three" type="submit">{{ trans('fd_one_step_one.Next_Step')
         ++i;
         $("#dynamicAddRemove").append('<tr>' +
             '<td>' +
-            '<input type="text" name="name[]" required  class="form-control" />' +
+            '<input type="text" name="name[]" required  class="form-control" required />' +
             '</td>' +
             '<td>' +
-            '<input type="text" name="address[]" required  class="form-control" />' +
+            '<input type="text" name="address[]" required  class="form-control" required />' +
             '</td>' +
             '<td>' +
             '<input class="form-control" accept=".pdf" required name="letter_file[]" type="file" id="">' +
@@ -665,5 +677,24 @@ file-earmark-x-fill"></i></button>' +
         $(this).parents('tr').remove();
     });
 
+</script>
+<script>
+    $(".newDisType") // select the radio by its id
+    .change(function(){ // bind a function to the change event
+        if( $(this).is(":checked") ){ // check if the radio is checked
+            var val = $(this).val(); // retrieve the value
+
+            if(val == 1){
+
+                $('#showHideInput').hide();
+                $('#showHideInput').val('{{ trans('fd_one_step_two.allDistrict')}}');
+
+            }else{
+                $('#showHideInput').show();
+                $('#showHideInput').val('');
+            }
+
+        }
+    });
 </script>
 @endsection

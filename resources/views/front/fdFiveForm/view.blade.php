@@ -113,7 +113,7 @@
                         </div>
                         v
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.view')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -388,8 +388,8 @@ $name_change_list = DB::table('ngo_name_changes')->where('fd_one_form_id',$fdOne
         @else
 
 
-        <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $fdFiveForm->id}})" class="btn btn-info">
-            এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন দাখিল করুন " onclick="editTag({{ $fdFiveForm->id}})" class="btn btn-info">
+            দাখিল করুন  <i class="fa fa-send-o"></i>
         </button>
 
             <form id="delete-form-{{ $fdFiveForm->id }}" action="{{ route('fdFiveFormSend',base64_encode($fdFiveForm->id)) }}" method="get" style="display: none;">

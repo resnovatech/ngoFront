@@ -225,7 +225,7 @@
                                     </div>
 
                                     <div class="col-lg-12 mb-3">
-                                        <label for="" class="form-label">মন্তব্য (যেখানে প্রযোজ্য)<span class="text-danger">*</span></label>
+                                        <label for="" class="form-label">মন্তব্য (যেখানে প্রযোজ্য)</label>
                                         <textarea name="comment" class="form-control" id="allcomment{{ $districtWiseLists->id }}" placeholder="">
                                             {{ $districtWiseLists->comment}}
                                         </textarea>

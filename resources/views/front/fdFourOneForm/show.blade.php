@@ -113,7 +113,7 @@
                             </a>
                         </div>
                         <div class="profile_link_box">
-                            <a href="{{ route('fdFourOneForm.index') }}">
+                            <a style="display: none;">
                                 <p class="{{ Route::is('editFdFourFormData') || Route::is('addFdFourFormData') || Route::is('fdFourOneForm.index') ||  Route::is('fdFourOneForm.create') || Route::is('fdFourOneForm.show')  || Route::is('fdFourOneForm.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fdFourFormOne.fdFourOneForm')}}</p>
                             </a>
                         </div>
@@ -330,8 +330,8 @@
 
                                             @else
 
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন এনজিওতে পাঠান" onclick="editTag({{ $fdFourOneFormList->id}})" class="btn btn-info">
-                                                এনজিওতে পাঠান <i class="fa fa-send-o"></i>
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="আবেদন দাখিল করুন " onclick="editTag({{ $fdFourOneFormList->id}})" class="btn btn-info">
+                                                দাখিল করুন  <i class="fa fa-send-o"></i>
                                             </button>
 
                                                 <form id="delete-form-{{ $fdFourOneFormList->id }}" action="{{ route('fdFourOneSend',base64_encode($fdFourOneFormList->id)) }}" method="get" style="display: none;">
