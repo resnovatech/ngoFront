@@ -959,7 +959,7 @@
  <!--end empty data -->
  <div class="buttons d-flex justify-content-end mt-4">
 
-    <button class="btn btn-danger me-2" name="submit_value" value="next_step_from_three" type="submit">তথ্য জমা দিন</button>
+    <button class="btn btn-primary me-2" name="submit_value" value="next_step_from_three" type="submit">দাখিল করুন </button>
 
 </div>
 </form>
