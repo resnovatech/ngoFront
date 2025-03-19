@@ -89,6 +89,8 @@ return new class extends Migration
             $table->string('digital_seal')->nullable();
             $table->longText('comment')->nullable();
             $table->string('file_last_check_date')->nullable();
+            $table->string('time_for_api')->nullable();
+            
             $table->string('check_status')->nullable();
             $table->timestamps();
         });
