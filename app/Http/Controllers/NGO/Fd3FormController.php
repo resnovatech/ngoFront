@@ -191,6 +191,7 @@ class Fd3FormController extends Controller
 
     public function store(Request $request){
 
+        
 
          try{
             DB::beginTransaction();
@@ -369,11 +370,19 @@ class Fd3FormController extends Controller
 
      public function fd3FormSend($id){
 
+
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
+
+        $main_time = $dt->format('h:i:s a');
+
+
         try{
 
 
         $fd3FormInfo = Fd3Form::find(base64_decode($id));
         $fd3FormInfo->status ='Ongoing';
+        $fd3FormInfo->time_for_api =$main_time;
         $fd3FormInfo->save();
 
         $dt = new DateTime();

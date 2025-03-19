@@ -81,8 +81,25 @@ class Fc2FormController extends Controller
         $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
         $fd2FormList = Fd2FormForFc2Form::where('fd_one_form_id',$ngo_list_all->id)
         ->where('fc2_form_id',$fc2Id)->latest()->first();
-        $fd2OtherInfo = Fd2Fc2OtherInfo::where('fd2_form_for_fc2_form_id',$fd2FormList->id)
-        ->latest()->get();
+
+
+        if(!$fd2FormList){
+            $fd2OtherInfo = Fd2Fc2OtherInfo::where('fd2_form_for_fc2_form_id',0)
+            ->latest()->get();
+            $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',0)
+        ->where('type','fc2')
+        ->get();
+        }else{
+            $fd2OtherInfo = Fd2Fc2OtherInfo::where('fd2_form_for_fc2_form_id',$fd2FormList->id)
+            ->latest()->get();
+            $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
+        ->where('type','fc2')
+        ->get();
+        }
+
+       
+
+
         $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
         $renewWebsiteName = NgoRenewInfo::where('fd_one_form_id',$ngo_list_all->id)->value('web_site_name');
         $divisionList = DB::table('civilinfos')->groupBy('division_bn')->select('division_bn')->get();
@@ -94,9 +111,7 @@ class Fc2FormController extends Controller
         ->where('type','fcTwo')
         ->latest()->get();
 
-        $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
-        ->where('type','fc2')
-        ->get();
+        
 
         $donationList = DonationReceiveDetail::where('fc1_form_id',$fc2Id)
         ->where('type','fcTwo')

@@ -61,7 +61,7 @@ class Fd3Form extends Model
         'organization_name_of_executive_responsible_for_bd_designation',
         'objectives_of_the_organization',
         'communication_between_NGO_and_donor',
-
+'time_for_api',
         'bank_name',
         'bank_address',
         'bank_account_name',
