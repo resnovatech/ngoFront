@@ -140,7 +140,7 @@ class FdoneformController extends Controller
 
         try{
 
-            $get_file_data = FdOneOtherPdfList::where('id',base64_decode($id))->value('information_pdf');
+            $get_file_data = FdOneOtherPdfList::where('id',$id)->value('information_pdf');
 
             $file_path = url('public/'.$get_file_data);
             $file= public_path('/').$get_file_data;
@@ -162,7 +162,7 @@ class FdoneformController extends Controller
 
         try{
 
-            $get_file_data = FdOneSourceOfFund::where('id',base64_decode($id))->value('letter_file');
+            $get_file_data = FdOneSourceOfFund::where('id',$id)->value('letter_file');
 
             $file_path = url('public/'.$get_file_data);
             $filename  = pathinfo($file_path, PATHINFO_FILENAME);
@@ -839,7 +839,6 @@ class FdoneformController extends Controller
     public function fieldOfProposedActivitiesUpdate(Request $request){
 
 
-        //dd($request->all());
 
         if(!empty($request->name_sour)){
 
@@ -848,10 +847,10 @@ class FdoneformController extends Controller
             $uploadOneSourceOfFund = FdOneSourceOfFund::find($request->id);
             $uploadOneSourceOfFund->name = $request->name_sour;
             $uploadOneSourceOfFund->address = $request->address_sour;
-            if ($request->hasfile('letter_file')) {
+            if ($request->hasfile('letter_file_sour')) {
 
                 $filePath="FdOneSourceOfFund";
-                $file = $request->file('letter_file');
+                $file = $request->file('letter_file_sour');
                 $uploadOneSourceOfFund->letter_file =CommonController::pdfUpload($request,$file,$filePath);
 
             }
@@ -1208,6 +1207,8 @@ class FdoneformController extends Controller
 
         //dd($request->all());
 
+        
+
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
         $main_time = $dt->format('H:i:s');
@@ -1274,6 +1275,23 @@ class FdoneformController extends Controller
     }
 
     public function othersInformationUpdate(Request $request){
+
+       // dd($request->all());
+
+        if(!empty($request->information_type_other)){
+
+            if ($request->hasfile('information_type_other')) {
+
+            $form2= FdOneOtherPdfList::find($request->mid);
+            $filePath="FdOneOtherPdfList";
+            $file=$request->file('information_type_other');
+            $form2->information_pdf=CommonController::pdfUpload($request,$file,$filePath);
+            $form2->save();
+            }
+
+            return redirect()->back()->with('success','Update SuccessFully');
+
+        }else{
 
         $dt = new DateTime();
         $dt->setTimezone(new DateTimezone('Asia/Dhaka'));
@@ -1675,6 +1693,8 @@ class FdoneformController extends Controller
             DB::rollBack();
             return redirect()->route('error_404');
         }
+
+    }
     }
 
 

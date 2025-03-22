@@ -39,11 +39,11 @@
 
 @if($checkNgoTypeForForeginNgo == 'Foreign')
 
-@include('front.renew.foreign.finalViewOne') 
+@include('front.renew.foreign.finalViewOneEdit') 
 
 @else
 
-@include('front.renew.finalViewOne')
+@include('front.renew.finalViewOneEdit')
 
 <!--end local ngo -->
 @endif

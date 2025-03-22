@@ -723,7 +723,7 @@ $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id
 
 <div class="mb-3">
 <label for="exampleFormControlInput1" class="form-label">{{ trans('fd_one_step_four.information_pdf')}}</label>
-<input type="file" accept=".pdf" name="information_type" class="form-control" id="exampleFormControlInput1">
+<input type="file" accept=".pdf" name="information_type_other" class="form-control" id="exampleFormControlInput1">
 </div>
 
 <button type="submit" class="btn btn-custom next_button btn-sm">

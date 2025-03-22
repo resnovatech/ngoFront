@@ -523,6 +523,10 @@ class RenewController extends Controller
       
 
         try{
+
+
+           $getLatestRenewInfo= NgoRenewInfo::where('user_id',Auth::user()->id)
+                               ->orderBy('id','desc')->value('id');
             
 
             $getUserIdFromNew = FdOneForm::where('user_id',Auth::user()->id)->value('id');
@@ -531,15 +535,20 @@ class RenewController extends Controller
             CommonController::checkNgotype(1);
             $mainNgoType = CommonController::changeView();
 
-
+            
             $mainNgoTypenewOldNgo = CommonController::newOldNgo();
 
             if($mainNgoTypenewOldNgo == 'Old' || $mainNgoTypenewOldNgo == 'New'){
 
-                $ngoOtherDocLists = DB::table('renewal_files')->where('fd_one_form_id',$getUserIdFromNew)->latest()->get();
-                $ngoOtherDocListsFirst = DB::table('renewal_files')->where('fd_one_form_id',$getUserIdFromNew)->first();
+                $ngoOtherDocLists = DB::table('renewal_files')
+                ->where('renewInfoId',$getLatestRenewInfo)
+                ->where('fd_one_form_id',$getUserIdFromNew)->latest()->get();
+                $ngoOtherDocListsFirst = DB::table('renewal_files')
+                ->where('renewInfoId',$getLatestRenewInfo)
+                ->where('fd_one_form_id',$getUserIdFromNew)->orderBy('id','desc')->first();
             }else{
-                $ngoOtherDocLists = DB::table('ngo_other_docs')->where('fd_one_form_id',$getUserIdFromNew)->latest()->get();
+                $ngoOtherDocLists = DB::table('ngo_other_docs')
+                ->where('fd_one_form_id',$getUserIdFromNew)->latest()->get();
 
             }
 
@@ -703,10 +712,13 @@ class RenewController extends Controller
 
 
             $getUserIdFrom = FdOneForm::where('user_id',Auth::user()->id)->value('id');
+            $getLatestRenewInfo= NgoRenewInfo::where('user_id',Auth::user()->id)
+                               ->orderBy('id','desc')->value('id');
 
             $filePath="RenewalFile";
             $newDataAll = new RenewalFile();
             $newDataAll->fd_one_form_id = $getUserIdFrom;
+            $newDataAll->renewInfoId = $getLatestRenewInfo;
             $newDataAll->constitution_of_the_organization_has_changed = $request->constitution_of_the_organization_has_changed;
             if ($request->hasfile('constitution_of_the_organization_if_unchanged')) {
 
