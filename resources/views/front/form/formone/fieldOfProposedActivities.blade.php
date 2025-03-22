@@ -235,7 +235,7 @@ $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_for
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form method="post" action="{{ route('sourceOfFundUpdate') }}" id="form">
+            <form method="post" action="{{ route('sourceOfFundUpdate') }}" id="form" enctype="multipart/form-data">
                 @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">{{ trans('fd_one_step_two.Name_of_donor_organization')}} <span class="text-danger">*</span> </label>
@@ -251,7 +251,7 @@ $getAllSourceOfFundData = DB::table('fd_one_source_of_funds')->Where('fd_one_for
 
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">{{ trans('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}} <span class="text-danger">*</span> </label>
-                <input type="file" name="letter_file" accept=".pdf" class="form-control" id="exampleFormControlInput1">
+                <input type="file" name="letter_file_sour" accept=".pdf" class="form-control" id="exampleFormControlInput1">
               </div>
 
               <button type="submit" class="btn btn-custom next_button btn-sm">

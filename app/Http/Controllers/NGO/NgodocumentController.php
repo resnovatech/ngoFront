@@ -513,9 +513,11 @@ class NgodocumentController extends Controller
 
     public function update(Request $request,$id){
 
+      
+
         try{
             DB::beginTransaction();
-
+            $fdOneFormId = DB::table('fd_one_forms')->where('user_id',Auth::user()->id)->value('id');
 
             if($request->main_ngo_type == 'Old'){
 

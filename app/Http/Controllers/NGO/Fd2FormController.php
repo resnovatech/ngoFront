@@ -328,7 +328,7 @@ return redirect()->route('addFd2Detail',base64_encode($fd6Id))->with('success','
             ->where('type','fd7')
             ->get();
 
-         return view('front.fd2Form.addFd2DetailForFd7New',compact('fd2AllFormLastYearDetail','fd2FormList','fd2OtherInfo','fd7Id','ngo_list_all','divisionList','fd7FormList'));
+         return view('front.fd2Form.addFd2DetailForFd7new',compact('fd2AllFormLastYearDetail','fd2FormList','fd2OtherInfo','fd7Id','ngo_list_all','divisionList','fd7FormList'));
 
         }else{
 

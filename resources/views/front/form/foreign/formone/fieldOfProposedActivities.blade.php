@@ -289,7 +289,7 @@ control" id="exampleFormControlInput1" >
                 <label for="exampleFormControlInput1" class="form-label">{{ trans
 
 ('fd_one_step_two.Letter_of_Commitment_from_Prospective_donor')}} <span class="text-danger">*</span> </label>
-                <input type="file" name="letter_file" accept=".pdf" class="form-control"
+                <input type="file" name="letter_file_sour" accept=".pdf" class="form-control"
 
 id="exampleFormControlInput1">
               </div>
