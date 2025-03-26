@@ -275,73 +275,491 @@
 
 
 
-<tr>
-<td rowspan="2" >অর্থের উৎসের বিবরণ:</td>
-<td>১ম বছর</td>
-<td>২য় বছর</td>
-<td>৩য় বছর</td>
-<td>৪র্থ বছর</td>
-<td>৫ম বছর</td>
-<td rowspan="2">মোট</td>
-<td rowspan="2">মন্তব্য</td>
+    <tr>
+        <td rowspan="3" >অর্থের উৎসের বিবরণ:</td>
+        <td>১ম বছর  <div class="d-flex justify-content-between">
 
-</tr>
-<tr style="text-align: center;">
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_first)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_first))) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_second)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_second))) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_third)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_third))) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fourth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fourth))) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_start_date_fifth)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormList->prokolpo_year_grant_end_date_fifth))) }}</td>
-</tr>
+           
 
-<tr>
-<td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
-    তাকে পরিবর্তিত)
-</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_first_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_second_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_third_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_fourth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_fifth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->grants_received_from_abroad_fifth_year+$fd6FormList->grants_received_from_abroad_fourth_year + $fd6FormList->grants_received_from_abroad_third_year + $fd6FormList->grants_received_from_abroad_second_year + $fd6FormList->grants_received_from_abroad_first_year) }}</td>
-<td rowspan="3">{{ $fd6FormList->total_donors_comment }}</td>
+        </div></td>
+        <td>২য় বছর  <div class="d-flex justify-content-between">
 
-</tr>
-<tr>
-<td>২.দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত
-    অনুদান
-</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_first_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_third_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fourth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fifth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->donations_made_by_foreign_donors_fifth_year + $fd6FormList->donations_made_by_foreign_donors_fourth_year + $fd6FormList->donations_made_by_foreign_donors_third_year + $fd6FormList->donations_made_by_foreign_donors_first_year + $fd6FormList->donations_made_by_foreign_donors_second_year) }}</td>
+           
 
-</tr>
-<tr>
-<td>৩.স্থানীয় অনুদান (উৎসের বিস্তারিত বিবরণ
-    ও প্রমাণকসহ)
-</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_first_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_second_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_third_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fourth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fifth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->local_grants_fifth_year + $fd6FormList->local_grants_fourth_year + $fd6FormList->local_grants_third_year + $fd6FormList->local_grants_first_year + $fd6FormList->local_grants_second_year) }}</td>
+        </div></td>
+        <td>৩য় বছর  <div class="d-flex justify-content-between">
 
-</tr>
-<tr>
-<td>মোট</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_first_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_second_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_third_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fourth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fifth_year) }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormList->total_fifth_year + $fd6FormList->total_fourth_year + $fd6FormList->total_third_year + $fd6FormList->total_first_year + $fd6FormList->total_second_year) }}</td>
-<td></td>
+           
 
-</tr>
+        </div></td>
+        <td>৪র্থ বছর <div class="d-flex justify-content-between">
+
+            
+
+
+        </div></td>
+        <td>৫ম বছর <div class="d-flex justify-content-between">
+
+           
+        </div></td>
+        <td rowspan="3">মোট</td>
+        <td rowspan="3">মন্তব্য</td>
+
+    </tr>
+    <tr style="text-align: center;">
+       
+            <td>
+    
+                @if(!$fd6FormEstimateListFirst)
+    
+                @else
+                
+                {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListFirst->prokolpo_year_grant_start_date)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListFirst->prokolpo_year_grant_end_date))) }}
+            @endif
+            </td>
+            <td>
+    
+                @if(!$fd6FormEstimateListSecond)
+    
+                @else
+                
+                {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListSecond->prokolpo_year_grant_start_date)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListSecond->prokolpo_year_grant_end_date))) }}
+            @endif
+            </td>
+            <td>
+                @if(!$fd6FormEstimateListThird)
+    
+                @else
+                {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListThird->prokolpo_year_grant_start_date)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListThird->prokolpo_year_grant_end_date))) }}
+            @endif
+            </td>
+            <td>
+                @if(!$fd6FormEstimateListFourth)
+    
+                @else
+                
+                {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListFourth->prokolpo_year_grant_start_date)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListFourth->prokolpo_year_grant_end_date))) }}
+            @endif
+            
+            </td>
+       
+    
+        
+        <td>
+
+            @if(!$fd6FormEstimateListFifth)
+    
+                @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListFifth->prokolpo_year_grant_start_date)))}} - {{ App\Http\Controllers\NGO\CommonController::englishToBangla(date('F Y', strtotime($fd6FormEstimateListFifth->prokolpo_year_grant_end_date))) }}
+        @endif
+        
+        </td>
+    </tr>
+    <tr style="text-align: center;">
+
+    </tr>
+    <tr>
+        <td>১.বিদেশ থেকে প্রাপ্ত অনুদান (বাংলাদেশি
+            টাকায় পরিবর্তিত)
+        </td>
+        <td>
+            @if(!$fd6FormEstimateListFirst)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFirst->grants_received_from_abroad) }}
+        @endif
+        
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListSecond)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListSecond->grants_received_from_abroad) }}
+        @endif
+        </td>
+
+        <td>
+
+            @if(!$fd6FormEstimateListThird)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListThird->grants_received_from_abroad) }}
+        @endif
+        </td>
+
+        <td>
+
+            @if(!$fd6FormEstimateListFourth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFourth->grants_received_from_abroad) }}
+        @endif
+        </td>
+
+        <td>
+
+            @if(!$fd6FormEstimateListFifth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFifth->grants_received_from_abroad) }}
+        @endif
+        </td>
+
+        <td>
+
+            <?php
+
+            if(!$fd6FormEstimateListFirst){
+            $getTheVlueFlfdl = 0;
+        }else{
+
+            $getTheVlueFlfdl = $fd6FormEstimateListFirst->grants_received_from_abroad;
+
+        }
+
+
+            if(!$fd6FormEstimateListSecond){
+            $getTheVlueSelfdl = 0;
+        }else{
+            $getTheVlueSelfdl = $fd6FormEstimateListSecond->grants_received_from_abroad;
+         }
+
+         if(!$fd6FormEstimateListThird){
+            $getTheVlueThlfdl = 0;
+        }else{
+            $getTheVlueThlfdl = $fd6FormEstimateListThird->grants_received_from_abroad;
+         }
+
+         if(!$fd6FormEstimateListFourth){
+            $getTheVlueFolfdl = 0;
+        }else{
+            $getTheVlueFolfdl = $fd6FormEstimateListFourth->grants_received_from_abroad;
+         }
+
+
+         if(!$fd6FormEstimateListFifth){
+            $getTheVlueFiflfdl = 0;
+        }else{
+            $getTheVlueFiflfdl = $fd6FormEstimateListFifth->grants_received_from_abroad;
+         }
+
+            ?>
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($getTheVlueFiflfdl+$getTheVlueFolfdl+$getTheVlueFlfdl + $getTheVlueSelfdl + $getTheVlueThlfdl) }}
+        
+        </td>
+        <td rowspan="3">
+{{$fd6FormEstimateListComment}}
+           
+        
+        </td>
+        
+    </tr>
+    <tr>
+        <td>২.দেশে অবস্থানরত বিদেশি দাতার প্রদত্ত
+            অনুদান
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFirst)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFirst->donations_made_by_foreign_donors) }}
+        @endif
+        
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListSecond)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListSecond->donations_made_by_foreign_donors) }}
+        
+            @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListThird)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListThird->donations_made_by_foreign_donors) }}
+        
+            @endif
+        </td>
+
+        <td>
+
+            @if(!$fd6FormEstimateListFourth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFourth->donations_made_by_foreign_donors) }}
+        
+            @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFifth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFifth->donations_made_by_foreign_donors) }}
+        
+            @endif
+        </td>
+        <td>
+<?php
+            if(!$fd6FormEstimateListFirst){
+            $getTheVlueFlfd =0;
+        }else{
+
+         $getTheVlueFlfd = $fd6FormEstimateListFirst->donations_made_by_foreign_donors;
+
+        }
+
+
+            if(!$fd6FormEstimateListSecond){
+            $getTheVlueSelfd = 0;
+        }else{
+          $getTheVlueSelfd = $fd6FormEstimateListSecond->donations_made_by_foreign_donors;
+        }
+
+
+        if(!$fd6FormEstimateListThird){
+            $getTheVlueThlfd = 0;
+        }else{
+          $getTheVlueThlfd = $fd6FormEstimateListThird->donations_made_by_foreign_donors;
+        }
+
+
+        if(!$fd6FormEstimateListFourth){
+            $getTheVlueFolfd = 0;
+        }else{
+          $getTheVlueFolfd = $fd6FormEstimateListFourth->donations_made_by_foreign_donors;
+        }
+
+
+        if(!$fd6FormEstimateListFifth){
+            $getTheVlueFiflfd = 0;
+        }else{
+          $getTheVlueFiflfd = $fd6FormEstimateListFifth->donations_made_by_foreign_donors;
+        }
+            ?>
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($getTheVlueFiflfd + $getTheVlueFolfd + $getTheVlueFlfd + $getTheVlueSelfd + $getTheVlueThlfd) }}
+        
+        
+        </td>
+        
+    </tr>
+    <tr>
+        <td>৩.স্থানীয় অনুদান (উৎসের বিস্তারিত বিবরণ
+            ও প্রমাণকসহ)
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFirst)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFirst->local_grants) }}
+        @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListSecond)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListSecond->local_grants) }}
+          
+            @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListThird)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListThird->local_grants) }}
+          
+            @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFourth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFourth->local_grants) }}
+          
+            @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFifth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFifth->local_grants) }}
+          
+            @endif
+        </td>
+        <td>
+
+            <?php
+
+            if(!$fd6FormEstimateListFirst){
+           $getTheVlueFl =0;
+        }else{
+
+        $getTheVlueFl = $fd6FormEstimateListFirst->local_grants;
+
+         }
+
+
+            if(!$fd6FormEstimateListSecond){
+           $getTheVlueSel = 0;
+        }else{
+            $getTheVlueSel = $fd6FormEstimateListSecond->local_grants;
+        }
+
+        if(!$fd6FormEstimateListThird){
+           $getTheVlueThl = 0;
+        }else{
+            $getTheVlueThl = $fd6FormEstimateListThird->local_grants;
+        }
+
+
+        if(!$fd6FormEstimateListFourth){
+           $getTheVlueFol = 0;
+        }else{
+            $getTheVlueFol = $fd6FormEstimateListFourth->local_grants;
+        }
+
+
+        if(!$fd6FormEstimateListFifth){
+           $getTheVlueFifl = 0;
+        }else{
+            $getTheVlueFifl = $fd6FormEstimateListFifth->local_grants;
+        }
+            ?>
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($getTheVlueFifl+$getTheVlueFol+$getTheVlueFl + $getTheVlueSel + $getTheVlueThl) }}
+        
+        </td>
+        
+    </tr>
+    <tr>
+        <td>মোট</td>
+        <td>
+
+            @if(!$fd6FormEstimateListFirst)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFirst->grant_total) }}
+        
+            @endif
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListSecond)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListSecond->grant_total) }}
+        
+            @endif
+        
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListThird)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListThird->grant_total) }}
+        
+            @endif
+        
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFourth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFourth->grant_total) }}
+        
+            @endif
+        
+        </td>
+        <td>
+
+            @if(!$fd6FormEstimateListFifth)
+
+            @else
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FormEstimateListFifth->grant_total) }}
+        
+            @endif
+        
+        </td>
+        <td>
+
+            <?php
+
+            if(!$fd6FormEstimateListFirst){
+            $getTheVlueF =0;
+        }else{
+            $getTheVlueF = $fd6FormEstimateListFirst->grant_total;
+
+        }
+
+
+            if(!$fd6FormEstimateListSecond){
+            $getTheVlueSe = 0;
+        }else{
+            $getTheVlueSe = $fd6FormEstimateListSecond->grant_total;
+        }
+
+
+        if(!$fd6FormEstimateListThird){
+            $getTheVlueTh = 0;
+        }else{
+            $getTheVlueTh = $fd6FormEstimateListThird->grant_total;
+        }
+
+
+        if(!$fd6FormEstimateListFourth){
+            $getTheVlueFo = 0;
+        }else{
+            $getTheVlueFo = $fd6FormEstimateListFourth->grant_total;
+        }
+
+        if(!$fd6FormEstimateListFifth){
+            $getTheVlueFif = 0;
+        }else{
+            $getTheVlueFif = $fd6FormEstimateListFifth->grant_total;
+        }
+            ?>
+            
+            {{ App\Http\Controllers\NGO\CommonController::englishToBangla($getTheVlueFif+$getTheVlueFo + $getTheVlueF + $getTheVlueSe +$getTheVlueTh) }}
+        
+        
+        </td>
+    
+    </tr>
 
 
 
@@ -1763,7 +2181,7 @@ $totalExpense = 0;
 <tr>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($key+1) }}</td>
 <td>{{ $fd6FurnitureEquipmentsList->item_name }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_quantity) }}</td>
+<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_quantity) }} {{ DB::table('units')->where('id',$fd6FurnitureEquipmentsList->unit_name)->value('name')}}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_net_price) }}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_total_price) }}</td>
 
@@ -1808,7 +2226,7 @@ $totalExpenseOne = 0;
 <tr>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($key+1) }}</td>
 <td>{{ $fd6FurnitureEquipmentsList->item_name }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_quantity) }}</td>
+<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_quantity) }} {{ DB::table('units')->where('id',$fd6FurnitureEquipmentsList->unit_name)->value('name')}}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_net_price) }}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_total_price) }}</td>
 
@@ -1853,7 +2271,7 @@ $totalExpenseTwo = 0;
 <tr>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($key+1) }}</td>
 <td>{{ $fd6FurnitureEquipmentsList->item_name }}</td>
-<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_quantity) }}</td>
+<td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_quantity) }} {{ DB::table('units')->where('id',$fd6FurnitureEquipmentsList->unit_name)->value('name')}}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_net_price) }}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($fd6FurnitureEquipmentsList->item_total_price) }}</td>
 

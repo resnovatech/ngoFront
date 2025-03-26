@@ -16,6 +16,7 @@ use App\Models\Fd2AllFormLastYearDetail;
 use App\Models\ExpectedResult;
 use App\Models\DistrictWiseActivity;
 use App\Models\NgoStatus;
+use App\Models\EstimateCost;
 use App\Models\Country;
 use App\Models\Fd9Form;
 use App\Models\ProkolpoDetail;
@@ -533,7 +534,31 @@ try{
 
     $fd6AdjoiningGList = Fd6AdjoiningG::where('fd6_form_id',$fd6Id)->latest()->get();
 
-        return view('front.fd6Form.newview',compact('fd2AllFormLastYearDetailForFd2','fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+
+    $fd6FormEstimateListFirst = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',1)
+    ->latest()->first();
+$fd6FormEstimateListSecond = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',2)
+    ->latest()->first();
+$fd6FormEstimateListThird = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',3)
+    ->latest()->first();
+$fd6FormEstimateListFourth = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',4)
+    ->latest()->first();
+$fd6FormEstimateListFifth = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',5)
+    ->latest()->first();
+
+$fd6FormEstimateListMax = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->max('year_status');
+    $fd6FormEstimateListComment = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->whereNotNull('comment')
+    ->orderBy('id','desc')->value('comment');
+$prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
+
+        return view('front.fd6Form.newview',compact('fd6FormEstimateListComment','prokolpoPriod','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst','fd2AllFormLastYearDetailForFd2','fd6AdjoiningGList','fd6FurnitureEquipmentsTwo','fd6FurnitureEquipmentsOne','fd6FurnitureEquipments','fd6AdjoiningEList','detailAsPerForm6','fd6AdjoiningDList','fd6AdjoiningCList','fd6AdjoiningAList','employeeDataPostList','partnerDataPostList','fd6StepThree','fd6GovernanceAndTransparency','fd6ProjectManagement','districtWiseList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd2OtherInfo','fd2FormList','cityCorporationList','districtList','prokolpoAreaList','fd6FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
     } catch (\Exception $e) {
        // DB::rollBack();
         return redirect()->route('error_404');
@@ -755,7 +780,31 @@ try{
     $thanaList = DB::table('civilinfos')
     ->groupBy('thana_bn')->select('thana_bn')->get();
 
-        return view('front.fd6Form.fd6StepTwo',compact('cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+
+    $fd6FormEstimateListFirst = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',1)
+    ->latest()->first();
+$fd6FormEstimateListSecond = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',2)
+    ->latest()->first();
+$fd6FormEstimateListThird = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',3)
+    ->latest()->first();
+$fd6FormEstimateListFourth = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',4)
+    ->latest()->first();
+$fd6FormEstimateListFifth = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->where('year_status',5)
+    ->latest()->first();
+
+$fd6FormEstimateListMax = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->max('year_status');
+    $fd6FormEstimateListComment = EstimateCost::where('fd6_form_id',$fd6Id)
+    ->whereNotNull('comment')
+    ->orderBy('id','desc')->value('comment');
+$prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
+
+        return view('front.fd6Form.fd6StepTwo',compact('fd6FormEstimateListComment','prokolpoPriod','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
     }
 
 
@@ -893,103 +942,64 @@ try{
 
     public function estimatedExpensesFd6Update(Request $request){
 
+        $fd6FormInfo = EstimateCost::find($request->main_id);
+        $fd6FormInfo->grants_received_from_abroad =$request->grants_received_from_abroad;
+        $fd6FormInfo->donations_made_by_foreign_donors	 =$request->donations_made_by_foreign_donors;
+        $fd6FormInfo->local_grants =$request->local_grants;
+        $fd6FormInfo->fd6_form_id =$request->fd6Id;
+        $fd6FormInfo->grant_total =$request->grants_total;
+        $fd6FormInfo->prokolpo_year_grant_start_date =$request->prokolpo_year_grant_start_date;
+        $fd6FormInfo->prokolpo_year_grant_end_date =$request->prokolpo_year_grant_end_date;
+        $fd6FormInfo->comment =$request->comment_grant;
+        $fd6FormInfo->prokolpo_year_grant =$request->prokolpo_year_grant;
         if($request->prokolpo_year_grant == '১ম বছর'){
-
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_first_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_first_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_first_year =$request->local_grants;
-            $fd6FormInfo->prokolpo_year_grant_start_date_first =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_first =$request->prokolpo_year_grant_end_date;
-
-
-            if(empty($request->comment_grant)){
-
-            }else{
-
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-
-            $fd6FormInfo->total_first_year =$request->grants_total;
-            $fd6FormInfo->save();
-
-
-
+            $fd6FormInfo->year_status =1;
         }elseif($request->prokolpo_year_grant == '২য় বছর'){
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_second_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_second_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_second_year =$request->local_grants;
-            $fd6FormInfo->prokolpo_year_grant_start_date_second =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_second =$request->prokolpo_year_grant_end_date;
-            if(empty($request->comment_grant)){
-
-            }else{
-
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-            $fd6FormInfo->total_second_year =$request->grants_total;
-            $fd6FormInfo->save();
-
-
-
+            $fd6FormInfo->year_status =2;
         }elseif($request->prokolpo_year_grant == '৩য় বছর'){
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_third_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_third_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_third_year =$request->local_grants;
-            $fd6FormInfo->prokolpo_year_grant_start_date_third =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_third =$request->prokolpo_year_grant_end_date;
-            if(empty($request->comment_grant)){
-
-            }else{
-
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-            $fd6FormInfo->total_third_year =$request->grants_total;
-            $fd6FormInfo->save();
-
+            $fd6FormInfo->year_status =3;
         }elseif($request->prokolpo_year_grant == '৪র্থ বছর'){
-
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_fourth_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_fourth_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_fourth_year =$request->local_grants;
-            $fd6FormInfo->prokolpo_year_grant_start_date_fourth =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_fourth =$request->prokolpo_year_grant_end_date;
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            $fd6FormInfo->total_fourth_year =$request->grants_total;
-            $fd6FormInfo->save();
-
-
+            $fd6FormInfo->year_status =4;
         }elseif($request->prokolpo_year_grant == '৫ম বছর'){
+            $fd6FormInfo->year_status =5;
+        }
+        $fd6FormInfo->save();
 
 
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_fifth_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_fifth_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_fifth_year =$request->local_grants;
-            $fd6FormInfo->prokolpo_year_grant_start_date_fifth =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_fifth =$request->prokolpo_year_grant_end_date;
-            if(empty($request->comment_grant)){
 
-            }else{
+        if(!empty($request->comment_grant)){
+        EstimateCost::where('fd6_form_id',$request->fd6Id)
+       ->update([
+           'comment' => $request->comment_grant
+        ]);
+    }
 
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-            $fd6FormInfo->total_fifth_year =$request->grants_total;
-            $fd6FormInfo->save();
+       $fd6FormEstimateListFirst = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',1)
+                                  ->latest()->first();
+        $fd6FormEstimateListSecond = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',2)
+                                  ->latest()->first();
+        $fd6FormEstimateListThird = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',3)
+                                  ->latest()->first();
+        $fd6FormEstimateListFourth = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',4)
+                                  ->latest()->first();
+        $fd6FormEstimateListFifth = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',5)
+                                  ->latest()->first();
 
-       }
+        $fd6FormEstimateListMax = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->max('year_status');
 
-       $fd6FormList = Fd6Form::where('id',$request->fd6Id)->latest()->first();
-       $prokolpoPriod = Fd6Form::where('id',$request->fd6Id)->get();
+                                  $fd6FormEstimateListComment = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->whereNotNull('comment')
+                                  ->orderBy('id','desc')->value('comment');
 
-       $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormList'))->render();
+       $prokolpoPriod = EstimateCost::where('fd6_form_id',$request->fd6Id)->latest()->get();
+
+       $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormEstimateListComment','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst'))->render();
        $prokolpoPriodData = view('front.fd6Form.prokolpoPriodData',compact('prokolpoPriod'))->render();
        
        $response = [
@@ -1003,111 +1013,88 @@ try{
     }
 
 
+    public function checkProkolpoYear(Request $request){
+
+        $checkDataAvailableOrNot = EstimateCost::where('prokolpo_year_grant',$request->yearValue)
+                               ->where('fd6_form_id',$request->fd6Id)->count('id');
+
+
+        $msg = 'আপনি ইতিমধ্যেই '.$request->yearValue.' এর তথ্য যোগ করেছেন';
+
+
+                               $response = [
+                                'data' => $checkDataAvailableOrNot,
+                                'prokolpoMsg' => $msg
+                            ];
+                            
+                            
+                            return response()->json($response);
+    }
+
+
     public function estimatedExpensesFd6(Request $request){
 
 
+       // dd($request->all());
+
+        $fd6FormInfo = new EstimateCost();
+        $fd6FormInfo->grants_received_from_abroad =$request->grants_received_from_abroad;
+        $fd6FormInfo->donations_made_by_foreign_donors	 =$request->donations_made_by_foreign_donors;
+        $fd6FormInfo->local_grants =$request->local_grants;
+        $fd6FormInfo->fd6_form_id =$request->fd6Id;
+        $fd6FormInfo->grant_total =$request->grants_total;
+        $fd6FormInfo->prokolpo_year_grant_start_date =$request->prokolpo_year_grant_start_date;
+        $fd6FormInfo->prokolpo_year_grant_end_date =$request->prokolpo_year_grant_end_date;
+        $fd6FormInfo->comment =$request->comment_grant;
+        $fd6FormInfo->prokolpo_year_grant =$request->prokolpo_year_grant;
         if($request->prokolpo_year_grant == '১ম বছর'){
-
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_first_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_first_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_first_year =$request->local_grants;
-            $fd6FormInfo->new_prokolpo_year =$request->prokolpo_year_grant;
-            $fd6FormInfo->prokolpo_year_grant_start_date_first =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_first =$request->prokolpo_year_grant_end_date;
-
-
-            if(empty($request->comment_grant)){
-
-            }else{
-
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-
-            $fd6FormInfo->total_first_year =$request->grants_total;
-            $fd6FormInfo->save();
-
-
-
+            $fd6FormInfo->year_status =1;
         }elseif($request->prokolpo_year_grant == '২য় বছর'){
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_second_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_second_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_second_year =$request->local_grants;
-            $fd6FormInfo->new_prokolpo_year =$request->prokolpo_year_grant;
-            $fd6FormInfo->prokolpo_year_grant_start_date_second =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_second =$request->prokolpo_year_grant_end_date;
-            if(empty($request->comment_grant)){
-
-            }else{
-
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-            $fd6FormInfo->total_second_year =$request->grants_total;
-            $fd6FormInfo->save();
-
-
-
+            $fd6FormInfo->year_status =2;
         }elseif($request->prokolpo_year_grant == '৩য় বছর'){
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_third_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_third_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_third_year =$request->local_grants;
-            $fd6FormInfo->new_prokolpo_year =$request->prokolpo_year_grant;
-            $fd6FormInfo->prokolpo_year_grant_start_date_third =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_third =$request->prokolpo_year_grant_end_date;
-            if(empty($request->comment_grant)){
-
-            }else{
-
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-            $fd6FormInfo->total_third_year =$request->grants_total;
-            $fd6FormInfo->save();
-
+            $fd6FormInfo->year_status =3;
         }elseif($request->prokolpo_year_grant == '৪র্থ বছর'){
-
-
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_fourth_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_fourth_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_fourth_year =$request->local_grants;
-            $fd6FormInfo->new_prokolpo_year =$request->prokolpo_year_grant;
-            $fd6FormInfo->prokolpo_year_grant_start_date_fourth =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_fourth =$request->prokolpo_year_grant_end_date;
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            $fd6FormInfo->total_fourth_year =$request->grants_total;
-            $fd6FormInfo->save();
-
-
+            $fd6FormInfo->year_status =4;
         }elseif($request->prokolpo_year_grant == '৫ম বছর'){
+            $fd6FormInfo->year_status =5;
+        }
+        $fd6FormInfo->save();
 
 
-            $fd6FormInfo = Fd6Form::find($request->fd6Id);
-            $fd6FormInfo->grants_received_from_abroad_fifth_year =$request->grants_received_from_abroad;
-            $fd6FormInfo->donations_made_by_foreign_donors_fifth_year =$request->donations_made_by_foreign_donors;
-            $fd6FormInfo->local_grants_fifth_year =$request->local_grants;
-            $fd6FormInfo->new_prokolpo_year =$request->prokolpo_year_grant;
-            $fd6FormInfo->prokolpo_year_grant_start_date_fifth =$request->prokolpo_year_grant_start_date;
-            $fd6FormInfo->prokolpo_year_grant_end_date_fifth =$request->prokolpo_year_grant_end_date;
-            if(empty($request->comment_grant)){
 
-            }else{
+        if(!empty($request->comment_grant)){
+        EstimateCost::where('fd6_form_id',$request->fd6Id)
+       ->update([
+           'comment' => $request->comment_grant
+        ]);
+    }
 
-            $fd6FormInfo->total_donors_comment =$request->comment_grant;
-            }
-            $fd6FormInfo->total_fifth_year =$request->grants_total;
-            $fd6FormInfo->save();
+       $fd6FormEstimateListFirst = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',1)
+                                  ->latest()->first();
+        $fd6FormEstimateListSecond = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',2)
+                                  ->latest()->first();
+        $fd6FormEstimateListThird = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',3)
+                                  ->latest()->first();
+        $fd6FormEstimateListFourth = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',4)
+                                  ->latest()->first();
+        $fd6FormEstimateListFifth = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->where('year_status',5)
+                                  ->latest()->first();
 
-       }
+        $fd6FormEstimateListMax = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->max('year_status');
 
-       $fd6FormList = Fd6Form::where('id',$request->fd6Id)->latest()->first();
-       $prokolpoPriod = Fd6Form::where('id',$request->fd6Id)->get();
+                                  $fd6FormEstimateListComment = EstimateCost::where('fd6_form_id',$request->fd6Id)
+                                  ->whereNotNull('comment')
+                                  ->orderBy('id','desc')->value('comment');
 
-       $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormList'))->render();
+       $prokolpoPriod = EstimateCost::where('fd6_form_id',$request->fd6Id)->latest()->get();
+
+       $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormEstimateListComment','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst'))->render();
        $prokolpoPriodData = view('front.fd6Form.prokolpoPriodData',compact('prokolpoPriod'))->render();
        
        $response = [

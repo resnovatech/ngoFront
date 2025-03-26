@@ -37,57 +37,18 @@
                                 placeholder="মোট">
                             </div>
 
-                            <?php
-
-                          $getYearVal = DB::table('fd6_forms')
-                                          ->where('id',$fd6Id)->first();
-
-
-                            ?>
-
-                            @if(empty($getYearVal->total_first_year))
-
                             <div class="col-lg-12 mb-3">
                                 <label for="" class="form-label">প্রকল্প বর্ষ</label>
-                                <input type="text" value="১ম বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
+                                <select name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
                                 placeholder="প্রকল্প বর্ষ">
+                                <option value="">--নির্বাচন করুন--</option>
+                                <option value="১ম বছর">১ম বছর</option>
+                                <option value="২য় বছর">২য় বছর</option>
+                                <option value="৩য় বছর">৩য় বছর</option>
+                                <option value="৪র্থ বছর">৪র্থ বছর</option>
+                                <option value="৫ম বছর">৫ম বছর</option>
+                                </select>
                             </div>
-
-                            @elseif(empty($getYearVal->total_second_year))
-
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
-                                <input type="text" value="২য় বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
-                                placeholder="প্রকল্প বর্ষ">
-                            </div>
-
-                            @elseif(empty($getYearVal->total_third_year))
-
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
-                                <input type="text" value="৩য় বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
-                                placeholder="প্রকল্প বর্ষ">
-                            </div>
-
-                            @elseif(empty($getYearVal->total_fourth_year))
-
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
-                                <input type="text" value="৪র্থ বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
-                                placeholder="প্রকল্প বর্ষ">
-                            </div>
-
-                            @elseif(empty($getYearVal->total_fifth_year))
-
-                            <div class="col-lg-12 mb-3">
-                                <label for="" class="form-label">প্রকল্প বর্ষ</label>
-                                <input type="text" value="৫ম বছর" readonly name="prokolpo_year_grant" class="form-control" id="prokolpo_year_grant0"
-                                placeholder="প্রকল্প বর্ষ">
-                            </div>
-
-                            @endif
-
-
 
                             <div class="col-lg-6 mb-3">
                                 <label for="" class="form-label">প্রকল্পের মেয়াদ শুরুর তারিখ</label>
