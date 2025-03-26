@@ -56,28 +56,46 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">দ্রব্যাদির বর্ণনা<span class="text-danger">*</span></label>
-                                        <input type="text"  name="product_des" class="form-control" id="product_des"
+                                        <input type="text"  name="product_des" class="form-control" id="product_des0"
                                         placeholder="" >
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">পরিমাণ<span class="text-danger">*</span></label>
-                                        <input type="number" name="product_quantity" class="form-control" id="product_quantity"
+                                        <input type="number" name="product_quantity" class="form-control" id="product_quantity0"
                                         placeholder="">
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+
+                                    <?php 
+                                    
+                                    $unitLists = DB::table('units')->get();
+                                    
+                                    
+                                    ?>
+                                    <div class="col-lg-3 mb-3">
                                         <label for="" class="form-label">একক মূল্য<span class="text-danger">*</span></label>
-                                        <input type="number" name="unit_price" class="form-control" id="unit_price"
+                                        <input type="number" name="unit_price" class="form-control" id="unit_price0"
                                         placeholder="">
                                     </div>
+                                    <div class="col-lg-3 mb-3">
+                                        <label for="" class="form-label">একক<span class="text-danger">*</span></label>
+                                        <select name="unit_name" class="form-control" id="unit_name0"
+                                        placeholder="">
+                                        <option value="">---নির্বাচন করুন ---</option>
+                                        @foreach($unitLists as $unitList)
+                                        <option value="{{$unitList->id}}">{{$unitList->name}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">মোট টাকার পরিমাণ<span class="text-danger">*</span></label>
-                                        <input type="number" name="total_amount" class="form-control" id="total_amount"
+                                        <input type="number" name="total_amount" readonly class="form-control" id="total_amount0"
                                         placeholder="">
                                     </div>
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">মোট উপকারভোগীর সংখ্যা<span class="text-danger">*</span></label>
-                                        <input type="number"  name="total_beneficiaries" class="form-control" id="total_beneficiaries" placeholder="">
+                                        <input type="number"  name="total_beneficiaries"  class="form-control" id="total_beneficiaries" placeholder="">
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <label for="" class="form-label">মন্তব্য</label>

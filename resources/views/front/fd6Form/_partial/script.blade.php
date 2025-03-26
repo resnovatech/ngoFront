@@ -74,6 +74,10 @@ alertify.success('Data Updated Successfully');
 $("#tableAjaxDataexp").html('');
 $("#tableAjaxDataexp").html(data.data);
 
+
+
+$("#duration0").html(data.prokolpoPriodData);
+
   $("#target_year0").html(data.prokolpoPriodData);
   $("#prokolpo_time0").html(data.prokolpoPriodData);
 
@@ -325,6 +329,8 @@ success: function(data) {
 
   $("#tableAjaxDataexp").html('');
   $("#tableAjaxDataexp").html(data.data);
+
+  $("#duration0").html(data.prokolpoPriodData);
 
   $("#target_year0").html(data.prokolpoPriodData);
   $("#prokolpo_time0").html(data.prokolpoPriodData);

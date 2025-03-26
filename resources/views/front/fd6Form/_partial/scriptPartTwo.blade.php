@@ -277,6 +277,10 @@ if(!$('#stepFiveType0').val()){
 
     alertify.alert('Error', 'একক মূল্য সম্পর্কিত তথ্য দিন');
 
+}else if(!$('#unit_name0').val()){
+
+alertify.alert('Error', 'একক এর নাম সম্পর্কিত তথ্য দিন');
+
 }else if(!$('#item_total_price0').val()){
 
     alertify.alert('Error', 'মোট ব্যায় সম্পর্কিত তথ্য দিন');
@@ -294,6 +298,7 @@ var fd6Id = $('#fd6Id').val();
 var stepFiveType = $('#stepFiveType0').val();
 var item_name = $('#item_name0').val();
 var item_quantity = $('#item_quantity0').val();
+var unit_name = $('#unit_name0').val();
 var item_net_price = $('#item_net_price0').val();
 var item_total_price = $('#item_total_price0').val();
 
@@ -302,6 +307,7 @@ $.ajax({
 url: "{{ route('adjoiningSixDataPost') }}",
 method: 'post',
 data: {fd6Id:fd6Id,
+    unit_name:unit_name,
     stepFiveType:stepFiveType,
     item_name:item_name,
     item_quantity:item_quantity,
@@ -332,7 +338,7 @@ success: function(data) {
 
   }
 
-
+  $('#unit_name0').val('');
  $('#stepFiveType0').val('');
  $('#item_name0').val('');
  $('#item_quantity0').val('');
@@ -354,7 +360,41 @@ complete: function(){
 
 ////end adjoining f /////
 
+$(document).on('change keyup', '[id^=item_quantity]', function () {
 
+var main_id = $(this).attr('id');
+var get_id_from_main = main_id.slice(13);
+
+var perQuantityPrice = $('#item_net_price'+get_id_from_main).val();
+var perQuantity = $('#item_quantity'+get_id_from_main).val();
+
+var totalPrice = perQuantityPrice*perQuantity;
+
+
+
+$('#item_total_price'+get_id_from_main).val(totalPrice);
+
+
+
+});
+
+$(document).on('change keyup', '[id^=item_net_price]', function () {
+
+var main_id = $(this).attr('id');
+var get_id_from_main = main_id.slice(14);
+
+var perQuantityPrice = $('#item_net_price'+get_id_from_main).val();
+var perQuantity = $('#item_quantity'+get_id_from_main).val();
+
+var totalPrice = perQuantityPrice*perQuantity;
+
+
+
+$('#item_total_price'+get_id_from_main).val(totalPrice);
+
+
+
+});
 
 $(document).on('click', '.adjoiningfModalUpdate', function () {
 
@@ -377,6 +417,10 @@ alertify.alert('Error', 'পরিমান সম্পর্কিত তথ�
 
 alertify.alert('Error', 'একক মূল্য সম্পর্কিত তথ্য দিন');
 
+}else if(!$('#unit_name'+main_id).val()){
+
+alertify.alert('Error', 'একক এর নাম সম্পর্কিত তথ্য দিন');
+
 }else if(!$('#item_total_price'+main_id).val()){
 
 alertify.alert('Error', 'মোট ব্যায় সম্পর্কিত তথ্য দিন');
@@ -394,6 +438,7 @@ var fd6Id = $('#fd6Id').val();
 var stepFiveType = $('#stepFiveType'+main_id).val();
 var item_name = $('#item_name'+main_id).val();
 var item_quantity = $('#item_quantity'+main_id).val();
+var unit_name = $('#unit_name'+main_id).val();
 var item_net_price = $('#item_net_price'+main_id).val();
 var item_total_price = $('#item_total_price'+main_id).val();
 
@@ -403,6 +448,7 @@ url: "{{ route('adjoiningSixDataUpdate') }}",
 method: 'post',
 data: {fd6Id:fd6Id,
     main_id:main_id,
+    unit_name:unit_name,
 stepFiveType:stepFiveType,
 item_name:item_name,
 item_quantity:item_quantity,

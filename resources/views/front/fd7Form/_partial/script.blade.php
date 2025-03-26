@@ -133,19 +133,23 @@ if(!$('#distribution_type').val()){
 
     alertify.alert('Error', 'উপজেলা সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#product_des').val()){
+}else if(!$('#product_des0').val()){
 
     alertify.alert('Error', 'দ্রব্যাদি সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#product_quantity').val()){
+}else if(!$('#product_quantity0').val()){
 
     alertify.alert('Error', 'পরিমাণ সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#unit_price').val()){
+}else if(!$('#unit_price0').val()){
 
     alertify.alert('Error', 'একক মূল্য সম্পর্কিত তথ্য দিন');
 
-}else if(!$('#total_amount').val()){
+}else if(!$('#unit_name0').val()){
+
+alertify.alert('Error', 'একক এর নাম সম্পর্কিত তথ্য দিন');
+
+}else if(!$('#total_amount0').val()){
 
     alertify.alert('Error', 'টাকার পরিমাণ সম্পর্কিত তথ্য দিন');
 
@@ -167,10 +171,11 @@ var mainEditId = $('#mainEditId').val();
 var distribution_type = $('#distribution_type').val();
 var districtNameDis = $('#newdistrict_name0').val();
 var upozila_name = $('#newupozila_name0').val();
-var product_des = $('#product_des').val();
-var product_quantity = $('#product_quantity').val();
-var unit_price = $('#unit_price').val();
-var total_amount =$('#total_amount').val();
+var product_des = $('#product_des0').val();
+var product_quantity = $('#product_quantity0').val();
+var unit_price = $('#unit_price0').val();
+var unit_name = $('#unit_name0').val();
+var total_amount =$('#total_amount0').val();
 var total_beneficiaries = $('#total_beneficiaries').val();
 var comment = $('#comment').val();
 
@@ -179,7 +184,7 @@ var comment = $('#comment').val();
 $.ajax({
 url: "{{ route('postDistribution') }}",
 method: 'POST',
-data: {mainEditId:mainEditId,distribution_type:distribution_type,districtNameDis:districtNameDis,upozila_name:upozila_name,product_des:product_des,product_quantity:product_quantity,unit_price:unit_price,total_amount:total_amount,total_beneficiaries:total_beneficiaries,comment:comment},
+data: {unit_name:unit_name,mainEditId:mainEditId,distribution_type:distribution_type,districtNameDis:districtNameDis,upozila_name:upozila_name,product_des:product_des,product_quantity:product_quantity,unit_price:unit_price,total_amount:total_amount,total_beneficiaries:total_beneficiaries,comment:comment},
 success: function(data) {
 
     $('#exampleModal1').modal('hide');
@@ -193,10 +198,11 @@ success: function(data) {
   var distribution_type = $('#distribution_type').val('');
 var districtNameDis = $('#newdistrict_name0').val('');
 var upozila_name = $('#newupozila_name0').val('');
-var product_des = $('#product_des').val('');
-var product_quantity = $('#product_quantity').val('');
-var unit_price = $('#unit_price').val('');
-var total_amount =$('#total_amount').val('');
+var product_des = $('#product_des0').val('');
+var product_quantity = $('#product_quantity0').val('');
+var unit_price = $('#unit_price0').val('');
+var total_amount =$('#total_amount0').val('');
+var unit_name = $('#unit_name0').val('');
 var total_beneficiaries = $('#total_beneficiaries').val('');
 var comment = $('#comment').val('');
 
@@ -213,6 +219,82 @@ complete: function(){
 
 });
 //form submit start data end
+
+//distribution edit modal show start
+
+$(document).on('click', '[id^=exampleModaleditnew]', function () {
+
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(19);
+
+    
+
+    //alert(get_id_from_main);
+
+    $.ajax({
+url: "{{ route('viewFd7EditDataAjax') }}",
+method: 'get',
+data: {get_id_from_main:get_id_from_main},
+success: function(data) {
+
+    $('#mmexampleModaleditnewemm').modal('show');
+
+    $("#viewDistributionEditDataAjaxForEdit").html('');
+    $("#viewDistributionEditDataAjaxForEdit").html(data);
+
+ 
+
+},
+beforeSend: function(){
+   $('#pageloader').show()
+},
+complete: function(){
+   $('#pageloader').hide();
+}
+});
+
+
+
+});
+//distribution edit modal show end 
+
+$(document).on('change keyup', '[id^=product_quantity]', function () {
+
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(16);
+
+    var perQuantityPrice = $('#unit_price'+get_id_from_main).val();
+    var perQuantity = $('#product_quantity'+get_id_from_main).val();
+
+    var totalPrice = perQuantityPrice*perQuantity;
+
+    
+
+    $('#total_amount'+get_id_from_main).val(totalPrice);
+
+    
+
+});
+
+$(document).on('change keyup', '[id^=unit_price]', function () {
+
+var main_id = $(this).attr('id');
+var get_id_from_main = main_id.slice(10);
+
+var perQuantityPrice = $('#unit_price'+get_id_from_main).val();
+var perQuantity = $('#product_quantity'+get_id_from_main).val();
+
+var totalPrice = perQuantityPrice*perQuantity;
+
+
+
+$('#total_amount'+get_id_from_main).val(totalPrice);
+
+
+
+});
+
+
 // distribution add list end
 
 $(document).on('click', '.distributionAjaxEdit', function () {
@@ -243,6 +325,10 @@ alertify.alert('Error', 'পরিমাণ সম্পর্কিত তথ�
 
 alertify.alert('Error', 'একক মূল্য সম্পর্কিত তথ্য দিন');
 
+}else if(!$('#unit_name'+mainId).val()){
+
+alertify.alert('Error', 'একক এর নাম সম্পর্কিত তথ্য দিন');
+
 }else if(!$('#total_amount'+mainId).val()){
 
 alertify.alert('Error', 'টাকার পরিমাণ সম্পর্কিত তথ্য দিন');
@@ -267,6 +353,7 @@ var upozila_name = $('#newupozila_name'+mainId).val();
 var product_des = $('#product_des'+mainId).val();
 var product_quantity = $('#product_quantity'+mainId).val();
 var unit_price = $('#unit_price'+mainId).val();
+var unit_name = $('#unit_name'+mainId).val();
 var total_amount =$('#total_amount'+mainId).val();
 var total_beneficiaries = $('#total_beneficiaries'+mainId).val();
 var comment = $('#comment'+mainId).val();
@@ -276,10 +363,12 @@ var comment = $('#comment'+mainId).val();
 $.ajax({
 url: "{{ route('updateDistribution') }}",
 method: 'POST',
-data: {mainEditId:mainEditId,mainId:mainId,distribution_type:distribution_type,districtNameDis:districtNameDis,upozila_name:upozila_name,product_des:product_des,product_quantity:product_quantity,unit_price:unit_price,total_amount:total_amount,total_beneficiaries:total_beneficiaries,comment:comment},
+data: {unit_name:unit_name,mainEditId:mainEditId,mainId:mainId,distribution_type:distribution_type,districtNameDis:districtNameDis,upozila_name:upozila_name,product_des:product_des,product_quantity:product_quantity,unit_price:unit_price,total_amount:total_amount,total_beneficiaries:total_beneficiaries,comment:comment},
 success: function(data) {
 
-$('#exampleModaleditnew'+mainId).modal('hide');
+
+
+$('#mmexampleModaleditnewemm').modal('hide');
 
 alertify.set('notifier','position', 'top-center');
 alertify.success('Data Added Successfully');
@@ -287,15 +376,7 @@ alertify.success('Data Added Successfully');
 $("#tableAjaxDatadis").html('');
 $("#tableAjaxDatadis").html(data);
 
-var distribution_type = $('#distribution_type'+mainId).val('');
-var districtNameDis = $('#newdistrict_name'+mainId).val('');
-var upozila_name = $('#newupozila_name'+mainId).val('');
-var product_des = $('#product_des'+mainId).val('');
-var product_quantity = $('#product_quantity'+mainId).val('');
-var unit_price = $('#unit_price'+mainId).val('');
-var total_amount =$('#total_amount'+mainId).val('');
-var total_beneficiaries = $('#total_beneficiaries'+mainId).val('');
-var comment = $('#comment'+mainId).val('');
+
 
 },
 beforeSend: function(){

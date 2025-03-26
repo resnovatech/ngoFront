@@ -569,6 +569,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::controller(Fd7FormController::class)->group(function () {
 
+
+        Route::get('viewFd7EditDataAjax', 'viewFd7EditDataAjax')->name('viewFd7EditDataAjax');
+
+
         Route::get('reliefAssistanceProjectProposalPdf/{id}', 'reliefAssistanceProjectProposalPdf')->name('reliefAssistanceProjectProposalPdf');
         Route::get('authorizationLetter/{id}', 'authorizationLetter')->name('authorizationLetter');
         Route::get('letterFromDonorAgency/{id}', 'letterFromDonorAgency')->name('letterFromDonorAgency');

@@ -46,6 +46,24 @@
                                         placeholder="" >
                                     </div>
 
+                                    <?php 
+                                    
+                                    $unitLists = DB::table('units')->get();
+                                    
+                                    
+                                    ?>
+
+<div class="col-lg-3 mb-3">
+    <label for="" class="form-label">একক<span class="text-danger">*</span></label>
+    <select name="unit_name" class="form-control" id="unit_name0"
+    placeholder="">
+    <option value="">---নির্বাচন করুন ---</option>
+    @foreach($unitLists as $unitList)
+    <option value="{{$unitList->id}}" {{ $unitList->id == $fd6FurnitureEquipmentsList->unit_name ? 'selected':'' }}>{{$unitList->name}}</option>
+    @endforeach
+    </select>
+</div>
+
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">মোট ব্যায়<span class="text-danger">*</span></label>
                                         <input type="number" value="{{ $fd6FurnitureEquipmentsList->item_total_price }}"  name="item_total_price" class="form-control" id="item_total_price{{ $fd6FurnitureEquipmentsList->id }}"

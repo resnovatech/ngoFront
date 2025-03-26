@@ -19,7 +19,7 @@
     <tr>
         <td>{{ $key+1 }}</td>
         <td>{{ $fd6FurnitureEquipmentsList->item_name }}</td>
-        <td>{{ $fd6FurnitureEquipmentsList->item_quantity }}</td>
+        <td>{{ $fd6FurnitureEquipmentsList->item_quantity }} {{ DB::table('units')->where('id',$fd6FurnitureEquipmentsList->unit_name)->value('name')}}</td>
         <td>{{ $fd6FurnitureEquipmentsList->item_net_price }}</td>
         <td>{{ $fd6FurnitureEquipmentsList->item_total_price }}</td>
         <td>

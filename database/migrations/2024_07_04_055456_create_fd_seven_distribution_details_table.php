@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product_des')->nullable();
             $table->string('product_quantity')->nullable();
             $table->string('unit_price')->nullable();
+            $table->string('unit_name')->nullable();
             $table->string('total_amount')->nullable();
             $table->string('total_beneficiaries')->nullable();
             $table->longText('comment')->nullable();
