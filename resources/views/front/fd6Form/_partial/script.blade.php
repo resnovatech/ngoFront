@@ -255,6 +255,48 @@ $('#grants_total'+get_id_from_main).val(total);
 
 });
 
+
+$(document).on('change', '[id^=prokolpo_year_grant]', function () {
+
+    var main_id = $(this).attr('id');
+    var get_id_from_main = main_id.slice(19);
+    var fd6Id = $('#fd6Id').val();
+    var yearValue=$(this).val();
+
+    $.ajax({
+url: "{{ route('checkProkolpoYear') }}",
+method: 'get',
+data: {
+    fd6Id:fd6Id,
+    get_id_from_main:get_id_from_main,
+    yearValue:yearValue
+},
+success: function(data) {
+
+
+    if(data.data == 1){
+
+        alertify.alert('Error',data.prokolpoMsg);
+        
+        $('#GrantAjax').hide();
+    }else{
+        $('#GrantAjax').show();
+
+    }
+
+  
+
+},
+beforeSend: function(){
+   $('#pageloader').show()
+},
+complete: function(){
+   $('#pageloader').hide();
+}
+});
+
+});
+
 $(document).on('click', '#GrantAjax', function () {
 
     if(!$('#grants_total0').val()){
@@ -1162,7 +1204,12 @@ $('#pageloader').hide();
       alertify.set('notifier','position', 'top-center');
       alertify.error('Data Delete Successfully');
       $("#tableAjaxDataexp").html('');
-      $("#tableAjaxDataexp").html(data);
+      $("#tableAjaxDataexp").html(data.data);
+
+      $("#duration0").html(data.prokolpoPriodData);
+
+$("#target_year0").html(data.prokolpoPriodData);
+$("#prokolpo_time0").html(data.prokolpoPriodData);
 
     },
     beforeSend: function(){

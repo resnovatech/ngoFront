@@ -645,6 +645,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::controller(Fd6FormController::class)->group(function (){
 
 
+        Route::get('checkProkolpoYear', 'checkProkolpoYear')->name('checkProkolpoYear');
+
+
         Route::get('employeeDataPost', 'employeeDataPost')->name('employeeDataPost');
         Route::get('employeeDataDelete', 'employeeDataDelete')->name('employeeDataDelete');
         Route::post('employeeDataUpdate', 'employeeDataUpdate')->name('employeeDataUpdate');

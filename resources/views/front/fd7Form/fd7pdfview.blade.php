@@ -221,7 +221,7 @@
                                                                             <td>{{ $distributionListOnes->upozila_name }}</td>
 
                                                                             <td>{{ $distributionListOnes->product_des }}</td>
-                                                                            <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->product_quantity) }}</td>
+                                                                            <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->product_quantity) }} {{ DB::table('units')->where('id',$distributionListOnes->unit_name)->value('name')}}</td>
                                                                             <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->unit_price) }}</td>
                                                                             <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->total_amount) }}</td>
                                                                             <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->total_beneficiaries) }}</td>
@@ -278,7 +278,7 @@
                                                                         <td>{{ $distributionListOnes->upozila_name }}</td>
 
                                                                         <td>{{ $distributionListOnes->product_des }}</td>
-                                                                        <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->product_quantity) }}</td>
+                                                                        <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->product_quantity) }} {{ DB::table('units')->where('id',$distributionListOnes->unit_name)->value('name')}}</td>
                                                                         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->unit_price) }}</td>
                                                                         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->total_amount) }}</td>
                                                                         <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($distributionListOnes->total_beneficiaries) }}</td>

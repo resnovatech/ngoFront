@@ -725,7 +725,13 @@ class Fd7FormController extends Controller
        $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
        $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
        $fd2FormList = Fd2FormForFd7Form::where('fd_one_form_id',$ngo_list_all->id)->where('fd7_form_id',$fd7Id)->latest()->first();
+       if(!$fd2FormList){
+        $fd2OtherInfo = Fd2Fd7OtherInfo::where('fd2_form_for_fd7_form_id',0)->latest()->get();
+       }else{
+
+       
        $fd2OtherInfo = Fd2Fd7OtherInfo::where('fd2_form_for_fd7_form_id',$fd2FormList->id)->latest()->get();
+    }
        $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
        $renewWebsiteName = NgoRenewInfo::where('fd_one_form_id',$ngo_list_all->id)->value('web_site_name');
        $divisionList = DB::table('civilinfos')->groupBy('division_bn')->select('division_bn')->get();
@@ -791,7 +797,11 @@ class Fd7FormController extends Controller
        $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
        $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
        $fd2FormList = Fd2FormForFd7Form::where('fd_one_form_id',$ngo_list_all->id)->where('fd7_form_id',$fd7Id)->latest()->first();
+       if(!$fd2FormList){
+        $fd2OtherInfo = Fd2Fd7OtherInfo::where('fd2_form_for_fd7_form_id',0)->latest()->get();
+       }else{
        $fd2OtherInfo = Fd2Fd7OtherInfo::where('fd2_form_for_fd7_form_id',$fd2FormList->id)->latest()->get();
+       }
        $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
        $renewWebsiteName = NgoRenewInfo::where('fd_one_form_id',$ngo_list_all->id)->value('web_site_name');
        $divisionList = DB::table('civilinfos')->groupBy('division_bn')->select('division_bn')->get();
@@ -800,9 +810,16 @@ class Fd7FormController extends Controller
        $fd7FormList = Fd7Form::where('fd_one_form_id',$ngo_list_all->id)->where('id',$fd7Id)->latest()->first();
        $prokolpoAreaList = Fd7FormProkolpoArea::where('fd7_form_id',$fd7Id)->latest()->get();
        //FdSevenDistributionDetail
+       if(!$fd2FormList){
+
+        $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',0)
+        ->where('type','fd7')
+        ->get();
+       }else{
        $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
        ->where('type','fd7')
        ->get();
+       }
        $distributionListOne = DB::table('fd_seven_distribution_details')
             ->where('type','প্রকল্প খাতের ব্যয়')
             ->where('fd7_form_id',$fd7Id)->get();
@@ -854,7 +871,13 @@ class Fd7FormController extends Controller
        $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
        $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
        $fd2FormList = Fd2FormForFd7Form::where('fd_one_form_id',$ngo_list_all->id)->where('fd7_form_id',$fd7Id)->latest()->first();
+       if(!$fd2FormList){
+        $fd2OtherInfo = Fd2Fd7OtherInfo::where('fd2_form_for_fd7_form_id',0)->latest()->get();
+       }else{
+
+       
        $fd2OtherInfo = Fd2Fd7OtherInfo::where('fd2_form_for_fd7_form_id',$fd2FormList->id)->latest()->get();
+    }
        $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
        $renewWebsiteName = NgoRenewInfo::where('fd_one_form_id',$ngo_list_all->id)->value('web_site_name');
        $divisionList = DB::table('civilinfos')->groupBy('division_bn')->select('division_bn')->get();
@@ -863,9 +886,17 @@ class Fd7FormController extends Controller
        $fd7FormList = Fd7Form::where('fd_one_form_id',$ngo_list_all->id)->where('id',$fd7Id)->latest()->first();
        $prokolpoAreaList = Fd7FormProkolpoArea::where('fd7_form_id',$fd7Id)->latest()->get();
        //FdSevenDistributionDetail
+
+       if(!$fd2FormList){
+
+        $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',0)
+        ->where('type','fd7')
+        ->get();
+       }else{
        $fd2AllFormLastYearDetail = Fd2AllFormLastYearDetail::where('main_id',$fd2FormList->id)
        ->where('type','fd7')
        ->get();
+       }
        $distributionListOne = DB::table('fd_seven_distribution_details')
             ->where('type','প্রকল্প খাতের ব্যয়')
             ->where('fd7_form_id',$fd7Id)->get();
