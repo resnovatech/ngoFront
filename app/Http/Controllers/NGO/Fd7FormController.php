@@ -200,6 +200,7 @@ class Fd7FormController extends Controller
         $formNoFiveInfo = new FdSevenDistributionDetail();
         $formNoFiveInfo->comment =$request->comment;
         $formNoFiveInfo->type =$request->distribution_type;
+        $formNoFiveInfo->unit_name =$request->unit_name;
         $formNoFiveInfo->district_name =$request->districtNameDis;
         $formNoFiveInfo->upozila_name =$request->upozila_name;
         $formNoFiveInfo->product_des =$request->product_des;
@@ -227,6 +228,7 @@ class Fd7FormController extends Controller
         $distributionListTwo = DB::table('fd_seven_distribution_details')
         ->where('type','প্রশাসনিক ব্যয়')
         ->where('user_id',Auth::user()->id)->where('upload_type',0)->get();
+
         }else{
 
 
@@ -247,6 +249,11 @@ class Fd7FormController extends Controller
 
     public function updateDistribution(Request $request){
 
+
+       // dd($request->all());
+
+
+
         $formNoFiveInfo = FdSevenDistributionDetail::find($request->mainId);
         $formNoFiveInfo->comment =$request->comment;
         $formNoFiveInfo->type =$request->distribution_type;
@@ -255,6 +262,7 @@ class Fd7FormController extends Controller
         $formNoFiveInfo->product_des =$request->product_des;
         $formNoFiveInfo->product_quantity =$request->product_quantity;
         $formNoFiveInfo->unit_price =$request->unit_price;
+        $formNoFiveInfo->unit_name =$request->unit_name;
         $formNoFiveInfo->total_amount =$request->total_amount;
         $formNoFiveInfo->total_beneficiaries =$request->total_beneficiaries;
         $formNoFiveInfo->save();
@@ -284,6 +292,19 @@ class Fd7FormController extends Controller
 
         $data = view('front.fd7Form.postDistribution',compact('distributionListOne','distributionListTwo'))->render();
         return response()->json($data);
+
+    }
+
+
+    public function viewFd7EditDataAjax(Request $request){
+
+        
+
+        $distributionListOnesEdit = DB::table('fd_seven_distribution_details')
+                ->where('id',$request->get_id_from_main)->first();
+
+                $data = view('front.fd7Form._partial.modalEditDataView',compact('distributionListOnesEdit'))->render();
+                return response()->json($data);
 
     }
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('fd6_form_id')->unsigned();
             $table->foreign('fd6_form_id')->references('id')->on('fd6_forms')->onDelete('cascade');
             $table->string('item_name')->nullable();
+            $table->string('unit_name')->nullable();
             $table->string('stepFiveType')->nullable();
             $table->string('item_quantity')->nullable();
             $table->string('item_net_price')->nullable();

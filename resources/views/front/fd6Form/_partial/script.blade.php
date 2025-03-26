@@ -72,7 +72,14 @@ alertify.set('notifier','position', 'top-center');
 alertify.success('Data Updated Successfully');
 
 $("#tableAjaxDataexp").html('');
-$("#tableAjaxDataexp").html(data);
+$("#tableAjaxDataexp").html(data.data);
+
+
+
+$("#duration0").html(data.prokolpoPriodData);
+
+  $("#target_year0").html(data.prokolpoPriodData);
+  $("#prokolpo_time0").html(data.prokolpoPriodData);
 
 },
 beforeSend: function(){
@@ -321,7 +328,12 @@ success: function(data) {
   alertify.success('Data Added Successfully');
 
   $("#tableAjaxDataexp").html('');
-  $("#tableAjaxDataexp").html(data);
+  $("#tableAjaxDataexp").html(data.data);
+
+  $("#duration0").html(data.prokolpoPriodData);
+
+  $("#target_year0").html(data.prokolpoPriodData);
+  $("#prokolpo_time0").html(data.prokolpoPriodData);
 
    $('#grants_received_from_abroad0').val('');
 $('#donations_made_by_foreign_donors0').val('');

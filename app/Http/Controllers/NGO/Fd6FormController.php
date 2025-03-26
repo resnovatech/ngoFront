@@ -987,9 +987,18 @@ try{
        }
 
        $fd6FormList = Fd6Form::where('id',$request->fd6Id)->latest()->first();
+       $prokolpoPriod = Fd6Form::where('id',$request->fd6Id)->get();
 
        $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormList'))->render();
-        return response()->json($data);
+       $prokolpoPriodData = view('front.fd6Form.prokolpoPriodData',compact('prokolpoPriod'))->render();
+       
+       $response = [
+        'data' => $data,
+        'prokolpoPriodData' => $prokolpoPriodData
+    ];
+    
+    
+    return response()->json($response);
 
     }
 
@@ -1096,9 +1105,18 @@ try{
        }
 
        $fd6FormList = Fd6Form::where('id',$request->fd6Id)->latest()->first();
+       $prokolpoPriod = Fd6Form::where('id',$request->fd6Id)->get();
 
        $data = view('front.fd6Form.estimatedExpensesFd6',compact('fd6FormList'))->render();
-        return response()->json($data);
+       $prokolpoPriodData = view('front.fd6Form.prokolpoPriodData',compact('prokolpoPriod'))->render();
+       
+       $response = [
+        'data' => $data,
+        'prokolpoPriodData' => $prokolpoPriodData
+    ];
+    
+    
+    return response()->json($response);
 
     }
 

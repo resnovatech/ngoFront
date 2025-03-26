@@ -518,6 +518,7 @@ class Fd6FormPartTwoController extends Controller
         $form->fd6_form_id=$request->fd6Id;
         $form->stepFiveType=$request->stepFiveType;
         $form->item_name=$request->item_name;
+        $form->unit_name=$request->unit_name;
         $form->item_quantity=$request->item_quantity;
         $form->item_net_price=$request->item_net_price;
         $form->item_total_price=$request->item_total_price;
@@ -565,6 +566,7 @@ class Fd6FormPartTwoController extends Controller
         $form= Fd6FurnitureEquipment::find($request->main_id);
         $form->stepFiveType=$request->stepFiveType;
         $form->item_name=$request->item_name;
+        $form->unit_name=$request->unit_name;
         $form->item_quantity=$request->item_quantity;
         $form->item_net_price=$request->item_net_price;
         $form->item_total_price=$request->item_total_price;

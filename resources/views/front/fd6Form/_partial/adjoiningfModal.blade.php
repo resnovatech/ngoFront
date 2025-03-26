@@ -40,11 +40,29 @@
                                         placeholder="" >
                                     </div>
 
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-3 mb-3">
                                         <label for="" class="form-label">একক মূল্য<span class="text-danger">*</span></label>
                                         <input type="text"  name="item_net_price" class="form-control" id="item_net_price0"
                                         placeholder="" >
                                     </div>
+
+                                    <?php 
+                                    
+                                    $unitLists = DB::table('units')->get();
+                                    
+                                    
+                                    ?>
+
+<div class="col-lg-3 mb-3">
+    <label for="" class="form-label">একক<span class="text-danger">*</span></label>
+    <select name="unit_name" class="form-control" id="unit_name0"
+    placeholder="">
+    <option value="">---নির্বাচন করুন ---</option>
+    @foreach($unitLists as $unitList)
+    <option value="{{$unitList->id}}">{{$unitList->name}}</option>
+    @endforeach
+    </select>
+</div>
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">মোট ব্যায়<span class="text-danger">*</span></label>
