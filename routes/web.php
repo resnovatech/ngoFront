@@ -645,6 +645,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::controller(Fd6FormController::class)->group(function (){
 
 
+        Route::get('getTargetFromGoal', 'getTargetFromGoal')->name('getTargetFromGoal');
+        Route::get('getIndicatorFromTarget', 'getIndicatorFromTarget')->name('getIndicatorFromTarget');
+       
+
+
         Route::get('checkProkolpoYear', 'checkProkolpoYear')->name('checkProkolpoYear');
 
 

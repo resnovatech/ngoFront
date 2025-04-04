@@ -1,5 +1,5 @@
 <div class="modal modal-xl fade" id="Avistto"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
@@ -14,15 +14,30 @@
                     <div class="card-body">
                             <div class="row">
 
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="" class="form-label">অভিষ্ঠ(Goal)</label>
-                                        <input type="text" name="goal" class="form-control" id="goal0"
-                                        placeholder="">
+                                    <div class="col-lg-12 mb-3">
+                                        <label for="" class="form-label">অভিষ্ঠ(Goal)<span class="text-danger">*</span></label>
+                                        <select name="goal" class="form-control" id="goal0">
+                                            <option value="">--নির্বাচন করুন--</option>
+                                            @foreach($stepTwoGoalData as $stepTwoGoalDatas)
+                                            <option value="{{$stepTwoGoalDatas->id}}">{{$stepTwoGoalDatas->description}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-12 mb-3">
                                         <label for="" class="form-label">লক্ষ্যমাত্রা(Target) <span class="text-danger">*</span></label>
-                                        <input type="text"  name="target" class="form-control" id="target0"
-                                        placeholder="" >
+                                        {{-- <input type="text"  name="target" class="form-control" id="target0"
+                                        placeholder="" > --}}
+
+                                        <select name="target" class="form-control" id="target0">
+                                            <option value="">--নির্বাচন করুন--</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-12 mb-3">
+                                        <label for="" class="form-label">নির্দেশক(Indicator)<span class="text-danger">*</span></label>
+                                        <select name="indicator" class="form-control" id="indicator0">
+                                            <option value="">--নির্বাচন করুন --</option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">বাজেট বরাদ্দ</label>

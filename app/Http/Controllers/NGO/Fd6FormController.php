@@ -49,6 +49,29 @@ use Illuminate\Support\Facades\App;
 class Fd6FormController extends Controller
 {
 
+
+    public function getTargetFromGoal(Request $request){
+
+       // dd($request->all());
+
+        $getTargetDescription = DB::table('targets')
+          ->where('goal_id',$request->id)->get();
+
+          $data = view('front.fd6Form.getTargetFromGoal',compact('getTargetDescription'))->render();
+        return response()->json($data);
+    }
+
+    public function getIndicatorFromTarget(Request $request){
+
+        $getIndicatorDescription = DB::table('indicators')
+          ->where('target_id',$request->id)->get();
+
+          $data = view('front.fd6Form.getIndicatorFromTarget',compact('getIndicatorDescription'))->render();
+        return response()->json($data);
+
+
+    }
+
     //fd6SourceOfFundDelete
 
 
@@ -781,6 +804,11 @@ $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
     ->groupBy('thana_bn')->select('thana_bn')->get();
 
 
+    $stepTwoGoalData = DB::table('goals')->get();
+    $stepTwoTargetData = DB::table('targets')->get();
+    $stepTwoIndicatorData = DB::table('indicators')->get();
+
+
     $fd6FormEstimateListFirst = EstimateCost::where('fd6_form_id',$fd6Id)
     ->where('year_status',1)
     ->latest()->first();
@@ -804,7 +832,7 @@ $fd6FormEstimateListMax = EstimateCost::where('fd6_form_id',$fd6Id)
     ->orderBy('id','desc')->value('comment');
 $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
 
-        return view('front.fd6Form.fd6StepTwo',compact('fd6FormEstimateListComment','prokolpoPriod','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+        return view('front.fd6Form.fd6StepTwo',compact('stepTwoIndicatorData','stepTwoTargetData','stepTwoGoalData','fd6FormEstimateListComment','prokolpoPriod','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
     }
 
 
@@ -1324,13 +1352,13 @@ $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
     public function fd6FormStepTwoSDG(Request $request){
 
 
-       
-
+    //dd($request->all());
         $form= new SDGDevelopmentGoal();
         $form->fc1_form_id=$request->fd6Id;
         $form->type='fd6';
         $form->goal=$request->goal;
         $form->target=$request->target;
+        $form->indicator=$request->indicator;
         $form->budget_allocation=$request->budget_allocation;
         $form->rationality=$request->rationality;
         $form->comment=$request->comment;
@@ -1339,6 +1367,8 @@ $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
         $SDGDevelopmentGoal = SDGDevelopmentGoal::where('fc1_form_id',$request->fd6Id)
         ->where('type','fd6')
         ->latest()->get();
+
+
 
         $data = view('front.fd6Form.fd6FormStepTwoSDG',compact('SDGDevelopmentGoal'))->render();
         return response()->json($data);
@@ -1349,6 +1379,7 @@ $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
         $form= SDGDevelopmentGoal::find($request->mainId);
         $form->goal=$request->goal;
         $form->target=$request->target;
+        $form->indicator=$request->indicator;
         $form->budget_allocation=$request->budget_allocation;
         $form->rationality=$request->rationality;
         $form->comment=$request->comment;
