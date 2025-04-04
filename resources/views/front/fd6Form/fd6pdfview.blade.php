@@ -852,6 +852,7 @@
 <tr style="text-align: center">
 <td>অভিষ্ঠ(Goal)</td>
 <td>লক্ষ্যমাত্রা(Target)</td>
+<td>নির্দেশক(Indicator)</td>
 <td>বাজেট বরাদ্দ </td>
 <td>যৌক্তিকতা </td>
 <td>মন্তব্য</td>
@@ -859,8 +860,9 @@
 </tr>
 @foreach($SDGDevelopmentGoal as $SDGDevelopmentGoals)
 <tr>
-<td>{{ $SDGDevelopmentGoals->goal }}</td>
-<td>{{ $SDGDevelopmentGoals->target }}</td>
+    <td>{{ DB::table('goals')->where('id',$SDGDevelopmentGoals->goal)->value('description') }}</td>
+    <td>{{ DB::table('targets')->where('id',$SDGDevelopmentGoals->target)->value('description')  }}</td>
+    <td>{{ DB::table('indicators')->where('id',$SDGDevelopmentGoals->indicator)->value('description')  }}</td>
 <td>{{ App\Http\Controllers\NGO\CommonController::englishToBangla($SDGDevelopmentGoals->budget_allocation) }}</td>
 <td>{{ $SDGDevelopmentGoals->rationality }}</td>
 <td>{{ $SDGDevelopmentGoals->comment }}</td>

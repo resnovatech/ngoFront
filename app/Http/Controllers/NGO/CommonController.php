@@ -112,6 +112,19 @@ class CommonController extends Controller
         return $finalResult;
     }
 
+    public static function newLineCode($data){
+
+
+        $engDATE = array(',');
+
+        $bangDATE = array('</br>');
+
+
+        $finalResult = str_replace($engDATE,$bangDATE,$data);
+
+        return $finalResult;
+    }
+
 
    public static function checkNgotype($status){
 

@@ -16,6 +16,7 @@ class SDGDevelopmentGoal extends Model
         'fc1_form_id',
         'goal',
         'target',
+        'indicator',
         'budget_allocation',
         'rationality',
         'comment',

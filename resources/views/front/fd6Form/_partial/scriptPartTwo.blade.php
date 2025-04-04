@@ -35,6 +35,12 @@ $(document).on('click', '#adjoininggModalPost', function () {
 
     }else{
 
+        $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
         var fd6Id = $('#fd6Id').val();
         var subject = $('#subject0').val();
         var seminer_date = $('#seminer_date0').val();
@@ -125,6 +131,13 @@ alertify.alert('Error', 'অংশগ্রহণকারীর সংখ্য
 alertify.alert('Error', 'বাজেট সম্পর্কিত তথ্য দিন');
 
 }else{
+
+
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
  var fd6Id = $('#fd6Id').val();
  var subject = $('#subject'+main_id).val();

@@ -36,13 +36,13 @@
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">পরিমান<span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ $fd6FurnitureEquipmentsList->item_quantity }}"  name="item_quantity" class="form-control" id="item_quantity{{ $fd6FurnitureEquipmentsList->id }}"
+                                        <input type="number" value="{{ $fd6FurnitureEquipmentsList->item_quantity }}"  name="item_quantity" class="form-control" id="item_quantity{{ $fd6FurnitureEquipmentsList->id }}"
                                         placeholder="" >
                                     </div>
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">একক মূল্য<span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ $fd6FurnitureEquipmentsList->item_net_price }}"  name="item_net_price" class="form-control" id="item_net_price{{ $fd6FurnitureEquipmentsList->id }}"
+                                        <input type="number" value="{{ $fd6FurnitureEquipmentsList->item_net_price }}"  name="item_net_price" class="form-control" id="item_net_price{{ $fd6FurnitureEquipmentsList->id }}"
                                         placeholder="" >
                                     </div>
 
@@ -55,7 +55,7 @@
 
 <div class="col-lg-3 mb-3">
     <label for="" class="form-label">একক<span class="text-danger">*</span></label>
-    <select name="unit_name" class="form-control" id="unit_name0"
+    <select name="unit_name" class="form-control" id="unit_name{{$fd6FurnitureEquipmentsList->id}}"
     placeholder="">
     <option value="">---নির্বাচন করুন ---</option>
     @foreach($unitLists as $unitList)

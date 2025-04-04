@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('goal')->nullable();
             $table->string('target')->nullable();
+            $table->string('indicator')->nullable();
             $table->string('budget_allocation')->nullable();
             $table->string('rationality')->nullable();
             $table->longText('comment')->nullable();

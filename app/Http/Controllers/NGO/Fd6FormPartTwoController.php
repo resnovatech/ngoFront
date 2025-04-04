@@ -703,6 +703,11 @@ $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
     $thanaList = DB::table('civilinfos')
     ->groupBy('thana_bn')->select('thana_bn')->get();
 
+
+    $stepTwoGoalData = DB::table('goals')->get();
+    $stepTwoTargetData = DB::table('targets')->get();
+    $stepTwoIndicatorData = DB::table('indicators')->get();
+
     $fd6FormEstimateListFirst = EstimateCost::where('fd6_form_id',$fd6Id)
     ->where('year_status',1)
     ->latest()->first();
@@ -726,7 +731,7 @@ $fd6FormEstimateListMax = EstimateCost::where('fd6_form_id',$fd6Id)
     ->orderBy('id','desc')->value('comment');
 $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
 
-        return view('front.fd6Form.partTwo.fd6StepTwoEdit',compact('fd6FormEstimateListComment','prokolpoPriod','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+        return view('front.fd6Form.partTwo.fd6StepTwoEdit',compact('stepTwoIndicatorData','stepTwoTargetData','stepTwoGoalData','fd6FormEstimateListComment','prokolpoPriod','fd6FormEstimateListMax','fd6FormEstimateListFifth','fd6FormEstimateListFourth','fd6FormEstimateListThird','fd6FormEstimateListSecond','fd6FormEstimateListFirst','cityCorporationList','thanaList','districtWiseList','divisionList','subdDistrictList','districtList','expectedResultDetail','fd2AllFormLastYearDetail','SDGDevelopmentGoal','fd6FormList','fd6Id','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
     }
 
 

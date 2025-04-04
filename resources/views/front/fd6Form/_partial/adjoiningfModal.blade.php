@@ -36,13 +36,13 @@
 
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">পরিমান<span class="text-danger">*</span></label>
-                                        <input type="text"  name="item_quantity" class="form-control" id="item_quantity0"
+                                        <input type="number"  name="item_quantity" class="form-control" id="item_quantity0"
                                         placeholder="" >
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="" class="form-label">একক মূল্য<span class="text-danger">*</span></label>
-                                        <input type="text"  name="item_net_price" class="form-control" id="item_net_price0"
+                                        <input type="number"  name="item_net_price" class="form-control" id="item_net_price0"
                                         placeholder="" >
                                     </div>
 
