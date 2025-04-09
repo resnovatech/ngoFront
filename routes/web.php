@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NGO\OtherformController;
 use App\Http\Controllers\NGO\CeoInfoController;
 use App\Http\Controllers\NGO\FormeightController;
+use App\Http\Controllers\NGO\ExtraController;
 use App\Http\Controllers\NGO\NgomemberController;
 use App\Http\Controllers\NGO\NgomemberdocController;
 use App\Http\Controllers\NGO\NgodocumentController;
@@ -229,6 +230,38 @@ Route::controller(OtherformController::class)->group(function () {
 
 
 Route::group(['middleware' => ['auth']], function() {
+
+
+    
+
+    Route::controller(ExtraController::class)->group(function () {
+
+        Route::get('ngoBankInformationAccept', 'ngoBankInformationAccept')->name('ngoBankInformationAccept');
+        Route::get('ngoBankInformationEditAccept/{id}', 'ngoBankInformationEditAccept')->name('ngoBankInformationEditAccept');
+        Route::delete('ngoBankInformationDeleteAccept/{id}', 'ngoBankInformationDeleteAccept')->name('ngoBankInformationDeleteAccept');
+        Route::put('ngoBankInformationUpdateAccept/{id}', 'ngoBankInformationUpdateAccept')->name('ngoBankInformationUpdateAccept');
+        Route::post('ngoBankInformationStoreAccept', 'ngoBankInformationStoreAccept')->name('ngoBankInformationStoreAccept');
+
+
+        Route::get('ngoHeadInformationAccept', 'ngoHeadInformationAccept')->name('ngoHeadInformationAccept');
+        Route::get('ngoHeadInformationEditAccept/{id}', 'ngoHeadInformationEditAccept')->name('ngoHeadInformationEditAccept');
+        Route::delete('ngoHeadInformationDeleteAccept/{id}', 'ngoHeadInformationDeleteAccept')->name('ngoHeadInformationDeleteAccept');
+        Route::put('ngoHeadInformationUpdateAccept/{id}', 'ngoHeadInformationUpdateAccept')->name('ngoHeadInformationUpdateAccept');
+        Route::post('ngoHeadInformationStoreAccept', 'ngoHeadInformationStoreAccept')->name('ngoHeadInformationStoreAccept');
+
+        Route::get('ngoHeadInformation', 'ngoHeadInformation')->name('ngoHeadInformation');
+        Route::get('ngoHeadInformationEdit/{id}', 'ngoHeadInformationEdit')->name('ngoHeadInformationEdit');
+        Route::delete('ngoHeadInformationDelete/{id}', 'ngoHeadInformationDelete')->name('ngoHeadInformationDelete');
+        Route::put('ngoHeadInformationUpdate/{id}', 'ngoHeadInformationUpdate')->name('ngoHeadInformationUpdate');
+        Route::post('ngoHeadInformationStore', 'ngoHeadInformationStore')->name('ngoHeadInformationStore');
+
+
+        Route::get('ngoBankInformation', 'ngoBankInformation')->name('ngoBankInformation');
+        Route::get('ngoBankInformationEdit/{id}', 'ngoBankInformationEdit')->name('ngoBankInformationEdit');
+        Route::delete('ngoBankInformationDelete/{id}', 'ngoBankInformationDelete')->name('ngoBankInformationDelete');
+        Route::put('ngoBankInformationUpdate/{id}', 'ngoBankInformationUpdate')->name('ngoBankInformationUpdate');
+        Route::post('ngoBankInformationStore', 'ngoBankInformationStore')->name('ngoBankInformationStore');
+    });
 
     
 

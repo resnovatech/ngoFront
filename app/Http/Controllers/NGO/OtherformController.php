@@ -29,6 +29,8 @@ use App\Models\FdOneMemberList;
 use Response;
 use Session;
 use App\Models\NgoRenew;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class OtherformController extends Controller
 {
 
@@ -341,6 +343,44 @@ class OtherformController extends Controller
 
             DB::commit();
 
+
+            $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+                                   ->latest()->value('status');
+             $getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+                                   ->latest()->value('status');
+
+            if($mainNgoType == 'দেশিও'){
+
+                if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                    return redirect()->route('ngoHeadInformation')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+                }else{
+    
+                if($first_form_check == 1){
+    
+                    return view('front.firstTwoStep.ngoAllRegistrationForm');
+    
+                }elseif(!empty($ngoLanguage)){
+                    return view('front.firstTwoStep.ngoRegistrationFirstInfo');
+                }else{
+                    return view('front.firstTwoStep.ngoTypeAndLanguage');
+    
+                }
+            }
+
+
+            }else{
+
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformation')->with('error',' Ngo Head Information!');
+            
+            }else{
+
             if($first_form_check == 1){
 
                 return view('front.firstTwoStep.ngoAllRegistrationForm');
@@ -351,6 +391,9 @@ class OtherformController extends Controller
                 return view('front.firstTwoStep.ngoTypeAndLanguage');
 
             }
+        }
+    }
+
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('error_404');

@@ -138,31 +138,31 @@
     <div class="col-lg-6 col-sm-12">
         <div class="mb-3">
             <label for="" class="form-label">Account Number (হিসাব নম্বর) <span class="text-danger">*</span> </label>
-            <input type="text"  name="main_account_number" class="form-control" id="">
+            <input type="text" value="{{$accountNumberGlobal}}"  name="main_account_number" class="form-control" id="">
         </div>
     </div>
     <div class="col-lg-6 col-sm-12">
         <div class="mb-3">
             <label for="" class="form-label">Account Type (ধরণ) <span class="text-danger">*</span> </label>
-            <input type="text"  name="main_account_type" class="form-control" id="">
+            <input type="text" value="{{$accountTypeGlobal}}"  name="main_account_type" class="form-control" id="">
         </div>
     </div>
     <div class="col-lg-6 col-sm-12">
         <div class="mb-3">
             <label for="" class="form-label">Name of Bank (ব্যাংকের নাম) <span class="text-danger">*</span> </label>
-            <input type="text"  name="name_of_bank" class="form-control" id="">
+            <input type="text" value="{{$nameOfBankGlobal}}"  name="name_of_bank" class="form-control" id="">
         </div>
     </div>
     <div class="col-lg-6 col-sm-12">
         <div class="mb-3">
             <label for="" class="form-label">Branch Name of Bank(ব্যাংকের শাখা) <span class="text-danger">*</span> </label>
-            <input type="text"  name="main_account_name_of_branch" class="form-control" id="">
+            <input type="text" value="{{$branchNameOfBankGlobal}}"  name="main_account_name_of_branch" class="form-control" id="">
         </div>
     </div>
     <div class="col-12">
         <div class="mb-3">
             <label for="" class="form-label">Bank Address (ব্যাংকের ঠিকানা) <span class="text-danger">*</span> </label>
-            <input type="text"  name="bank_address_main" class="form-control" id="">
+            <input type="text" value="{{$bankAddressGlobal}}"  name="bank_address_main" class="form-control" id="">
         </div>
     </div>
 </div>
@@ -345,31 +345,31 @@
 <div class="col-lg-6 col-sm-12">
 <div class="mb-3">
 <label for="" class="form-label">Account Number (হিসাব নম্বর) <span class="text-danger">*</span> </label>
-<input type="text"  name="main_account_number" class="form-control" id="">
+<input type="text" value="{{$accountNumberGlobal}}"  name="main_account_number" class="form-control" id="">
 </div>
 </div>
 <div class="col-lg-6 col-sm-12">
 <div class="mb-3">
 <label for="" class="form-label">Account Type (ধরণ) <span class="text-danger">*</span> </label>
-<input type="text"  name="main_account_type" class="form-control" id="">
+<input type="text"  name="main_account_type" value="{{$accountTypeGlobal}}" class="form-control" id="">
 </div>
 </div>
 <div class="col-lg-6 col-sm-12">
 <div class="mb-3">
 <label for="" class="form-label">Name of Bank (ব্যাংকের নাম) <span class="text-danger">*</span> </label>
-<input type="text"  name="name_of_bank" class="form-control" id="">
+<input type="text"  name="name_of_bank" value="{{$nameOfBankGlobal}}" class="form-control" id="">
 </div>
 </div>
 <div class="col-lg-6 col-sm-12">
 <div class="mb-3">
 <label for="" class="form-label">Branch Name of Bank(ব্যাংকের শাখা) <span class="text-danger">*</span> </label>
-<input type="text"  name="main_account_name_of_branch" class="form-control" id="">
+<input type="text"  name="main_account_name_of_branch" value="{{$branchNameOfBankGlobal}}" class="form-control" id="">
 </div>
 </div>
 <div class="col-12">
 <div class="mb-3">
 <label for="" class="form-label">Bank Address (ব্যাংকের ঠিকানা) <span class="text-danger">*</span> </label>
-<input type="text"  name="bank_address_main" class="form-control" id="">
+<input type="text"  name="bank_address_main" value="{{$bankAddressGlobal}}" class="form-control" id="">
 </div>
 </div>
 </div>
@@ -387,7 +387,7 @@
             <div class="col-lg-6 col-sm-12">
                 <div class="mb-3">
                     <label for="" class="form-label">Account Number (হিসাব নম্বর) <span class="text-danger">*</span> </label>
-                    <input type="text" data-parsley-required name="main_account_number" value="{{ $mainAccount->account_number }}" class="form-control" id="">
+                    <input type="text" data-parsley-required  name="main_account_number" value="{{ $mainAccount->account_number }}" class="form-control" id="">
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">

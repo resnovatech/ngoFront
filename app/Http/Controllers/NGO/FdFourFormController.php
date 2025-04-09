@@ -24,6 +24,8 @@ use App\Models\NgoRenewInfo;
 use App\Models\NgoDuration;
 use App\Models\FdFourOneExpenditureSector;
 use App\Models\FdFourOneForm;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class FdFourFormController extends Controller
 {
 
@@ -35,7 +37,40 @@ class FdFourFormController extends Controller
             $fdFourFormList = FdFourForm::where('fd_one_form_id',$ngo_list_all->id)
             ->latest()->get();
 
-            return view('front.fdFourForm.index',compact('ngo_list_all','fdFourFormList'));
+            $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+            ->latest()->value('status');
+    $getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+            ->latest()->value('status');
+            $mainNgoType = CommonController::changeView();
+    
+            if($mainNgoType== 'দেশিও'){
+    
+                if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+    
+    
+                    return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+    
+    
+                }else{
+    
+                    return view('front.fdFourForm.index',compact('ngo_list_all','fdFourFormList'));
+    
+                }
+            }else{
+    
+                if($getNgoHeadInfoList !=1){
+    
+                    return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+                
+                }else{
+    
+                    return view('front.fdFourForm.index',compact('ngo_list_all','fdFourFormList'));
+    
+                }
+    
+            }
+
+            
 
         } catch (\Exception $e) {
             DB::rollBack();

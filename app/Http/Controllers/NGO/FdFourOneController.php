@@ -22,6 +22,8 @@ use App\Models\FdFourOneExpenditureSector;
 use App\Models\FdOneForm;
 use App\Models\FdFourOneForm;
 use App\Models\FdFourForm;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class FdFourOneController extends Controller
 {
     public function index(){

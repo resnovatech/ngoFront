@@ -108,6 +108,17 @@ $mainNgoType = CommonController::changeView();
     </div>
 
     <div class="profile_link_box">
+        <a href="{{ route('ngoHeadInformationAccept') }}">
+            <p class="{{ Route::is('ngoHeadInformationAccept') ||  Route::is('ngoHeadInformationEditAccept')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('first_info.headInfo')}}</p>
+        </a>
+    </div>
+    <div class="profile_link_box">
+        <a href="{{ route('ngoBankInformationAccept') }}">
+            <p class="{{ Route::is('ngoBankInformationAccept') ||  Route::is('ngoBankInformationEditAccept')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('first_info.bankInfo')}}</p>
+        </a>
+    </div>
+
+    <div class="profile_link_box">
         <a href="{{ route('complain.index') }}">
             <p class="{{ Route::is('complain.index') ||  Route::is('complain.create') || Route::is('complain.view')  || Route::is('complain.edit') ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('fd9.complain')}}</p>
         </a>
@@ -237,6 +248,18 @@ $mainNgoType = CommonController::changeView();
         </a>
     </div>
 
+    
+
+    <div class="profile_link_box">
+        <a href="{{ route('ngoHeadInformationAccept') }}">
+            <p class="{{ Route::is('ngoHeadInformationAccept') ||  Route::is('ngoHeadInformationEditAccept')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('first_info.headInfo')}}</p>
+        </a>
+    </div>
+    <div class="profile_link_box">
+        <a href="{{ route('ngoBankInformationAccept') }}">
+            <p class="{{ Route::is('ngoBankInformationAccept') ||  Route::is('ngoBankInformationEditAccept')  ? 'active_link' : '' }}"><i class="fa fa-desktop pe-2"></i>{{ trans('first_info.bankInfo')}}</p>
+        </a>
+    </div>
 
 
     {{-- <div class="profile_link_box">

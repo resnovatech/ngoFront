@@ -27,6 +27,8 @@ use App\Models\FdFiveReceivedGoodUse;
 use App\Models\DocumentForAmendmentOrApprovalOfConstitution;
 use Illuminate\Support\Str;
 use App\Http\Controllers\NGO\CommonController;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class FdFiveFormController extends Controller
 {
 
@@ -259,9 +261,41 @@ class FdFiveFormController extends Controller
         $fdFiveForm =  FdFiveForm::where('fdId',$ngoListAll->id)->latest()->get();
 
         CommonController::checkNgotype(1);
+        $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+$getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
         $mainNgoType = CommonController::changeView();
 
-        return view('front.fdFiveForm.index',compact('ngoListAll','fdFiveForm'));
+        if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
+
+                return view('front.fdFiveForm.index',compact('ngoListAll','fdFiveForm'));
+
+            }
+        }else{
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+            
+            }else{
+
+                return view('front.fdFiveForm.index',compact('ngoListAll','fdFiveForm'));
+
+            }
+
+
+        }
+
+        
 
     }
 
@@ -316,22 +350,8 @@ class FdFiveFormController extends Controller
             $fdFiveForm->ngo_website = $request->ngo_website;
             $fdFiveForm->chief_name = $request->chief_name;
             $fdFiveForm->chief_desi = $request->chief_desi;
-            if (!empty($request->image_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $fdFiveForm->digital_signature =CommonController::storeBase64($request->image_base64);
-
-                }
-
-
-            if (!empty($request->image_seal_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $fdFiveForm->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-                }
+            $fdFiveForm->digital_signature =$request->image_base64;
+            $fdFiveForm->digital_seal =$request->image_seal_base64;
 
             $fdFiveForm->save();
 
@@ -446,22 +466,8 @@ class FdFiveFormController extends Controller
             $fdFiveForm->ngo_website = $request->ngo_website;
             $fdFiveForm->chief_name = $request->chief_name;
             $fdFiveForm->chief_desi = $request->chief_desi;
-            if (!empty($request->image_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $fdFiveForm->digital_signature =CommonController::storeBase64($request->image_base64);
-
-                }
-
-
-            if (!empty($request->image_seal_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $fdFiveForm->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-                }
+            $fdFiveForm->digital_signature =$request->image_base64;
+            $fdFiveForm->digital_seal =$request->image_seal_base64;
 
             $fdFiveForm->save();
 

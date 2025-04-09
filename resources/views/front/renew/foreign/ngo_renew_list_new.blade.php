@@ -307,99 +307,15 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
                                 </div>
 
                                 @if($mainNgoTypeRenew == 'Old')
-                                <!--new code for ngo-->
-                                <div class="mb-3">
-                                <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-                                     <input type="text" data-parsley-required  name="chief_name" value=""  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-                                    <input type="text" data-parsley-required value=""  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-                                </div>
-
-
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-                                        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-                <br>
-                                        <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-                <br>
-                                    <input type="hidden"  name="image_base64">
-                                    <div class="croppedInput mt-2">
-
-                                    </div>
-                                    <!-- new code for image cropper start --->
-                                    @include('front.signature_modal.sign_main_modal')
-                                    <!-- new code for image cropper end -->
-
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-                                        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-                                     <br>
-                                    <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-                                    <input type="hidden"  name="image_seal_base64">
-                                    <div class="croppedInputss mt-2">
-
-                                    </div>
-                                    <!-- new code for image cropper start --->
-                                    @include('front.signature_modal.seal_main_modal')
-                                    <!-- new code for image cropper end -->
-                                </div>
-                                <!-- end new code -->
+                                     <!--new code for ngo-->
+    @include('front.include.globalSign')
+    <!-- end new code -->
 
                                 @else
 
- <!--new code for ngo-->
- <div class="mb-3">
-    <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-         <input type="text" data-parsley-required  name="chief_name"   class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-    </div>
-
-    <div class="mb-3">
-        <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-        <input type="text" data-parsley-required  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-    </div>
-
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-<br>
-            <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-<br>
-        <input type="hidden"  name="image_base64">
-        <div class="croppedInput mt-2">
-
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.sign_main_modal')
-        <!-- new code for image cropper end -->
-
-    </div>
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-         <br>
-        <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-        <input type="hidden"  name="image_seal_base64">
-        <div class="croppedInputss mt-2">
-
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.seal_main_modal')
-        <!-- new code for image cropper end -->
-    </div>
-    <!-- end new code -->
+       <!--new code for ngo-->
+       @include('front.include.globalSign')
+       <!-- end new code -->
 
                                 @endif
 
@@ -608,66 +524,10 @@ $ngoType =  DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
 
             </div>
 
-            {{-- @if(empty($get_all_data_new_first->foregin_pdf))
-
-            <div class="mb-3">
-                <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 5 MB)</span></label>
-                <input type="file" name="foregin_pdf" data-parsley-required accept=".pdf" class="form-control" id="foregin_pdf"/>
-                <p id="foregin_pdf_text" class="text-danger" style="font-size: 12px;"></p>
-            </div>
-@else
-
-<?php
-
-$file_path = url($get_all_data_new_first->foregin_pdf);
-$filename  = pathinfo($file_path, PATHINFO_FILENAME);
-
-$extension = pathinfo($file_path, PATHINFO_EXTENSION);
+       
 
 
 
-
-?>
- <div class="mb-3">
-    <label for="" class="form-label">বিগত ১০(দশ) বছরে বৈদেশিক অনুদানে পরিচালত কার্যক্রমের বিবরণ (প্রকল্প ওয়ারী তথাদির সংক্ষিপ্তসার সংযুক্ত করতে হবে) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 5 MB)</span></label>
-    <input type="file" name="foregin_pdf"  accept=".pdf" class="form-control" id="foregin_pdf"/>
-    <p id="foregin_pdf_text" class="text-danger" style="font-size: 12px;"></p>
-</div>
-<b>{{ $filename.'.'.$extension }}</b>
-        @endif
-
-
-        <div class="mb-3">
-            <label for="" class="form-label">সংস্থার সম্ভাব্য /প্রত্যাশিত বার্ষিক বাজেট<span class="text-danger">*</span> </label>
-            <input type="text" name="yearly_budget" value="{{ $get_all_data_1->annual_budget }}" data-parsley-required class="form-control" id="">
-        </div>
-        @if(empty($get_all_data_new_first->yearly_budget_file))
-
-        <div class="mb-3">
-            <label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 2 MB)</span> </label>
-            <input type="file" name="yearly_budget_file" data-parsley-required accept=".pdf" class="form-control" id="annual_budget_file">
-            <p id="annual_budget_file_text" class="text-danger mt-2" style="font-size:12px;"></p>
-        </div>
-@else
-
-<?php
-
-$file_path = url($get_all_data_new_first->yearly_budget_file);
-$filename  = pathinfo($file_path, PATHINFO_FILENAME);
-
-$extension = pathinfo($file_path, PATHINFO_EXTENSION);
-
-
-
-
-?>
-<div class="mb-3">
-<label for="" class="form-label">সংস্থার সম্ভাব্য/প্রত্যাশিত বার্ষিক বাজেট (উৎসসহ) <span class="text-danger">*</span> <br><span class="text-danger" style="font-size: 12px;">(Maximum 2 MB)</span> </label>
-<input type="file" name="yearly_budget_file"  accept=".pdf" class="form-control" id="annual_budget_file">
-<p id="annual_budget_file_text" class="text-danger mt-2" style="font-size:12px;"></p>
-</div>
-<b>{{ $filename.'.'.$extension }}</b>
-    @endif --}}
 
     <div class="mb-3">
         <h5 class="form_middle_text">
@@ -676,98 +536,15 @@ $extension = pathinfo($file_path, PATHINFO_EXTENSION);
     </div>
 
     @if($mainNgoTypeRenew == 'Old')
-    <!--new code for ngo-->
-    <div class="mb-3">
-    <label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-         <input type="text" data-parsley-required  name="chief_name" value=""  class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-    </div>
-
-    <div class="mb-3">
-        <label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-        <input type="text" data-parsley-required value=""  name="chief_desi"  class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-    </div>
-
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-<br>
-            <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-<br>
-        <input type="hidden"  name="image_base64">
-        <div class="croppedInput mt-2">
-
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.sign_main_modal')
-        <!-- new code for image cropper end -->
-
-    </div>
-
-
-    <div class="mb-3">
-        <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-            <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-         <br>
-        <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-        <input type="hidden"  name="image_seal_base64">
-        <div class="croppedInputss mt-2">
-
-        </div>
-        <!-- new code for image cropper start --->
-        @include('front.signature_modal.seal_main_modal')
-        <!-- new code for image cropper end -->
-    </div>
-    <!-- end new code -->
+         <!--new code for ngo-->
+         @include('front.include.globalSign')
+         <!-- end new code -->
 
     @else
 
-<!--new code for ngo-->
-<div class="mb-3">
-<label for="" class="form-label">{{ trans('mview.ttTwo')}}: <span class="text-danger">*</span></label>
-<input type="text"   name="chief_name" value="{{ $get_all_data_new_first->chief_name }}"   class="form-control" id="mainName" placeholder="{{ trans('mview.ttTwo')}}">
-</div>
-
-<div class="mb-3">
-<label for="" class="form-label mt-3">{{ trans('mview.ttThree')}}: <span class="text-danger">*</span></label>
-<input type="text"   name="chief_desi" value="{{ $get_all_data_new_first->chief_desi }}" class="form-control"  placeholder="{{ trans('mview.ttThree')}}">
-</div>
-
-
-
-<div class="mb-3">
-    <label for="" class="form-label">{{ trans('zoom.digitalSignature')}}: <span class="text-danger">*</span>
-        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*80) , Size:Max 60 KB & Image Format:PNG)</b></span></label>
-<br>
-        <button type="button" class="btn btn-custom btn-sm next_button btn22">{{ trans('zoom.upload')}}</button>
-<br>
-    <input type="hidden"  name="image_base64">
-    <div class="croppedInput mt-2">
-    <img src="{{asset('/')}}{{ $get_all_data_new_first->digital_signature }}" style="width: 200px;" class="show-image">
-    </div>
-    <!-- new code for image cropper start --->
-    @include('front.signature_modal.sign_main_modal')
-    <!-- new code for image cropper end -->
-
-</div>
-
-
-<div class="mb-3">
-    <label for="" class="form-label">{{ trans('zoom.digitalSeal')}}: <span class="text-danger">*</span>
-        <span class="text-danger"><b style="font-size: 12px;">(Dimension:(300*100) , Size:Max 80 KB & Image Format:PNG)</b> </label></span>
-     <br>
-    <button type="button" class="btn btn-custom btn-sm next_button btn22ss">{{ trans('zoom.upload')}}</button>
-
-    <input type="hidden"  name="image_seal_base64">
-    <div class="croppedInputss mt-2">
-    <img src="{{asset('/')}}{{ $get_all_data_new_first->digital_seal }}" style="width: 200px;" class="show_image_seal">
-    </div>
-    <!-- new code for image cropper start --->
-    @include('front.signature_modal.seal_main_modal')
-    <!-- new code for image cropper end -->
-</div>
+      <!--new code for ngo-->
+      @include('front.include.globalSign')
+      <!-- end new code -->
 
     @endif
 

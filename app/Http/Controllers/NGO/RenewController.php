@@ -27,6 +27,8 @@ use App\Models\NgoRenew;
 use App\Models\RenewalFile;
 use App\Models\NgoRenewInfo;
 use App\Models\FdOneBankAccount;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 use App\Http\Controllers\NGO\CommonController;
 class RenewController extends Controller
 {
@@ -130,10 +132,37 @@ class RenewController extends Controller
         CommonController::checkNgotype(1);
         $mainNgoType = CommonController::changeView();
 
+
+        $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+                                   ->latest()->value('status');
+        $getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+                                   ->latest()->value('status');
+
+
+
         if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
                 return view('front.renew.ngo_renew_list_new',compact('get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
-        }else{
+            }
+        
+            }else{
+
+                if($getNgoHeadInfoList !=1){
+
+                    return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+                
+                }else{
+
             return view('front.renew.foreign.ngo_renew_list_new',compact('get_all_data_new','ngo_list_all','name_change_list_all','all_parti'));
+                }
+        
         }
 
         } catch (\Exception $e) {
@@ -202,20 +231,8 @@ class RenewController extends Controller
             $ngoRenew->phone_new = $request->phone_new;
             $ngoRenew->profession = $request->profession;
             $ngoRenew->yearly_budget = $request->yearly_budget;
-
-            if (!empty($request->image_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $ngoRenew->digital_signature =CommonController::storeBase64($request->image_base64);
-
-            }
-
-            if (!empty($request->image_seal_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $ngoRenew->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-            }
+            $ngoRenew->digital_signature =$request->image_base64;
+            $ngoRenew->digital_seal =$request->image_seal_base64;
 
             // if ($request->hasfile('digital_signature')) {
 
@@ -297,11 +314,7 @@ class RenewController extends Controller
 
     public function storeRenewInformationList(Request $request){
 
-            $request->validate([
-
-                'digital_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:60|dimensions:width=300,height=80',
-                'digital_seal' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:80|dimensions:width=300,height=100',
-            ]);
+           
 
         try{
 
@@ -335,19 +348,8 @@ class RenewController extends Controller
             $ngoRenew->yearly_budget = $request->yearly_budget;
 
 
-            if (!empty($request->image_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $ngoRenew->digital_signature =CommonController::storeBase64($request->image_base64);
-
-            }
-
-            if (!empty($request->image_seal_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $ngoRenew->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-            }
+            $ngoRenew->digital_signature =$request->image_base64;
+            $ngoRenew->digital_seal =$request->image_seal_base64;
 
 
             // if ($request->hasfile('digital_signature')) {

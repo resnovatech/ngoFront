@@ -139,31 +139,31 @@
                             <div class="col-lg-6 col-sm-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Account Number</label>
-                            <input type="text"   name="account_number" class="form-control" id="">
+                            <input type="text" value="{{$accountNumberGlobal}}"  name="account_number" class="form-control" id="">
                             </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Account Type</label>
-                            <input type="text"  name="account_type" class="form-control" id="">
+                            <input type="text" value="{{$accountTypeGlobal}}"  name="account_type" class="form-control" id="">
                             </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Name of Bank</label>
-                            <input type="text"  name="name_of_bank" class="form-control" id="">
+                            <input type="text" value="{{$nameOfBankGlobal}}"  name="name_of_bank" class="form-control" id="">
                             </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Branch Name of Bank</label>
-                            <input type="text"  name="branch_name_of_bank" class="form-control" id="">
+                            <input type="text" value="{{$branchNameOfBankGlobal}}"  name="branch_name_of_bank" class="form-control" id="">
                             </div>
                             </div>
                             <div class="col-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Bank Address </label>
-                            <input type="text"   name="bank_address" class="form-control" id="">
+                            <input type="text" value="{{$bankAddressGlobal}}"   name="bank_address" class="form-control" id="">
                             </div>
                             </div>
                             </div>
@@ -471,32 +471,32 @@ $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.account_number')}}</label>
-                                                                    <input type="text"  name="account_number" class="form-control" id="">
+                                                                    <input type="text" value="{{$accountNumberGlobal}}"  name="account_number" class="form-control" id="">
                                                                     <input type="hidden" value="p"  name="bank_id" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.account_type')}}</label>
-                                                                    <input type="text"  name="account_type" class="form-control" id="">
+                                                                    <input type="text" value="{{$accountTypeGlobal}}"  name="account_type" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.name_of_bank')}}</label>
-                                                                    <input type="text"   name="name_of_bank" class="form-control" id="">
+                                                                    <input type="text" value="{{$nameOfBankGlobal}}"   name="name_of_bank" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.branch_name_of_bank')}}</label>
-                                                                    <input type="text"   name="branch_name_of_bank" class="form-control" id="">
+                                                                    <input type="text" value="{{$branchNameOfBankGlobal}}"   name="branch_name_of_bank" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.bank_address')}}</label>
-                                                                    <input type="text"   name="bank_address" class="form-control" id="">
+                                                                    <input type="text" value="{{$bankAddressGlobal}}"   name="bank_address" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -510,32 +510,32 @@ $get_all_data_adviser = DB::table('fd_one_adviser_lists')->where('fd_one_form_id
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.account_number')}} <span class="text-danger">*</span> </label>
-                                                                    <input type="text" required name="account_number" class="form-control" id="">
+                                                                    <input type="text" value="{{$accountNumberGlobal}}" required name="account_number" class="form-control" id="">
                                                                     <input type="hidden" value="p" required name="bank_id" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.account_type')}} <span class="text-danger">*</span> </label>
-                                                                    <input type="text" required name="account_type" class="form-control" id="">
+                                                                    <input type="text" value="{{$accountTypeGlobal}}" required name="account_type" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.name_of_bank')}} <span class="text-danger">*</span> </label>
-                                                                    <input type="text"  required name="name_of_bank" class="form-control" id="">
+                                                                    <input type="text" value="{{$nameOfBankGlobal}}"  required name="name_of_bank" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-sm-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.branch_name_of_bank')}} <span class="text-danger">*</span> </label>
-                                                                    <input type="text" required  name="branch_name_of_bank" class="form-control" id="">
+                                                                    <input type="text" required value="{{$branchNameOfBankGlobal}}"  name="branch_name_of_bank" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="mb-3">
                                                                     <label for="" class="form-label">{{ trans('fd_one_step_four.bank_address')}} <span class="text-danger">*</span> </label>
-                                                                    <input type="text" required  name="bank_address" class="form-control" id="">
+                                                                    <input type="text" value="{{$bankAddressGlobal}}" required  name="bank_address" class="form-control" id="">
                                                                 </div>
                                                             </div>
                                                         </div>
