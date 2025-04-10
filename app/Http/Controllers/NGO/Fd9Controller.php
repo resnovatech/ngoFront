@@ -25,6 +25,8 @@ use Illuminate\Support\Str;
 use Session;
 use App\Models\FdOneForm;
 use Illuminate\Support\Facades\App;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class Fd9Controller extends Controller
 {
 
@@ -35,10 +37,39 @@ class Fd9Controller extends Controller
         $fd9List = Fd9Form::where('fd_one_form_id',$ngo_list_all->id)->latest()->get();
 
         CommonController::checkNgotype(1);
-
+        $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+$getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
         $mainNgoType = CommonController::changeView();
 
+        if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
+
         return view('front.fdNineForm.index',compact('ngo_list_all','fd9List'));
+
+            }
+        }else{
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+            
+            }else{
+
+                return view('front.fdNineForm.index',compact('ngo_list_all','fd9List'));
+
+            }
+
+
+        }
 
     }
 
@@ -134,8 +165,7 @@ class Fd9Controller extends Controller
 
         $request->validate([
 
-            'digital_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:60|dimensions:width=300,height=80',
-            'digital_seal' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:80|dimensions:width=300,height=100',
+            
             'fd9_foreigner_name' => 'required|string',
             'fd9_father_name' => 'required|string',
             'fd9_husband_or_wife_name' => 'required|string',
@@ -221,22 +251,8 @@ class Fd9Controller extends Controller
 
             }
 
-            if (!empty($request->image_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $fd9FormInfo->digital_signature =CommonController::storeBase64($request->image_base64);
-
-                }
-
-
-            if (!empty($request->image_seal_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $fd9FormInfo->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-                }
+            $fd9FormInfo->digital_signature =$request->image_base64;
+            $fd9FormInfo->digital_seal =$request->image_seal_base64;
 
 
             if ($request->hasfile('fd9_offered_post_niyog')) {
@@ -480,22 +496,8 @@ class Fd9Controller extends Controller
 
                 }
 
-                if (!empty($request->image_base64)) {
-
-                    $filePath="ngoHead";
-                    $file = $request->file('digital_signature');
-                    $fd9FormInfo->digital_signature =CommonController::storeBase64($request->image_base64);
-
-                    }
-
-
-                if (!empty($request->image_seal_base64)) {
-
-                    $filePath="ngoHead";
-                    $file = $request->file('digital_seal');
-                    $fd9FormInfo->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-                    }
+                $fd9FormInfo->digital_signature =$request->image_base64;
+            $fd9FormInfo->digital_seal =$request->image_seal_base64;
 
                 if ($request->hasfile('fd9_offered_post_niyog')) {
                     $filePath="fd9FormInfo";

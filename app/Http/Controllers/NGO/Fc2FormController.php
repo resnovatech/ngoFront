@@ -35,6 +35,8 @@ use Illuminate\Support\Facades\App;
 use App\Models\Fc2Form;
 use App\Models\Fd2FormForFc2Form;
 use App\Models\Fd2Fc2OtherInfo;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class Fc2FormController extends Controller
 {
     public function index(){
@@ -44,7 +46,42 @@ class Fc2FormController extends Controller
         $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
         $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
 
-        return view('front.fc2Form.index',compact('ngoDurationLastEx','ngoDurationReg','ngo_list_all','fc2FormList'));
+
+        $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+$getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+        $mainNgoType = CommonController::changeView();
+
+        if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
+
+                return view('front.fc2Form.index',compact('ngoDurationLastEx','ngoDurationReg','ngo_list_all','fc2FormList'));
+
+            }
+        }else{
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+            
+            }else{
+
+                return view('front.fc2Form.index',compact('ngoDurationLastEx','ngoDurationReg','ngo_list_all','fc2FormList'));
+
+            }
+
+
+        }
+
+        
     }
 
 
@@ -751,7 +788,11 @@ public function fc2FormStepTwo($id){
         ->where('type','fcTwo')
         ->latest()->get();
 
-        return view('front.fc2Form.newAddFormStepTwo',compact('SDGDevelopmentGoal','subdDistrictList','sectorWiseExpenditureList','fd6Id','prokolpoAreaList','cityCorporationList','districtList','fc2FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+        $stepTwoGoalData = DB::table('goals')->get();
+    $stepTwoTargetData = DB::table('targets')->get();
+    $stepTwoIndicatorData = DB::table('indicators')->get();
+
+        return view('front.fc2Form.newAddFormStepTwo',compact('stepTwoGoalData','stepTwoTargetData','stepTwoIndicatorData','SDGDevelopmentGoal','subdDistrictList','sectorWiseExpenditureList','fd6Id','prokolpoAreaList','cityCorporationList','districtList','fc2FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
 
         } catch (\Exception $e) {
 
@@ -853,6 +894,7 @@ public function fc2FormStepTwoSDG(Request $request){
     $form->type='fcTwo';
     $form->goal=$request->goal;
     $form->target=$request->target;
+    $form->indicator=$request->indicator;
     $form->budget_allocation=$request->budget_allocation;
     $form->rationality=$request->rationality;
     $form->comment=$request->comment;
@@ -871,6 +913,7 @@ public function fc2FormStepTwoSDGUpdate(Request $request){
     $form= SDGDevelopmentGoal::find($request->mainId);
     $form->goal=$request->goal;
     $form->target=$request->target;
+    $form->indicator=$request->indicator;
     $form->budget_allocation=$request->budget_allocation;
     $form->rationality=$request->rationality;
     $form->comment=$request->comment;
@@ -1031,22 +1074,8 @@ public function lastExtraUpdateFcTwo(Request $request){
 
     $filePath="FcOneForm";
 
-    if (!empty($request->image_base64)) {
-
-        $filePath="ngoHead";
-        $file = $request->file('digital_signature');
-        $fc1FormInfo->digital_signature =CommonController::storeBase64($request->image_base64);
-
-        }
-
-
-    if (!empty($request->image_seal_base64)) {
-
-        $filePath="ngoHead";
-        $file = $request->file('digital_seal');
-        $fc1FormInfo->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-        }
+    $fc1FormInfo->digital_signature =$request->image_base64;
+        $fc1FormInfo->digital_seal =$request->image_seal_base64;
 
     if ($request->hasfile('donor_commitment_letter')) {
 

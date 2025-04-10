@@ -38,6 +38,9 @@ return new class extends Migration
             $table->string('ca_form_date')->nullable();
             $table->string('ca_form_name')->nullable();
             $table->string('ca_form_address')->nullable();
+            $table->string('audit_report_file')->nullable();
+            $table->string('certificate_file')->nullable();
+            $table->string('tor_file')->nullable(); 
             $table->string('file_last_check_date')->nullable();
             $table->string('check_status')->nullable();
             $table->string('status')->nullable();

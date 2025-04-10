@@ -14,16 +14,47 @@
                     <div class="card-body">
                             <div class="row">
 
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="" class="form-label">অভিষ্ঠ(Goal)</label>
-                                        <input type="text" value="{{ $SDGDevelopmentGoals->goal }}" name="goal" class="form-control" id="goal{{ $SDGDevelopmentGoals->id }}"
-                                        placeholder="">
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="" class="form-label">লক্ষ্যমাত্রা(Target) <span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ $SDGDevelopmentGoals->target }}"  name="target" class="form-control" id="target{{ $SDGDevelopmentGoals->id }}"
-                                        placeholder="" >
-                                    </div>
+                                <?php  
+                                    
+                                $stepTwoGoalData = DB::table('goals')->get();
+$stepTwoTargetData = DB::table('targets')->get();
+$stepTwoIndicatorData = DB::table('indicators')->get();
+                                
+                                ?>
+
+                                <div class="col-lg-12 mb-3">
+                                    <label for="" class="form-label">অভিষ্ঠ(Goal)</label>
+                                    {{-- <input type="text" value="{{ $SDGDevelopmentGoals->goal }}" name="goal" class="form-control" id="goal{{ $SDGDevelopmentGoals->id }}"
+                                    placeholder=""> --}}
+
+                                    <select name="goal" class="form-control" id="goal{{ $SDGDevelopmentGoals->id }}">
+                                        <option value="">--নির্বাচন করুন--</option>
+                                        @foreach($stepTwoGoalData as $stepTwoGoalDatas)
+                                        <option value="{{$stepTwoGoalDatas->id}}" {{$stepTwoGoalDatas->id == $SDGDevelopmentGoals->goal ? 'selected':'' }}>{{$stepTwoGoalDatas->description}}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="" class="form-label">লক্ষ্যমাত্রা(Target) <span class="text-danger">*</span></label>
+                                    {{-- <input type="text" value="{{ $SDGDevelopmentGoals->target }}"  name="target" class="form-control" id="target{{ $SDGDevelopmentGoals->id }}"
+                                    placeholder="" > --}}
+                                    <select name="target" class="form-control" id="target{{ $SDGDevelopmentGoals->id }}">
+                                        <option value="">--নির্বাচন করুন--</option>
+                                        @foreach($stepTwoTargetData as $stepTwoGoalDatas)
+                                        <option value="{{$stepTwoGoalDatas->id}}" {{$stepTwoGoalDatas->id == $SDGDevelopmentGoals->target ? 'selected':'' }}>{{$stepTwoGoalDatas->description}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="" class="form-label">নির্দেশক(Indicator)<span class="text-danger">*</span></label>
+                                    <select name="indicator" class="form-control" id="indicator{{ $SDGDevelopmentGoals->id }}">
+                                        <option value="">--নির্বাচন করুন --</option>
+                                        @foreach($stepTwoIndicatorData as $stepTwoGoalDatas)
+                                        <option value="{{$stepTwoGoalDatas->id}}" {{$stepTwoGoalDatas->id == $SDGDevelopmentGoals->indicator ? 'selected':'' }}>{{$stepTwoGoalDatas->description}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="" class="form-label">বাজেট বরাদ্দ</label>
                                         <input type="number" value="{{ $SDGDevelopmentGoals->budget_allocation }}" name="budget_allocation" class="form-control" id="budget_allocation{{ $SDGDevelopmentGoals->id }}"

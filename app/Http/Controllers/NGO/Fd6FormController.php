@@ -46,6 +46,8 @@ use App\Models\Fd6FurnitureEquipment;
 use App\Models\Fd6AdjoiningG;
 use App\Models\Fd6AdjoiningE;
 use Illuminate\Support\Facades\App;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class Fd6FormController extends Controller
 {
 
@@ -134,22 +136,8 @@ class Fd6FormController extends Controller
 
         $filePath="FdSixForm";
 
-        if (!empty($request->image_base64)) {
-
-            $filePath="ngoHead";
-            $file = $request->file('digital_signature');
-            $lastDataOfFd6->digital_signature =CommonController::storeBase64($request->image_base64);
-
-            }
-
-
-        if (!empty($request->image_seal_base64)) {
-
-            $filePath="ngoHead";
-            $file = $request->file('digital_seal');
-            $lastDataOfFd6->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-            }
+        $lastDataOfFd6->digital_signature =$request->image_base64;
+        $lastDataOfFd6->digital_seal =$request->image_seal_base64;
 
         $lastDataOfFd6->save();
 
@@ -170,7 +158,41 @@ class Fd6FormController extends Controller
         $ngoDurationReg = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->value('ngo_duration_start_date');
         $ngoDurationLastEx = NgoDuration::where('fd_one_form_id',$ngo_list_all->id)->orderBy('id','desc')->first();
 
-        return view('front.fd6Form.index',compact('ngoDurationLastEx','ngoDurationReg','ngo_list_all','fd6FormList'));
+        $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+$getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+        $mainNgoType = CommonController::changeView();
+
+        if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
+
+                return view('front.fd6Form.index',compact('ngoDurationLastEx','ngoDurationReg','ngo_list_all','fd6FormList'));
+
+            }
+        }else{
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+            
+            }else{
+
+                return view('front.fd6Form.index',compact('ngoDurationLastEx','ngoDurationReg','ngo_list_all','fd6FormList'));
+
+            }
+
+
+        }
+
+        
     }
 
 

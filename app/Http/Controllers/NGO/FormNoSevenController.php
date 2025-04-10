@@ -22,6 +22,8 @@ use App\Models\FormNoSevenStepThree;
 use App\Models\FormNoSevenStepFour;
 use App\Models\FormNoSevenFive;
 use App\Models\FdOneForm;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class FormNoSevenController extends Controller
 {
     public function index(){
@@ -30,7 +32,41 @@ class FormNoSevenController extends Controller
             $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
             $formNoSevenList = FormNoSeven::where('fd_one_form_id',$ngo_list_all->id)->latest()->get();
 
-            return view('front.formNoSeven.index',compact('ngo_list_all','formNoSevenList'));
+
+            $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+$getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+        $mainNgoType = CommonController::changeView();
+
+        if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
+
+                return view('front.formNoSeven.index',compact('ngo_list_all','formNoSevenList'));
+
+            }
+        }else{
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+            
+            }else{
+
+                return view('front.formNoSeven.index',compact('ngo_list_all','formNoSevenList'));
+
+            }
+
+        }
+
+       
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -177,22 +213,8 @@ class FormNoSevenController extends Controller
             $formNoSeven->designation_certifying_officer = $request->designation_certifying_officer;
 
 
-            if (!empty($request->image_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $formNoSeven->signature_certifying_officer =CommonController::storeBase64($request->image_base64);
-
-                }
-
-
-            if (!empty($request->image_seal_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $formNoSeven->seal_certifying_officer =CommonController::storeBase64($request->image_seal_base64);
-
-                }
+            $formNoSeven->signature_certifying_officer =$request->image_base64;
+            $formNoSeven->seal_certifying_officer =$request->image_seal_base64;
 
 
 
@@ -293,22 +315,25 @@ class FormNoSevenController extends Controller
             $formNoSeven->designation_certifying_officer = $request->designation_certifying_officer;
 
 
-            if (!empty($request->image_base64)) {
+            // if (!empty($request->image_base64)) {
 
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $formNoSeven->signature_certifying_officer =CommonController::storeBase64($request->image_base64);
+            //     $filePath="ngoHead";
+            //     $file = $request->file('digital_signature');
+            //     $formNoSeven->signature_certifying_officer =CommonController::storeBase64($request->image_base64);
 
-                }
+            //     }
 
 
-            if (!empty($request->image_seal_base64)) {
+            // if (!empty($request->image_seal_base64)) {
 
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $formNoSeven->seal_certifying_officer =CommonController::storeBase64($request->image_seal_base64);
+            //     $filePath="ngoHead";
+            //     $file = $request->file('digital_seal');
+            //     $formNoSeven->seal_certifying_officer =CommonController::storeBase64($request->image_seal_base64);
 
-                }
+            //     }
+
+                $formNoSeven->signature_certifying_officer =$request->image_base64;
+            $formNoFiveInfo->seal_certifying_officer =$request->image_seal_base64;
 
 
 

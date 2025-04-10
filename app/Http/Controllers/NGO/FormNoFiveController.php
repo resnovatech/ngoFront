@@ -25,6 +25,8 @@ use App\Models\FormNoFiveStepFive;
 use App\Models\FormNoFiveOther;
 use App\Models\FdOneForm;
 use App\Models\NgoDuration;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class FormNoFiveController extends Controller
 {
 
@@ -37,7 +39,41 @@ class FormNoFiveController extends Controller
             $ngo_list_all = FdOneForm::where('user_id',Auth::user()->id)->first();
             $formNoFiveList = FormNoFive::where('fd_one_form_id',$ngo_list_all->id)->latest()->get();
 
-            return view('front.formNoFive.index',compact('ngo_list_all','formNoFiveList'));
+
+            $getNgoHeadInfoList =  NgoHeadInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+$getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
+        ->latest()->value('status');
+        $mainNgoType = CommonController::changeView();
+
+        if($mainNgoType== 'দেশিও'){
+
+            if($getNgoHeadInfoList != 1 && $getNgoBankInfoList != 1){
+
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error','Please add Bank Information && Ngo Head Information!');
+
+
+            }else{
+
+                return view('front.formNoFive.index',compact('ngo_list_all','formNoFiveList'));
+
+            }
+        }else{
+
+            if($getNgoHeadInfoList !=1){
+
+                return redirect()->route('ngoHeadInformationAccept')->with('error',' Ngo Head Information!');
+            
+            }else{
+
+                return view('front.formNoFive.index',compact('ngo_list_all','formNoFiveList'));
+
+            }
+
+        }
+
+            
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -993,19 +1029,23 @@ class FormNoFiveController extends Controller
                 $formNoFiveInfo->foreign_tour_file =CommonController::pdfUpload($request,$file,$filePath);
 
             }
-            if (!empty($request->image_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('report_preparar_sign');
-                $formNoFiveInfo->report_preparar_sign =CommonController::storeBase64($request->image_base64);
+            // if (!empty($request->image_base64)) {
+            //     $filePath="ngoHead";
+            //     $file = $request->file('report_preparar_sign');
+            //     $formNoFiveInfo->report_preparar_sign =CommonController::storeBase64($request->image_base64);
 
-            }
+            // }
 
-            if (!empty($request->image_seal_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('report_preparar_seal');
-                $formNoFiveInfo->report_preparar_seal =CommonController::storeBase64($request->image_seal_base64);
+            // if (!empty($request->image_seal_base64)) {
+            //     $filePath="ngoHead";
+            //     $file = $request->file('report_preparar_seal');
+            //     $formNoFiveInfo->report_preparar_seal =CommonController::storeBase64($request->image_seal_base64);
 
-            }
+            // }
+
+            $formNoFiveInfo->report_preparar_sign =$request->image_base64;
+            $formNoFiveInfo->report_preparar_seal =$request->image_seal_base64;
+
             $formNoFiveInfo->save();
 
             $input = $request->all();

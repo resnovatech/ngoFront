@@ -54,7 +54,7 @@ $ngo_type = DB::table('ngo_type_and_languages')->where('user_id',Auth::user()->i
    @if(Route::is('informationResetPage'))
    <li > <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @else
-   <li class="active_link"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
+   <li class="{{ Route::is('ngoAllRegistrationForm')  ? 'active_link' : '' }}"> <a href="{{ route('ngoAllRegistrationForm') }}"> <i class="fa fa-file-excel-o pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.apply_for_dash')}}</a></li>
    @endif
     @endif
     @endif
@@ -132,6 +132,9 @@ $fdOneFormRenew = DB::table('ngo_statuses')->where('fd_one_form_id',$fdOneFormId
 
 @endif
 @endif
+
+<li class="{{ Route::is('ngoHeadInformation') || Route::is('ngoHeadInformationEdit')   ? 'active_link' : '' }}"> <a href="{{ route('ngoHeadInformation') }}"> <i class="fa fa-image pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.headInfo')}}</a></li>
+<li class="{{ Route::is('ngoBankInformation') || Route::is('ngoBankInformationEdit')  ? 'active_link' : '' }}"> <a href="{{ route('ngoBankInformation') }}"> <i class="fa fa-file pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.bankInfo')}}</a></li>
 
 <li class="{{ Route::is('logout')  ? 'active_link' : '' }}"> <a href="{{ route('logout') }}"> <i class="fa fa-sign-out pe-1 dashboard_icon" aria-hidden="true"></i> {{ trans('first_info.logout')}}</a></li>
 

@@ -46,6 +46,8 @@ use Illuminate\Support\Facades\App;
 use App\Models\DetailAsPerForm6;
 use App\Models\Fd6FurnitureEquipment;
 use App\Models\Fd6AdjoiningG;
+use App\Models\NgoBankInformation;
+use App\Models\NgoHeadInformation;
 class Fd6FormPartTwoController extends Controller
 {
 
@@ -949,22 +951,8 @@ $prokolpoPriod = EstimateCost::where('fd6_form_id',$fd6Id)->latest()->get();
 
         $filePath="FdSixForm";
 
-        if (!empty($request->image_base64)) {
-
-            $filePath="ngoHead";
-            $file = $request->file('digital_signature');
-            $lastDataOfFd6->digital_signature =CommonController::storeBase64($request->image_base64);
-
-            }
-
-
-        if (!empty($request->image_seal_base64)) {
-
-            $filePath="ngoHead";
-            $file = $request->file('digital_seal');
-            $lastDataOfFd6->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-            }
+        $lastDataOfFd6->digital_signature =$request->image_base64;
+        $lastDataOfFd6->digital_seal =$request->image_seal_base64;
 
         $lastDataOfFd6->save();
 

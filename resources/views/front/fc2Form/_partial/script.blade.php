@@ -469,6 +469,10 @@ alertify.alert('Error', 'অভিষ্ঠ(Goal) সম্পর্কিত �
 
 alertify.alert('Error', 'লক্ষ্যমাত্রা(Target) সম্পর্কিত তথ্য দিন');
 
+}else if(!$('#indicator0').val()){
+
+alertify.alert('Error', 'নির্দেশক(Indicator) সম্পর্কিত তথ্য দিন');
+
 }else if(!$('#budget_allocation0').val()){
 
 alertify.alert('Error', 'বাজেট বরাদ্দ সম্পর্কিত তথ্য দিন');
@@ -490,6 +494,7 @@ headers: {
 
 var goal = $('#goal0').val();
 var target = $('#target0').val();
+var indicator = $('#indicator0').val();
 var budget_allocation = $('#budget_allocation0').val();
 var rationality = $('#rationality0').val();
 var comment =$('#comment0').val();
@@ -498,7 +503,7 @@ var comment =$('#comment0').val();
 $.ajax({
 url: "{{ route('fc2FormStepTwoSDG') }}",
 method: 'post',
-data: {fcOneId:fcOneId,goal:goal,target:target,budget_allocation:budget_allocation,rationality:rationality,comment:comment},
+data: {indicator:indicator,fcOneId:fcOneId,goal:goal,target:target,budget_allocation:budget_allocation,rationality:rationality,comment:comment},
 success: function(data) {
     $('#tableCountTwo').val(1);
 $('#exampleModal').modal('hide');
@@ -511,6 +516,7 @@ $("#tableAjaxDataSDG").html(data);
 
 var goal = $('#goal0').val('');
 var target = $('#target0').val('');
+$('#indicator0').val('');
 var budget_allocation = $('#budget_allocation0').val('');
 var rationality = $('#rationality0').val('');
 var comment =$('#comment0').val('');
@@ -525,6 +531,67 @@ $('#pageloader').hide();
 });
 
 }
+
+});
+
+
+$(document).on('change', '[id^=goal]', function () {
+
+var main_id = $(this).attr('id');
+var slice_id = main_id.slice(4);
+var id = $(this).val();
+
+
+$.ajax({
+url: "{{ route('getTargetFromGoal') }}",
+method: 'get',
+data: {id:id},
+success: function(data) {
+ 
+
+$("#target"+slice_id).html('');
+$("#target"+slice_id).html(data);
+
+},
+beforeSend: function(){
+$('#pageloader').show()
+},
+complete: function(){
+$('#pageloader').hide();
+}
+});
+
+
+
+});
+
+$(document).on('change', '[id^=target]', function () {
+
+var main_id = $(this).attr('id');
+var slice_id = main_id.slice(6);
+var id = $(this).val();
+
+
+$.ajax({
+url: "{{ route('getIndicatorFromTarget') }}",
+method: 'get',
+data: {id:id},
+success: function(data) {
+ 
+
+$("#indicator"+slice_id).html('');
+$("#indicator"+slice_id).html(data);
+
+},
+beforeSend: function(){
+$('#pageloader').show()
+},
+complete: function(){
+$('#pageloader').hide();
+}
+});
+
+
 
 });
 
@@ -547,6 +614,10 @@ alertify.alert('Error', 'অভিষ্ঠ(Goal) সম্পর্কিত �
 
 alertify.alert('Error', 'লক্ষ্যমাত্রা(Target) সম্পর্কিত তথ্য দিন');
 
+}else if(!$('#indicator'+mainId).val()){
+
+alertify.alert('Error', 'নির্দেশক(Indicator) সম্পর্কিত তথ্য দিন');
+
 }else if(!$('#budget_allocation'+mainId).val()){
 
 alertify.alert('Error', 'বাজেট বরাদ্দ সম্পর্কিত তথ্য দিন');
@@ -568,6 +639,7 @@ headers: {
 
 var goal = $('#goal'+mainId).val();
 var target = $('#target'+mainId).val();
+var indicator = $('#indicator'+mainId).val();
 var budget_allocation = $('#budget_allocation'+mainId).val();
 var rationality = $('#rationality'+mainId).val();
 var comment =$('#comment'+mainId).val();
@@ -576,7 +648,7 @@ var comment =$('#comment'+mainId).val();
 $.ajax({
 url: "{{ route('fc2FormStepTwoSDGUpdate') }}",
 method: 'post',
-data: {mainId:mainId,fcOneId:fcOneId,goal:goal,target:target,budget_allocation:budget_allocation,rationality:rationality,comment:comment},
+data: {indicator:indicator,mainId:mainId,fcOneId:fcOneId,goal:goal,target:target,budget_allocation:budget_allocation,rationality:rationality,comment:comment},
 success: function(data) {
     $('#tableCountTwo').val(1);
 $('#prokolpoSDG'+mainId).modal('hide');
@@ -587,11 +659,7 @@ alertify.success('Data Added Successfully');
 $("#tableAjaxDataSDG").html('');
 $("#tableAjaxDataSDG").html(data);
 
-var goal = $('#goal'+mainId).val('');
-var target = $('#target'+mainId).val('');
-var budget_allocation = $('#budget_allocation'+mainId).val('');
-var rationality = $('#rationality'+mainId).val('');
-var comment =$('#comment'+mainId).val('');
+
 
 },
 beforeSend: function(){

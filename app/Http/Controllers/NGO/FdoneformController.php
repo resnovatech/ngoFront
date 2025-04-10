@@ -408,21 +408,8 @@ class FdoneformController extends Controller
             $uploadFormOneData->citizenship = $arr_all;
             $uploadFormOneData->complete_status = $request->submit_value;
             $uploadFormOneData->time_for_api = $main_time;
-
-            if (!empty($request->image_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $uploadFormOneData->digital_signature =CommonController::storeBase64($request->image_base64);
-
-            }
-
-            if (!empty($request->image_seal_base64)) {
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $uploadFormOneData->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-            }
-
+            $uploadFormOneData->digital_signature =$request->image_base64;
+            $uploadFormOneData->digital_seal =$request->image_seal_base64;
             $uploadFormOneData->save();
             $mm_id = $uploadFormOneData->id;
 
@@ -518,25 +505,10 @@ class FdoneformController extends Controller
             $uploadFormOneData->profession = $request->profession;
             $uploadFormOneData->citizenship = $arr_all;
             $uploadFormOneData->complete_status = $request->submit_value;
-
-            if (!empty($request->image_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_signature');
-                $uploadFormOneData->digital_signature =CommonController::storeBase64($request->image_base64);
-
-                }
-
-
-            if (!empty($request->image_seal_base64)) {
-
-                $filePath="ngoHead";
-                $file = $request->file('digital_seal');
-                $uploadFormOneData->digital_seal =CommonController::storeBase64($request->image_seal_base64);
-
-                }
-
+            $uploadFormOneData->digital_signature =$request->image_base64;
+            $uploadFormOneData->digital_seal =$request->image_seal_base64;
             $uploadFormOneData->save();
+
             $mm_id = $uploadFormOneData->id;
 
             Session::put('mm_id',$mm_id);
