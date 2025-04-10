@@ -157,7 +157,11 @@ $getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
             ->where('type','fcOne')
             ->latest()->get();
 
-            return view('front.fc1Form.newAddFormStepTwo',compact('SDGDevelopmentGoal','subdDistrictList','sectorWiseExpenditureList','fd6Id','prokolpoAreaList','cityCorporationList','districtList','fc1FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+            $stepTwoGoalData = DB::table('goals')->get();
+    $stepTwoTargetData = DB::table('targets')->get();
+    $stepTwoIndicatorData = DB::table('indicators')->get();
+
+            return view('front.fc1Form.newAddFormStepTwo',compact('stepTwoGoalData','stepTwoTargetData','stepTwoIndicatorData','SDGDevelopmentGoal','subdDistrictList','sectorWiseExpenditureList','fd6Id','prokolpoAreaList','cityCorporationList','districtList','fc1FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
 
             } catch (\Exception $e) {
 
@@ -664,6 +668,7 @@ $getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
         $form->type='fcOne';
         $form->goal=$request->goal;
         $form->target=$request->target;
+        $form->indicator=$request->indicator;
         $form->budget_allocation=$request->budget_allocation;
         $form->rationality=$request->rationality;
         $form->comment=$request->comment;
@@ -682,6 +687,7 @@ $getNgoBankInfoList =  NgoBankInformation::where('user_id', Auth::user()->id)
         $form= SDGDevelopmentGoal::find($request->mainId);
         $form->goal=$request->goal;
         $form->target=$request->target;
+        $form->indicator=$request->indicator;
         $form->budget_allocation=$request->budget_allocation;
         $form->rationality=$request->rationality;
         $form->comment=$request->comment;

@@ -304,6 +304,10 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::controller(FdFourFormController::class)->group(function () {
+
+        Route::get('allPdfForFd4/{title}/{id}', 'allPdfForFd4')->name('allPdfForFd4');
+
+
         Route::get('fd4pdfview/{id}', 'fd4pdfview')->name('fd4pdfview');
         Route::get('addFdFourFormData/{id}', 'addFdFourFormData')->name('addFdFourFormData');
         Route::get('editFdFourFormData/{id}', 'editFdFourFormData')->name('editFdFourFormData');

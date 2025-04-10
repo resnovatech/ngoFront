@@ -157,6 +157,72 @@
 
                                     </div>
 
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="form9_upper_box">
+                                                <h3> অন্যান্য </h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <table>
+                                            <tr>
+                                                <th></th>
+                                                <td style="">অডিট রিপোর্ট :</td>
+                                                <td style="">
+                                                    @if(empty($fdFourFormList->audit_report_file))
+
+
+                                                    @else
+                                     
+                                                    <a href="{{ route('allPdfForFd4',['title'=>'audit_report_file','id'=>$fdFourFormList->id]) }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-file-pdf-o"></i> পিডিএফ দেখুন</a>
+                                                   
+                                                     @endif
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <th></th>
+                                                <td style="">সার্টিফিকেট :</td>
+                                                <td style="">
+
+                                                    @if(empty($fdFourFormList->certificate_file))
+
+
+                                                    @else
+                                     
+                                                    <a href="{{ route('allPdfForFd4',['title'=>'certificate_file','id'=>$fdFourFormList->id]) }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-file-pdf-o"></i> পিডিএফ দেখুন</a>
+                                                   
+                                                     @endif
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <th></th>
+                                                <td style="">TOR :</td>
+                                                <td style="">
+                                                    @if(empty($fdFourFormList->tor_file))
+
+
+                                                    @else
+                                     
+                                                    <a href="{{ route('allPdfForFd4',['title'=>'tor_file','id'=>$fdFourFormList->id]) }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-file-pdf-o"></i> পিডিএফ দেখুন</a>
+                                                   
+                                                     @endif
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+                                        </div>
+
+                                        
+
+                                    </div>
+
                                    
                     
 

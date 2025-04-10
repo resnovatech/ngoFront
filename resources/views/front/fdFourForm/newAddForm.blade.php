@@ -277,6 +277,43 @@
 
                                     </div>
 
+                                    <div class="row mt-3">
+
+                                        <div class="col-md-12">
+                                            <div class="card mb-3">
+                                                <div class="card-header">
+                                                    অন্যান্য 
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3 col-lg-12">
+                                                        <label for="" class="form-label">অডিট রিপোর্ট  <span class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 2MB)</span></label>
+                                                        <input type="file" accept=".pdf" required name="audit_report_file" class="form-control" id="rPdfP"
+        
+                                                               placeholder="">
+
+                                                    </div>
+
+                                                    <div class="mb-3 col-lg-12">
+                                                        <label for="" class="form-label">সার্টিফিকেট <span class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 1MB)</span></label>
+                                                        <input type="file" accept=".pdf" required name="certificate_file" class="form-control" id="rPdfP"
+        
+                                                               placeholder="">
+
+                                                    </div>
+
+                                                    <div class="mb-3 col-lg-12">
+                                                        <label for="" class="form-label">TOR <span class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 2MB)</span></label>
+                                                        <input type="file" accept=".pdf" required name="tor_file" class="form-control" id="rPdfP"
+        
+                                                               placeholder="">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <div class="d-grid d-md-flex justify-content-md-end mt-4">
                                         {{-- <a href="{{ route('fdFourOneForm.create') }}" class="btn btn-danger"
                                         >পূর্ববর্তী পৃষ্ঠায় যান

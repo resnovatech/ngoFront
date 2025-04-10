@@ -29,6 +29,36 @@ use App\Models\NgoHeadInformation;
 class FdFourFormController extends Controller
 {
 
+    public function allPdfForFd4 ($title, $id){
+
+
+       
+
+
+            $get_file_data = FdFourForm::where('id',$id)->value($title);
+
+
+
+        $file_path = url('public/'.$get_file_data);
+        $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+        $file= public_path('/'). $get_file_data;
+
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
+
+        return Response::make(file_get_contents($file), 200, [
+            'content-type'=>'application/pdf',
+        ]);
+
+
+        
+
+
+
+
+       }
+
     public function index(){
         try{
             $checkNgoTypeForForeginNgo = DB::table('ngo_type_and_languages')
@@ -175,6 +205,30 @@ class FdFourFormController extends Controller
             $fdFourOneForm->foreign_grant_remaining_exam_year =$request->foreign_grant_remaining_exam_year;
             $fdFourOneForm->fd_one_form_id = $ngo_list_all->id;
             $fdFourOneForm->fd_four_one_form_id = $request->decodeId;
+
+            if ($request->hasfile('audit_report_file')) {
+                $filePath="FdFourOneForm";
+                $file = $request->file('audit_report_file');
+    
+                $fdFourOneForm->audit_report_file =CommonController::pdfUpload($request,$file,$filePath);
+    
+            }
+
+            if ($request->hasfile('certificate_file')) {
+                $filePath="FdFourOneForm";
+                $file = $request->file('certificate_file');
+    
+                $fdFourOneForm->certificate_file =CommonController::pdfUpload($request,$file,$filePath);
+    
+            }
+
+            if ($request->hasfile('tor_file')) {
+                $filePath="FdFourOneForm";
+                $file = $request->file('tor_file');
+    
+                $fdFourOneForm->tor_file =CommonController::pdfUpload($request,$file,$filePath);
+    
+            }
             $fdFourOneForm->save();
 
 
@@ -244,6 +298,29 @@ class FdFourFormController extends Controller
             $fdFourOneForm->foreign_grant_taken_exam_year =$request->foreign_grant_taken_exam_year;
             $fdFourOneForm->foreign_grant_remaining_exam_year =$request->foreign_grant_remaining_exam_year;
             $fdFourOneForm->fd_one_form_id = $ngo_list_all->id;
+            if ($request->hasfile('audit_report_file')) {
+                $filePath="FdFourOneForm";
+                $file = $request->file('audit_report_file');
+    
+                $fdFourOneForm->audit_report_file =CommonController::pdfUpload($request,$file,$filePath);
+    
+            }
+
+            if ($request->hasfile('certificate_file')) {
+                $filePath="FdFourOneForm";
+                $file = $request->file('certificate_file');
+    
+                $fdFourOneForm->certificate_file =CommonController::pdfUpload($request,$file,$filePath);
+    
+            }
+
+            if ($request->hasfile('tor_file')) {
+                $filePath="FdFourOneForm";
+                $file = $request->file('tor_file');
+    
+                $fdFourOneForm->tor_file =CommonController::pdfUpload($request,$file,$filePath);
+    
+            }
             $fdFourOneForm->save();
 
 

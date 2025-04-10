@@ -788,7 +788,11 @@ public function fc2FormStepTwo($id){
         ->where('type','fcTwo')
         ->latest()->get();
 
-        return view('front.fc2Form.newAddFormStepTwo',compact('SDGDevelopmentGoal','subdDistrictList','sectorWiseExpenditureList','fd6Id','prokolpoAreaList','cityCorporationList','districtList','fc2FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
+        $stepTwoGoalData = DB::table('goals')->get();
+    $stepTwoTargetData = DB::table('targets')->get();
+    $stepTwoIndicatorData = DB::table('indicators')->get();
+
+        return view('front.fc2Form.newAddFormStepTwo',compact('stepTwoGoalData','stepTwoTargetData','stepTwoIndicatorData','SDGDevelopmentGoal','subdDistrictList','sectorWiseExpenditureList','fd6Id','prokolpoAreaList','cityCorporationList','districtList','fc2FormList','divisionList','renewWebsiteName','ngoDurationLastEx','ngoDurationReg','ngo_list_all'));
 
         } catch (\Exception $e) {
 
@@ -890,6 +894,7 @@ public function fc2FormStepTwoSDG(Request $request){
     $form->type='fcTwo';
     $form->goal=$request->goal;
     $form->target=$request->target;
+    $form->indicator=$request->indicator;
     $form->budget_allocation=$request->budget_allocation;
     $form->rationality=$request->rationality;
     $form->comment=$request->comment;
@@ -908,6 +913,7 @@ public function fc2FormStepTwoSDGUpdate(Request $request){
     $form= SDGDevelopmentGoal::find($request->mainId);
     $form->goal=$request->goal;
     $form->target=$request->target;
+    $form->indicator=$request->indicator;
     $form->budget_allocation=$request->budget_allocation;
     $form->rationality=$request->rationality;
     $form->comment=$request->comment;

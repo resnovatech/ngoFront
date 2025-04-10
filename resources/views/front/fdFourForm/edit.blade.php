@@ -260,6 +260,102 @@
 
                                     </div>
 
+                                    <div class="row mt-3">
+
+                                        <div class="col-md-12">
+                                            <div class="card mb-3">
+                                                <div class="card-header">
+                                                    অন্যান্য 
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3 col-lg-12">
+                                                        <label for="" class="form-label">অডিট রিপোর্ট  <span class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 2MB)</span></label>
+                                                        <input type="file" accept=".pdf"  name="audit_report_file" class="form-control" id="rPdfP"
+        
+                                                               placeholder="">
+
+                                                               @if(empty($fdFourFormList->audit_report_file))
+
+
+                                                               @else
+                                                
+                                                
+                                                               <?php
+                                                
+                                                               $file_path = url($fdFourFormList->audit_report_file);
+                                                               $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                                
+                                                               $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                                
+                                                
+                                                
+                                                
+                                                               ?>
+                                                                <b>{{ $filename.'.'.$extension }}</b>
+                                                                @endif
+
+                                                    </div>
+
+                                                    <div class="mb-3 col-lg-12">
+                                                        <label for="" class="form-label">সার্টিফিকেট <span class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 1MB)</span></label>
+                                                        <input type="file" accept=".pdf"  name="certificate_file" class="form-control" id="rPdfP"
+        
+                                                               placeholder="">
+
+                                                               @if(empty($fdFourFormList->certificate_file))
+
+
+                                                               @else
+                                                
+                                                
+                                                               <?php
+                                                
+                                                               $file_path = url($fdFourFormList->certificate_file);
+                                                               $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                                
+                                                               $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                                
+                                                
+                                                
+                                                
+                                                               ?>
+                                                                <b>{{ $filename.'.'.$extension }}</b>
+                                                                @endif
+
+                                                    </div>
+
+                                                    <div class="mb-3 col-lg-12">
+                                                        <label for="" class="form-label">TOR <span class="text-danger">*</span><span class="text-danger" style="font-size: 12px;">(Maximum 2MB)</span></label>
+                                                        <input type="file" accept=".pdf"  name="tor_file" class="form-control" id="rPdfP"
+        
+                                                               placeholder="">
+                                                               @if(empty($fdFourFormList->tor_file))
+
+
+                                                               @else
+                                                
+                                                
+                                                               <?php
+                                                
+                                                               $file_path = url($fdFourFormList->tor_file);
+                                                               $filename  = pathinfo($file_path, PATHINFO_FILENAME);
+                                                
+                                                               $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                                                
+                                                
+                                                
+                                                
+                                                               ?>
+                                                                <b>{{ $filename.'.'.$extension }}</b>
+                                                                @endif
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <div class="d-grid d-md-flex justify-content-md-end mt-4">
                                         {{-- <a href="{{ route('fdFourOneForm.create') }}" class="btn btn-danger"
                                         >পূর্ববর্তী পৃষ্ঠায় যান
